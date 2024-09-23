@@ -1,13 +1,15 @@
-import login from "./login";
+import { useState } from 'react';
+import './App.css';
+import LoginPopup from './components/LoginPopup';
 
 function App() {
   const [count, setCount] = useState(0)
 
 
   return (
-    <>
-    <login></login>
-    </>
+    <div className="App">
+      <LoginPopup />
+    </div>
   )
 }
 
