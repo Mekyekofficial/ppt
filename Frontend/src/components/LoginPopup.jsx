@@ -1,7 +1,5 @@
-// src/components/LoginPopup.jsx
-
 import React, { useState } from 'react';
-import './css/LoginPopup.css'; // Create a separate CSS file for styling
+import './css/LoginPopup.css';
 
 const LoginPopup = () => {
   const [showPassword, setShowPassword] = useState(false);

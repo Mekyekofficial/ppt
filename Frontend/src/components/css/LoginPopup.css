@@ -1,9 +1,8 @@
-/* src/components/LoginPopup.css */
 .login-popup {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
     background-color: #e0f7fa;
   }
   
