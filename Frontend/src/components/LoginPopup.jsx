@@ -33,7 +33,7 @@ const LoginPopup = () => {
           </div>
 
           <button type="submit" className="login-btn">
-            Log In
+            CONTINUE
           </button>
         </form>
 
@@ -43,7 +43,7 @@ const LoginPopup = () => {
 
         <button className="google-btn">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+            src="/Users/suddhajit21/Documents/Mekyek code/ppt/Frontend/src/img/google.png"
             alt="Google icon"
           />
           Continue with Google
