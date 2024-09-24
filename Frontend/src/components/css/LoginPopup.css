@@ -19,6 +19,7 @@
   .login-box h2 {
     margin-bottom: 20px;
     color: #000000;
+    text-align: start;
   }
   
   .input-field {

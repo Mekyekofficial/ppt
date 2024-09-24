@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './css/LoginPopup.css';
+import googleIcon from '../assets/google.png';
 
 const LoginPopup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -43,7 +44,7 @@ const LoginPopup = () => {
 
         <button className="google-btn">
           <img
-            src="/Users/suddhajit21/Documents/Mekyek code/ppt/Frontend/src/img/google.png"
+            src= {googleIcon}
             alt="Google icon"
           />
           Continue with Google
