@@ -1,0 +1,18 @@
+.feed-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .left-sidebar {
+    flex: 0.2;
+  }
+  
+  .main-content {
+    flex: 0.6;
+  }
+  
+  .right-sidebar {
+    flex: 0.2;
+  }
+  
