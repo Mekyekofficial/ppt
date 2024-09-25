@@ -1,5 +1,8 @@
 import { useState } from "react";
 import "./App.css";
+import Header from "./components/includes/header";
+import Footer from "./components/includes/footer";
+import FeedSection from "./components/feedSection";
 import LoginPopup from "./components/LoginPopup";
 import SignupPage from "./components/singup";
 import NameModal from "./components/nameModal";
@@ -11,7 +14,9 @@ function App() {
 
   return (
     <div className="App">
-      <ConfirmEmailModal />
+      <Header />
+      <FeedSection />
+      <Footer />
     </div>
   );
 }
