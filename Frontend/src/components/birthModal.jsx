@@ -31,7 +31,7 @@ const Modal = ({ showModal, closeModal }) => {
                     <option value="other">Other</option>
                 </select>
                 </div>
-                <button  className="close-btn">Close</button>
+                <button  className="close-btn">Next</button>
             </div>
         </div>
     );

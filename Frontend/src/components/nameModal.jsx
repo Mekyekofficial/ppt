@@ -16,7 +16,7 @@ const Modal = ({ showModal, closeModal }) => {
           <label>Surname</label>
           <input type="text" placeholder="Surname" />
         </div>
-        <button className="close-btn" onClick={closeModal}>Close</button>
+        <button className="close-btn" onClick={closeModal}>Next</button>
       </div>
     </div>
   );
