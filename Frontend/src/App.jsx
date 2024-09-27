@@ -8,15 +8,14 @@ import SignupPage from "./components/singup";
 import NameModal from "./components/nameModal";
 import BirthModal from "./components/birthModal";
 import ConfirmEmailModal from "./components/confirmEmailModal";
+import AddProfessionalPhoto from "./components/AddProfessionalPhoto";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <Header />
-      <FeedSection />
-      <Footer />
+      <AddProfessionalPhoto/>
     </div>
   );
 }
