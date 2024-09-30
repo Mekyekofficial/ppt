@@ -1,7 +1,7 @@
 import React from 'react';
-import Sidebar from './';
-import Dashboard from './components/Dashboard/Dashboard';
-import './ATS.css';
+import Sidebar from './ATS/Sidebar';
+import Dashboard from './ATS/Dashboard';
+import './css/ATS.css';
 
 const ATS = () => {
   return (
