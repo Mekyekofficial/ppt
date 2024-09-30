@@ -1,0 +1,16 @@
+.todo-list {
+    background-color: #fdecec;
+    padding: 20px;
+    border-radius: 8px;
+    width: 150px;
+  }
+  
+  .add-todo-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
