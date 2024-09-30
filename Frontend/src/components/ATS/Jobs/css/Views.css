@@ -1,0 +1,13 @@
+.views {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+  }
+  
+  .view-options button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
