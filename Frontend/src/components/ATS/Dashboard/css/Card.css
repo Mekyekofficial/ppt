@@ -1,9 +1,14 @@
 .card {
-    background-color: #f7f7f7;
+    background-color: #e0e0e0;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    width: 150px;
+    width: 200px;
+    height: 175px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
   }
   
   .value {
