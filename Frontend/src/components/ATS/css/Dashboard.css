@@ -1,18 +1,27 @@
-/* src/components/Dashboard.css */
-
 .dashboard-container {
+  width: 75%;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+.top-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .stats-cards {
+  width: 77.5%;
   display: flex;
   justify-content: space-around;
+  gap: 2.5%;
 }
 
 .bottom-panels {
   display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
