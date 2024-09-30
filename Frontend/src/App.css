@@ -8,8 +8,26 @@
 body {
     background-color: #fff;
     color: #000;
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; */
+}
+
+::-webkit-scrollbar {
+    width: 0.6vw;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff914c;
+    border: 0.125vw solid #000;
+    border-radius: 0.625vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fff;
 }
