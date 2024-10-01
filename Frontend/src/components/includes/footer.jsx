@@ -36,6 +36,23 @@ const Footer = () => {
             <li><a href="#">Blog</a></li>
           </ul>
         </div>
+        <div className="footer-section" id='QuickLinks'>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Hire Talent</a></li>
+            <li><a href="#">Find Work</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">ATS</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Jobs</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        
 
         {/* App Download Section */}
         <div className="footer-download">
