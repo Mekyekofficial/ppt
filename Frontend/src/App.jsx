@@ -4,7 +4,7 @@ import Header from "./components/includes/header";
 import Footer from "./components/includes/footer";
 import FeedSection from "./components/feedSection";
 import ATS from "./components/ATS";
-import Home from "./home.jsx";
+// import Home from "./home.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Home />
+      <FeedSection />
       <Footer />
     </div>
   );
