@@ -1,6 +1,6 @@
 .feed-section {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 20px;
   }
   
@@ -9,7 +9,7 @@
   }
   
   .main-content {
-    flex: 0.6;
+    flex: 0.45;
   }
   
   .right-sidebar {
