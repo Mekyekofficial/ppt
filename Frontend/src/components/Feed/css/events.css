@@ -17,7 +17,7 @@
   .event {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
   
   .event-icon {
