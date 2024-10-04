@@ -3,12 +3,30 @@
     background-color: #f4f4f4;
     padding: 20px;
   }
+
+  .sidebar .company-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    transform: translateX(-10px);
+  }
+
+  .sidebar .company-container .logo {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    margin-right: 10px;
+  }
   
   .search-box-container {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
   }
   
   .search-box {
