@@ -8,7 +8,7 @@ const ATS = () => {
   return (
     <div className="ATS-container">
       <Sidebar />
-      <Dashboard />
+      <Jobs />
     </div>
   );
 };
