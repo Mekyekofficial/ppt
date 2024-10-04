@@ -3,7 +3,7 @@
     padding: 10px;
   }
   
-  .toggle-button {
+  .views .toggle-button {
     padding: 5px 20px;
     cursor: pointer;
     background-color: #D9D9D9;
@@ -15,16 +15,14 @@
     display: flex;
     align-items: center;
   }
-  .view-icon {
+  .views .view-icon {
     transform: rotate(90deg);
     margin: 5px;
   }
   
-  .popup {
-    position: fixed;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+  .views .popup {
+    position: absolute;
+    transform: translateY(10px);
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -33,19 +31,19 @@
     z-index: 100;
   }
   
-  .views-popup h3 {
+  .views .views-popup h3 {
     font-size: 18px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
 
-  .view-options {
+  .views .view-options {
     display: flex;
     align-items: center;
   }
 
-  .view-button {
+  .views .view-button {
     padding: 5px;
     margin-left: 10px;
     background-color: #D9D9D9;
@@ -55,16 +53,16 @@
     cursor: pointer;
   }
   
-  .view-options, .custom-columns {
+  .views .view-options, .custom-columns {
     margin: 10px 0;
   }
   
-  .view-options p, .custom-columns p {
+  .views .view-options p, .custom-columns p {
     font-size: 14px;
     color: #333;
   }
   
-  .view-options button, .custom-columns button {
+  .views .view-options button, .custom-columns button {
     padding: 8px;
     margin-top: 5px;
     width: 100%;
@@ -74,7 +72,7 @@
     cursor: pointer;
   }
   
-  .view-options button, .custom-columns button {
+  .views .view-options button, .custom-columns button {
     width: auto;
     margin: 5px;
     padding: 8px 12px;
@@ -85,7 +83,7 @@
     cursor: pointer;
   }
 
-  .view-button button {
+  .views .view-button button {
     margin: 0;
     padding: 5px 10px;
     border-radius: 500px;
@@ -94,7 +92,7 @@
     cursor: pointer;
   }
   
-  .popup-close {
+  .views .popup-close {
     position: absolute;
     top: 10px;
     right: 10px;
