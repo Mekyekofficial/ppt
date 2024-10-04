@@ -1,5 +1,59 @@
 import React from "react";
-
+import { ConcreteComponentNode } from "./ConcreteComponentNode";
+import { Size48 } from "./Size48";
+import whatsappImage20240906At11824AmRemovebgPreview3 from "./whatsapp-image-20240906-at-11824-am-removebg-preview3.png";
+import resumeBro from "./resume-bro.png";
+import eventsBro from "./events-bro.png";
+import internshipBro from "./internship-bro.png";
+import courseAppPana from "./course-app-pana.png";
+import groupChatAmico from "./group-chat-amico.png";
+import gridiconsDropdown from "./gridicons-dropdown.png";
+import mageLocationFill from "./mage-location-fill.png";
+import majesticonsSearch from "./majesticons-search.png";
+import whatsappImage20240908At10858PmRemovebgPreview1 from "./whatsapp-image-20240908-at-10858-pm-removebg-preview1.png";
+import star1 from "./star1.png";
+import star2 from "./star2.png";
+import star3 from "./star3.png";
+import whatsappImage20240906At72557Pm1RemovebgPreview1 from "./whatsapp-image-20240906-at-72557-pm1-removebg-preview1.png";
+import whatsappImage20240906At72558PmRemovebgPreview1 from "./whatsapp-image-20240906-at-72558-pm-removebg-preview1.png";
+import whatsappImage20240906At72558Pm1RemovebgPreview1 from "./whatsapp-image-20240906-at-72558-pm1-removebg-preview1.png";
+import whatsappImage20240906At72558Pm2RemovebgPreview1 from "./whatsapp-image-20240906-at-72558-pm2-removebg-preview1.png";
+import whatsappImage20240906At73210PmRemovebgPreview1 from "./whatsapp-image-20240906-at-73210-pm-removebg-preview1.png";
+import whatsappImage20240906At72559PmRemovebgPreview1 from "./whatsapp-image-20240906-at-72559-pm-removebg-preview1.png";
+import tinderEmblemaRemovebgPreview1 from "./tinder-emblema-removebg-preview1.png";
+import ewf059ghRemovebgPreview1 from "./ewf059gh-removebg-preview1.png";
+import whatsappImage20240906At72601PmRemovebgPreview1 from "./whatsapp-image-20240906-at-72601-pm-removebg-preview1.png";
+import OIP1RemovebgPreview1 from "./OIP1-removebg-preview1.png";
+import whatsappImage20240906At73154PmRemovebgPreview1 from "./whatsapp-image-20240906-at-73154-pm-removebg-preview1.png";
+import ghRemovebgPreview1 from "./gh-removebg-preview1.png";
+import INDIAMARTNsBig467A563DRemovebgPreview1 from "./INDIAMART-NS-BIG-467A563D-removebg-preview1.png";
+import fivtLogo1 from "./fivt-logo1.png";
+import newsCuate from "./news-cuate.png";
+import line82 from "./line82.png";
+import sapiens41 from "./sapiens41.png";
+import sapiens51 from "./sapiens51.png";
+import sapiens61 from "./sapiens61.png";  
+import sapiens71 from "./sapiens71.png";
+import sapiens81 from "./sapiens81.png";
+import sapiens91 from "./sapiens91.png";
+import line107 from "./line107.png";
+import OIP6RemovebgPreview82 from "./OIP6-removebg-preview82.png";
+import line106 from "./line106.png";
+import line108 from "./line108.png";
+import line109 from "./line109.png";
+import line104 from "./line104.png";
+import line105 from "./line105.png";
+import OIP6RemovebgPreview8 from "./OIP6-removebg-preview8.png";
+import vector from "./vector.png";
+import image from "./image.png";
+import WhiteCloudsTransprentPngFreeDownloadPointCartoonRemovebgPreview1 from "./White-Clouds-Transprent-Png-Free-Download-Point-Cartoon-removebg-preview1.png";
+import WhiteCloudsTransprentPngFreeDownloadPointCartoonRemovebgPreview2 from
+  "./White-Clouds-Transprent-Png-Free-Download-Point-Cartoon-removebg-preview2.png";
+import WhiteCloudsTransprentPngFreeDownloadPointCartoonRemovebgPreview3 from  
+  "./White-Clouds-Transprent-Png-Free-Download-Point-Cartoon-removebg-preview3.png";
+import WhiteCloudsTransprentPngFreeDownloadPointCartoonRemovebgPreview4 from 
+  "./White-Clouds-Transprent-Png-Free-Download-Point-Cartoon-removebg-preview4.png";
+import './home.css';
 
 export const Frame = () => {
   return (
