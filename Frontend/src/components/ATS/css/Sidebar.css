@@ -1,0 +1,52 @@
+.sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  .search-box-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-box {
+    width: 100%;
+    padding: 10px 20px;
+    margin: auto;
+    border-radius: 150px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .search-icon {
+    font-size: 20px;
+    transform: translateX(-175%);
+  }
+  
+  .menu {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .menu li {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    padding-left: 15px;
+  }
+  
+  .menu-icon {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+  
+  .menu li:hover, .active {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+  }
+  

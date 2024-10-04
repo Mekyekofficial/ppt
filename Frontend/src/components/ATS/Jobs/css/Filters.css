@@ -1,0 +1,79 @@
+   .filters {
+    position: relative;
+    padding: 10px;
+  }
+  
+  .toggle-button {
+    padding: 5px 20px;
+    cursor: pointer;
+    background-color: #D9D9D9;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter-icon {
+    margin: 5px;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 20px;
+    z-index: 100;
+  }
+  
+  .filters-popup h3{
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .filter-section, .custom-columns {
+    margin: 10px 0;
+  }
+  
+  .filter-section label, .custom-columns p {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .filter-section select, .custom-columns button {
+    padding: 8px;
+    margin-top: 5px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .custom-columns button {
+    width: auto;
+    margin: 5px;
+    padding: 8px 12px;
+    background-color: #D9D9D9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  

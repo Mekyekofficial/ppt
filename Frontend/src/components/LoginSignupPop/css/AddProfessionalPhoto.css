@@ -1,0 +1,83 @@
+.popup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff; 
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 300px;
+  font-family: 'Arial', sans-serif;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.image-placeholder {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background-color: #C4B7AF;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.camera-icon {
+  width: 40%;
+}
+
+.full-name {
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+hr {
+  margin: 20px 0;
+}
+
+.add-image-btn, .create-with-ai-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 10px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-image-btn {
+  background-color: #b291f9;
+  color: white;
+}
+
+.create-with-ai-btn {
+  background-color: #f4f1f6;
+  color: #a44fd8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.or-section {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #999;
+}
+
+.gemini-icon {
+  height: 20px;
+  margin-right: 5px;
+}
