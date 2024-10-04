@@ -13,6 +13,8 @@
     padding: 10px 20px;
     background-color: #F4F4F4;
     color: black;
+    font-weight: bold;
+    font-size: 16px;
     border: 0.0625vw solid #000;
     border-radius: 0.3125vw;
     cursor: pointer;
@@ -20,7 +22,6 @@
   
   .controls {
     display: flex;
-    gap: 20px;
   }
   
   .content {
