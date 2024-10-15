@@ -3,23 +3,23 @@ import Filters from './Jobs/Filters';
 import Views from './Jobs/Views';
 import TableView from './Jobs/TableView';
 import CardView from './Jobs/CardView';
-import './css/Jobs.css';
+import JobsStyles from './css/Jobs.module.css';
 
 const JobDashboard = () => {
   const [view, setView] = useState('table');
 
   return (
-    <div className="jobs">
-      <div className="top-bar">
-        <button className="create-job-btn">Create a Job</button>
+    <div className={JobsStyles.jobs}>
+      <div className={JobsStyles["top-bar"]}>
+        <button className={JobsStyles["create-job-btn"]}>Create a Job</button>
       </div>
 
-      <div className="controls">
+      <div className={JobsStyles.controls}>
         <Filters />
         <Views setView={setView} />
       </div>
 
-      <div className="content">
+      <div className={JobsStyles.content}>
         {view === 'table' ? <TableView /> : <CardView />}
       </div>
     </div>

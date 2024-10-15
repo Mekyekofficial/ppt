@@ -1,11 +1,11 @@
 import React from "react";
 import SearchBar from "./TalentPool/SearchBar";
 import Folders from "./TalentPool/Folders";
-import "./css/TalentPool.css";
+import TalentPoolStyles from "./css/TalentPool.module.css";
 
 const TalentPool = () => {
     return (
-        <div className="talent-pool">
+        <div className={TalentPoolStyles["talent-pool"]}>
             <SearchBar />
             <Folders />
         </div>

@@ -1,12 +1,12 @@
 import React from 'react';
-import './css/Card.css';
+import CardStyles from './css/Card.module.css';
 
 const Card = ({ title, value, details }) => {
   return (
-    <div className="card">
+    <div className={CardStyles.card}>
       <h3>{title}</h3>
-      <p className="value">{value}</p>
-      <p className="details">{details}</p>
+      <p className={CardStyles.value}>{value}</p>
+      <p className={CardStyles.details}>{details}</p>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
-import './css/TodoList.css';
+import TodoListStyles from './css/TodoList.module.css';
 
 const TodoList = () => {
   return (
-    <div className="todo-list">
-      <button className="add-todo-btn"><span>+</span><br /> Add <br />ToDo List</button>
+    <div className={TodoListStyles["todo-list"]}>
+      <button className={TodoListStyles["add-todo-btn"]}><span>+</span><br /> Add <br />ToDo List</button>
     </div>
   );
 };

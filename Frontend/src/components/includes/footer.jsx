@@ -1,15 +1,15 @@
 import React from 'react';
-import './css/footer.css';
 import { FaGooglePlay, FaApple, FaTwitter, FaInstagram, FaLinkedin, FaYoutube, FaFacebook, FaAlignCenter } from 'react-icons/fa';
+import FooterStyles from './css/footer.module.css';
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-content">
+    <footer className={FooterStyles.footer}>
+      <div className={FooterStyles["footer-content"]}>
         {/* ColorSection */}
-        <div className="color-section"></div>
+        <div className={FooterStyles["color-section"]}></div>
         {/* Company Section */}
-        <div className="footer-section">
+        <div className={FooterStyles["footer-section"]}>
           <h4>Company</h4>
           <ul>
             <li><a href="#">About us</a></li>
@@ -20,7 +20,7 @@ const Footer = () => {
         </div>
 
         {/* Quick Links Section */}
-        <div className="footer-section" id='QuickLinks'>
+        <div className={FooterStyles["footer-section"]} id={FooterStyles.QuickLinks}>
           <h4>Quick Links</h4>
           <ul>
             <li><a href="#">Hire Talent</a></li>
@@ -36,7 +36,7 @@ const Footer = () => {
             <li><a href="#">Blog</a></li>
           </ul>
         </div>
-        <div className="footer-section" id='QuickLinks'>
+        <div className={FooterStyles["footer-section"]} id={FooterStyles.QuickLinks}>
           <h4>Quick Links</h4>
           <ul>
             <li><a href="#">Hire Talent</a></li>
@@ -55,21 +55,21 @@ const Footer = () => {
         
 
         {/* App Download Section */}
-        <div className="footer-download">
-          <button className="store-button">
-            <FaGooglePlay className="store-icon" /> Download on Play Store
+        <div className={FooterStyles["footer-download"]}>
+          <button className={FooterStyles["store-button"]}>
+            <FaGooglePlay className={FooterStyles["store-icon"]} /> Download on Play Store
           </button>
-          <button className="store-button">
-            <FaApple className="store-icon" /> Download on App Store
+          <button className={FooterStyles["store-button"]}>
+            <FaApple className={FooterStyles["store-icon"]} /> Download on App Store
           </button>
-          <p>Are you hiring? <a href="#" className="highlight">Find Talent</a></p>
+          <p>Are you hiring? <a href="#" className={FooterStyles.highlight}>Find Talent</a></p>
           {/* Social Media Section */}
-          <div className="footer-social">
-            <FaTwitter className="social-icon" />
-            <FaInstagram className="social-icon" />
-            <FaLinkedin className="social-icon" />
-            <FaYoutube className="social-icon" />
-            <FaFacebook className="social-icon" />
+          <div className={FooterStyles["footer-social"]}>
+            <FaTwitter className={FooterStyles["social-icon"]} />
+            <FaInstagram className={FooterStyles["social-icon"]} />
+            <FaLinkedin className={FooterStyles["social-icon"]} />
+            <FaYoutube className={FooterStyles["social-icon"]} />
+            <FaFacebook className={FooterStyles["social-icon"]} />
           </div>
         </div>
       </div>

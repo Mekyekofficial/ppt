@@ -3,23 +3,23 @@ import Filters from './Applications/Filters';
 import Views from './Applications/Views';
 import TableView from './Applications/TableView';
 import CardView from './Applications/CardView';
-import './css/Applications.css';
+import ApplicationsStyles from './css/Applications.module.css';
 
 const Applications = () => {
   const [view, setView] = useState('table');
 
   return (
-    <div className="applications">
-      <div className="top-bar">
-        <button className="create-job-btn">Find Applications</button>
+    <div className={ApplicationsStyles.applications}>
+      <div className={ApplicationsStyles["top-bar"]}>
+        <button className={ApplicationsStyles["create-job-btn"]}>Find Applications</button>
       </div>
 
-      <div className="controls">
+      <div className={ApplicationsStyles.controls}>
         <Filters />
         <Views setView={setView} />
       </div>
 
-      <div className="content">
+      <div className={ApplicationsStyles.content}>
         {view === 'table' ? <TableView /> : <CardView />}
       </div>
     </div>

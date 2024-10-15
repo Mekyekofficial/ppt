@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { IoOptionsOutline } from "react-icons/io5";
-import './css/Views.css';
+import ViewsStyles from './css/Views.module.css';
 
 const Views = ({ setView }) => {
   const [showViews, setShowViews] = useState(false);
@@ -8,22 +8,22 @@ const Views = ({ setView }) => {
     setShowViews(!showViews);
   };
   return (
-    <div className="views">
-      <button className="toggle-button" onClick={toggleViews}>
-        <IoOptionsOutline className='view-icon'/>
+    <div className={ViewsStyles.views}>
+      <button className={ViewsStyles["toggle-button"]} onClick={toggleViews}>
+        <IoOptionsOutline className={ViewsStyles['view-icon']}/>
         Views
       </button>
       {showViews && (
-        <div className="popup views-popup">
+        <div className={`${ViewsStyles["popup"]} ${ViewsStyles["views-popup"]}`}>
           <h3>Views</h3>
-          <div className="view-options">
+          <div className={ViewsStyles["view-options"]}>
             View as:
-            <div className="view-button">
+            <div className={ViewsStyles["view-button"]}>
               <button onClick={() => setView('table')}>Table</button>
               <button onClick={() => setView('card')}>Cards</button>
             </div>
           </div>
-          <div className="custom-columns">
+          <div className={ViewsStyles["custom-columns"]}>
             <p>Customized columns (Choose any 3):</p>
             <button>Applicants</button>
             <button>Posted On</button>

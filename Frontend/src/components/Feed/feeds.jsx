@@ -1,12 +1,12 @@
 import React from 'react';
 import Post from './post';
 import SearchBar from './searchBar';
-import './css/feeds.css';
+import FeedsStyles from './css/feeds.module.css';
 
 const Feeds = () => {
 
   return (
-    <div className="feeds">
+    <div className={FeedsStyles.feeds}>
       <SearchBar />
       <Post />
       <Post />

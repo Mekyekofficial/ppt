@@ -5,39 +5,39 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import { SlOptionsVertical } from "react-icons/sl";
-import './css/post.css';
+import PostStyles from './css/post.module.css';
 
 const Post = () => {
   return (
-    <div className="post-container">
-      <div className="post-header">
-        <div className="user-info">
+    <div className={PostStyles["post-container"]}>
+      <div className={PostStyles["post-header"]}>
+        <div className={PostStyles["user-info"]}>
           <Avatar alt="Alex" src="/path/to/user-avatar.png" className="avatar" />
-          <span className="username">Alex</span>
+          <span className={PostStyles.username}>Alex</span>
         </div>
-        <div className="post-title">
-          <input type="text" placeholder="add Your article" className="article-input" />
+        <div className={PostStyles["post-title"]}>
+          <input type="text" placeholder="add Your article" className={PostStyles["article-input"]} />
         </div>
       </div>
       
-      <div className="post-actions">
-        <div className="action">
+      <div className={PostStyles["post-actions"]}>
+        <div className={PostStyles["action"]}>
           <ThumbUpAltIcon />
           <span>Like</span>
         </div>
-        <div className="action">
+        <div className={PostStyles["action"]}>
           <ChatBubbleOutlineIcon />
           <span>Comment</span>
         </div>
-        <div className="action">
+        <div className={PostStyles["action"]}>
           <BookmarkBorderIcon />
           <span>Save</span>
         </div>
-        <div className="action">
+        <div className={PostStyles["action"]}>
           <ShareIcon />
           <span>Share</span>
         </div>
-        <div className="action">
+        <div className={PostStyles["action"]}>
           <SlOptionsVertical />
           <span>more</span>
         </div>

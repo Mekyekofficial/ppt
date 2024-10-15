@@ -1,42 +1,42 @@
 import React from 'react';
-import './css/Sidebar.css';
 import logo from '../../assets/logo.png';
 import { FaHome, FaBriefcase, FaEnvelope, FaUsers, FaSearch, FaStore, FaCog, FaList } from 'react-icons/fa';
+import SidebarStyles from './css/sidebar.module.css';
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
-      <div className="company-container">
-        <img src={logo} alt="logo" className="logo" /> Mekyek
+    <div className={SidebarStyles.sidebar}>
+      <div className={SidebarStyles["company-container"]}>
+        <img src={logo} alt="logo" className={SidebarStyles.logo} /> Mekyek
       </div>
-      <div className="search-box-container">
-        <FaSearch className="search-icon" />
-        <input type="text" placeholder="Search..." className="search-box" />
+      <div className={SidebarStyles["search-box-container"]}>
+        <FaSearch className={SidebarStyles["search-icon"]} />
+        <input type="text" placeholder="Search..." className={SidebarStyles["search-box"]} />
       </div>
-      <ul className="menu">
-        <li className='active'>
-          <FaHome className="menu-icon" /> Dashboard
+      <ul className={SidebarStyles.menu}>
+        <li className={SidebarStyles.active}>
+          <FaHome className={SidebarStyles["menu-icon"]} /> Dashboard
         </li>
         <li>
-          <FaBriefcase className="menu-icon" /> Jobs
+          <FaBriefcase className={SidebarStyles["menu-icon"]} /> Jobs
         </li>
         <li>
-          <FaEnvelope className="menu-icon" /> Applications
+          <FaEnvelope className={SidebarStyles["menu-icon"]} /> Applications
         </li>
         <li>
-          <FaUsers className="menu-icon" /> Talent Pool
+          <FaUsers className={SidebarStyles["menu-icon"]} /> Talent Pool
         </li>
         <li>
-          <FaList className="menu-icon" /> Talent Hunt
+          <FaList className={SidebarStyles["menu-icon"]} /> Talent Hunt
         </li>
         <li>
-          <FaStore className="menu-icon" /> Market Place
+          <FaStore className={SidebarStyles["menu-icon"]} /> Market Place
         </li>
         <li>
-          <FaCog className="menu-icon" /> Settings
+          <FaCog className={SidebarStyles["menu-icon"]} /> Settings
         </li>
         <li>
-          <FaList className="menu-icon" /> Setup
+          <FaList className={SidebarStyles["menu-icon"]} /> Setup
         </li>
       </ul>
     </div>

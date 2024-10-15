@@ -1,45 +1,45 @@
 import React from 'react';
-import './css/TableView.css';
+import TableViewStyles from './css/TableView.module.css';
 
 const TableView = () => {
   return (
-    <div className="table-view">
+    <div className={TableViewStyles["table-view"]}>
       <table>
         <thead>
           <tr>
             <th>
-              <span className='th-name'>Title</span>
-              <span className="sorting-arrows">
-                <span className="arrow-up">▲</span>
-                <span className="arrow-down">▼</span>
+              <span className={TableViewStyles['th-name']}>Title</span>
+              <span className={TableViewStyles["sorting-arrows"]}>
+                <span className={TableViewStyles["arrow-up"]}>▲</span>
+                <span className={TableViewStyles["arrow-down"]}>▼</span>
               </span>
             </th>
             <th>
               Applicants
-              <span className="sorting-arrows">
-                <span className="arrow-up">▲</span>
-                <span className="arrow-down">▼</span>
+              <span className={TableViewStyles["sorting-arrows"]}>
+                <span className={TableViewStyles["arrow-up"]}>▲</span>
+                <span className={TableViewStyles["arrow-down"]}>▼</span>
               </span>
             </th>
             <th>
               Posted On
-              <span className="sorting-arrows">
-                <span className="arrow-up">▲</span>
-                <span className="arrow-down">▼</span>
+              <span className={TableViewStyles["sorting-arrows"]}>
+                <span className={TableViewStyles["arrow-up"]}>▲</span>
+                <span className={TableViewStyles["arrow-down"]}>▼</span>
               </span>
             </th>
             <th>
               Posted By
-              <span className="sorting-arrows">
-                <span className="arrow-up">▲</span>
-                <span className="arrow-down">▼</span>
+              <span className={TableViewStyles["sorting-arrows"]}>
+                <span className={TableViewStyles["arrow-up"]}>▲</span>
+                <span className={TableViewStyles["arrow-down"]}>▼</span>
               </span>
             </th>
             <th>
               Action
-              <span className="sorting-arrows">
-                <span className="arrow-up">▲</span>
-                <span className="arrow-down">▼</span>
+              <span className={TableViewStyles["sorting-arrows"]}>
+                <span className={TableViewStyles["arrow-up"]}>▲</span>
+                <span className={TableViewStyles["arrow-down"]}>▼</span>
               </span>
             </th>
           </tr>
