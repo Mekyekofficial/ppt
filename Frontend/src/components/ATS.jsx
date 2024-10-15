@@ -4,11 +4,11 @@ import Sidebar from './ATS/Sidebar';
 import Jobs from './ATS/Jobs';
 // import Applications from './ATS/Applications';
 // import TalentPool from './ATS/TalentPool';
-import './css/ATS.css';
+import ATSStyles from './css/ATS.module.css';
 
 const ATS = () => {
   return (
-    <div className="ATS-container">
+    <div className={ATSStyles["ATS-container"]}>
       <Sidebar />
       <Jobs />
     </div>
