@@ -4,19 +4,19 @@ import Events from './Feed/events';
 import Feeds from './Feed/feeds';
 // import UserSuggestions from './Feed/userSuggestions';\
 import TrendingNews from './Feed/trendingNews';
-import './css/FeedSection.css';
+import FeedSectionStyles from './css/feedSection.module.css';
 
 function feedSection() {
   return (
-    <div className="feed-section">
-      <div className="left-sidebar">
+    <div className={FeedSectionStyles["feed-section"]}>
+      <div className={FeedSectionStyles["left-sidebar"]}>
         {/* <Profile /> */}
         <Events />
       </div>
-      <div className="main-content">
+      <div className={FeedSectionStyles["main-content"]}>
         <Feeds />
       </div>
-      <div className="right-sidebar">
+      <div className={FeedSectionStyles["right-sidebar"]}>
         <TrendingNews />
         {/* <UserSuggestions /> */}
       </div>
