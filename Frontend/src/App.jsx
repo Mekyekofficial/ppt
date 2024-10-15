@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./App.css";
 import Header from "./components/includes/header";
-import Footer from "./components/includes/footer";
-import FeedSection from "./components/feedSection";
+// import Footer from "./components/includes/footer";
+// import FeedSection from "./components/feedSection";
 import ATS from "./components/ATS";
 // import Home from "./home.jsx";
 
@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Header />
       <ATS />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
