@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css";
+import AppStyles from "./App.module.css";
 import Header from "./components/includes/header";
 // import Footer from "./components/includes/footer";
 // import FeedSection from "./components/feedSection";
@@ -10,7 +10,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="App">
+    <div className={AppStyles.App}>
       <Header />
       <ATS />
       {/* <Footer /> */}
