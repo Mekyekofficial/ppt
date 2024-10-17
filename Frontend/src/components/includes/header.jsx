@@ -3,8 +3,12 @@ import { FaHome, FaNewspaper, FaUsers, FaBook, FaCalendarAlt, FaBriefcase, FaBel
 import { RxAvatar } from "react-icons/rx";
 import Logo from '../../assets/logo.png';
 import HeaderStyles from './css/header.module.css';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
+  const active = ({isActive}) => {
+    return isActive ? {color: "#FC914F"} : {color: "#333"};
+  }
   return (
     <header className={HeaderStyles.header}>
       {/* Logo */}
@@ -15,30 +19,30 @@ const Header = () => {
 
       {/* Navigation Links */}
       <nav className={HeaderStyles.nav}>
-        <a href="/" className={HeaderStyles["nav-item"]}>
+        <NavLink to="/Feed-Section" className={HeaderStyles["nav-item"]} style={active}>
           <FaHome className={HeaderStyles.icon} />
           <span>Home</span>
-        </a>
-        <a href="/news" className={HeaderStyles["nav-item"]}>
+        </NavLink>
+        <NavLink to="/news" className={HeaderStyles["nav-item"]} style={active}>
           <FaNewspaper className={HeaderStyles.icon} />
           <span>News</span>
-        </a>
-        <a href="/community" className={HeaderStyles["nav-item"]}>
+        </NavLink>
+        <NavLink to="/community" className={HeaderStyles["nav-item"]} style={active}>
           <FaUsers className={HeaderStyles.icon} />
           <span>Community</span>
-        </a>
-        <a href="/learn" className={HeaderStyles["nav-item"]}>
+        </NavLink>
+        <NavLink to="/learn" className={HeaderStyles["nav-item"]} style={active}>
           <FaBook className={HeaderStyles.icon} />
           <span>Learn</span>
-        </a>
-        <a href="/events" className={HeaderStyles["nav-item"]}>
+        </NavLink>
+        <NavLink to="/events" className={HeaderStyles["nav-item"]} style={active}>
           <FaCalendarAlt className={HeaderStyles.icon} />
           <span>Events</span>
-        </a>
-        <a href="/work" className={HeaderStyles["nav-item"]}>
+        </NavLink>
+        <NavLink to="/ATS" className={HeaderStyles["nav-item"]} style={active}>
           <FaBriefcase className={HeaderStyles.icon} />
           <span>Work</span>
-        </a>
+        </NavLink>
       </nav>
 
       {/* User Section */}
