@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { FiFilter } from "react-icons/fi";
-import FiltersStyles from './css/Filters.css';
+import FiltersStyles from './css/Filters.module.css';
 
 const Filters = () => {
   const [showFilters, setShowFilters] = useState(false);
