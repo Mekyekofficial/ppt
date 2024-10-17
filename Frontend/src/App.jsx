@@ -1,21 +1,42 @@
 import { useState } from "react";
-import AppStyles from "./App.module.css";
-import Header from "./components/includes/header";
-// import Footer from "./components/includes/footer";
-// import FeedSection from "./components/feedSection";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import AppOutlet from "./AppOutlet";
+import FeedSection from "./components/feedSection";
 import ATS from "./components/ATS";
+import ComingSoon from "./commingSoon";
 // import Home from "./home.jsx";
 
-function App() {
-  const [count, setCount] = useState(0);
 
-  return (
-    <div className={AppStyles.App}>
-      <Header />
-      <ATS />
-      {/* <Footer /> */}
-    </div>
-  );
+
+const App = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  }
+
+  const router = createBrowserRouter ([
+    {
+      path: "/",
+      element: <AppOutlet />,
+      children: [
+        {
+          path: "/",
+          element: <ComingSoon />,
+        },
+        {
+          path: "/Feed-Section",
+          element: <FeedSection />,
+        },
+        {
+          path: "/ATS",
+          element: <ATS />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
