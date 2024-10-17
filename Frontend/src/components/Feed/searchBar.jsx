@@ -12,7 +12,7 @@ const SearchBar = () => {
         className={SearchBarStyles["search-bar"]}
         placeholder="Search..."
       />
-      <div className="options">
+      <div className={SearchBarStyles.options}>
         <div className={SearchBarStyles.option}>
           <img src={MediaIcon} alt="Media" />
           <span>Media</span>
