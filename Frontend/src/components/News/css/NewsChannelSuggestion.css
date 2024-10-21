@@ -1,0 +1,20 @@
+.news-channel-suggestion {
+    margin-bottom: 20px;
+  }
+  
+  .news-channel-suggestion h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .news-channel-suggestion ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .news-channel-suggestion li {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+  }
+  
