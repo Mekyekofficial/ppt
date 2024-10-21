@@ -1,0 +1,20 @@
+.news-recommendation {
+    margin-bottom: 20px;
+  }
+  
+  .news-recommendation h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .topics span {
+    display: inline-block;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
