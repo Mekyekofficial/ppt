@@ -1,0 +1,25 @@
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+  }
+  
+  .banner h1 {
+    font-size: 24px;
+  }
+  
+  .banner p {
+    font-size: 16px;
+  }
+  
+  .post-news {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
