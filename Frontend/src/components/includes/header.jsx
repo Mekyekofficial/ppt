@@ -1,6 +1,7 @@
 import React from 'react';
-import { FaHome, FaNewspaper, FaUsers, FaBook, FaCalendarAlt, FaBriefcase, FaBell, FaEnvelope, FaBars,  } from 'react-icons/fa';
+import { FaNewspaper, FaUsers, FaBook, FaCalendarAlt, FaBriefcase, FaBell, FaEnvelope, FaBars,  } from 'react-icons/fa';
 import { RxAvatar } from "react-icons/rx";
+import { MdFeed } from "react-icons/md";
 import Logo from '../../assets/logo.png';
 import HeaderStyles from './css/header.module.css';
 import { NavLink } from 'react-router-dom';
@@ -19,9 +20,9 @@ const Header = () => {
 
       {/* Navigation Links */}
       <nav className={HeaderStyles.nav}>
-        <NavLink to="/Feed-Section" className={HeaderStyles["nav-item"]} style={active}>
-          <FaHome className={HeaderStyles.icon} />
-          <span>Home</span>
+        <NavLink to="/Feeds" className={HeaderStyles["nav-item"]} style={active}>
+          <MdFeed className={HeaderStyles.icon} />
+          <span>Feeds</span>
         </NavLink>
         <NavLink to="/news" className={HeaderStyles["nav-item"]} style={active}>
           <FaNewspaper className={HeaderStyles.icon} />
@@ -39,7 +40,7 @@ const Header = () => {
           <FaCalendarAlt className={HeaderStyles.icon} />
           <span>Events</span>
         </NavLink>
-        <NavLink to="/ATS" className={HeaderStyles["nav-item"]} style={active}>
+        <NavLink to="/Work" className={HeaderStyles["nav-item"]} style={active}>
           <FaBriefcase className={HeaderStyles.icon} />
           <span>Work</span>
         </NavLink>

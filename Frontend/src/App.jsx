@@ -3,7 +3,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import AppOutlet from "./AppOutlet";
 import FeedSection from "./components/feedSection";
-import ATS from "./components/ATS";
+import ATSOutlet from "./components/ATSOutlet";
+import Dashboard from './components/ATS/Dashboard';
+import Jobs from './components/ATS/Jobs';
+import Applications from './components/ATS/Applications';
+import TalentPool from './components/ATS/TalentPool';
 import ComingSoon from "./commingSoon";
 // import Home from "./home.jsx";
 
@@ -25,12 +29,50 @@ const App = () => {
           element: <ComingSoon />,
         },
         {
-          path: "/Feed-Section",
+          path: "/Feeds",
           element: <FeedSection />,
         },
         {
-          path: "/ATS",
-          element: <ATS />,
+          path: "/Work",
+          element: <ATSOutlet />,
+          children: [
+            {
+              path: "/Work",
+              element: <Dashboard />,
+            },
+            {
+              path: "/Work/Dashboard",
+              element: <Dashboard />,
+            },
+            {
+              path: "/Work/Jobs",
+              element: <Jobs />,
+            },
+            {
+              path: "/Work/Applications",
+              element: <Applications />,
+            },
+            {
+              path: "/Work/TalentPool",
+              element: <TalentPool />,
+            },
+            {
+              path: "/Work/TalentHunt",
+              element: <ComingSoon />,
+            },
+            {
+              path: "/Work/MarketPlace",
+              element: <ComingSoon />,
+            },
+            {
+              path: "/Work/Settings",
+              element: <ComingSoon />,
+            },
+            {
+              path: "/Work/Setup",
+              element: <ComingSoon />,
+            },
+          ],
         },
       ],
     },

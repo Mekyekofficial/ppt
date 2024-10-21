@@ -6,6 +6,7 @@ const ComingSoon = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
+        width: '100%',
         backgroundColor: '#f0f0f0',
         fontFamily: 'Arial, sans-serif',
         color: '#333',
