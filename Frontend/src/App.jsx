@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import AppOutlet from "./AppOutlet";
 import FeedSection from "./components/feedSection";
+import NewsTab from "./components/NewsTab";
 import ATSOutlet from "./components/ATSOutlet";
 import Dashboard from './components/ATS/Dashboard';
 import Jobs from './components/ATS/Jobs';
@@ -31,6 +32,22 @@ const App = () => {
         {
           path: "/Feeds",
           element: <FeedSection />,
+        },
+        {
+          path: "/news",
+          element: <NewsTab />,
+        },
+        {
+          path: "/community",
+          element: <ComingSoon />,
+        },
+        {
+          path: "/learn",
+          element: <ComingSoon />,
+        },
+        {
+          path: "/events",
+          element: <ComingSoon />,
         },
         {
           path: "/Work",
