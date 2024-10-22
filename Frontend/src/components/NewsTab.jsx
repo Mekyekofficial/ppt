@@ -2,7 +2,7 @@ import React from 'react';
 import NewsTabStyles from './css/NewsTab.module.css';
 import NewsCategories from './News/NewsCategories';
 import NewsHeader from './News/NewsHeader';
-import News from './News/News';
+import NewsItem from './News/NewsItem';
 import NewsPics from './News/NewsPics';
 import NewsRecommendation from './News/NewsRecommendation';
 import NewsChannelSuggestion from './News/NewsChannelSuggestion';
@@ -14,9 +14,9 @@ const NewsTab = () => {
       <div className={NewsTabStyles["news-content"]}>
         <div className={NewsTabStyles["main-news"]}>
         <NewsHeader />
-          <News />
-          <News />
-          <News />
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
         </div>
         <div className={NewsTabStyles.sidebar}>
           <NewsPics />

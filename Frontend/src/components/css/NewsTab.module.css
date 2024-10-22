@@ -11,6 +11,7 @@
   
   .main-news {
     flex: 2.5;
+    padding: 20px;
   }
   
   .sidebar {
