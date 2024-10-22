@@ -1,7 +1,7 @@
 .news-tab {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0 20px;
   }
   
   .news-content {
@@ -10,7 +10,7 @@
   }
   
   .main-news {
-    flex: 3;
+    flex: 2.5;
   }
   
   .sidebar {
