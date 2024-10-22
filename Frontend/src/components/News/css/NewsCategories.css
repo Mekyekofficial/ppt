@@ -1,0 +1,32 @@
+.news-categories {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .categories-list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .category {
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .category.active {
+    border-bottom: 2px solid black;
+    font-weight: bold;
+  }
+  
+  .browse {
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  

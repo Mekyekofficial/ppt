@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/NewsTab.css';
+import NewsCategories from './News/NewsCategories';
 import NewsHeader from './News/NewsHeader';
 import News from './News/News';
 import NewsPics from './News/NewsPics';
@@ -9,9 +10,10 @@ import NewsChannelSuggestion from './News/NewsChannelSuggestion';
 const NewsTab = () => {
   return (
     <div className="news-tab">
-      <NewsHeader />
+      <NewsCategories />
       <div className="news-content">
         <div className="main-news">
+        <NewsHeader />
           <News />
           <News />
           <News />
