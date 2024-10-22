@@ -1,17 +1,29 @@
 import React from 'react';
-import NewsPicsStyles from './css/NewsPics.module.css';
+import logiNews from '../../assets/logiNews.png';
+import appleNews from '../../assets/appleNews.png';
+import styles from './css/NewsPics.module.css';
 
 const NewsPics = () => {
   return (
-    <div className={NewsPicsStyles["news-pics"]}>
-      <h3>Picks</h3>
-      <div className={NewsPicsStyles["pic-item"]}>
-        <img src="news_pic_1.jpg" alt="News Pic 1" />
-        <p>Logitech introduces new MX and Wave keys designed for the Mac</p>
+    <div className={styles.newsPics}>
+      <h2 className={styles.title}>Picks</h2>
+      
+      <div className={styles.picItem}>
+        <img 
+          className={styles.picImage} 
+          src={logiNews} 
+          alt="Logitech introduces new MX and Wave Keys" 
+        />
+        <p className={styles.picText}>Logitech introduces new MX and Wave Keys designed for the Mac</p>
       </div>
-      <div className={NewsPicsStyles["pic-item"]}>
-        <img src="news_pic_2.jpg" alt="News Pic 2" />
-        <p>Apple's iPhone security update guarantee outdone by Samsung</p>
+
+      <div className={styles.picItem}>
+        <img 
+          className={styles.picImage} 
+          src={appleNews} 
+          alt="Apple's iPhone security update guarantee outdone by Samsung" 
+        />
+        <p className={styles.picText}>Apple’s iPhone security update guarantee outdone by Samsung</p>
       </div>
     </div>
   );
