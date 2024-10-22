@@ -1,20 +1,75 @@
-.news-channel-suggestion {
-    margin-bottom: 20px;
-  }
-  
-  .news-channel-suggestion h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .news-channel-suggestion ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .news-channel-suggestion li {
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #555;
-  }
-  
+.container {
+  padding: 15px;
+  margin-bottom: 0;
+  background-color: #fff;
+  width: 270px;
+  border: 1px solid #000;
+  border-radius: 20px;
+}
+
+.container h2 {
+  text-align: center;
+  font-size: 18px;
+  width: max-content;
+  border-bottom: 2px solid #000;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+}
+
+.userItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 2px solid #000;
+  margin-bottom: 15px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.userIcon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.userName {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.actionButton {
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actionButton:hover {
+  background-color: #bbb;
+}
+
+.actionButton:nth-of-type(2) {
+  background-color: #000;
+  color: #fff;
+}
+
+.actionButton:nth-of-type(2):hover {
+  background-color: #404040;
+}
