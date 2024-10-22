@@ -16,7 +16,7 @@ const NewsCategories = () => {
         <li className={NewsCategoriesStyles.category}>Web</li>
         <li className={NewsCategoriesStyles.category}>Travel</li>
         <li className={NewsCategoriesStyles.category}>Finance</li>
-        <li className={`${NewsCategoriesStyles.category} ${NewsCategoriesStyles.browse}`}>+ Browse</li>
+        <li className={`${NewsCategoriesStyles.category} ${NewsCategoriesStyles.add}`}>+ Add</li>
       </ul>
     </div>
   );
