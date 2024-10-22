@@ -1,22 +1,22 @@
 import React from 'react';
-import './css/NewsCategories.css';
+import NewsCategoriesStyles from './css/NewsCategories.module.css';
 
 const NewsCategories = () => {
   return (
-    <div className="news-categories">
-      <ul className="categories-list">
-        <li className="category active">For You</li>
-        <li className="category">Your Following</li>
-        <li className="category">Trending</li>
-        <li className="category">Explore</li>
-        <li className="category">India</li>
-        <li className="category">World</li>
-        <li className="category">Technology</li>
-        <li className="category">UI/UX</li>
-        <li className="category">Web</li>
-        <li className="category">Travel</li>
-        <li className="category">Finance</li>
-        <li className="category browse">+ Browse</li>
+    <div className={NewsCategoriesStyles["news-categories"]}>
+      <ul className={NewsCategoriesStyles["categories-list"]}>
+        <li className={`${NewsCategoriesStyles.category} ${NewsCategoriesStyles.active}`}>For You</li>
+        <li className={NewsCategoriesStyles.category}>Your Following</li>
+        <li className={NewsCategoriesStyles.category}>Trending</li>
+        <li className={NewsCategoriesStyles.category}>Explore</li>
+        <li className={NewsCategoriesStyles.category}>India</li>
+        <li className={NewsCategoriesStyles.category}>World</li>
+        <li className={NewsCategoriesStyles.category}>Technology</li>
+        <li className={NewsCategoriesStyles.category}>UI/UX</li>
+        <li className={NewsCategoriesStyles.category}>Web</li>
+        <li className={NewsCategoriesStyles.category}>Travel</li>
+        <li className={NewsCategoriesStyles.category}>Finance</li>
+        <li className={`${NewsCategoriesStyles.category} ${NewsCategoriesStyles.browse}`}>+ Browse</li>
       </ul>
     </div>
   );

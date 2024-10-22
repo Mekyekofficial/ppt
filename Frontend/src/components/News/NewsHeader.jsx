@@ -1,14 +1,14 @@
 import React from 'react';
-import './css/NewsHeader.css';
+import NewsHeaderStyles from './css/NewsHeader.module.css';
 
 const NewsHeader = () => {
   return (
-    <div className="news-header">
-      <div className="banner">
+    <div className={NewsHeaderStyles["news-header"]}>
+      <div className={NewsHeaderStyles.banner}>
         <h1>Daily News</h1>
         <p>Get updated with Everyday News</p>
       </div>
-      <button className="post-news">Post a News</button>
+      <button className={NewsHeaderStyles["post-news"]}>Post a News</button>
     </div>
   );
 };

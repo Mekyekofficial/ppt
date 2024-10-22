@@ -1,11 +1,11 @@
 import React from 'react';
-import './css/NewsRecommendation.css';
+import NewsRecommendationStyles from './css/NewsRecommendation.module.css';
 
 const NewsRecommendation = () => {
   return (
-    <div className="news-recommendation">
+    <div className={NewsRecommendationStyles["news-recommendation"]}>
       <h3>Recommended Topics</h3>
-      <div className="topics">
+      <div className={NewsRecommendationStyles.topics}>
         <span>Technology</span>
         <span>Web</span>
         <span>Travel</span>

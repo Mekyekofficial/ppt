@@ -1,9 +1,9 @@
 import React from 'react';
-import './css/NewsChannelSuggestion.css';
+import NewsChannelSuggestionStyles from './css/NewsChannelSuggestion.module.css';
 
 const NewsChannelSuggestion = () => {
   return (
-    <div className="news-channel-suggestion">
+    <div className={NewsChannelSuggestionStyles["news-channel-suggestion"]}>
       <h3>You can check out...</h3>
       <ul>
         <li>User 1</li>
