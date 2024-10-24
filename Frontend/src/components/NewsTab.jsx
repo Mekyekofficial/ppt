@@ -14,9 +14,17 @@ const NewsTab = () => {
       <div className={NewsTabStyles["news-content"]}>
         <div className={NewsTabStyles["main-news"]}>
         <NewsHeader />
+        <div className={NewsTabStyles["news-items"]}>
           <NewsItem />
           <NewsItem />
           <NewsItem />
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+        </div>
         </div>
         <div className={NewsTabStyles.sidebar}>
           <NewsPics />
