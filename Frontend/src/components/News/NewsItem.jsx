@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
 import { PiHandsClappingDuotone } from "react-icons/pi";
-import PlayIcon from '@mui/icons-material/PlayArrow';
+import { IoPlayCircleOutline } from "react-icons/io5";
 import BookmarkIcon from '@mui/icons-material/BookmarkBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import { FiMessageCircle } from "react-icons/fi";
@@ -20,10 +20,13 @@ const NewsItem = () => {
         <div className={styles.newsDetails}>
           <h3 className={styles.newsTitle}>
             Apple’s iPhone security update guarantee outdone by Samsung
+            <IconButton className={`${styles.actionButton} ${styles.play}`}>
+              <IoPlayCircleOutline />
+            </IconButton>
           </h3>
           <p className={styles.newsText}>
-            Samsung has recently introduced a more extensive security update guarantee for its devices, outpacing Apple’s iPhone security update policy. While Apple typically offers five years of software updates for its iPhones, Samsung has committed to providing up to four years of major Android updates and five years of security patches for many of its Galaxy devices...
-            Samsung has recently introduced a more extensive security update guarantee for its devices, outpacing Apple’s iPhone security update policy. While Apple typically offers five years of software updates for its iPhones, Samsung has committed to providing up to four years of major Android updates and five years of security patches for many of its Galaxy devices...
+            Samsung has recently introduced a more extensive security update guarantee for its devices, outpacing Apple’s iPhone security update policy. While Apple typically offers five years of software updates for its iPhones, Samsung has committed to providing...
+            {/* Samsung has recently introduced a more extensive security update guarantee for its devices, outpacing Apple’s iPhone security update policy. While Apple typically offers five years of software updates for its iPhones, Samsung has committed to providing up to four years of major Android updates and five years of security patches for many of its Galaxy devices... */}
           </p>
           <p className={styles.newsInfo}>
             <span className={styles.date}>22nd Sept</span>
@@ -38,9 +41,6 @@ const NewsItem = () => {
         </IconButton>
         <IconButton className={styles.actionButton}>
           <FiMessageCircle />
-        </IconButton>
-        <IconButton className={styles.actionButton}>
-          <PlayIcon />
         </IconButton>
         <IconButton className={styles.actionButton}>
           <BookmarkIcon />
