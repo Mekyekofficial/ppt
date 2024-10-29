@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppOutlet from "./AppOutlet";
 import FeedSection from "./components/feedSection";
 import NewsTab from "./components/NewsTab";
+import CommunityTab from "./components/CommunityTab";
+import EventTab from "./components/EventTab";
 import ATSOutlet from "./components/ATSOutlet";
 import Dashboard from './components/ATS/Dashboard';
 import Jobs from './components/ATS/Jobs';
@@ -39,7 +41,7 @@ const App = () => {
         },
         {
           path: "/community",
-          element: <ComingSoon />,
+          element: <CommunityTab />,
         },
         {
           path: "/learn",
@@ -47,7 +49,7 @@ const App = () => {
         },
         {
           path: "/events",
-          element: <ComingSoon />,
+          element: <EventTab />,
         },
         {
           path: "/Work",

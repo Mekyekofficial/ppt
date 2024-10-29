@@ -1,0 +1,84 @@
+.container {
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .searchSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    width: 100%;
+    padding: 20px 0;
+    border-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .searchInput {
+    width: 500px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-right: 10px;
+  }
+  
+  .searchButton {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .communitiesSection {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    width: 100%;
+    padding: 20px 0;
+    border-radius: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  
+  .communityItem {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .communityImage {
+    display: block;
+    margin: 0 auto 10px;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .createGroupButton {
+    align-self: flex-end;
+    background-color: #ffd7c4;
+    border: 1px solid #000;
+    color: black;
+    margin-top: 20px;
+    margin-right: 40px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .createGroupButton:hover {
+    background-color: #ff9b71;
+  }
+  
