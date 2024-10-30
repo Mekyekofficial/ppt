@@ -53,42 +53,46 @@ const App = () => {
         },
         {
           path: "/Work",
+          element: <ComingSoon />,
+        },
+        {
+          path: "/ATS",
           element: <ATSOutlet />,
           children: [
             {
-              path: "/Work",
+              path: "/ATS",
               element: <Dashboard />,
             },
             {
-              path: "/Work/Dashboard",
+              path: "/ATS/Dashboard",
               element: <Dashboard />,
             },
             {
-              path: "/Work/Jobs",
+              path: "/ATS/Jobs",
               element: <Jobs />,
             },
             {
-              path: "/Work/Applications",
+              path: "/ATS/Applications",
               element: <Applications />,
             },
             {
-              path: "/Work/TalentPool",
+              path: "/ATS/TalentPool",
               element: <TalentPool />,
             },
             {
-              path: "/Work/TalentHunt",
+              path: "/ATS/TalentHunt",
               element: <ComingSoon />,
             },
             {
-              path: "/Work/MarketPlace",
+              path: "/ATS/MarketPlace",
               element: <ComingSoon />,
             },
             {
-              path: "/Work/Settings",
+              path: "/ATS/Settings",
               element: <ComingSoon />,
             },
             {
-              path: "/Work/Setup",
+              path: "/ATS/Setup",
               element: <ComingSoon />,
             },
           ],

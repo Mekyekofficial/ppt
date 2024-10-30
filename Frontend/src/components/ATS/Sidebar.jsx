@@ -19,42 +19,42 @@ const Sidebar = () => {
       </div>
       <ul className={SidebarStyles.menu}>
         <li>
-          <NavLink to="/Work/dashboard" style={active} className={SidebarStyles["menu-item"]}>
+          <NavLink to="/ATS/dashboard" style={active} className={SidebarStyles["menu-item"]}>
             <FaHome className={SidebarStyles["menu-icon"]} /> Dashboard
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Work/jobs" style={active} className={SidebarStyles["menu-item"]}>
+          <NavLink to="/ATS/jobs" style={active} className={SidebarStyles["menu-item"]}>
             <FaBriefcase className={SidebarStyles["menu-icon"]} /> Jobs
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Work/applications" style={active} className={SidebarStyles["menu-item"]}>
+          <NavLink to="/ATS/applications" style={active} className={SidebarStyles["menu-item"]}>
             <FaEnvelope className={SidebarStyles["menu-icon"]} /> Applications
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Work/talentPool" style={active} className={SidebarStyles["menu-item"]}>
+          <NavLink to="/ATS/talentPool" style={active} className={SidebarStyles["menu-item"]}>
             <FaUsers className={SidebarStyles["menu-icon"]} /> Talent Pool
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Work/talentHunt" style={active} className={SidebarStyles["menu-item"]}>
+          <NavLink to="/ATS/talentHunt" style={active} className={SidebarStyles["menu-item"]}>
             <FaList className={SidebarStyles["menu-icon"]} /> Talent Hunt
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Work/marketPlace" style={active} className={SidebarStyles["menu-item"]}>
+          <NavLink to="/ATS/marketPlace" style={active} className={SidebarStyles["menu-item"]}>
             <FaStore className={SidebarStyles["menu-icon"]} /> Market Place
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Work/settings" style={active} className={SidebarStyles["menu-item"]}>
+          <NavLink to="/ATS/settings" style={active} className={SidebarStyles["menu-item"]}>
             <FaCog className={SidebarStyles["menu-icon"]} /> Settings
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Work/setup" style={active} className={SidebarStyles["menu-item"]}>
+          <NavLink to="/ATS/setup" style={active} className={SidebarStyles["menu-item"]}>
             <FaList className={SidebarStyles["menu-icon"]} /> Setup
           </NavLink>
         </li>
