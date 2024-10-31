@@ -6,6 +6,7 @@ import FeedSection from "./components/feedSection";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
 import EventTab from "./components/EventTab";
+import WorkTab from "./components/WorkTab";
 import ATSOutlet from "./components/ATSOutlet";
 import Dashboard from './components/ATS/Dashboard';
 import Jobs from './components/ATS/Jobs';
@@ -53,7 +54,7 @@ const App = () => {
         },
         {
           path: "/Work",
-          element: <ComingSoon />,
+          element: <WorkTab />,
         },
         {
           path: "/ATS",
