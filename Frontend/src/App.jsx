@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import Home from "./home";
 import AppOutlet from "./AppOutlet";
 import FeedSection from "./components/feedSection";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
 import EventTab from "./components/EventTab";
 import WorkTab from "./components/WorkTab";
+import WorkDetails from "./components/Work/WorkDetails"
 import ATSOutlet from "./components/ATSOutlet";
 import Dashboard from './components/ATS/Dashboard';
 import Jobs from './components/ATS/Jobs';
@@ -30,7 +32,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <ComingSoon />,
+          element: <Home />,
         },
         {
           path: "/Feeds",
@@ -55,6 +57,10 @@ const App = () => {
         {
           path: "/Work",
           element: <WorkTab />,
+        },
+        {
+          path: "/Work/job-Details",
+          element: <WorkDetails />,
         },
         {
           path: "/ATS",
