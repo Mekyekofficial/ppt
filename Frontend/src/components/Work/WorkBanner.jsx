@@ -32,7 +32,7 @@ const WorkBanner = () => {
         </div>
       </div>
     
-      <div className={styles.filterOptions}>
+      <div className={styles.filterBar}>
         <div className={styles.filterOptions}>
           {/* Work Location Dropdown */}
           <div>

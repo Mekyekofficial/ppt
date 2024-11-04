@@ -1,4 +1,5 @@
 .banner {
+    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: #000;
@@ -55,11 +56,17 @@
     border-radius: 50%;
   }
 
+  .filterBar {
+    margin-top: 40px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
   .filterOptions {
     display: flex;
     justify-content: start;
     align-items: center;
-    margin-top: 20px;
   }
 
   .filterOptions label {
