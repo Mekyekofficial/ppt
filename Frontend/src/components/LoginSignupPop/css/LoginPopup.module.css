@@ -53,8 +53,9 @@
   
   .password-wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     position: relative;
   }
   
@@ -63,8 +64,17 @@
     cursor: pointer;
     position: absolute;
     right: 10px;
+    top: 30%;
     color: #fff;
     user-select: none;
+  }
+
+  .forgot-password {
+    font-size: 12px;
+    color: #000;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-right: 5px;
   }
   
   .login-btn {
@@ -138,4 +148,39 @@
     border: none;
     border-top: 1px solid rgb(238, 162, 63);
     margin: 0 10px;
+  }
+
+  .google-btn {
+    margin: 0 auto;
+    width: 70%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D5D3D3;
+    border: 1px solid rgb(238, 162, 63);
+    border-radius: 500px;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .google-icon {
+    width: 20px;
+    margin-right: 5px;
+  }
+
+  .signIn-btn {
+    background-color: transparent;
+    border: none;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .signIn-btn span {
+    color: #c372d1;
   }

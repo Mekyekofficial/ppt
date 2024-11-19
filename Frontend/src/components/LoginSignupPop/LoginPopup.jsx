@@ -44,6 +44,7 @@ const LoginPopup = ({ onSubmit, onClose }) => {
               <span className={styles["show-password"]} onClick={togglePasswordVisibility}>
                 {showPassword ? 'Hide' : 'Show'}
               </span>
+              <div className={styles["forgot-password"]}>forgot Password?</div>
             </div>
           </div>
 
@@ -56,7 +57,7 @@ const LoginPopup = ({ onSubmit, onClose }) => {
             Continue with Google
           </button>
           <button type="button" className={styles["signIn-btn"]} onClick={onClose}>
-            Have it ? Join us !!
+            Have it ? <span>Join us !!</span>
           </button>
         </form>
       </div>
