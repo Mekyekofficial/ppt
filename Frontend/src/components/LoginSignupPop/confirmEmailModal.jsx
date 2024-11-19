@@ -26,7 +26,6 @@ const Modal = ({ onSubmit, onClose }) => {
               Haven't received??
               <span className={styles["get-again"]}> Get again</span>
             </p>
-            <button className={styles["close-btn"]} onClick={onClose}>Close</button>
           </div>
         </div>
     );
