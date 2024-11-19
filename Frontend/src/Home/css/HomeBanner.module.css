@@ -1,68 +1,183 @@
 .banner {
-    padding: 20px;
-    font-family: Arial, sans-serif;
+    width: 100%;
   }
   
-  .content {
-    max-width: 1200px;
-    margin: auto;
+  .container1 {
+    width: 90%;
+    margin: 40px auto;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 20px;
+  }
+
+  .content {
+    width: 80%;
+    margin: 0 auto;
+    text-align: start;
   }
   
-  .title {
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: start;
+    font-size: 1.1rem;
+    color: #d32f2f;
+    margin-bottom: 10px;
+  }
+
+  .header img {
+    width: 40px;
+    margin-left: 10px;
+
+  }
+  
+  .poweredBy {
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(to right, red, blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: start;
+  }
+  
+  .icon {
+    color: #673ab7;
+    font-size: 1.5rem;
+    margin-left: 5px;
+  }
+  
+  .heading {
     font-size: 2.5rem;
     font-weight: bold;
+    margin-bottom: 10px;
   }
   
   .description {
-    color: #333;
-    margin: 16px 0;
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-  
-  .searchContainer {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
-  }
-  
-  .searchInput {
-    width: 300px;
-  }
-  
-  .dropdown {
-    width: 100px;
-  }
-  
-  .searchButton {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .categories {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    font-size: 1rem;
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 30px;
+    max-width: 600px;
+    line-height: 1.5;
     margin-top: 30px;
   }
   
-  .category {
-    padding: 16px;
-    border-radius: 8px;
-    text-align: left;
+  .searchBar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+  }
+
+  .searchBar .search {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
   }
   
-  .category h3 {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
+  .input {
+    width: 50%;
+    flex: 1;
+    padding: 10px;
+    border: none;
+    font-size: 1rem;
+    color: #666;
+    background-color: transparent;
+    outline: none;
+    box-shadow: none;
   }
   
-  .category p {
+  .icon {
+    color: #333;
+  }
+  
+  .select {
+    min-width: 100px;
+    height: 40px;
+    background-color: #f9d8b8;
+    border-radius: 20px;
+    padding: 5px !important;
+    font-size: 1rem;
+  }
+  
+  .searchButton {
+    background-color: #000 !important;
+    color: #fff;
+    padding: 15px 20px !important;
+    border-radius: 20px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchButton .MuiSvgIcon-root {
+    margin-right: 5px;
+  }
+  
+  
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 50%;
+  }
+  
+  .card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 15px;
+    color: #333;
+    background-color: #f5f5f5;
+  }
+  
+  .icon2 {
+    font-size: 3rem;
+    margin-right: 15px;
+  }
+  
+  .jobs {
+    background-color: #ffd8b5;
+  }
+  
+  .community {
+    background-color: #c2f1e0;
+  }
+  
+  .internship {
+    background-color: #f7c7e9;
+  }
+  
+  .courses {
+    background-color: #e0e0e0;
+  }
+  
+  .events {
+    background-color: #dbfddb;
+  }
+  
+  .articles {
+    background-color: #fff4a3;
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .card p {
     font-size: 0.9rem;
+    margin: 5px 0 0;
   }
+  
   
   .trusted {
     margin: 40px 0 20px;
@@ -78,11 +193,20 @@
   
   .numbers {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     background-color: #000;
     color: #fff;
     padding: 20px 0;
     margin-top: 40px;
+  }
+
+  .numbers span {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-bottom: 20px;
   }
   
   .stat h3 {
@@ -91,6 +215,77 @@
   
   .stat p {
     font-size: 0.9rem;
-    color: #bbb;
   }
+
+  .container {
+    width: 70%;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 5px;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+    border-radius: 300px;
+    background-color: #fff;
+    overflow: hidden;
+  }
+  
+  .container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 300px;
+    padding: 2px;
+    background: linear-gradient(to right, red, blue);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+  }
+  
+  
+  
+  .tab {
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    border-radius: 300px;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .icon3 {
+    margin-right: 5px;
+  }
+  
+  .jobs {
+    background-color: #ffd8b5;
+  }
+  
+  .community {
+    background-color: #c2f1e0;
+  }
+  
+  .internship {
+    background-color: #f7c7e9;
+  }
+  
+  .courses {
+    background-color: #e0e0e0;
+  }
+  
+  .events {
+    background-color: #dbfddb;
+  }
+  
+  .articles {
+    background-color: #fff4a3;
+  }
+  
   

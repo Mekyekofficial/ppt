@@ -1,4 +1,9 @@
 .login-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,6 +48,7 @@
     outline: none;
     background-color: rgb(213, 211, 211);
    border:  2px solid rgb(238, 162, 63);
+   box-shadow: none;
   }
   
   .password-wrapper {
@@ -120,4 +126,16 @@
     text-decoration: none;
   }
   
-  
+  .or {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .or hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid rgb(238, 162, 63);
+    margin: 0 10px;
+  }

@@ -1,22 +1,22 @@
 import React from "react";
-import "./css/NameModal.css";
+import styles from "./css/NameModal.module.css";
 
-const Modal = ({ showModal, closeModal }) => {
+const Modal = ({ onSubmit, onClose }) => {
 //   if (!showModal) return null; // Don't render if showModal is false
 
   return (
-    <div className="modal-overlay" onClick={closeModal}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className={styles["modal-overlay"]}>
+      <div className={styles["modal-content"]} onClick={(e) => e.stopPropagation()}>
         <h2>Make Your Life Easy Too...</h2>
-        <div className="form-group">
+        <div className={styles["form-group"]}>
           <label>First Name</label>
           <input type="text" placeholder="First Name" />
         </div>
-        <div className="form-group">
+        <div className={styles["form-group"]}>
           <label>Surname</label>
           <input type="text" placeholder="Surname" />
         </div>
-        <button className="close-btn" onClick={closeModal}>Next</button>
+        <button className={styles["close-btn"]} onClick={onSubmit}>Next</button>
       </div>
     </div>
   );

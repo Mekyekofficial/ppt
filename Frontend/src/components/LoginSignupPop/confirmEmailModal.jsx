@@ -1,27 +1,32 @@
 import React, { useState } from "react";
-import "./css/confirmEmailModal.css";
+import styles from "./css/confirmEmailModal.module.css";
 
-const Modal = ({ showModal, closeModal }) => {
+const Modal = ({ onSubmit, onClose }) => {
     //   if (!showModal) return null; // Don't render if showModal is false
 
     return (
-        <div className="popup-overlay">
-          <div className="popup">
+        <div className={styles["popup-overlay"]}>
+          <div className={styles.popup}>
             <h2>CONFIRM YOUR EMAIL</h2>
-            <p className="description">
+            <p className={styles.description}>
               Enter the 6-digit code we sent
-              <span className="edit-email"> Edit email</span>
+              <span className={styles["edit-email"]}> Edit email</span>
             </p>
             <input
               type="text"
               placeholder="Enter verification code"
-              className="verification-input"
+              className={styles["verification-input"]}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  onSubmit();
+                }
+              }}
             />
-            <p className="resend">
+            <p className={styles.resend}>
               Haven't received??
-              <span className="get-again"> Get again</span>
+              <span className={styles["get-again"]}> Get again</span>
             </p>
-            <button className="close-btn">Close</button>
+            <button className={styles["close-btn"]} onClick={onClose}>Close</button>
           </div>
         </div>
     );

@@ -15,7 +15,6 @@ import Jobs from './components/ATS/Jobs';
 import Applications from './components/ATS/Applications';
 import TalentPool from './components/ATS/TalentPool';
 import ComingSoon from "./commingSoon";
-// import Home from "./home.jsx";
 
 
 
@@ -28,7 +27,7 @@ const App = () => {
   const router = createBrowserRouter ([
     {
       path: "/",
-      element: <AppOutlet />,
+      element: <Home />,
       children: [
         {
           path: "/",
