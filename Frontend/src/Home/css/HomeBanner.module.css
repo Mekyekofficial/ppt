@@ -92,6 +92,7 @@
     background-color: transparent;
     outline: none;
     box-shadow: none;
+    margin: 0;
   }
   
   .icon {
@@ -207,6 +208,13 @@
     font-size: 1.5rem;
     font-weight: bold;
     padding-bottom: 20px;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
   
   .stat h3 {

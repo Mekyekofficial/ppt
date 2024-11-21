@@ -9,14 +9,15 @@
     align-items: center;
     height: auto;
     background-color: #ffffff;
+    border-radius: 15px;
   }
   
   .login-box {
-    background-color: #ffffff;
     color: #151515;
     padding: 30px;
     border-radius: 15px;
     width: 350px;
+    height: 500px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }

@@ -7,10 +7,11 @@ import AppStyles from "./AppOutlet.module.css";
 const AppOutlet = () => {
     const location = useLocation();
     const hideFooter = location.pathname.startsWith("/ATS");
+    const hideHeader = location.pathname === "/";
 
     return (
         <div className={AppStyles.App}>
-            <Header />
+            {!hideHeader && <Header />}
             <Outlet />
             {!hideFooter && <Footer />}
         </div>

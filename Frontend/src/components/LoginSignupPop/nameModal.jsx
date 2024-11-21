@@ -10,13 +10,31 @@ const Modal = ({ onSubmit, onClose }) => {
         <h2>Make Your Life Easy Too...</h2>
         <div className={styles["form-group"]}>
           <label>First Name</label>
-          <input type="text" placeholder="First Name" />
+          <input
+              type="text"
+              placeholder="First Name"
+              className={styles["first-name-input"]}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  onSubmit();
+                }
+              }}
+            />
         </div>
         <div className={styles["form-group"]}>
           <label>Surname</label>
-          <input type="text" placeholder="Surname" />
+          <input
+              type="text"
+              placeholder="Surname"
+              className={styles["surname-input"]}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  onSubmit();
+                }
+              }}
+            />
         </div>
-        <button className={styles["close-btn"]} onClick={onSubmit}>Next</button>
+        <button onClick={onSubmit} className={styles["next-btn"]}>Next</button>
       </div>
     </div>
   );

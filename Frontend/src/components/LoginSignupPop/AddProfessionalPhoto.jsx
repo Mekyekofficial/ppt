@@ -14,7 +14,7 @@ const AddProfessionalPhoto = () => {
         <p>WELCOME TO MEKYEK</p>
         <p className={styles["full-name"]}>FULL NAME</p>
         <hr />
-        <button className={styles["add-image-btn"]}>Skip</button>
+        <button className={styles["add-image-btn"]}>Add Image</button>
         <div className={styles["or-section"]}>
           <span>Or</span>
         </div>
