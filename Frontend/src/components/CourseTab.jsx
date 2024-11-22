@@ -1,0 +1,26 @@
+import React from 'react';
+import CourseTabStyles from './css/CourseTab.module.css';
+import CourseHeading from './CourseTab/CourseHeading';
+import CourseTools from './CourseTab/CourseTools';
+
+
+const CourseTab = () => {
+  return (
+    <div className={CourseTabStyles["Course-tab"]}>
+      <CourseHeading />
+      <div className={CourseTabStyles["Course-content"]}>
+        <div className={CourseTabStyles["main-Course"]}>
+
+          <div className={CourseTabStyles["Course-items"]}>
+
+          </div>
+        </div>
+        <div className={CourseTabStyles.sidebar}>
+            <CourseTools />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CourseTab;

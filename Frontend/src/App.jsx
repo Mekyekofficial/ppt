@@ -6,6 +6,7 @@ import AppOutlet from "./AppOutlet";
 import FeedSection from "./components/feedSection";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
+import CourseTab from "./components/CourseTab";
 import EventTab from "./components/EventTab";
 import WorkTab from "./components/WorkTab";
 import WorkDetails from "./components/Work/WorkDetails"
@@ -47,7 +48,7 @@ const App = () => {
         },
         {
           path: "/learn",
-          element: <ComingSoon />,
+          element: <CourseTab />,
         },
         {
           path: "/events",

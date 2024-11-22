@@ -16,7 +16,7 @@ const AddProfessionalPhoto = () => {
         <hr />
         <button className={styles["add-image-btn"]}>Add Image</button>
         <div className={styles["or-section"]}>
-          <span>Or</span>
+          <div></div><span>Or</span><div></div>
         </div>
         <button className={styles["create-with-ai-btn"]}><img src={GeminiIcon} alt="gemini-icon" className='gemini-icon'/>Create With AI</button>
       </div>
