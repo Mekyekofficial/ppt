@@ -2,6 +2,7 @@ import React from 'react';
 import CourseTabStyles from './css/CourseTab.module.css';
 import CourseHeading from './CourseTab/CourseHeading';
 import CourseTools from './CourseTab/CourseTools';
+import CourseBanner from './CourseTab/CourseBanner';
 
 
 const CourseTab = () => {
@@ -13,10 +14,7 @@ const CourseTab = () => {
             <CourseTools />
         </div>
         <div className={CourseTabStyles["main-Course"]}>
-
-          <div className={CourseTabStyles["Course-items"]}>
-
-          </div>
+            <CourseBanner />
         </div>
       </div>
     </div>
