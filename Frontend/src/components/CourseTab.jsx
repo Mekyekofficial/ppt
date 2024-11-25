@@ -3,6 +3,7 @@ import CourseTabStyles from './css/CourseTab.module.css';
 import CourseHeading from './CourseTab/CourseHeading';
 import CourseTools from './CourseTab/CourseTools';
 import CourseBanner from './CourseTab/CourseBanner';
+import CourseSection from './CourseTab/CourseSection';
 
 
 const CourseTab = () => {
@@ -15,6 +16,7 @@ const CourseTab = () => {
         </div>
         <div className={CourseTabStyles["main-Course"]}>
             <CourseBanner />
+            <CourseSection />
         </div>
       </div>
     </div>
