@@ -2,6 +2,10 @@ import React from 'react';
 import styles from './css/CourseTools.module.css';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+const goToCourseSettings = () => {
+  window.location.href = '/learn/settings';
+}
+
 const CourseTools = () => {
   return (
     <div className={styles.container}>
@@ -11,7 +15,7 @@ const CourseTools = () => {
         Wishlist <FavoriteBorderIcon className={styles.icon} />
       </div>
       <p className={styles.option}>Post your Own</p>
-      <p className={styles.option}>Settings</p>
+      <p className={styles.option} onClick={goToCourseSettings}>Settings</p>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import styles from './css/CourseSectionCategory.module.css';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const goToCatagory = () => {
-  console.log('clicked');
+  window.location.href = '/learn/:category';
 }
 
 const CourseSectionCategory = ({ title, description, items, viewMore }) => {

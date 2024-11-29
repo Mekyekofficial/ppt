@@ -7,6 +7,9 @@ import FeedSection from "./components/feedSection";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
 import CourseTab from "./components/CourseTab";
+import CourseCategory from "./components/CourseTab/CourseCategory";
+import Course from "./components/CourseTab/Course";
+import CourseSettings from "./components/CourseTab/CourseSettings";
 import EventTab from "./components/EventTab";
 import WorkTab from "./components/WorkTab";
 import WorkDetails from "./components/Work/WorkDetails"
@@ -49,6 +52,18 @@ const App = () => {
         {
           path: "/learn",
           element: <CourseTab />,
+        },
+        {
+          path: "/learn/:category",
+          element: <CourseCategory />,
+        },
+        {
+          path: "/learn/:category/:course",
+          element: <Course />,
+        },
+        {
+          path: "/learn/settings",
+          element: <CourseSettings />,
         },
         {
           path: "/events",
