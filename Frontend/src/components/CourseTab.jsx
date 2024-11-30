@@ -1,6 +1,6 @@
 import React from 'react';
 import CourseTabStyles from './css/CourseTab.module.css';
-import CourseHeading from './CourseTab/CourseHeading';
+import CourseTabHeading from './CourseTab/CourseTabHeading';
 import CourseTools from './CourseTab/CourseTools';
 import CourseBanner from './CourseTab/CourseBanner';
 import CourseSection from './CourseTab/CourseSection';
@@ -9,7 +9,7 @@ import CourseSection from './CourseTab/CourseSection';
 const CourseTab = () => {
   return (
     <div className={CourseTabStyles["Course-tab"]}>
-      <CourseHeading />
+      <CourseTabHeading />
       <div className={CourseTabStyles["Course-content"]}>
         <div className={CourseTabStyles.sidebar}>
             <CourseTools />

@@ -2,23 +2,31 @@ import React from 'react';
 import styles from './css/CourseCategory.module.css';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import StarIcon from '@mui/icons-material/Star';
-import CourseHeading from './CourseHeading';
+import CourseHeading from './CourseTabHeading';
 
 const goToCourse = () => {
   window.location.href = '/learn/:category/:course';
 };
 
 const CourseCategory = () => {
-  const renderCard = (rating) => (
-    <div className={styles.card} onClick={goToCourse}>
-      <YouTubeIcon className={styles.icon} />
-      <div className={styles.stars}>
-        {Array(rating)
-          .fill()
-          .map((_, i) => (
-            <StarIcon key={i} className={styles.star} />
-          ))}
+  const renderCard = (rating, description) => (
+    <div className={styles.cardWithDescription} onClick={goToCourse}>
+      <div className={styles.card}>
+        <YouTubeIcon className={styles.icon} />
+        <div className={styles.stars}>
+          {Array(rating)
+            .fill()
+            .map((_, i) => (
+              <StarIcon key={i} className={styles.star} />
+            ))}
+        </div>
       </div>
+      {description ? (
+        <div className={styles.description}>
+          <h1>Course Title</h1>
+          <h3>description</h3>
+        </div>
+      ) : null}
     </div>
   );
 
@@ -29,27 +37,26 @@ const CourseCategory = () => {
         <h2>Learn from the Best Guiders, Anywhere, Anyone</h2>
         <p>500+ learners choice</p>
       </div>
-      <div className={styles.grid}>
-        <div className={styles.leftColumn}>
+      <div className={styles.playground}>
+        <div className={styles.row}>
           {renderCard(5)}
           {renderCard(5)}
-          {renderCard(4)}
-          {renderCard(4)}
-          {renderCard(3)}
+          {renderCard(5)}
+          {renderCard(5)}
         </div>
         <div className={styles.main}>
-          <div className={styles.largeCard}>
-            <p className={styles.description}>Description</p>
-          </div>
+          {renderCard(5, true)}
+          {renderCard(4, true)}
+          {renderCard(4, true)}
+          {renderCard(5, true)}
+          {renderCard(3, true)}
+          {renderCard(5, true)}
         </div>
-        <div className={styles.rightColumn}>
-          {renderCard(5)}
-          {renderCard(5)}
+        <div className={styles.row}>
           {renderCard(4)}
-        </div>
-        <div className={styles.bottomRow}>
+          {renderCard(5)}
           {renderCard(3)}
-          {renderCard(3)}
+          {renderCard(4)}
         </div>
       </div>
     </div>
