@@ -83,7 +83,6 @@ const Home = () => {
       <HeaderBeforeLogIn onLogInClick={handleLogInClick} />
       <HomeBanner />
       <HomeFAQ />
-      <Footer />
 
       {currentStep === 1 && (
         <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} />
