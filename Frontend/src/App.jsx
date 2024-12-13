@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
 import Home from "./home";
 import AppOutlet from "./AppOutlet";
@@ -83,7 +83,7 @@ const App = () => {
           children: [
             {
               path: "/ATS",
-              element: <Dashboard />,
+              element: <Navigate to="/ATS/Dashboard" />,
             },
             {
               path: "/ATS/Dashboard",
