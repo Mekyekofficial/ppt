@@ -5,6 +5,7 @@ import HomeFAQ from './Home/HomeFAQ';
 import HeaderBeforeLogIn from './components/includes/headerBeforeLogIn';
 import Footer from './components/includes/footer';
 import LoginPopup from './components/LoginSignupPop/LoginPopup';
+import SignUpPopup from './components/LoginSignupPop/SignUpPopup';
 import ConfirmEmailModal from './components/LoginSignupPop/ConfirmEmailModal';
 import NameModal from './components/LoginSignupPop/NameModal';
 import BirthModal from './components/LoginSignupPop/BirthModal';
@@ -77,7 +78,25 @@ const Home = () => {
       console.error('Error logging in:', error);
     }
   };
-  
+
+  const handleSignUpSubmit = async (email, password) => {
+    try {
+      const response = await fetch('/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setUserData({ ...userData, email, password });
+        setCurrentStep(3); // Move to the next modal
+      }
+    } catch (error) {
+      console.error('Error signing up:', error);
+    }
+  };
+
 
   const handleEmailVerification = async (verificationCode) => {
     try {
@@ -134,10 +153,18 @@ const Home = () => {
     }
   };
 
-  const GoogleAuthWrapper = () => {
+  const GoogleAuthWrapperLogin = () => {
     return (
       <GoogleOAuthProvider clientId="137399153709-dl079hd78sbv82mj2th7voonfrl8313i.apps.googleusercontent.com">
-        <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} />
+        <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} onSignUp={() => setCurrentStep(2)} />
+      </GoogleOAuthProvider>
+    );
+  };
+
+  const GoogleAuthWrapperSignUp = () => {
+    return (
+      <GoogleOAuthProvider clientId="137399153709-dl079hd78sbv82mj2th7voonfrl8313i.apps.googleusercontent.com">
+        <SignUpPopup onSubmit={handleSignUpSubmit} onClose={() => closeLoginSignupPop()} />
       </GoogleOAuthProvider>
     );
   };
@@ -149,18 +176,21 @@ const Home = () => {
       <HomeFAQ />
 
       {currentStep === 1 && (
-        <GoogleAuthWrapper />
+        <GoogleAuthWrapperLogin />
       )}
       {currentStep === 2 && (
-        <ConfirmEmailModal onSubmit={handleEmailVerification} onClose={() => closeLoginSignupPop()} />
+        <GoogleAuthWrapperSignUp />
       )}
       {currentStep === 3 && (
-        <NameModal onSubmit={handleNameSubmit} onClose={() => closeLoginSignupPop()} />
+        <ConfirmEmailModal onSubmit={handleEmailVerification} onClose={() => closeLoginSignupPop()} />
       )}
       {currentStep === 4 && (
-        <BirthModal onSubmit={handleBirthSubmit} onClose={() => closeLoginSignupPop()} />
+        <NameModal onSubmit={handleNameSubmit} onClose={() => closeLoginSignupPop()} />
       )}
       {currentStep === 5 && (
+        <BirthModal onSubmit={handleBirthSubmit} onClose={() => closeLoginSignupPop()} />
+      )}
+      {currentStep === 6 && (
         <AddProfessionalPhoto onComplete={handleComplete} onClose={() => closeLoginSignupPop()} />
       )}
 
