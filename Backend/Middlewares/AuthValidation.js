@@ -18,9 +18,9 @@ const singupValidation = (req, res, next) => {
 
 const loginValidation = (req, res, next) => {
     const schema = Joi.object ({
-        name: Joi.string().min(3).max(100).required(),
-        phoneNumber: Joi.number().integer().min(1000000000).max(9999999999999).required(),
-        email: Joi.string().email(),
+        name: Joi.string().min(3).max(100),
+        phoneNumber: Joi.number().integer().min(1000000000).max(9999999999999),
+        email: Joi.string().email().required(),
         password: Joi.string().min(4).max(100).required(),
     })
 

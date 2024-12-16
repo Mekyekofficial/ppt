@@ -14,12 +14,14 @@ const UserSchema = new Schema({
     },
     phoneNumber: {
         type: Number,
-        required: true,
-        unique: true,
+        unique: true ,
+        sparse: true,
     },
     password: {
         type: String,
-        required: true,
+    },
+    image: {
+        type: String,
     },
 });
 

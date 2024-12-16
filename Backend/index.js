@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const AuthRouter = require('./Routes/AuthRouter')
 
+
 require('dotenv').config();
 
 require('./Models/database');
@@ -15,7 +16,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use('/auth', AuthRouter);
 
 

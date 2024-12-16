@@ -1,6 +1,10 @@
 const UserModel = require('../Models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const env = require('dotenv');
+const { oauth2client } = require('../utils/googleconfig');
+
 
 const signup = async (req, res) => {
     try {
@@ -30,9 +34,9 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { email, password, phoneNumber } = req.body;
+        const { email, password } = req.body;
 
-        const user = await UserModel.findOne({ email, phoneNumber });
+        const user = await UserModel.findOne({ email });
 
         if (!user) {
             return res.status(403).json({ message: 'User not found', success: false });
@@ -44,9 +48,9 @@ const login = async (req, res) => {
             return res.status(403).json({ message: 'Invalid credentials', success: false });
         }
 
-        const jwtToken = jwt.sign({ email, phoneNumber }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const jwtToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
-        res.status(200).json({ message: 'Login successful', token: jwtToken, success: true, email, phoneNumber, name: user.name });
+        res.status(200).json({ message: 'Login successful', token: jwtToken, success: true, email,name: user.name });
 
     } catch (err) {
         console.error("Error occurred:", err);
@@ -55,8 +59,39 @@ const login = async (req, res) => {
 
 }
 
+const googleLogin = async (req, res) => {
+    try {
+        const { code } = req.query;
+
+        const googleRes = await oauth2client.getToken(code);
+
+        oauth2client.setCredentials(googleRes.tokens);
+        
+        const userRes = await axios.get(
+            `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
+        );
+
+        const { email, name, picture } = userRes.data;
+
+        let user = await UserModel.findOne({ email });
+
+        if (!user) {
+            user = await UserModel.create({ name, email, image: picture });
+        }
+
+        const {_id} = user;
+
+        const token = jwt.sign({ _id, email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
+
+        res.status(200).json({ message: 'Login successful', token, success: true, user });
+    } catch (err) {
+        console.error("Error occurred:", err);
+        res.status(500).json({ message: 'Internal server error', success: false });
+    }
+};
 
 module.exports = {
     signup,
-    login
+    login,
+    googleLogin,
 }

@@ -9,6 +9,8 @@ import ConfirmEmailModal from './components/LoginSignupPop/ConfirmEmailModal';
 import NameModal from './components/LoginSignupPop/NameModal';
 import BirthModal from './components/LoginSignupPop/BirthModal';
 import AddProfessionalPhoto from './components/LoginSignupPop/AddProfessionalPhoto';
+import API from './api';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const Home = () => {
   const closeLoginSignupPop = () => {
@@ -52,15 +54,51 @@ const Home = () => {
   };
 
   // Handlers for each modal to collect data and move to the next step
-  const handleLoginSubmit = (email, password) => {
-    setUserData({ ...userData, email, password });
-    setCurrentStep(2);
+  const handleLoginSubmit = async (email, password) => {
+    try {
+      const url = 'http://localhost:5000/auth/login';
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      console.log(response);
+      const data = await response.json();
+  
+      if (response.ok) {
+        // Store the token in localStorage or a secure place
+        localStorage.setItem('token', data.token);
+        setUserData({ ...userData, email, password });
+        window.location.href = '/feeds';
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
+  
 
-  const handleEmailVerification = (verificationCode) => {
-    setUserData({ ...userData, verificationCode });
-    setCurrentStep(3);
+  const handleEmailVerification = async (verificationCode) => {
+    try {
+      const response = await fetch('/auth/verify-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userData.email, verificationCode }),
+      });
+      const data = await response.json();
+  
+      if (response.ok) {
+        setUserData({ ...userData, verificationCode });
+        setCurrentStep(3); // Move to the next modal
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error verifying email:', error);
+    }
   };
+  
 
   const handleNameSubmit = (firstName, surname) => {
     setUserData({ ...userData, firstName, surname });
@@ -73,9 +111,35 @@ const Home = () => {
   };
 
   // Complete the sequence after the final modal
-  const handleComplete = () => {
-    setCurrentStep(0);
-    console.log('User data collected:', userData);
+  const handleComplete = async () => {
+    try {
+      const response = await fetch('/api/profile', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(userData),
+      });
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log('Signup complete:', data);
+        setCurrentStep(0); // Reset the popup flow
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error completing profile:', error);
+    }
+  };
+
+  const GoogleAuthWrapper = () => {
+    return (
+      <GoogleOAuthProvider clientId="137399153709-dl079hd78sbv82mj2th7voonfrl8313i.apps.googleusercontent.com">
+        <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} />
+      </GoogleOAuthProvider>
+    );
   };
 
   return (
@@ -85,7 +149,7 @@ const Home = () => {
       <HomeFAQ />
 
       {currentStep === 1 && (
-        <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} />
+        <GoogleAuthWrapper />
       )}
       {currentStep === 2 && (
         <ConfirmEmailModal onSubmit={handleEmailVerification} onClose={() => closeLoginSignupPop()} />
