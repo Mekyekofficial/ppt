@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const navigate = useNavigate();
 
+  const token = localStorage.getItem('token');
+
   const [userinfo, setUserinfo] = useState(null);
   useEffect(() => {
     const user = localStorage.getItem('user-info');
@@ -31,6 +33,16 @@ const Header = () => {
       dropdown.style.display = 'none';
     }
   }
+
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    if (userinfo?.image) {
+      const img = new Image();
+      img.src = userinfo.image;
+      img.onload = () => setImageLoaded(true);
+    }
+  }, [userinfo?.image]);
 
   return (
     <header className={HeaderStyles.header}>
@@ -70,17 +82,24 @@ const Header = () => {
 
       {/* User Section */}
       <div className={HeaderStyles["user-section"]}>
+
         <div className={HeaderStyles.profile}>
-          {userinfo?.image ? (
-            <img src={userinfo.image} alt="User Avatar" className={HeaderStyles.avatarImg} />
+          {userinfo && token ? (
+            <>
+              {imageLoaded ? (
+                <img src={userinfo.image} alt="User Avatar" className={HeaderStyles.avatarImg} />
+              ) : (
+                <RxAvatar className={HeaderStyles.avatar} fontSize={"30px"} />
+              )}
+              <span>&nbsp;{userinfo?.name || 'Alex'}&nbsp;&nbsp;</span>
+              <FaBell className={HeaderStyles.avatar} fontSize={"15px"} color='white'/>
+            </>
           ) : (
-            <RxAvatar className={HeaderStyles.avatar} fontSize={"30px"} />
+            <div style={{ width: '100px', textAlign:'center', fontWeight: 'bold'}}>Log In</div>
           )}
-          <span>&nbsp;{userinfo?.name || 'Alex'}&nbsp;&nbsp;</span>
-          <FaBell className={HeaderStyles.avatar} fontSize={"15px"} color='white'/>
         </div>
         <FaEnvelope className={HeaderStyles["user-icon"]}/>
-        <FaBars className={HeaderStyles.bars} onClick={clickBar}/>
+        <FaBars className={HeaderStyles.bar} onClick={clickBar}/>
         <div id="dropdown-menu-bar" className={HeaderStyles.dropdownBar}>
           <NavLink to="/profile" className={HeaderStyles["dropdown-item-bar"]}>
             Profile 
@@ -88,13 +107,20 @@ const Header = () => {
           <NavLink to="/settings" className={HeaderStyles["dropdown-item-bar"]}>
             Settings
           </NavLink>
-          <button className={HeaderStyles["dropdown-item-bar"]} onClick={() => {
-              localStorage.removeItem('user-info');
-              navigate('/');
-            }
-            }>
-              Logout
-          </button>
+          {
+            (userinfo && token) ? (
+              <button className={HeaderStyles["dropdown-item-bar"]} onClick={() => {
+                localStorage.removeItem('user-info');
+                localStorage.removeItem('token');
+                navigate('/');
+              }
+              }>
+                Logout
+              </button>
+            ) : (
+              <div></div>
+            )
+          }
         </div>
       </div>
     </header>

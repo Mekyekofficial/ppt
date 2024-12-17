@@ -61,6 +61,7 @@
   .user-section .bar {
     font-size: 20px;
     color: #333;
+    cursor: pointer;
   }
 
   .user-section .dropdownBar {

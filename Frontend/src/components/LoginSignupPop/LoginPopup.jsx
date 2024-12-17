@@ -38,6 +38,7 @@ const LoginPopup = ({ onSubmit, onClose, onSignUp }) => {
         const token = result.data.token;
         const userData = { email, name, image, token };
 
+        localStorage.setItem('token', token);
         localStorage.setItem('user-info', JSON.stringify(userData));
         navigate('/Feeds');
       }
