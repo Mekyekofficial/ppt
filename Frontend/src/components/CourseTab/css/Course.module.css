@@ -1,8 +1,0 @@
-.courseContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: #f4bb90; /* Matching the background */
-    padding: 40px;
-  }
-  
