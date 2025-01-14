@@ -1,0 +1,48 @@
+.container {
+    width: 100%;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    border: 1px solid #d0d0d0;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+  }
+  
+  .subText {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .infoSection {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+  }
+  
+  .infoItem h4 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .reviewSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stars {
+    display: flex;
+    gap: 3px;
+    margin-top: 5px;
+    color: #777;
+  }
+  

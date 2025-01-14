@@ -1,0 +1,62 @@
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 900;
+  }
+  
+  .header p {
+    margin: 4px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+  }
+  
+  .viewMore {
+    display: flex;
+    align-items: center;
+    color: #ff9900; /* Highlighted orange color */
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 16px;
+  }
+  
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  .itemButton {
+    background: linear-gradient(to bottom, #444, #000); /* Black gradient for button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22.5%;
+    height: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .itemButton:hover {
+    background: linear-gradient(to bottom, #555, #111);
+  }
+  

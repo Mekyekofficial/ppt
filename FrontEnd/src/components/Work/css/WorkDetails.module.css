@@ -1,0 +1,7 @@
+.work-details {
+    width: 90%;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

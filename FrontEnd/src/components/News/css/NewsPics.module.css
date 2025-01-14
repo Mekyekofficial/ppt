@@ -1,0 +1,43 @@
+.newsPics {
+  padding: 15px 0;
+  margin-bottom: 0;
+  background-color: #fff;
+  width: 270px;
+}
+
+.title {
+  font-size: 18px;
+  text-align: center;
+  background-color: #f7f7f7;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.picItem {
+  margin-top: 15px;
+}
+
+.picImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.picText {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px;
+  border-radius: 5px;
+  position: relative;
+  top: -30px;
+  left: 0;
+  margin: 0;
+  width: 100%;
+}

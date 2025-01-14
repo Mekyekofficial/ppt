@@ -1,0 +1,17 @@
+.feed-section {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+  }
+  
+  .left-sidebar {
+    flex: 0.2;
+  }
+  
+  .main-content {
+    flex: 0.45;
+  }
+  
+  .right-sidebar {
+    flex: 0.2;
+  }

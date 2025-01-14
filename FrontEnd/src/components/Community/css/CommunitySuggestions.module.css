@@ -1,0 +1,25 @@
+.container {
+    width: 300px;
+    border-radius: 8px;
+    padding: 24px 16px;
+    background-color: #f0f0f0;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.showAllButton {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 0;
+    cursor: pointer;
+    margin-top: 16px;
+    text-align: center;
+}

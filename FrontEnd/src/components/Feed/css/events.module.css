@@ -1,0 +1,55 @@
+.events-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 300px;
+    background-color: #eeeeee;
+    margin-top: 30px;
+  }
+  
+  .events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .event {
+    display: flex;
+    align-items: flex-start;
+    margin: 20px 0;
+  }
+  
+  .event-icon {
+    margin-right: 10px;
+    color: #000;
+  }
+  
+  .event-details p {
+    margin: 0;
+    color: #757575;
+    font-size: 14px;
+  }
+  
+  .event-details h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #424242;
+  }
+  
+  .see-more {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .see-more a {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

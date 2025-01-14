@@ -1,0 +1,43 @@
+.picksContainer {
+    background-color: #000;
+    color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    width: 300px;
+  }
+  
+  .heading {
+    font-size: 1.5rem;
+    color: #d37aff;
+    position: relative;
+    width: max-content;
+  }
+  
+  .underline {
+    display: inline-block;
+    width: 100%;
+    height: 2px;
+    background-color: #ff4375;
+    margin-bottom: 15px;
+    border-radius: 500px;
+  }
+  
+  .eventList {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .eventItem {
+    margin-bottom: 20px;
+  }
+  
+  .date {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  .title {
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  

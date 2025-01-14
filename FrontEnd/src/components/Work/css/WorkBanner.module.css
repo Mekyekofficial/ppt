@@ -1,0 +1,120 @@
+.banner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    padding: 50px;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+
+  .searchBarAnduserOptions {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+  }
+
+    .searchBar {
+        width: 50%;
+        display: flex;
+        align-items: center;
+    }
+  
+  .searchInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    color: #000;
+    outline: none;
+    font-size: 20px;
+  }
+  
+  .searchButton {
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    background-color: #000;
+    color: #fff;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .userOptions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  
+  .userOptions .icon {
+    margin-left: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    border: 1px solid #fff;
+    padding: 5px;
+    border-radius: 50%;
+  }
+
+  .filterBar {
+    margin-top: 40px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .filterOptions {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .filterOptions label {
+    border-right: 1px solid #fff;
+    padding-right: 10px;
+  }
+  
+  .option {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    cursor: pointer;
+    width: max-content !important;
+  }
+
+  .option span {
+    margin-left: 10px;
+  }
+
+  .filterOptions select {
+    margin-left: 10px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    width: max-content !important;
+  }
+
+  .filterOptions select option {
+    background-color: black;
+    color: white;
+    width: max-content !important;
+  }
+
+  .filterOptions select option:nth-of-type(1) {
+    display: none;
+  }
+  
+  .icon {
+    color: #fff;
+    font-size: 2rem;
+    border: 1px solid #fff;
+    padding: 5px;
+    border-radius: 50%;
+  }
+  
+
+  

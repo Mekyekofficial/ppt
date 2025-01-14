@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background-color: #f1f1f1;
+    border-radius: 1rem;
+    margin: 0 20px;
+}
+
+.imageContainer {
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.illustration {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 1rem;
+}
+
+.description {
+    font-size: 1rem;
+    font-weight: 100;
+    color: #555;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.discoverButton {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    background-color: transparent;
+    padding: 0.5rem 2.5rem;
+    border: 1px solid #000;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.discoverButton:hover {
+    background-color: #ccc;
+}
