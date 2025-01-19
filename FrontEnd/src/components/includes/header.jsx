@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { use, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import LoginPop from '../LoginSignupPop/LoginPopup';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -44,10 +45,20 @@ const Header = () => {
     }
   }, [userinfo?.image]);
 
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  
+    const onLogInClick = () => {
+      if (!isLoginPopupOpen) {
+        setIsLoginPopupOpen(true);
+      } else {
+        setIsLoginPopupOpen(false);
+      }
+    };
+
   return (
     <header className={HeaderStyles.header}>
       {/* Logo */}
-      <div className={HeaderStyles.logo}>
+      <div className={HeaderStyles.logo} onClick={() => {userinfo && token ? navigate('/feeds') : navigate('/')}}>
         <img src={Logo} alt="Logo" className={HeaderStyles["logo-image"]} />
         <span className={HeaderStyles["logo-text"]}>Mekyek</span>
       </div>
@@ -95,7 +106,7 @@ const Header = () => {
               <FaBell className={HeaderStyles.avatar} fontSize={"15px"} color='white'/>
             </>
           ) : (
-            <div style={{ width: '100px', textAlign:'center', fontWeight: 'bold'}}>Log In</div>
+            <div style={{ width: '100px', textAlign:'center', fontWeight: 'bold', cursor: 'pointer'}} onClick={onLogInClick}>Log In</div>
           )}
         </div>
         <FaEnvelope className={HeaderStyles["user-icon"]}/>
@@ -123,6 +134,7 @@ const Header = () => {
           }
         </div>
       </div>
+      {isLoginPopupOpen && <LoginPop />}
     </header>
   );
 };

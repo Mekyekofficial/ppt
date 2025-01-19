@@ -1,13 +1,13 @@
 import React from 'react';
 import Logo from '../../assets/logo.png';
 import HeaderStyles from './css/headerBeforeLogIn.module.css';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 
-const HeaderBeforeLogIn = ({ onLogInClick }) => {
+const HeaderBeforeLogIn = () => {
   return (
     <header className={HeaderStyles.header}>
       {/* Logo */}
-      <div className={HeaderStyles.logo}>
+      <div className={HeaderStyles.logo} onClick={() => Navigate('/')}>
         <img src={Logo} alt="Logo" className={HeaderStyles["logo-image"]} />
         <span className={HeaderStyles["logo-text"]}>Mekyek</span>
       </div>
@@ -17,13 +17,13 @@ const HeaderBeforeLogIn = ({ onLogInClick }) => {
         <NavLink to="/Feeds" className={HeaderStyles["nav-item"]}>
           <span>Hire Talent</span>
         </NavLink>
-        <NavLink to="/news" className={HeaderStyles["nav-item"]}>
+        <NavLink to="/Feeds" className={HeaderStyles["nav-item"]}>
           <span>Find Work</span>
         </NavLink>
       </nav>
 
       {/* User Section */}
-      <div className={HeaderStyles["user-section"]} onClick={onLogInClick}>
+      <div className={HeaderStyles["user-section"]}>
         Log In
       </div>
     </header>
