@@ -3,7 +3,7 @@ import Logo from '../../assets/logo.png';
 import HeaderStyles from './css/headerBeforeLogIn.module.css';
 import { Navigate, NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import LoginPop from '../LoginSignupPop/LoginPopup';
+import LoginSignupPop from '../LoginSignupPop';
 
 const HeaderBeforeLogIn = () => {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -38,7 +38,7 @@ const HeaderBeforeLogIn = () => {
       <div className={HeaderStyles["user-section"]} onClick={onLogInClick}>
         Log In
       </div>
-      {isLoginPopupOpen && <LoginPop />}
+      {isLoginPopupOpen && <LoginSignupPop onLogInClick={onLogInClick} />}
     </header>
   );
 };

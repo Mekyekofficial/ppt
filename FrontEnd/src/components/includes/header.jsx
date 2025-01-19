@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { use, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import LoginPop from '../LoginSignupPop/LoginPopup';
+import LoginSignupPop from '../LoginSignupPop';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -134,7 +134,7 @@ const Header = () => {
           }
         </div>
       </div>
-      {isLoginPopupOpen && <LoginPop />}
+      {isLoginPopupOpen && <LoginSignupPop onLogInClick={onLogInClick} />}
     </header>
   );
 };

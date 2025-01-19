@@ -1,14 +1,15 @@
-import LoginPopup from '../LoginSignupPop/LoginPopup';
-import SignUpPopup from '../LoginSignupPop/SignUpPopup';
-import ConfirmEmailModal from '../LoginSignupPop/ConfirmEmailModal';
-import NameModal from '../LoginSignupPop/NameModal';
-import BirthModal from '../LoginSignupPop/BirthModal';
-import AddProfessionalPhoto from '../LoginSignupPop/AddProfessionalPhoto';
+import React, { useState } from 'react';
 
 
+import Styles from './css/LoginSignupPop.module.css';
+import LoginPopup from './LoginSignupPop/LoginPopup';
+import SignUpPopup from './LoginSignupPop/SignUpPopup';
+import ConfirmEmailModal from './LoginSignupPop/ConfirmEmailModal';
+import NameModal from './LoginSignupPop/NameModal';
+import BirthModal from './LoginSignupPop/BirthModal';
+import AddProfessionalPhoto from './LoginSignupPop/AddProfessionalPhoto';
 
-
-const LoginSignupPop = () => {
+const LoginSignupPop = ({onLogInClick}) => {
   const [currentStep, setCurrentStep] = useState(1);
 
 const [userData, setUserData] = useState({
@@ -24,25 +25,12 @@ const [userData, setUserData] = useState({
   professionalPhoto: '',
 });
 
-const closeLoginSignupPop = () => {
-    setCurrentStep(0);
-    overlayDisappear();
-  };
 
   const overlayClick = (e) => {
-    if (e.target.classList.contains(Styles.overlay)) {
-      closeLoginSignupPop();
-      overlayDisappear();
+    if (e.target.classList.contains(Styles.overlay) && (currentStep == 1 || currentStep == 2) ) {
+      onLogInClick();
     }
-  }
-
-  const overlayAppear = () => {
-    document.querySelector(`.${Styles.overlay}`).style.display = 'block';
-  }
-
-  const overlayDisappear = () => {
-    document.querySelector(`.${Styles.overlay}`).style.display = 'none';
-  }
+  };
 
   const handleLoginSubmit = async (email, password) => {
     try {
@@ -142,7 +130,7 @@ const closeLoginSignupPop = () => {
   };
 
   return ( 
-    <div className={Styles["login-signup-pop"]} style={{ width: '100vw' , height: '100vh', backgroundColor: 'rgba(0, 0, 0, 1)' }}>
+    <div className={Styles["login-signup-pop"]}>
       {currentStep === 1 && (
         <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} onSignUp={() => setCurrentStep(2)} />
       )}
