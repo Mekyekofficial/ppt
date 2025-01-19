@@ -1,37 +1,20 @@
-const Joi = require('joi');
+const { userShcema } = require('../schema.js');
+const ExpressError = require('../utils/ExpressError');
 
 const singupValidation = (req, res, next) => {
-    const schema = Joi.object ({
-        name: Joi.string().min(3).max(100).required(),
-        email: Joi.string().email(),
-        password: Joi.string().min(4).max(100).required(),
-        phoneNumber: Joi.number().integer().min(1000000000).max(9999999999999).required(),
-    })
-
-    const {error} = schema.validate(req.body);
-    if(error) {
-        return res.status(400)
-            .json({message: error.details[0].message});
+    const result = userShcema.validate(req.body);
+    if(result.error) {
+        return next(new ExpressError(result.error.details[0].message, 400));
     }
     next();
 }
 
 const loginValidation = (req, res, next) => {
-    const schema = Joi.object ({
-        name: Joi.string().min(3).max(100),
-        phoneNumber: Joi.number().integer().min(1000000000).max(9999999999999),
-        email: Joi.string().email().required(),
-        password: Joi.string().min(4).max(100).required(),
-    })
-
-    const {error} = schema.validate(req.body);
-    if(error) {
-        return res.status(400)
-            .json({message: error.details[0].message});
+    const result = userShcema.validate(req.body);
+    if(result.error) {
+        return next(new ExpressError(result.error.details[0].message, 400));
     }
-
-    next();
-    
+    next(); 
 }
 
 module.exports = {

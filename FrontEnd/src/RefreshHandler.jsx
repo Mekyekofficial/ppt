@@ -8,7 +8,6 @@ function RefreshHandler({ setLoggedIn }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user-info");
-    console.log("Token:", token);
 
     if (token || user) {
       setLoggedIn(true);

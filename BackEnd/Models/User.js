@@ -1,15 +1,20 @@
-const { required } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    name: {
+    firstName: {
         type: String,
         required: true,
     },
-    email: {
+    lastName: {
         type: String,
         required: true,
+    },
+    dob: {
+        type: Date,
+    },
+    email: {
+        type: String,
         unique: true,
     },
     phoneNumber: {
@@ -20,7 +25,13 @@ const UserSchema = new Schema({
     password: {
         type: String,
     },
-    image: {
+    profilePhoto: {
+        type: String,
+    },
+    gender: {
+        type: String,
+    },
+    country : {
         type: String,
     },
 });

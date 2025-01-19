@@ -16,6 +16,7 @@ body {
 
 ::-webkit-scrollbar {
     width: 0.6vw;
+    cursor: pointer !important;
 }
 
 ::-webkit-scrollbar-track {

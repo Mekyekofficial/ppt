@@ -19,8 +19,8 @@ const [userData, setUserData] = useState({
   emailVerificationCode: '',
   phNumberVerificationCode: '',
   firstName: '',
-  surname: '',
-  birthDate: { day: '', month: '', year: '' },
+  lastname: '',
+  dob: { day: '', month: '', year: '' },
   gender: '',
   professionalPhoto: '',
 });
