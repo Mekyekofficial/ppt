@@ -12,7 +12,7 @@ function RefreshHandler({ setLoggedIn }) {
     if (token || user) {
       setLoggedIn(true);
       if (["/", "/login", "/signup", "/Google"].includes(location.pathname)) {
-        navigate("/Feeds");
+        navigate("/feeds", { replace: true });
       }
     } else {
       setLoggedIn(false);

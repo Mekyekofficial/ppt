@@ -26,10 +26,10 @@ const HeaderBeforeLogIn = () => {
 
       {/* Navigation Links */}
       <nav className={HeaderStyles.nav}>
-        <NavLink to="/Feeds" className={HeaderStyles["nav-item"]}>
+        <NavLink to="/feeds" className={HeaderStyles["nav-item"]}>
           <span>Hire Talent</span>
         </NavLink>
-        <NavLink to="/Feeds" className={HeaderStyles["nav-item"]}>
+        <NavLink to="/feeds" className={HeaderStyles["nav-item"]}>
           <span>Find Work</span>
         </NavLink>
       </nav>

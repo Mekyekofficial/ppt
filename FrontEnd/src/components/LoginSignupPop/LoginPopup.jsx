@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { FaGoogle } from "react-icons/fa";
 import styles from './css/LoginPopup.module.css';
 import { login } from '../../api';
-import { useGoogleLogin } from "@react-oauth/google";
-import { googleAuth } from '../../api';
 import { json, useNavigate } from 'react-router-dom';
 
 
-const LoginPopup = ({ onSubmit, onClose, onSignUp }) => {
+const LoginPopup = ({ onSubmit, googleLogin, onSignUp }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -28,31 +26,6 @@ const LoginPopup = ({ onSubmit, onClose, onSignUp }) => {
     }
 
   };
-
-  const responseGoogle = async (authResult) => { 
-    try {
-      if (authResult['code']) {
-        const result = await googleAuth(authResult['code']);
-        const { email, name, image } = result.data.user;
-        
-        const token = result.data.token;
-        const userData = { email, name, image, token };
-
-        localStorage.setItem('token', token);
-        localStorage.setItem('user-info', JSON.stringify(userData));
-        navigate('/Feeds');
-      }
-    } catch (err) {
-      const errorMessage = err?.response?.data?.message || err?.message || 'Failed to log in';
-      setError(errorMessage);
-    }
-  };
-
-  const googleLogin = useGoogleLogin({
-    onSuccess: responseGoogle,
-    onFailure: responseGoogle,
-    flow: "auth-code",
-  });
 
   return (
     <div className={styles["login-popup"]}>

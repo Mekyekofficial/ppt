@@ -18,8 +18,8 @@ const Header = () => {
   const [userinfo, setUserinfo] = useState(null);
   useEffect(() => {
     const user = localStorage.getItem('user-info');
-    const userData = JSON.parse(user);
-    setUserinfo(userData);
+    const userinfo = JSON.parse(user);
+    setUserinfo(userinfo);
   }, []);
 
   const active = ({isActive}) => {
@@ -38,12 +38,12 @@ const Header = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    if (userinfo?.image) {
+    if (userinfo?.profilePhoto) {
       const img = new Image();
-      img.src = userinfo.image;
+      img.src = userinfo.profilePhoto;
       img.onload = () => setImageLoaded(true);
     }
-  }, [userinfo?.image]);
+  }, [userinfo?.profilePhoto]);
 
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   
@@ -65,7 +65,7 @@ const Header = () => {
 
       {/* Navigation Links */}
       <nav className={HeaderStyles.nav}>
-        <NavLink to="/Feeds" className={HeaderStyles["nav-item"]} style={active}>
+        <NavLink to="/feeds" className={HeaderStyles["nav-item"]} style={active}>
           <MdFeed className={HeaderStyles.icon} />
           <span>Feeds</span>
         </NavLink>
@@ -98,11 +98,11 @@ const Header = () => {
           {userinfo && token ? (
             <>
               {imageLoaded ? (
-                <img src={userinfo.image} alt="User Avatar" className={HeaderStyles.avatarImg} />
+                <img src={userinfo.profilePhoto} alt="User Avatar" className={HeaderStyles.avatarImg} />
               ) : (
                 <RxAvatar className={HeaderStyles.avatar} fontSize={"30px"} />
               )}
-              <span>&nbsp;{userinfo?.name || 'Alex'}&nbsp;&nbsp;</span>
+              <span>&nbsp;{userinfo.firstName || 'Alex'}&nbsp;{userinfo.lastName}&nbsp;&nbsp;</span>
               <FaBell className={HeaderStyles.avatar} fontSize={"15px"} color='white'/>
             </>
           ) : (
@@ -134,7 +134,7 @@ const Header = () => {
           }
         </div>
       </div>
-      {isLoginPopupOpen && <LoginSignupPop onLogInClick={onLogInClick} />}
+      {!token && isLoginPopupOpen && <LoginSignupPop onLogInClick={onLogInClick} />}
     </header>
   );
 };

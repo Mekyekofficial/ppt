@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import { useGoogleLogin } from "@react-oauth/google";
+import { googleAuth } from '../api';
+import { useNavigate } from 'react-router-dom';
 
 import Styles from './css/LoginSignupPop.module.css';
 import LoginPopup from './LoginSignupPop/LoginPopup';
@@ -10,6 +12,8 @@ import BirthModal from './LoginSignupPop/BirthModal';
 import AddProfessionalPhoto from './LoginSignupPop/AddProfessionalPhoto';
 
 const LoginSignupPop = ({onLogInClick}) => {
+  const navigate = useNavigate();
+
   const [currentStep, setCurrentStep] = useState(1);
 
 const [userData, setUserData] = useState({
@@ -129,13 +133,41 @@ const [userData, setUserData] = useState({
     }
   };
 
+  const responseGoogle = async (authResult) => { 
+    try {
+      if (authResult['code']) {
+        const result = await googleAuth(authResult['code']);
+        const { email, firstName, lastName, profilePhoto } = result.data.user;
+
+        const token = result.data.token;
+        const userData = { email, firstName, lastName, profilePhoto };
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('user-info', JSON.stringify(userData));
+        
+        setCurrentStep(0);
+        navigate('/feeds');
+        window.location.reload();
+      }
+    } catch (err) {
+      const errorMessage = err?.response?.data?.message || err?.message || 'Failed to Sign Up';
+      setError(errorMessage);
+    }
+  };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onFailure: responseGoogle,
+    flow: "auth-code",
+  });
+
   return ( 
     <div className={Styles["login-signup-pop"]}>
       {currentStep === 1 && (
-        <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} onSignUp={() => setCurrentStep(2)} />
+        <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} onSignUp={() => setCurrentStep(2)} googleLogin={googleLogin} />
       )}
       {currentStep === 2 && (
-        <SignUpPopup onSubmit={handleSignUpSubmit} onClose={() => closeLoginSignupPop()} />
+        <SignUpPopup onSubmit={handleSignUpSubmit} onClose={() => closeLoginSignupPop()} googleLogin={googleLogin} />
       )}
       {currentStep === 3 && (
         <ConfirmEmailModal onSubmit={handleEmailVerification} onClose={() => closeLoginSignupPop()} />

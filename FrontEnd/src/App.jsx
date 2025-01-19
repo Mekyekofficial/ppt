@@ -42,7 +42,7 @@ const App = () => {
       ),
       children: [
         { path: "/", element: <PrivateRouteLogin isLogged={isLogged}><Home /></PrivateRouteLogin> },
-        { path: "/Feeds", element: <FeedSection /> },
+        { path: "/feeds", element: <FeedSection /> },
         { path: "/news", element: <NewsTab /> },
         { path: "/community", element: <CommunityTab /> },
         { path: "/learn", element: <CourseTab /> },

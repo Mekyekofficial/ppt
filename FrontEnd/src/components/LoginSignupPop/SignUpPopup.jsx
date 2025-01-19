@@ -7,8 +7,8 @@ import { googleAuth } from '../../api';
 import { useNavigate } from 'react-router-dom';
 
 
-const SignUpPopup = ({ onSubmit, onClose }) => {
-  const navigate = useNavigate();
+const SignUpPopup = ({ onSubmit, onClose, googleLogin }) => {
+  
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,30 +28,6 @@ const SignUpPopup = ({ onSubmit, onClose }) => {
     }
 
   };
-
-  const responseGoogle = async (authResult) => { 
-    try {
-      if (authResult['code']) {
-        const result = await googleAuth(authResult['code']);
-        const { email, name, image } = result.data.user;
-        
-        const token = result.data.token;
-        const userData = { email, name, image, token };
-
-        localStorage.setItem('user-info', JSON.stringify(userData));
-        navigate('/Feeds');
-      }
-    } catch (err) {
-      const errorMessage = err?.response?.data?.message || err?.message || 'Failed to Sign Up';
-      setError(errorMessage);
-    }
-  };
-
-  const googleLogin = useGoogleLogin({
-    onSuccess: responseGoogle,
-    onFailure: responseGoogle,
-    flow: "auth-code",
-  });
 
   return (
     <div className={styles["signUp-popup"]}>

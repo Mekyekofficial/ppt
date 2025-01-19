@@ -26,7 +26,8 @@ const signup = wrapAsync(async (req, res) => {
     const savedUser = await newUser.save();
 
     res.status(201).json({ message: 'User created successfully', success: true });
-});
+}
+);
 
 const login = wrapAsync(async (req, res) => {
 
@@ -71,7 +72,7 @@ const googleLogin = wrapAsync(async (req, res) => {
     const {_id} = user;
 
     const token = jwt.sign({ _id, email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
-
+    
     res.status(200).json({ message: 'Login successful', token, success: true, user }); 
 });  
 
