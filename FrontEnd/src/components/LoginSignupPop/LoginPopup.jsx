@@ -34,7 +34,7 @@ const LoginPopup = ({ onSubmit, googleLogin, onSignUp }) => {
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className={styles["input-field"]}>
-              <label><b>Email or phone</b></label>
+              <label><b>Email</b></label>
               <input
                 type="email"
                 placeholder="Email"

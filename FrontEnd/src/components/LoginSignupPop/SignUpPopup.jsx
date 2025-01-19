@@ -7,7 +7,7 @@ import { googleAuth } from '../../api';
 import { useNavigate } from 'react-router-dom';
 
 
-const SignUpPopup = ({ onSubmit, onClose, googleLogin }) => {
+const SignUpPopup = ({ onSubmit, onLogIn, googleLogin }) => {
   
 
   const [email, setEmail] = useState('');
@@ -36,7 +36,7 @@ const SignUpPopup = ({ onSubmit, onClose, googleLogin }) => {
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className={styles["input-field"]}>
-              <label><b>Email or phone</b></label>
+              <label><b>Email</b></label>
               <input
                 type="email"
                 placeholder="Email"
@@ -72,7 +72,7 @@ const SignUpPopup = ({ onSubmit, onClose, googleLogin }) => {
             <FaGoogle className={styles["google-icon"]} />
             Continue with Google
           </button>
-          <button type="button" className={styles["login-btn"]} onClick={onClose}>
+          <button type="button" className={styles["login-btn"]} onClick={onLogIn}>
             Already have a acoount ? <span>Join in !!</span>
           </button>
       </div>

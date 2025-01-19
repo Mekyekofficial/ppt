@@ -16,18 +16,18 @@ const LoginSignupPop = ({onLogInClick}) => {
 
   const [currentStep, setCurrentStep] = useState(1);
 
-const [userData, setUserData] = useState({
-  email: '',
-  phNumber: '',
-  password: '',
-  emailVerificationCode: '',
-  phNumberVerificationCode: '',
-  firstName: '',
-  lastname: '',
-  dob: { day: '', month: '', year: '' },
-  gender: '',
-  professionalPhoto: '',
-});
+  const [userData, setUserData] = useState({
+    email: '',
+    phNumber: '',
+    password: '',
+    emailVerificationCode: '',
+    phNumberVerificationCode: '',
+    firstName: '',
+    lastname: '',
+    dob: { day: '', month: '', year: '' },
+    gender: '',
+    professionalPhoto: '',
+  });
 
 
   const overlayClick = (e) => {
@@ -164,22 +164,22 @@ const [userData, setUserData] = useState({
   return ( 
     <div className={Styles["login-signup-pop"]}>
       {currentStep === 1 && (
-        <LoginPopup onSubmit={handleLoginSubmit} onClose={() => closeLoginSignupPop()} onSignUp={() => setCurrentStep(2)} googleLogin={googleLogin} />
+        <LoginPopup onSubmit={handleLoginSubmit} onSignUp={() => setCurrentStep(2)} googleLogin={googleLogin} />
       )}
       {currentStep === 2 && (
-        <SignUpPopup onSubmit={handleSignUpSubmit} onClose={() => closeLoginSignupPop()} googleLogin={googleLogin} />
+        <SignUpPopup onSubmit={handleSignUpSubmit} onLogIn={() => setCurrentStep(1)} googleLogin={googleLogin} />
       )}
       {currentStep === 3 && (
-        <ConfirmEmailModal onSubmit={handleEmailVerification} onClose={() => closeLoginSignupPop()} />
+        <ConfirmEmailModal onSubmit={handleEmailVerification} />
       )}
       {currentStep === 4 && (
-        <NameModal onSubmit={handleNameSubmit} onClose={() => closeLoginSignupPop()} />
+        <NameModal onSubmit={handleNameSubmit} />
       )}
       {currentStep === 5 && (
-        <BirthModal onSubmit={handleBirthSubmit} onClose={() => closeLoginSignupPop()} />
+        <BirthModal onSubmit={handleBirthSubmit} />
       )}
       {currentStep === 6 && (
-        <AddProfessionalPhoto onComplete={handleComplete} onClose={() => closeLoginSignupPop()} />
+        <AddProfessionalPhoto onComplete={handleComplete} />
       )}
 
       <div className={Styles.overlay} onClick={overlayClick} />
