@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { PostContext } from "../../AppOutlet";
 import styles from './css/EventBar.module.css';
 import { TextField, Button, MenuItem, Modal, Box } from '@mui/material';
 import { FaRegCircle } from "react-icons/fa6";
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
-const EventBar = ({openPost}) => {
+const EventBar = () => {
+
+  const { openPost } = useContext(PostContext);
+
   const [openFilter, setOpenFilter] = useState(false);
   const [pricing, setPricing] = useState("");
   const [localEvents, setLocalEvents] = useState("");

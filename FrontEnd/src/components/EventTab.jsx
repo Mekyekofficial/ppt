@@ -7,10 +7,10 @@ import EventPicks from './Event/EventPicks';
 import EventCategoryRecommendation from './Event/EventCategoryRecommendation';
 import EventCategory from './Event/EventCategory';
 
-const EventTab = ({openPost}) => {
+const EventTab = () => {
   return (
     <div className={EventTabStyles["Event-tab"]}>
-      <EventBar openPost={openPost} />
+      <EventBar />
       <div className={EventTabStyles["Event-content"]}>
         <div className={EventTabStyles["main-Event"]}>
           <EventBanner />

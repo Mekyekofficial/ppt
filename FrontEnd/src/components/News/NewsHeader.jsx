@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { PostContext } from "../../AppOutlet";
 import newsImg from '../../assets/news.png';
 import { FiSearch } from "react-icons/fi";
 import NewsHeaderStyles from './css/NewsHeader.module.css';
 
 const NewsHeader = () => {
+
+  const { openPost } = useContext(PostContext);
+
   return (
     <div className={NewsHeaderStyles["news-header"]}>
       <div className={NewsHeaderStyles.banner}>
@@ -15,7 +19,7 @@ const NewsHeader = () => {
         <h1>Daily News</h1>
         <p>Get updated with Everyday News</p>
       </div>
-      <button className={NewsHeaderStyles["post-news"]}>Post a News</button>
+      <button className={NewsHeaderStyles["post-news"]} onClick={openPost}>Post a News</button>
     </div>
   );
 };
