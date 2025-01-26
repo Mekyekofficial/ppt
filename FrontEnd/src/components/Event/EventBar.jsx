@@ -5,7 +5,7 @@ import { FaRegCircle } from "react-icons/fa6";
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
-const EventBar = () => {
+const EventBar = ({openPost}) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [pricing, setPricing] = useState("");
   const [localEvents, setLocalEvents] = useState("");
@@ -123,7 +123,7 @@ const EventBar = () => {
       </TextField>
 
       {/* Post Event Button */}
-      <Button variant="contained" className={styles.postBtn}>
+      <Button variant="contained" className={styles.postBtn} onClick={openPost}>
         Post A Event
       </Button>
 
