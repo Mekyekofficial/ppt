@@ -29,6 +29,7 @@ app.use((err, req, res, next) => {
 
 
 app.all('*', (req, res, next) => {
+    console.log(`Invalid route accessed: ${req.url}`);
     next(new ExpressError('Page Not Found', 404));
 });
 

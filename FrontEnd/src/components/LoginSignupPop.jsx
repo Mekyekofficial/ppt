@@ -7,6 +7,7 @@ import Styles from './css/LoginSignupPop.module.css';
 import LoginPopup from './LoginSignupPop/LoginPopup';
 import SignUpPopup from './LoginSignupPop/SignUpPopup';
 import ConfirmEmailModal from './LoginSignupPop/ConfirmEmailModal';
+import ConfirmPhNumberModal from './LoginSignupPop/confirmPhNumberModal';
 import NameModal from './LoginSignupPop/NameModal';
 import BirthModal from './LoginSignupPop/BirthModal';
 import AddProfessionalPhoto from './LoginSignupPop/AddProfessionalPhoto';
@@ -80,23 +81,34 @@ const LoginSignupPop = ({onLogInClick}) => {
 
 
   const handleEmailVerification = async (verificationCode) => {
-    try {
-      const response = await fetch('/auth/verify-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: userData.email, verificationCode }),
-      });
-      const data = await response.json();
+    // try {
+    //   const response = await fetch('/auth/verify-email', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ email: userData.email, verificationCode }),
+    //   });
+    //   const data = await response.json();
   
-      if (response.ok) {
-        setUserData({ ...userData, verificationCode });
-        setCurrentStep(3); // Move to the next modal
-      } else {
-        console.error(data.message);
-      }
-    } catch (error) {
-      console.error('Error verifying email:', error);
+    //   if (response.ok) {
+    //     setUserData({ ...userData, verificationCode });
+    //     setCurrentStep(3); // Move to the next modal
+    //   } else {
+    //     console.error(data.message);
+    //   }
+    // } catch (error) {
+    //   console.error('Error verifying email:', error);
+    // }
+    if (verificationCode === '123456') {
+      setUserData({ ...userData, emailVerificationCode: verificationCode });
+      setCurrentStep(4);
     }
+  };
+
+  const handlePhNumberVerification = async (verificationCode) => {
+    if (verificationCode === '123456') {
+      setUserData({ ...userData, phNumberVerificationCode: verificationCode });
+      setCurrentStep(5);  
+    } 
   };
   
 
@@ -173,12 +185,15 @@ const LoginSignupPop = ({onLogInClick}) => {
         <ConfirmEmailModal onSubmit={handleEmailVerification} />
       )}
       {currentStep === 4 && (
-        <NameModal onSubmit={handleNameSubmit} />
+        <ConfirmPhNumberModal onSubmit={handlePhNumberVerification} />
       )}
       {currentStep === 5 && (
-        <BirthModal onSubmit={handleBirthSubmit} />
+        <NameModal onSubmit={handleNameSubmit} />
       )}
       {currentStep === 6 && (
+        <BirthModal onSubmit={handleBirthSubmit} />
+      )}
+      {currentStep === 7 && (
         <AddProfessionalPhoto onComplete={handleComplete} />
       )}
 

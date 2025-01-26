@@ -1,8 +1,8 @@
-const { userShcema } = require('../schema.js');
+const userSchema = require('../schema');
 const ExpressError = require('../utils/ExpressError');
 
 const singupValidation = (req, res, next) => {
-    const result = userShcema.validate(req.body);
+    const result = userSchema.validate(req.body);
     if(result.error) {
         return next(new ExpressError(result.error.details[0].message, 400));
     }
@@ -10,7 +10,7 @@ const singupValidation = (req, res, next) => {
 }
 
 const loginValidation = (req, res, next) => {
-    const result = userShcema.validate(req.body);
+    const result = userSchema.validate(req.body);
     if(result.error) {
         return next(new ExpressError(result.error.details[0].message, 400));
     }

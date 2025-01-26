@@ -9,9 +9,8 @@ const { oauth2client } = require('../utils/googleconfig');
 
 const signup = wrapAsync(async (req, res) => {
     const { name, email, password, phoneNumber } = req.body;
-    
-    const user = await UserModel.findOne({ email, phoneNumber });
 
+    const user = await UserModel.findOne({ email, phoneNumber });
     if (user) {
         return res.status(409).json({ message: 'User already exists', success: false });
     }
@@ -66,7 +65,7 @@ const googleLogin = wrapAsync(async (req, res) => {
     let user = await UserModel.findOne({ email });
 
     if (!user) {
-        user = await UserModel.create({ firstName: given_name, lastName: family_name, email, image: picture });
+        user = await UserModel.create({ firstName: given_name, lastName: family_name, email, profilePhoto: picture });
     }
 
     const {_id} = user;

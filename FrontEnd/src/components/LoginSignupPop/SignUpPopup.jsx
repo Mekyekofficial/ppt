@@ -8,9 +8,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 const SignUpPopup = ({ onSubmit, onLogIn, googleLogin }) => {
-  
 
-  const [email, setEmail] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,11 +19,18 @@ const SignUpPopup = ({ onSubmit, onLogIn, googleLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login(email, password);
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValue);
+      const userData = {
+        email: isEmail ? inputValue : null,
+        phoneNumber: !isEmail ? inputValue : null,
+        password: password,
+      };
+      const response = await signup(userData);
       localStorage.setItem('token', response.data.token); // Save token
       onSubmit(email, password); // Proceed to the next step
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to log in');
+      console.error(err);
+      setError(err.response?.data?.message || 'Failed to Sign In');
     }
 
   };
@@ -35,16 +41,16 @@ const SignUpPopup = ({ onSubmit, onLogIn, googleLogin }) => {
         <h2>Sign Up</h2>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
-          <div className={styles["input-field"]}>
-              <label><b>Email</b></label>
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
+        <div className={styles["input-field"]}>
+            <label><b>Email or Phone Number</b></label>
+            <input
+              type="text"
+              placeholder="Enter email or phone number"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              required
+            />
+          </div>
 
             <div className={styles["input-field"]}>
               <label><b>Password</b> (8+ characters)</label>

@@ -14,8 +14,9 @@ export const googleAuth = (code) =>
 
 
 // Add signup request
-export const signup = (userData) =>
+export const signup = (userData) => 
   API.post('/auth/signup', userData);
+
 
 // Add email verification request
 export const verifyEmail = (email, verificationCode) =>
