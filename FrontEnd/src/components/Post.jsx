@@ -61,7 +61,6 @@ const PostPopup = ({closePost}) => {
           <button className={`${styles.optionButton} ${styles.courses}`}>Courses</button>
         </div>
       </div>
-      {/* <div className={styles.overlay}></div> */}
     </div>
   );
 };

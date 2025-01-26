@@ -93,14 +93,3 @@
     color: black;
   }
   
-
-  /* .overlay {
-    position: fixed;
-    top: 0vw;
-    left: 0vh;
-    width: 200vw;
-    height: 200vh;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.25);
-    z-index: -1;
-  } */
