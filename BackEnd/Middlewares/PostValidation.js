@@ -1,4 +1,4 @@
-const { newsSchema } = require('../schema');
+const { newsSchema, eventSchema } = require('../schema');
 const ExpressError = require('../utils/ExpressError');
 
 const newsValidation = (req, res, next) => {
@@ -23,4 +23,34 @@ const newsValidation = (req, res, next) => {
     next();
 };
 
-module.exports = { newsValidation };
+
+const eventValidation = (req, res, next) => {
+    console.log("Validating event:");
+
+    // ✅ Ensure `req.body` contains expected data
+    const data = {
+        author: {
+            firstName: req.body.firstName || "",
+            lastName: req.body.lastName || "",
+            profilePhoto: req.body.userPhoto || "",
+        },
+        eventType: req.body.eventType,
+        eventName: req.body.eventName,
+        eventImage: req.file ? req.file.buffer.toString("base64") : undefined,
+        location: req.body.location,
+        date: req.body.date,
+        time: req.body.time,
+    };
+
+    const { error } = eventSchema.validate(data, { abortEarly: false });
+
+    if (error) {
+        return next(new ExpressError(error.details.map(err => err.message).join(', '), 400));
+    }
+
+    next();
+};
+
+
+
+module.exports = { newsValidation, eventValidation };

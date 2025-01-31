@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
-const { getNews, postNews } = require('../Controllers/PostController');
-const { newsValidation } = require('../Middlewares/PostValidation');
+const { getNews, postNews, getEvents, postEvents } = require('../Controllers/PostController');
+const { newsValidation, eventValidation } = require('../Middlewares/PostValidation');
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ const router = express.Router();
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage });
 
-// ✅ Log request data to debug the issue
+
 router.post('/news', upload.single('newsPhoto'), (req, res, next) => {
 
     if (!req.file) {
@@ -19,6 +19,17 @@ router.post('/news', upload.single('newsPhoto'), (req, res, next) => {
     next();
 }, newsValidation, postNews);
 
-router.get('/news', getNews)
+router.get('/news', getNews);
+
+router.post('/event', upload.single('eventImage'), (req, res, next) => {
+    console.log("Processing Event Post...");
+    if (!req.file) {
+        console.error("❌ File upload failed! No file received.");
+    }
+
+    next();
+}, eventValidation, postEvents);
+
+router.get('/events', getEvents);
 
 module.exports = router;

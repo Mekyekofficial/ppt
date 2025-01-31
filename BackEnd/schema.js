@@ -25,4 +25,30 @@ const newsSchema = joi.object({
     }).required(),
 });
 
-module.exports = { userSchema, newsSchema };
+const eventSchema = joi.object({
+    eventType: joi.string().valid("local", "seminar", "cultural").required().messages({
+        "any.only": "Event type must be 'local', 'seminar', or 'cultural'.",
+        "string.empty": "Event type is required."
+    }),
+    eventName: joi.string().required().messages({
+        "string.empty": "Event name is required."
+    }),
+    eventImage: joi.string().optional(),
+    location: joi.string().required().messages({
+        "string.empty": "Location is required."
+    }),
+    date: joi.date().required().messages({
+        "date.base": "Invalid date format.",
+        "any.required": "Date is required."
+    }),
+    time: joi.string().required().messages({
+        "string.empty": "Time is required."
+    }),
+    author: joi.object({
+        firstName: joi.string().required(),
+        lastName: joi.string().required(),
+        profilePhoto: joi.string().optional(),
+    }).required(),
+});
+
+module.exports = { userSchema, newsSchema, eventSchema };
