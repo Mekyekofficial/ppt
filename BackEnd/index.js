@@ -1,38 +1,35 @@
 const express = require('express');
-const app = express();
-const ExpressError = require('./utils/ExpressError');
-const bodyParser = require('body-parser');
 const cors = require('cors');
-const AuthRouter = require('./Routes/AuthRouter');
-
-
-require('dotenv').config();
-
+const dotenv = require('dotenv');
+const multer = require('multer');
+const ExpressError = require('./utils/ExpressError');
+const authRoutes = require('./Routes/AuthRouter');
+const postRoutes = require('./Routes/PostRouter');
 require('./mongodb');
 
+dotenv.config();
+
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.get('/ping', (req, res) => {
-    res.send('PONG');
-});
-
-app.use(bodyParser.json());
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: process.env.CORS_ORIGIN }));
-app.use('/auth', AuthRouter);
 
+// Routes
+app.use('/auth', authRoutes);
+app.use('/posts', postRoutes);
+
+app.get('/ping', (req, res) => res.send('PONG'));
+
+// Global Error Handler
 app.use((err, req, res, next) => {
-    let {statusCode, message} = err;
-    res.status(statusCode || 500).json({
-        message: message || 'Internal Server Error'
+    res.status(err.statusCode || 500).json({
+        message: err.message || 'Internal Server Error'
     });
 });
 
-
-app.all('*', (req, res, next) => {
-    console.log(`Invalid route accessed: ${req.url}`);
-    next(new ExpressError('Page Not Found', 404));
-});
-
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

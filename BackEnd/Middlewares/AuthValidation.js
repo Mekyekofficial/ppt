@@ -1,4 +1,4 @@
-const userSchema = require('../schema');
+const { userSchema } = require('../schema');
 const ExpressError = require('../utils/ExpressError');
 
 const singupValidation = (req, res, next) => {
