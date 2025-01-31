@@ -8,29 +8,32 @@ import { FiMessageCircle } from "react-icons/fi";
 import { IoIosMore } from "react-icons/io";
 import styles from './css/NewsItem.module.css';
 
-const NewsItem = () => {
+const NewsItem = ({ news }) => {
   return (
     <div className={styles.newsItem}>
       <div className={styles.newsContent}>
         <img 
           className={styles.newsImage} 
-          src="https://via.placeholder.com/150" 
-          alt="Apple's iPhone security update" 
+          src={news.newsPhoto || "https://via.placeholder.com/150"} 
+          alt="News"
         />
         <div className={styles.newsDetails}>
           <h3 className={styles.newsTitle}>
-            Apple’s iPhone security update guarantee outdone by Samsung
+            {news.content.slice(0, 50)}...
             <IconButton className={`${styles.actionButton} ${styles.play}`}>
               <IoPlayCircleOutline />
             </IconButton>
           </h3>
           <p className={styles.newsText}>
-            Samsung has recently introduced a more extensive security update guarantee for its devices, outpacing Apple’s iPhone security update policy. While Apple typically offers five years of software updates for its iPhones, Samsung has committed to providing...
-            {/* Samsung has recently introduced a more extensive security update guarantee for its devices, outpacing Apple’s iPhone security update policy. While Apple typically offers five years of software updates for its iPhones, Samsung has committed to providing up to four years of major Android updates and five years of security patches for many of its Galaxy devices... */}
+            {news.content}
           </p>
           <p className={styles.newsInfo}>
-            <span className={styles.date}>22nd Sept</span>
-            <span className={styles.author}>By Aritra Mukherjee</span>
+            <span className={styles.date}>
+              {new Date(news.date).toLocaleDateString()}
+            </span>
+            <span className={styles.author}>
+              By {news.author.firstName} {news.author.lastName}
+            </span>
           </p>
         </div>
       </div>

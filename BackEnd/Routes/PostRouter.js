@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const { postNews } = require('../Controllers/PostController');
+const { getNews, postNews } = require('../Controllers/PostController');
 const { newsValidation } = require('../Middlewares/PostValidation');
 
 const router = express.Router();
@@ -18,5 +18,7 @@ router.post('/news', upload.single('newsPhoto'), (req, res, next) => {
 
     next();
 }, newsValidation, postNews);
+
+router.get('/news', getNews)
 
 module.exports = router;

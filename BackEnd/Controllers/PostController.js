@@ -24,4 +24,10 @@ const postNews = wrapAsync(async (req, res) => {
     res.status(201).json({ message: 'News created successfully', success: true, news: savedNews });
 });
 
-module.exports = { postNews };
+
+const getNews = wrapAsync(async (req, res) => {
+    const news = await NewsModel.find({});
+    res.status(200).json(news);
+});
+
+module.exports = { getNews, postNews };
