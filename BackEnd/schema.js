@@ -93,4 +93,25 @@ const jobSchema = joi.object({
     }),
 });
 
-module.exports = { userSchema, newsSchema, eventSchema, jobSchema };
+const companyRegistrationSchema = joi.object({
+    companyName: joi.string().messages({
+        "string.empty": "Company name is required."
+    }),
+    address: joi.string().messages({
+        "string.empty": "Address is required."
+    }),
+    email: joi.string().email().messages({
+        "string.empty": "Email is required.",
+        "string.email": "Invalid email format."
+    }),
+    motto: joi.string().optional(),
+    website: joi.string().uri().optional().messages({
+        "string.uri": "Invalid website URL."
+    }),
+    domain: joi.string().optional(),
+    gstNumber: joi.string().optional(), // Verification is optional
+    corporateId: joi.string().optional(), // Verification is optional
+    companyLogo: joi.string().optional(), // Image URL for logo
+});
+
+module.exports = { userSchema, newsSchema, eventSchema, jobSchema, companyRegistrationSchema };

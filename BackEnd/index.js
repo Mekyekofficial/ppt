@@ -5,6 +5,7 @@ const multer = require('multer');
 const ExpressError = require('./utils/ExpressError');
 const authRoutes = require('./Routes/AuthRouter');
 const postRoutes = require('./Routes/PostRouter');
+const companyRoutes = require('./Routes/CompanyRouter');
 require('./mongodb');
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cors({ origin: process.env.CORS_ORIGIN }));
 // Routes
 app.use('/auth', authRoutes);
 app.use('/posts', postRoutes);
+app.use('/company', companyRoutes);
 
 app.get('/ping', (req, res) => res.send('PONG'));
 
