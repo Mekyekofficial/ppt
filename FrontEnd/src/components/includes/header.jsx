@@ -9,6 +9,7 @@ import { use, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import LoginSignupPop from '../LoginSignupPop';
+import CompanyRegistrationPopup from '../CompanyRegistrationPopup';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -54,6 +55,8 @@ const Header = () => {
         setIsLoginPopupOpen(false);
       }
     };
+
+    const [openCompanyRegistrationPopup, setOpenCompanyRegistrationPopup] = useState(false);
 
   return (
     <header className={HeaderStyles.header}>
@@ -120,6 +123,7 @@ const Header = () => {
           </NavLink>
           {
             (userinfo && token) ? (
+              <>
               <button className={HeaderStyles["dropdown-item-bar"]} onClick={() => {
                 localStorage.removeItem('user-info');
                 localStorage.removeItem('token');
@@ -128,6 +132,8 @@ const Header = () => {
               }>
                 Logout
               </button>
+              <button  className={HeaderStyles["dropdown-item-bar"]} onClick={() => setOpenCompanyRegistrationPopup(true)}>Register Company</button>
+              </>
             ) : (
               <div></div>
             )
@@ -135,6 +141,7 @@ const Header = () => {
         </div>
       </div>
       {!token && isLoginPopupOpen && <LoginSignupPop onLogInClick={onLogInClick} />}
+      <CompanyRegistrationPopup open={openCompanyRegistrationPopup} onClose={() => setOpenCompanyRegistrationPopup(false)} />
     </header>
   );
 };
