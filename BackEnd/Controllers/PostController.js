@@ -1,5 +1,6 @@
 const NewsModel = require('../models/News');
 const EventModel = require('../models/Event');
+const JobModel = require('../models/Job');
 const wrapAsync = require('../utils/wrapAsync');
 
 // POST News
@@ -68,4 +69,57 @@ const getEvents = wrapAsync(async (req, res) => {
     res.status(200).json(events);
 });
 
-module.exports = { getNews, postNews, getEvents, postEvents };
+// POST Job
+const postJob = wrapAsync(async (req, res) => {
+    console.log("Processing Job Post...");
+
+    const {
+        qualifications,
+        location,
+        jobBenefits,
+        jobDescription,
+        role,
+        industryType,
+        department,
+        employmentType,
+        roleCategory,
+        salary,
+        experience,
+        jobType,
+        postedOn,
+    } = req.body;
+
+    // Validate required fields
+    if (!role || !industryType || !employmentType || !location || !jobDescription) {
+        return res.status(400).json({ message: "Missing required job fields.", success: false });
+    }
+
+    const job = new JobModel({
+        qualifications,
+        location,
+        jobBenefits,
+        jobDescription,
+        role,
+        industryType,
+        department,
+        employmentType,
+        roleCategory,
+        salary,
+        experience,
+        jobType,
+        postedOn: postedOn || new Date(),
+    });
+
+    const savedJob = await job.save();
+    console.log("✅ Job saved successfully:", savedJob);
+
+    res.status(201).json({ message: 'Job created successfully', success: true, job: savedJob });
+});
+
+// GET Jobs
+const getJobs = wrapAsync(async (req, res) => {
+    const jobs = await JobModel.find({});
+    res.status(200).json(jobs);
+});
+
+module.exports = { getNews, postNews, getEvents, postEvents, getJobs, postJob };

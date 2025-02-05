@@ -1,4 +1,4 @@
-const { newsSchema, eventSchema } = require('../schema');
+const { newsSchema, eventSchema, jobSchema } = require('../schema');
 const ExpressError = require('../utils/ExpressError');
 
 const newsValidation = (req, res, next) => {
@@ -51,6 +51,35 @@ const eventValidation = (req, res, next) => {
     next();
 };
 
+const jobValidation = (req, res, next) => {
+    console.log("Validating job posting...");
+    console.log("Request body:", req.body);
+    const data = {
+        qualifications: req.body.qualifications,
+        location: req.body.location,
+        jobBenefits: req.body.jobBenefits,
+        jobDescription: req.body.jobDescription,
+        role: req.body.role,
+        industryType: req.body.industryType,
+        department: req.body.department,
+        employmentType: req.body.employmentType,
+        roleCategory: req.body.roleCategory,
+        salary: req.body.salary,
+        experience: req.body.experience,
+        jobType: req.body.jobType,
+        postedOn: req.body.postedOn,
+    };
 
+    console.log("Validating job data:", data);
 
-module.exports = { newsValidation, eventValidation };
+    const { error } = jobSchema.validate(data, { abortEarly: false });
+
+    if (error) {
+        console.log("❌ Job validation failed:", error.details.map(err => err.message).join(', '));
+        return next(new ExpressError(error.details.map(err => err.message).join(', '), 400));
+    }
+
+    next();
+};
+
+module.exports = { newsValidation, eventValidation, jobValidation };

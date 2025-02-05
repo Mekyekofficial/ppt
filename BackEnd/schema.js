@@ -51,4 +51,46 @@ const eventSchema = joi.object({
     }).required(),
 });
 
-module.exports = { userSchema, newsSchema, eventSchema };
+const jobSchema = joi.object({
+    qualifications: joi.string().required().messages({
+        "string.empty": "Qualifications are required."
+    }),
+    location: joi.string().required().messages({
+        "string.empty": "Location is required."
+    }),
+    jobBenefits: joi.string().optional(),
+    jobDescription: joi.string().required().messages({
+        "string.empty": "Job description is required."
+    }),
+    role: joi.string().required().messages({
+        "string.empty": "Role is required."
+    }),
+    industryType: joi.string().required().messages({
+        "string.empty": "Industry type is required."
+    }),
+    department: joi.string().required().messages({
+        "string.empty": "Department is required."
+    }),
+    employmentType: joi.string().valid("Full-time", "Part-time", "Remote").required().messages({
+        "any.only": "Employment type must be 'Full-time', 'Part-time', or 'Remote'.",
+        "string.empty": "Employment type is required."
+    }),
+    roleCategory: joi.string().required().messages({
+        "string.empty": "Role category is required."
+    }),
+    salary: joi.string().required().messages({
+        "string.empty": "Salary is required."
+    }),
+    experience: joi.string().required().messages({
+        "string.empty": "Experience is required."
+    }),
+    jobType: joi.string().valid("Permanent", "Contract", "Internship").required().messages({
+        "any.only": "Job type must be 'Permanent', 'Contract', or 'Internship'.",
+        "string.empty": "Job type is required."
+    }),
+    postedOn: joi.date().default(() => new Date()).messages({
+        "date.base": "Invalid date format."
+    }),
+});
+
+module.exports = { userSchema, newsSchema, eventSchema, jobSchema };
