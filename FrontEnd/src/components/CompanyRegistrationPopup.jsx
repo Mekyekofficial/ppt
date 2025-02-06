@@ -7,8 +7,10 @@ import {
 import { CheckCircle, Cancel } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import API from "../api";
+import { useNavigate } from 'react-router-dom';
 
 const CompanyRegistrationPopup = ({ open, onClose }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     companyName: "",
     address: "",
@@ -18,6 +20,7 @@ const CompanyRegistrationPopup = ({ open, onClose }) => {
     domain: "",
     gstNumber: "",
     corporateId: "",
+    userId: "",
     companyLogo: null,
   });
 
@@ -61,16 +64,18 @@ const CompanyRegistrationPopup = ({ open, onClose }) => {
 
   const handleSubmit = async () => {
     const formDataToSend = new FormData();
+    const userinfo = localStorage.getItem("user-info");
+    const user = JSON.parse(userinfo);
+    const userId = user._id;
+    formDataToSend.append("userId", userId);
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-
     try {
         const response = await API.post("/company/register", formDataToSend, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
         const data = response.data;  // Access the response data directly
-        console.log(data.success);
     
         if (data.success) {
             toast.success("Company registered successfully.");
@@ -83,9 +88,11 @@ const CompanyRegistrationPopup = ({ open, onClose }) => {
                 domain: "",
                 gstNumber: "",
                 corporateId: "",
+                userId: "",
                 companyLogo: null,
             });
             onClose();
+            navigate("/ATS");
         } else {
             toast.error(data.message || "Error registering company. Please try again.");
         }

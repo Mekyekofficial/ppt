@@ -4,6 +4,9 @@ class ExpressError extends Error {
     this.message = message;
     this.statusCode = statusCode;
   }
+  console() {
+    console.log(this.message, this.statusCode);
+  }
 }
 
 module.exports = ExpressError;

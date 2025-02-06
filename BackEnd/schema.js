@@ -1,4 +1,5 @@
 const joi = require('joi');
+const { use } = require('./Routes/CompanyRouter');
 
 const userSchema = joi.object({
     firstName: joi.string().required(),
@@ -112,6 +113,8 @@ const companyRegistrationSchema = joi.object({
     gstNumber: joi.string().optional(), // Verification is optional
     corporateId: joi.string().optional(), // Verification is optional
     companyLogo: joi.string().optional(), // Image URL for logo
+    userId: joi.string(),
 });
 
 module.exports = { userSchema, newsSchema, eventSchema, jobSchema, companyRegistrationSchema };
+

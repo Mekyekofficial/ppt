@@ -150,9 +150,9 @@ const LoginSignupPop = ({onLogInClick}) => {
       if (authResult['code']) {
         const result = await googleAuth(authResult['code']);
         const { email, firstName, lastName, profilePhoto } = result.data.user;
-
+        const _id = result.data.user._id;
         const token = result.data.token;
-        const userData = { email, firstName, lastName, profilePhoto };
+        const userData = { email, firstName, lastName, profilePhoto, _id };
 
         localStorage.setItem('token', token);
         localStorage.setItem('user-info', JSON.stringify(userData));

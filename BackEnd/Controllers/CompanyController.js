@@ -1,11 +1,12 @@
 const CompanyModel = require("../models/Company");
 const wrapAsync = require("../utils/wrapAsync");
+const mongoose = require("mongoose");
 
 // Register Company
 const registerCompany = wrapAsync(async (req, res) => {
     console.log("🚀 Processing Company Registration...");
 
-    const { 
+    let { 
         companyName, 
         email,
         address, 
@@ -13,11 +14,13 @@ const registerCompany = wrapAsync(async (req, res) => {
         website, 
         domain, 
         gstNumber, 
-        corporateId 
+        corporateId,
+        userId,
     } = req.body;
 
     // Validate required fields
     if (!companyName || !email || !address) {
+        console.log("❌ Required fields are missing.");
         return res.status(400).json({ message: "Required fields are missing.", success: false });
     }
 
@@ -34,6 +37,11 @@ const registerCompany = wrapAsync(async (req, res) => {
         companyLogo = `data:image/png;base64,${req.file.buffer.toString("base64")}`;
     }
 
+    let newUserId;
+    if (Array.isArray(userId)) {
+        newUserId = userId[0];
+        userId = newUserId;
+    }
     // Create and save the company
     const newCompany = new CompanyModel({
         companyName,
@@ -45,9 +53,11 @@ const registerCompany = wrapAsync(async (req, res) => {
         gstNumber,
         corporateId,
         companyLogo,
+        userId,
     });
 
     const savedCompany = await newCompany.save();
+
     console.log("✅ Company registered successfully:");
 
     res.status(201).json({ message: "Company registered successfully!", success: true, company: savedCompany });
