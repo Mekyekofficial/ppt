@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaMapMarkerAlt, FaBriefcase, FaMoneyBill, FaBell, FaUserCircle, FaCog } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import JobPopupForm from "./JobPopupForm";
 import styles from "./css/WorkBanner.module.css";
 
 const WorkBanner = () => {
@@ -18,17 +17,6 @@ const WorkBanner = () => {
   const [pricing, setPricing] = useState("");
   const [localEvents, setLocalEvents] = useState("");
   const [seminars, setSeminars] = useState("");
-
-
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   
   return (
     <div className={styles.banner}>
@@ -85,10 +73,6 @@ const WorkBanner = () => {
         <div className={styles.option}>
           <FaBell className={styles.icon} />
           <span>Notifications</span>
-        </div>
-        <div className={styles.option}>
-          <button onClick={handleClickOpen}>Post A Job</button>
-          <JobPopupForm open={open} onClose={handleClose} />
         </div>
       </div>
     </div>

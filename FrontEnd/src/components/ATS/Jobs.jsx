@@ -4,14 +4,27 @@ import Views from './Jobs/Views';
 import TableView from './Jobs/TableView';
 import CardView from './Jobs/CardView';
 import JobsStyles from './css/Jobs.module.css';
+import JobPopupForm from './Jobs/JobPopupForm';
 
 const JobDashboard = () => {
+    const [openJobForm, setOpenJobForm] = useState(false);
+  
+    const handleClickOpenJobForm = () => {
+      setOpenJobForm(true);
+    };
+  
+    const handleCloseJobForm = () => {
+      setOpenJobForm(false);
+    };
+
+
   const [view, setView] = useState('table');
 
   return (
     <div className={JobsStyles.jobs}>
       <div className={JobsStyles["top-bar"]}>
-        <button className={JobsStyles["create-job-btn"]}>Create a Job</button>
+        <button className={JobsStyles["create-job-btn"]} onClick={handleClickOpenJobForm}>Create a Job</button>
+        <JobPopupForm open={openJobForm} onClose={handleCloseJobForm} />
       </div>
 
       <div className={JobsStyles.controls}>

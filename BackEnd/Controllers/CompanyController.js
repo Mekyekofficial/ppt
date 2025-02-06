@@ -1,6 +1,11 @@
 const CompanyModel = require("../models/Company");
 const wrapAsync = require("../utils/wrapAsync");
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const env = require('dotenv');
+
 
 // Register Company
 const registerCompany = wrapAsync(async (req, res) => {
@@ -58,9 +63,13 @@ const registerCompany = wrapAsync(async (req, res) => {
 
     const savedCompany = await newCompany.save();
 
-    console.log("✅ Company registered successfully:");
+    let company = await CompanyModel.findOne({ email });
 
-    res.status(201).json({ message: "Company registered successfully!", success: true, company: savedCompany });
+    const { _id } = company;
+
+    const companyToken = jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
+    console.log("🚀 Company registered successfully!");
+    res.status(201).json({ message: "Company registered successfully!", success: true, companyToken, company: savedCompany });
 });
 
 module.exports = { registerCompany };

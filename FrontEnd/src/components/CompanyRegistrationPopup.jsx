@@ -75,9 +75,8 @@ const CompanyRegistrationPopup = ({ open, onClose }) => {
         const response = await API.post("/company/register", formDataToSend, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
-        const data = response.data;  // Access the response data directly
-    
-        if (data.success) {
+
+        if (response.data.success) {
             toast.success("Company registered successfully.");
             setFormData({
                 companyName: "",
@@ -91,6 +90,15 @@ const CompanyRegistrationPopup = ({ open, onClose }) => {
                 userId: "",
                 companyLogo: null,
             });
+            const data = response.data;
+            const company = data.company;
+            const companyToken = data.companyToken;
+            const { companyName, email, companyLogo  } = company;
+            const companyInfo = { companyName, companyEmail: email, companyLogo };
+
+            localStorage.setItem("company-info", JSON.stringify(companyInfo));
+            localStorage.setItem("company-token", companyToken);
+        
             onClose();
             navigate("/ATS");
         } else {
