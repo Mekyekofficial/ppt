@@ -72,7 +72,7 @@ const getEvents = wrapAsync(async (req, res) => {
 // POST Job
 const postJob = wrapAsync(async (req, res) => {
     console.log("Processing Job Post...");
-
+    console.log("Request body:", req.body);
     const {
         qualifications,
         location,
@@ -87,10 +87,16 @@ const postJob = wrapAsync(async (req, res) => {
         experience,
         jobType,
         postedOn,
+        companyName,
+        companyLogo,
+        companyEmail,
     } = req.body;
+
+    console.log("Validating req body:");
 
     // Validate required fields
     if (!role || !industryType || !employmentType || !location || !jobDescription) {
+        console.log("❌ Missing required job fields.");
         return res.status(400).json({ message: "Missing required job fields.", success: false });
     }
 
@@ -108,10 +114,15 @@ const postJob = wrapAsync(async (req, res) => {
         experience,
         jobType,
         postedOn: postedOn || new Date(),
+        company: {
+            companyName,
+            companyLogo,
+            companyEmail,
+        }
     });
 
     const savedJob = await job.save();
-    console.log("✅ Job saved successfully:", savedJob);
+    console.log("✅ Job saved successfully:");
 
     res.status(201).json({ message: 'Job created successfully', success: true, job: savedJob });
 });

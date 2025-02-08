@@ -55,6 +55,20 @@ const JobSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  company: {
+    companyName: {
+      type: String,
+      required: true,
+    },
+    companyLogo: {
+      type: String,
+      required: true,
+    },
+    companyEmail: {
+      type: String,
+      required: true,
+    },
+  }
 });
 
 const JobModel = mongoose.model("Job", JobSchema);

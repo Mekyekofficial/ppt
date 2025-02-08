@@ -92,6 +92,11 @@ const jobSchema = joi.object({
     postedOn: joi.date().default(() => new Date()).messages({
         "date.base": "Invalid date format."
     }),
+    company : joi.object({
+        companyName: joi.string().required(),
+        companyEmail: joi.string().email().required(),
+        companyLogo: joi.string().optional(),
+    }).required(),
 });
 
 const companyRegistrationSchema = joi.object({

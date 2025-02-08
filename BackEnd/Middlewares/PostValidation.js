@@ -68,9 +68,14 @@ const jobValidation = (req, res, next) => {
         experience: req.body.experience,
         jobType: req.body.jobType,
         postedOn: req.body.postedOn,
+        company: {
+            companyName: req.body.companyName,
+            companyLogo: req.body.companyLogo,
+            companyEmail: req.body.companyEmail,
+        }
     };
 
-    console.log("Validating job data:", data);
+    console.log("Validating job data:");
 
     const { error } = jobSchema.validate(data, { abortEarly: false });
 

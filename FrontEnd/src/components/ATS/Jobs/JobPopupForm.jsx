@@ -1,26 +1,74 @@
-import React, { useState } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import { Box } from '@mui/system';
-import styles  from './css/JobPopupForm.module.css';
-import API from '../../../api';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import styles from "./css/JobPopupForm.module.css";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
 const JobPopupForm = ({ open, onClose }) => {
+  const [companyData, setCompanyData] = useState(null);
+  const [companyLogoLoaded, setCompanyLogoLoaded] = useState(false);
+
+  useEffect(() => {
+    const company = localStorage.getItem("company-info");
+    if (company) {
+      try {
+        const parsedCompany = JSON.parse(company);
+        setCompanyData(parsedCompany);
+      } catch (error) {
+        console.error("Error parsing company-info:", error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (companyData?.companyLogo) {
+      const img = new Image();
+      img.src = companyData.companyLogo;
+      img.onload = () => setCompanyLogoLoaded(true);
+    }
+  }, [companyData?.companyLogo]);
+
   const [formData, setFormData] = useState({
-    qualifications: '',
-    location: '',
-    jobBenefits: '',
-    jobDescription: '',
-    role: '',
-    industryType: '',
-    department: '',
-    employmentType: '',
-    roleCategory: '',
-    salary: '',
-    experience: '',
-    jobType: '',
-    postedOn: '',
+    companyName: "",
+    companyEmail: "",
+    companyLogo: null,
+    qualifications: "",
+    location: "",
+    jobBenefits: "",
+    jobDescription: "",
+    role: "",
+    industryType: "",
+    department: "",
+    employmentType: "",
+    roleCategory: "",
+    salary: "",
+    experience: "",
+    jobType: "",
+    postedOn: "",
   });
+
+  useEffect(() => {
+    if (companyData) {
+      setFormData((prev) => ({
+        ...prev,
+        companyName: companyData.companyName || "",
+        companyEmail: companyData.companyEmail || "",
+        companyLogo: companyData.companyLogo || null,
+      }));
+    }
+  }, [companyData]);
 
   const handleChange = (e) => {
     setFormData({
@@ -31,15 +79,38 @@ const JobPopupForm = ({ open, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('formdata:', formData);
+
+    const newFormData = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      newFormData.append(key, value);
+    });
+
+    console.log("Form Data Before Submit:", Object.fromEntries(newFormData.entries()));
+
     try {
-        const response = await API.post("/posts/job", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
-        toast.success("Job posted successfully!");
+      const response = await API.post("/posts/job", newFormData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      toast.success("Job posted successfully!");
+      setFormData({
+        qualifications: "",
+        location: "",
+        jobBenefits: "",
+        jobDescription: "",
+        role: "",
+        industryType: "",
+        department: "",
+        employmentType: "",
+        roleCategory: "",
+        salary: "",
+        experience: "",
+        jobType: "",
+        postedOn: "",
+      });
+      onClose(); // Close the popup on successful submission
     } catch (error) {
-        toast.error("Failed to post job!");
-        console.error("Failed to post job!", error);
+      toast.error("Failed to post job!");
+      console.error("Failed to post job!", error);
     }
   };
 
