@@ -2,18 +2,28 @@ import React from 'react';
 import { FaMapMarkerAlt, FaRupeeSign, FaBriefcase, FaBookmark } from 'react-icons/fa';
 import styles from './css/WorkItem.module.css';
 
-const WorkItem = ({ company, title, logo, location, salary, experience }) => {
+const WorkItem = ({ job }) => {
+  const {
+    _id,
+    role,
+    location,
+    salary,
+    experience,
+    company,
+    employmentType,
+  } = job;
+
   const handleJobDetailsClick = () => {
-    window.location.href = '/Work/job-Details';
+    window.location.href = `/Work/job-Details/${_id}`;
   };
 
   return (
     <div className={styles.workItem}>
       <div className={styles.header}>
-        <img src={logo} alt={`${company} logo`} className={styles.logo} />
+        <img src={company.companyLogo} alt={`${company.companyName} logo`} className={styles.logo} />
         <div className={styles.jobTitle}>
-          <h4>{title}</h4>
-          <p>{company}</p>
+          <h4>{role}</h4>
+          <p>{company.companyName}</p>
         </div>
         <FaBookmark className={styles.bookmarkIcon} />
       </div>
@@ -28,6 +38,9 @@ const WorkItem = ({ company, title, logo, location, salary, experience }) => {
       <div className={styles.details}>
         <FaBriefcase className={styles.icon} />
         <p>{experience}</p>
+      </div>
+      <div className={styles.details}>
+        <p><strong>Employment Type:</strong> {employmentType}</p>
       </div>
       <button className={styles.detailsButton} onClick={handleJobDetailsClick}>Job Details</button>
     </div>

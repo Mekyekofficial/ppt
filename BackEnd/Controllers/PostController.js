@@ -133,4 +133,16 @@ const getJobs = wrapAsync(async (req, res) => {
     res.status(200).json(jobs);
 });
 
-module.exports = { getNews, postNews, getEvents, postEvents, getJobs, postJob };
+// Get a single job by ID
+const getJobById = wrapAsync(async (req, res) => {
+    const { jobId } = req.params;
+    const job = await JobModel.findById(jobId);
+
+    if (!job) {
+        return res.status(404).json({ message: "Job not found" });
+    }
+
+    res.status(200).json(job);
+});
+
+module.exports = { getNews, postNews, getEvents, postEvents, getJobs, getJobById, postJob };

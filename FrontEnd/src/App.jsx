@@ -51,7 +51,7 @@ const App = () => {
         { path: "/learn/settings", element: <CourseSettings /> },
         { path: "/events", element: <EventTab /> },
         { path: "/Work", element: <WorkTab /> },
-        { path: "/Work/job-Details", element: <WorkDetails /> },
+        { path: "/Work/job-Details/:jobId", element: <WorkDetails /> },
         {
           path: "/ATS",
           element: <ATSOutlet />,

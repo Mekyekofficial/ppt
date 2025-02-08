@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const { getNews, postNews, getEvents, postEvents, postJob, getJobs } = require('../Controllers/PostController');
+const { getNews, postNews, getEvents, postEvents, postJob, getJobs, getJobById } = require('../Controllers/PostController');
 const { newsValidation, eventValidation, jobValidation } = require('../Middlewares/PostValidation');
 
 const router = express.Router();
@@ -39,5 +39,6 @@ router.post('/job',upload.none(), (req, res, next ) => {
 }, jobValidation, postJob);
 
 router.get('/jobs', getJobs);
+router.get("/jobs/:jobId", getJobById);
 
 module.exports = router;
