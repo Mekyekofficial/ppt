@@ -15,12 +15,21 @@ const Header = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
+  const companyToken = localStorage.getItem('company-token');
 
   const [userinfo, setUserinfo] = useState(null);
+  const [companyInfo, setCompanyInfo] = useState(null);
+
   useEffect(() => {
     const user = localStorage.getItem('user-info');
     const userinfo = JSON.parse(user);
     setUserinfo(userinfo);
+  }, []);
+
+  useEffect(() => {
+    const company = localStorage.getItem('company-info');
+    const companyInfo = JSON.parse(company);
+    setCompanyInfo(companyInfo);
   }, []);
 
   const active = ({isActive}) => {
@@ -132,7 +141,13 @@ const Header = () => {
               }>
                 Logout
               </button>
-              <button  className={HeaderStyles["dropdown-item-bar"]} onClick={() => setOpenCompanyRegistrationPopup(true)}>Register Company</button>
+              {
+                (companyInfo && companyToken) ? (
+                  <button  className={HeaderStyles["dropdown-item-bar"]} onClick={() => navigate('/ATS')}>Go to Company Profile</button>
+                ) : (
+                  <button  className={HeaderStyles["dropdown-item-bar"]} onClick={() => setOpenCompanyRegistrationPopup(true)}>Register Company</button>
+                )
+              }
               </>
             ) : (
               <div></div>

@@ -75,7 +75,7 @@
     border-radius: 5px;
     padding: 10px;
     z-index: 1;
-    width: 200px;
+    width: max-content;
   }
 
   .user-section .dropdownBar .dropdown-item-bar {
