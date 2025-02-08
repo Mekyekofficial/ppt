@@ -121,5 +121,33 @@ const companyRegistrationSchema = joi.object({
     userId: joi.string(),
 });
 
-module.exports = { userSchema, newsSchema, eventSchema, jobSchema, companyRegistrationSchema };
+const jobApplySchema = joi.object({
+    jobID: joi.string().required().messages({
+        "string.empty": "Job ID is required."
+    }),
+    firstName: joi.string().required().messages({
+        "string.empty": "First name is required."
+    }),
+    lastName: joi.string().required().messages({
+        "string.empty": "Last name is required."
+    }),
+    email: joi.string().email().required().messages({
+        "string.empty": "Email is required.",
+        "string.email": "Invalid email format."
+    }),
+    phoneNumber: joi.string().pattern(/^\d+$/).required().messages({
+        "string.empty": "Phone number is required.",
+        "string.pattern.base": "Phone number must be numeric."
+    }),
+    resume: joi.string().optional(),
+    area: joi.string().required().messages({
+        "string.empty": "Area is required."
+    }),
+    cityStateCountry: joi.string().required().messages({
+        "string.empty": "City, state, and country are required."
+    }),
+    getEmailUpdates: joi.boolean().default(false)
+});
+
+module.exports = { userSchema, newsSchema, eventSchema, jobSchema, companyRegistrationSchema, jobApplySchema };
 

@@ -1,8 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 
-const { registerCompany } = require("../Controllers/CompanyController");
-const { companyValidation } = require("../Middlewares/CompanyValidation");
+const { registerCompany, applyForJob } = require("../Controllers/CompanyController");
+const { companyValidation, jobApplyValidation } = require("../Middlewares/CompanyValidation");
 
 const router = express.Router();
 
@@ -10,15 +10,18 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({
     storage,
-    limits: { fileSize: 2 * 1024 * 1024 }, // ✅ Limit file size to 2MB
+    limits: { fileSize: 2 * 1024 * 1024 }, // ✅ 2MB file size limit
     fileFilter: (req, file, cb) => {
-        // ✅ Allow only JPEG, PNG, WebP images
-        if (!file.mimetype.match(/^image\/(jpeg|png|webp)$/)) {
-            return cb(new Error("Only JPEG, PNG, and WebP images are allowed"));
+        console.log("Received file:", file.mimetype); // ✅ Debugging log
+
+        // ✅ Allow PDFs and images (JPEG, PNG, WebP)
+        if (!file.mimetype.match(/^(image\/(jpeg|png|webp)|application\/pdf)$/)) {
+            return cb(new Error("Only JPEG, PNG, WebP images, and PDF files are allowed"));
         }
         cb(null, true);
     },
 });
+
 
 // ✅ Route with Improved Error Handling
 router.post(
@@ -39,6 +42,30 @@ router.post(
     },
     companyValidation,
     registerCompany
+);
+
+router.post(
+    "/job-apply",
+    (req, res, next) => {
+        console.log("Middleware: Before File Upload");
+        upload.single("resume")(req, res, (err) => {
+            console.log("Middleware: After File Upload");
+            if (err) {
+                console.log("❌ Error uploading file:", err.message);
+                return res.status(400).json({ message: err.message, success: false });
+            }
+            next();
+        });
+    },
+    (req, res, next) => {
+        console.log("Middleware: Checking File");
+        if (!req.file) {
+            return res.status(400).json({ message: "No resume file received", success: false });
+        }
+        next();
+    },
+    jobApplyValidation,
+    applyForJob
 );
 
 module.exports = router;

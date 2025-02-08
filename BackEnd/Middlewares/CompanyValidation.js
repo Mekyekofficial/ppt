@@ -1,4 +1,5 @@
 const { companyRegistrationSchema } = require("../schema");
+const { jobApplicationSchema } = require("../schema");
 const ExpressError = require("../utils/ExpressError");
 
 const companyValidation = (req, res, next) => {
@@ -28,5 +29,28 @@ const companyValidation = (req, res, next) => {
 };
 
 
+const jobApplyValidation = (req, res, next) => {
+    console.log("Validating job application...");
 
-module.exports = {companyValidation};
+    const data = {
+        jobID: req.body.jobID,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        resume: req.file ? req.file.buffer.toString("base64") : null,
+        area: req.body.area,
+        cityStateCountry: req.body.cityStateCountry,
+        getEmailUpdates: req.body.getEmailUpdates || false,
+    };
+
+    // const { error } = jobApplicationSchema.validate(data, { abortEarly: false });
+    // if (error) {
+    //     console.log("❌ Job application validation failed:", error);
+    //     return next(new ExpressError(error.details.map(err => err.message).join(", "), 400));
+    // }
+    // console.log("✅ Job application data is valid");
+    next();
+};
+
+module.exports = { companyValidation, jobApplyValidation };

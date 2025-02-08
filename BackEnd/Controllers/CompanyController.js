@@ -1,4 +1,5 @@
 const CompanyModel = require("../models/Company");
+const JobApplicationModel = require('../Models/JobApplication');
 const wrapAsync = require("../utils/wrapAsync");
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
@@ -72,4 +73,51 @@ const registerCompany = wrapAsync(async (req, res) => {
     res.status(201).json({ message: "Company registered successfully!", success: true, companyToken, company: savedCompany });
 });
 
-module.exports = { registerCompany };
+// Apply for Job
+const applyForJob = wrapAsync(async (req, res) => {
+    console.log("🚀 Processing Job Application...");
+
+    let { 
+        jobID,
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        resume,
+        area,
+        cityStateCountry,
+        getEmailUpdates
+    } = req.body;
+
+    // Validate required fields
+    if (!jobID || !firstName || !lastName || !email || !phoneNumber) {
+        console.log("❌ Required fields are missing.");
+        return res.status(400).json({ message: "Required fields are missing.", success: false });
+    }
+
+    // Process resume
+    let resumeData = null;
+    if (req.file) {
+        resumeData = `data:application/pdf;base64,${req.file.buffer.toString("base64")}`;
+    }
+
+    // Create and save the job application
+    const newJobApplication = new JobApplicationModel({
+        jobID,
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        resume: resumeData,
+        area,
+        cityStateCountry,
+        getEmailUpdates
+    });
+
+    const savedJobApplication = await newJobApplication.save();
+
+    console.log("🚀 Job application submitted successfully!");
+    res.status(201).json({ message: "Job application submitted successfully!", success: true, jobApplication: savedJobApplication });
+});
+
+module.exports = { registerCompany, applyForJob };
