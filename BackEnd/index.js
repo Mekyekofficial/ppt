@@ -6,6 +6,7 @@ const ExpressError = require('./utils/ExpressError');
 const authRoutes = require('./Routes/AuthRouter');
 const postRoutes = require('./Routes/PostRouter');
 const companyRoutes = require('./Routes/CompanyRouter');
+const ATSRouter = require('./Routes/ATSRouter');
 require('./mongodb');
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use('/auth', authRoutes);
 app.use('/posts', postRoutes);
 app.use('/company', companyRoutes);
+app.use('/ATS', ATSRouter);
 
 app.get('/ping', (req, res) => res.send('PONG'));
 

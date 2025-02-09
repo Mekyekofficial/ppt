@@ -1,7 +1,7 @@
 import React from "react";
 import TableViewStyles from "./css/TableView.module.css";
 
-const TableView = ({ selectedColumns }) => {
+const TableView = ({ jobs, selectedColumns }) => {
   const columns = [
     { key: "title", label: "Title" },
     { key: "applicants", label: "Applicants" },
@@ -34,16 +34,18 @@ const TableView = ({ selectedColumns }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Job 1</td>
-            {selectedColumns.includes("Applicants") && <td>5</td>}
-            {selectedColumns.includes("Posted On") && <td>01/10/2024</td>}
-            {selectedColumns.includes("Posted By") && <td>John Doe</td>}
-            {selectedColumns.includes("Rejected") && <td>2</td>}
-            {selectedColumns.includes("On Hold") && <td>1</td>}
-            {selectedColumns.includes("Interviewed") && <td>3</td>}
-            {selectedColumns.includes("Hired") && <td>1</td>}
-          </tr>
+          {jobs.map((job) => (
+            <tr key={job._id}>
+              <td>{job.title}</td>
+              {selectedColumns.includes("Applicants") && <td>{job.applicants || 0}</td>}
+              {selectedColumns.includes("Posted On") && <td>{new Date(job.postedOn).toLocaleDateString()}</td>}
+              {selectedColumns.includes("Posted By") && <td>{job.postedBy}</td>}
+              {selectedColumns.includes("Rejected") && <td>{job.rejected || 0}</td>}
+              {selectedColumns.includes("On Hold") && <td>{job.onHold || 0}</td>}
+              {selectedColumns.includes("Interviewed") && <td>{job.interviewed || 0}</td>}
+              {selectedColumns.includes("Hired") && <td>{job.hired || 0}</td>}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

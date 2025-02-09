@@ -138,7 +138,7 @@ const postJob = wrapAsync(async (req, res) => {
         title: role,
         applicants: 0,
         postedOn: savedJob.postedOn,
-        postedBy: companyName,
+        postedBy: 'Admin',
         rejected: 0,
         onHold: 0,
         interviewed: 0,
