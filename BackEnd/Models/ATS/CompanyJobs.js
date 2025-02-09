@@ -27,30 +27,34 @@ const CompanyJobSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  rejected: {
-    type: Number,
-    default: 0
-  },
-  onHold: {
-    type: Number,
-    default: 0
-  },
-  interviewed: {
-    type: Number,
-    default: 0
-  },
-  hired: {
-    type: Number,
-    default: 0
-  },
-  totalCandidates: {
-    type: Number,
-    default: 0
-  },
-  activeCandidates: {
-    type: Number,
-    default: 0
-  },
+  rejected: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JobApply' // Storing rejected applicants' IDs
+  }],
+  onHold: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JobApply' // Storing on-hold applicants' IDs
+  }],
+  interviewPending: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JobApply' // Storing interview pending applicants' IDs
+  }],
+  interviewPassed: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JobApply' // Storing interview passed applicants' IDs
+  }],
+  hired: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JobApply' // Storing hired applicants' IDs
+  }],
+  totalCandidates: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JobApply' // Storing all applicants' IDs
+  }],
+  activeCandidates: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JobApply' // Storing active applicants' IDs
+  }],
   location: {
     type: String,
     required: true

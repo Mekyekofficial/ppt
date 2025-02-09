@@ -7,8 +7,8 @@ import styles from "./css/JobApplicants.module.css";
 
 const JobApplicants = () => {
   const { jobId } = useParams(); // Get jobId from the URL
-  const [selectedColumns, setSelectedColumns] = useState([ "Interview Pending", "Interview Passed",  "On Hold",]);
-  const allColumns = ["Applied", "Rejected", "Hired"];
+  const [selectedColumns, setSelectedColumns] = useState(["Total Candidates", "Active Candidates", "On Hold",]);
+  const allColumns = ["Interview Passed", "Interview Pending",  "Rejected", "Hired"];
   const [customColumns, setCustomColumns] = useState(allColumns.filter((col) => !selectedColumns.includes(col)));
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);

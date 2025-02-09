@@ -1,5 +1,6 @@
 const CompanyModel = require("../models/Company");
 const JobApplicationModel = require('../Models/JobApplication');
+const CompanyJobModel = require('../Models/ATS/CompanyJobs');
 const wrapAsync = require("../utils/wrapAsync");
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
@@ -115,6 +116,13 @@ const applyForJob = wrapAsync(async (req, res) => {
     });
 
     const savedJobApplication = await newJobApplication.save();
+
+    // ✅ Update totalCandidates array in CompanyJobModel
+    await CompanyJobModel.findOneAndUpdate(
+        { jobId: jobID },  // Find the company job by jobId
+        { $push: { totalCandidates: savedJobApplication._id } }, // Push application ID into totalCandidates array
+        { new: true } // Return the updated document
+    );
 
     console.log("🚀 Job application submitted successfully!");
     res.status(201).json({ message: "Job application submitted successfully!", success: true, jobApplication: savedJobApplication });

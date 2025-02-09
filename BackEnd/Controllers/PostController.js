@@ -139,12 +139,13 @@ const postJob = wrapAsync(async (req, res) => {
         applicants: 0,
         postedOn: savedJob.postedOn,
         postedBy: 'Admin',
-        rejected: 0,
-        onHold: 0,
-        interviewed: 0,
-        hired: 0,
-        totalCandidates: 0,
-        activeCandidates: 0,
+        rejected: [],
+        onHold: [],
+        interviewPending: [],
+        interviewPassed: [],
+        hired: [],
+        totalCandidates: [],
+        activeCandidates: [],
         location: location,
     });
 
@@ -161,6 +162,7 @@ const postJob = wrapAsync(async (req, res) => {
         companyJob: savedCompanyJob
     });
 });
+
 
 
 // GET Jobs
