@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import TableViewStyles from "./css/TableView.module.css";
 
 const TableView = ({ jobs, selectedColumns }) => {
+  const navigate = useNavigate();
+
+  const handleRowClick = (job) => {
+    navigate(`/ATS/jobs/job-applicants/${job.jobId}`); // Navigate to JobApplication page
+  };
+
   const columns = [
     { key: "title", label: "Title" },
     { key: "applicants", label: "Applicants" },
@@ -35,7 +42,7 @@ const TableView = ({ jobs, selectedColumns }) => {
         </thead>
         <tbody>
           {jobs.map((job) => (
-            <tr key={job._id}>
+            <tr key={job._id} onClick={() => handleRowClick(job)} className={TableViewStyles["clickable-row"]}>
               <td>{job.title}</td>
               {selectedColumns.includes("Applicants") && <td>{job.applicants || 0}</td>}
               {selectedColumns.includes("Posted On") && <td>{new Date(job.postedOn).toLocaleDateString()}</td>}

@@ -1,5 +1,6 @@
 const wrapAsync = require("../utils/wrapAsync");
 const CompanyJobModel = require("../Models/ATS/CompanyJobs");
+const JobApplicationModel = require("../Models/JobApplication");
 
 // GET Company Jobs
 const getCompanyJobs = wrapAsync(async (req, res) => {
@@ -18,4 +19,21 @@ const getCompanyJobs = wrapAsync(async (req, res) => {
     res.status(200).json(jobs);
 });
 
-module.exports = { getCompanyJobs };
+// GET Applicants
+const getApplicants = wrapAsync(async (req, res) => {
+    const { jobId } = req.query;
+
+    if (!jobId) {
+        return res.status(400).json({ error: "Job ID is required." });
+    }
+    
+    const jobs = await JobApplicationModel.find({ jobID: jobId });
+
+    if (!jobs) {
+        return res.status(404).json({ message: "Job not found." });
+    }
+
+    res.status(200).json(jobs);
+});
+
+module.exports = { getCompanyJobs, getApplicants };

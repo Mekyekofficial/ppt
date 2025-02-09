@@ -1,11 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import CardViewStyles from './css/CardView.module.css';
 
 const CardView = ({ jobs }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (job) => {
+    navigate(`/ATS/jobs/job-applicants/${job.jobId}`); // Navigate to JobApplication page
+  };
+
   return (
     <div className={CardViewStyles.cards}>
       {jobs.map((job) => (
-        <div key={job._id} className={CardViewStyles.card}>
+        <div 
+          key={job._id} 
+          className={CardViewStyles.card} 
+          onClick={() => handleCardClick(job)} // Add click event
+        >
           <div className={CardViewStyles["card-header"]}>
             <div className={CardViewStyles.title}>
               <h3>{job.title}</h3>
