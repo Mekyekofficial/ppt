@@ -1,6 +1,7 @@
 const NewsModel = require('../models/News');
 const EventModel = require('../models/Event');
 const JobModel = require('../models/Job');
+const CompanyJobModel = require('../Models/ATS/CompanyJobs');
 const wrapAsync = require('../utils/wrapAsync');
 
 // POST News
@@ -73,6 +74,7 @@ const getEvents = wrapAsync(async (req, res) => {
 const postJob = wrapAsync(async (req, res) => {
     console.log("Processing Job Post...");
     console.log("Request body:", req.body);
+
     const {
         qualifications,
         location,
@@ -90,16 +92,19 @@ const postJob = wrapAsync(async (req, res) => {
         companyName,
         companyLogo,
         companyEmail,
+        companyId,
     } = req.body;
 
-    console.log("Validating req body:");
+    console.log("Validating request body:");
 
     // Validate required fields
-    if (!role || !industryType || !employmentType || !location || !jobDescription) {
+    if (!role || !industryType || !employmentType || !location || !jobDescription || !companyId) {
+        console.log(role, industryType, employmentType, location, jobDescription, companyId);
         console.log("❌ Missing required job fields.");
         return res.status(400).json({ message: "Missing required job fields.", success: false });
     }
 
+    // Create a new job
     const job = new JobModel({
         qualifications,
         location,
@@ -118,14 +123,45 @@ const postJob = wrapAsync(async (req, res) => {
             companyName,
             companyLogo,
             companyEmail,
-        }
+            companyId,
+        },
     });
 
+    // Save the job to the database
     const savedJob = await job.save();
-    console.log("✅ Job saved successfully:");
+    console.log("✅ Job saved successfully:", savedJob);
 
-    res.status(201).json({ message: 'Job created successfully', success: true, job: savedJob });
+    // Automatically create a corresponding entry in CompanyJobModel
+    const companyJob = new CompanyJobModel({
+        jobId: savedJob._id,
+        companyId: companyId,
+        title: role,
+        applicants: 0,
+        postedOn: savedJob.postedOn,
+        postedBy: companyName,
+        rejected: 0,
+        onHold: 0,
+        interviewed: 0,
+        hired: 0,
+        totalCandidates: 0,
+        activeCandidates: 0,
+        location: location,
+    });
+
+    console.log("Creating Company Job entry...");
+
+    // Save the company job entry
+    const savedCompanyJob = await companyJob.save();
+    console.log("✅ Company Job created successfully:", savedCompanyJob);
+
+    res.status(201).json({
+        message: 'Job created successfully',
+        success: true,
+        job: savedJob,
+        companyJob: savedCompanyJob
+    });
 });
+
 
 // GET Jobs
 const getJobs = wrapAsync(async (req, res) => {

@@ -22,10 +22,14 @@ const JobPopupForm = ({ open, onClose }) => {
 
   useEffect(() => {
     const company = localStorage.getItem("company-info");
+    const companyId = localStorage.getItem("company-id");
     if (company) {
       try {
-        const parsedCompany = JSON.parse(company);
-        setCompanyData(parsedCompany);
+        setCompanyData(JSON.parse(company));
+        setFormData((prev) => ({
+          ...prev,
+          companyId: companyId || "",
+        }));
       } catch (error) {
         console.error("Error parsing company-info:", error);
       }
@@ -44,6 +48,7 @@ const JobPopupForm = ({ open, onClose }) => {
     companyName: "",
     companyEmail: "",
     companyLogo: null,
+    companyId: "",
     qualifications: "",
     location: "",
     jobBenefits: "",
@@ -60,12 +65,14 @@ const JobPopupForm = ({ open, onClose }) => {
   });
 
   useEffect(() => {
+    const companyId = localStorage.getItem("company-id");
     if (companyData) {
       setFormData((prev) => ({
         ...prev,
         companyName: companyData.companyName || "",
         companyEmail: companyData.companyEmail || "",
         companyLogo: companyData.companyLogo || null,
+        companyId: companyId || "",
       }));
     }
   }, [companyData]);

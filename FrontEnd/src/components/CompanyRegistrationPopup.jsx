@@ -98,6 +98,7 @@ const CompanyRegistrationPopup = ({ open, onClose }) => {
 
             localStorage.setItem("company-info", JSON.stringify(companyInfo));
             localStorage.setItem("company-token", companyToken);
+            localStorage.setItem("company-id", company._id);
         
             onClose();
             navigate("/ATS");

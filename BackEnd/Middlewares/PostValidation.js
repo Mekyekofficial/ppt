@@ -72,8 +72,11 @@ const jobValidation = (req, res, next) => {
             companyName: req.body.companyName,
             companyLogo: req.body.companyLogo,
             companyEmail: req.body.companyEmail,
+            companyId: req.body.companyId,
         }
     };
+
+    console.log("Request data:", data);
 
     console.log("Validating job data:");
 

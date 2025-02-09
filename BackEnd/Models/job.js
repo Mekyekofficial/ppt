@@ -68,6 +68,11 @@ const JobSchema = new Schema({
       type: String,
       required: true,
     },
+    companyId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+      required: true,
+    },
   }
 });
 

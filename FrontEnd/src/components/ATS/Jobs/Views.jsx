@@ -1,16 +1,40 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import { IoOptionsOutline } from "react-icons/io5";
-import ViewsStyles from './css/Views.module.css';
+import ViewsStyles from "./css/Views.module.css";
 
-const Views = ({ setView }) => {
+const allColumns = [
+  "Applicants",
+  "Posted On",
+  "Posted By",
+  "Rejected",
+  "On Hold",
+  "Interviewed",
+  "Hired",
+];
+
+const Views = ({ setView, selectedColumns, setSelectedColumns }) => {
   const [showViews, setShowViews] = useState(false);
+
   const toggleViews = () => {
     setShowViews(!showViews);
   };
+
+  // Function to remove column (clicked above <br>)
+  const removeColumn = (column) => {
+    setSelectedColumns(selectedColumns.filter((col) => col !== column));
+  };
+
+  // Function to add column (clicked below <br>)
+  const addColumn = (column) => {
+    if (!selectedColumns.includes(column)) {
+      setSelectedColumns([...selectedColumns, column]);
+    }
+  };
+
   return (
     <div className={ViewsStyles.views}>
       <button className={ViewsStyles["toggle-button"]} onClick={toggleViews}>
-        <IoOptionsOutline className={ViewsStyles['view-icon']}/>
+        <IoOptionsOutline className={ViewsStyles["view-icon"]} />
         Views
       </button>
       {showViews && (
@@ -19,20 +43,25 @@ const Views = ({ setView }) => {
           <div className={ViewsStyles["view-options"]}>
             View as:
             <div className={ViewsStyles["view-button"]}>
-              <button onClick={() => setView('table')}>Table</button>
-              <button onClick={() => setView('card')}>Cards</button>
+              <button onClick={() => setView("table")}>Table</button>
+              <button onClick={() => setView("card")}>Cards</button>
             </div>
           </div>
           <div className={ViewsStyles["custom-columns"]}>
             <p>Customized columns (Choose any 3):</p>
-            <button>Applicants</button>
-            <button>Posted On</button>
-            <button>Posted By</button>
-            <br/>
-            <button>+ Updated</button>
-            <button>+ Qualified</button>
-            <button>+ Screening</button>
-            <button>+ Hired</button>
+            {selectedColumns.map((column) => (
+              <button key={column} onClick={() => removeColumn(column)}>
+                {column}
+              </button>
+            ))}
+            <br />
+            {allColumns
+              .filter((col) => !selectedColumns.includes(col))
+              .map((column) => (
+                <button key={column} onClick={() => addColumn(column)}>
+                  + {column}
+                </button>
+              ))}
           </div>
         </div>
       )}

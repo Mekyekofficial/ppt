@@ -96,6 +96,7 @@ const jobSchema = joi.object({
         companyName: joi.string().required(),
         companyEmail: joi.string().email().required(),
         companyLogo: joi.string().optional(),
+        companyId: joi.string().required(),
     }).required(),
 });
 

@@ -70,7 +70,7 @@ const registerCompany = wrapAsync(async (req, res) => {
 
     const companyToken = jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
     console.log("🚀 Company registered successfully!");
-    res.status(201).json({ message: "Company registered successfully!", success: true, companyToken, company: savedCompany });
+    res.status(201).json({ message: "Company registered successfully!", success: true, companyToken, company: savedCompany, companyID: _id });
 });
 
 // Apply for Job
