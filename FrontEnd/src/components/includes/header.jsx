@@ -136,6 +136,9 @@ const Header = () => {
               <button className={HeaderStyles["dropdown-item-bar"]} onClick={() => {
                 localStorage.removeItem('user-info');
                 localStorage.removeItem('token');
+                localStorage.removeItem('company-info');
+                localStorage.removeItem('company-token');
+                localStorage.removeItem('company-id');
                 navigate('/');
               }
               }>
