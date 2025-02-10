@@ -3,6 +3,7 @@ import Styles from './home.module.css';
 import HomeHero from './Home/HomeHero';
 import HomeBusiness from './Home/HomeBusiness';
 import HomeFeatures from './Home/HomeFeatures';
+import HomeCompanies from './Home/HomeCompanies';
 import HomeFAQ from './Home/HomeFAQ';
 import HeaderBeforeLogIn from './components/includes/headerBeforeLogIn';
 
@@ -16,6 +17,7 @@ const Home = () => {
       <HomeHero />
       <HomeBusiness />
       <HomeFeatures />
+      <HomeCompanies />
       <HomeFAQ />
     </div>
   );
