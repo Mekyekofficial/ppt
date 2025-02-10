@@ -1,0 +1,118 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 80px;
+  margin-top: 50px;
+}
+
+.content {
+  max-width: 50%;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.poweredBy {
+  color: #6a0dad;
+  font-weight: bold;
+  margin-top: 5px;
+  text-align: end;
+  margin-right: 150px; 
+}
+
+.poweredBy img {
+  width: 30px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.description {
+  font-size: 16px;
+  margin: 20px 0;
+  color: #333;
+  font-weight: 600;
+  text-align: start;
+  line-height: 2;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 5px;
+  gap: 5px;
+  width: 100%;
+}
+
+.searchInput {
+  display: flex;
+  width: 100%;
+  border: 2px solid #222;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.input::placeholder {
+  font-weight: 600;
+}
+
+.searchInput i {
+  color: #222;
+  font-size: 25px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.jobsButton {
+  background: #ff5733;
+  color: black;
+  padding: 5px 15px !important;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 5px 5px 15px #FDB268;
+}
+
+.jobsButton span {
+  font-size: 10px;
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  background: #222;
+  color: white;
+  padding: 20px 25px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+  border: 1px solid #ffffff8f;
+}
+
+.searchButton i {
+  margin-right: 5px;
+  font-size: 15px;
+}
+
+.heroImage img {
+  width: 450px;
+}
