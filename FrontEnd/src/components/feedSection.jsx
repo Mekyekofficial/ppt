@@ -3,6 +3,7 @@ import React from 'react';
 import Events from './Feed/events';
 import Feeds from './Feed/feeds';
 // import UserSuggestions from './Feed/userSuggestions';\
+import TrendingTopic from './Feed/TrendingTopic';
 import TrendingNews from './Feed/trendingNews';
 import FeedsProfile from './Feed/FeedsProfile';
 import FeedSectionStyles from './css/feedSection.module.css';
@@ -18,7 +19,7 @@ function feedSection() {
         <Feeds />
       </div>
       <div className={FeedSectionStyles["right-sidebar"]}>
-        <TrendingNews />
+        <TrendingTopic />
         {/* <UserSuggestions /> */}
       </div>
     </div>
