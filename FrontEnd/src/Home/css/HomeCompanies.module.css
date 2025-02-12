@@ -1,57 +1,81 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    width:  100%;
-    margin: 100px 0;
-  }
-  
-  .banner {
-    position: relative;
-    background: white;
-    padding: 30px;
-    width: 100%;
-    height: 200px;
-    border-radius: 12px;
-    border: 2px solid black;
-    /* box-shadow: 0 30px 30px rgba(0, 0, 0, 0.5); */
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .banner::before,
-  .banner::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 35px;
-    background: linear-gradient(90deg, #8a63d2, #b896ff);
-    border-radius: 20px;
-    left: 0;
-  }
-  
-  .banner::before {
-    top: -10px;
-    transform: translateX(-10px) skewY(-1.1deg);
-    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75); */
-  }
-  
-  .banner::after {
-    bottom: -20px;
-    z-index: -1;
-    transform: translateX(10px) skewY(1deg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  height: 400px;
+}
 
-  .banner img {
-    width: 10%;
-    object-fit: contain;
+.banner {
+  position: relative;
+  z-index: 100;
+  background: white;
+  padding: 30px;
+  width: 100%;
+  height: 200px;
+  border-radius: 12px;
+  border: 2px solid black;
+  /* Remove overflow: hidden here so the pseudo-elements can be visible */
+  /* overflow: hidden; */
+}
+
+/* Pseudo-elements for decorative gradients */
+.banner::before,
+.banner::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 35px;
+  background: linear-gradient(90deg, #8a63d2, #b896ff);
+  border-radius: 20px;
+  left: 0;
+  z-index: 1000;
+}
+
+.banner::before {
+  top: -10px;
+  transform: translateX(-10px) skewY(-1.1deg);
+  /* Optional box-shadow if needed */
+  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75); */
+}
+
+.banner::after {
+  bottom: -20px;
+  /* Adjust z-index if necessary; here we keep it high to ensure visibility */
+  z-index: 1000;
+  transform: translateX(10px) skewY(1deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* New wrapper to clip scrolling images */
+.imagesWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* This will clip the scrolling images */
+}
+
+.images {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 200%; /* Set to 200% to accommodate duplicated images */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: scroll 20s linear infinite;
+}
+
+.banner img {
+  width: 5%;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
   }
-  
-  
-  
+  100% {
+    transform: translateX(-50%);
+  }
+}
