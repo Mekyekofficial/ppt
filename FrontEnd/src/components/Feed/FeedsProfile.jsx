@@ -1,11 +1,12 @@
 import React from "react";
+import ProfileImage from "../../assets/profile-image.png";
 import styles from "./css/FeedsProfile.module.css";
 
 const FeedsProfile = () => {
   return (
     <div className={styles.card}>
       <div className={styles.profileImage}>
-        <img src="/profile-image.png" alt="Profile" />
+        <img src={ProfileImage} alt="Profile" />
       </div>
       <h2 className={styles.name}>Alax Rosan</h2>
       <p className={styles.role}>Product designer</p>
