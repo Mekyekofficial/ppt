@@ -1,38 +1,56 @@
-.suggestions-card {
-    background-color: #e9ffd7;
-    padding: 20px;
-    border-radius: 10px;
-    width: 250px;
-  }
-  
-  .suggestions-card h4 {
-    margin-bottom: 20px;
-  }
-  
-  .suggested-user {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .suggested-user img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .user-details {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .user-details span {
-    font-size: 14px;
-  }
-  
-  .user-details span:nth-child(2) {
-    font-size: 12px;
-    color: gray;
-  }
-  
+.suggestionsBox {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 4vh;
+}
+
+.heading {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.userList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eaeaea;
+}
+
+.name {
+  flex-grow: 1;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.follow {
+  color: orange;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  color: #333;
+  cursor: pointer;
+}

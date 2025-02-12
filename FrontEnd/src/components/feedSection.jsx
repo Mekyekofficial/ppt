@@ -2,7 +2,7 @@ import React from 'react';
 // import Profile from './Feed/profile';
 import Events from './Feed/events';
 import Feeds from './Feed/feeds';
-// import UserSuggestions from './Feed/userSuggestions';\
+import UserSuggestions from './Feed/userSuggestions';
 import TrendingTopic from './Feed/TrendingTopic';
 import TrendingNews from './Feed/trendingNews';
 import FeedsProfile from './Feed/FeedsProfile';
@@ -20,7 +20,7 @@ function feedSection() {
       </div>
       <div className={FeedSectionStyles["right-sidebar"]}>
         <TrendingTopic />
-        {/* <UserSuggestions /> */}
+        <UserSuggestions />
       </div>
     </div>
   );
