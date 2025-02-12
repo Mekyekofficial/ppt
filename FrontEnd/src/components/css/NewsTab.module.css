@@ -8,9 +8,7 @@
   }
 
   .left-sidebar {
-    width: 20%;
-    position: fixed;
-    left: 4vw;
+    flex: 0.2;
   }
   
   .main-news {
@@ -25,8 +23,6 @@
   }
   
   .right-sidebar {
-    width: 20%;
-    position: fixed;
-    right: 4vw;
+    flex: 0.2;
   }
   

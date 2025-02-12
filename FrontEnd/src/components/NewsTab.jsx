@@ -9,6 +9,7 @@ import NewsPics from './News/NewsPics';
 import NewsRecommendation from './News/NewsRecommendation';
 import NewsChannelSuggestion from './News/NewsChannelSuggestion';
 import NewsHeadlines from './News/NewsHeadlines';
+import NewsPagesSuggestions from './News/NewsPagesSuggestions';
 
 const NewsTab = () => {
   const [news, setNews] = useState([]);
@@ -45,6 +46,7 @@ const NewsTab = () => {
       </div>
       <div className={NewsTabStyles["right-sidebar"]}>
         <NewsHeadlines />
+        <NewsPagesSuggestions />
       </div>
     </div>
   );
