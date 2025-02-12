@@ -4,6 +4,7 @@ import Events from './Feed/events';
 import Feeds from './Feed/feeds';
 // import UserSuggestions from './Feed/userSuggestions';\
 import TrendingNews from './Feed/trendingNews';
+import FeedsProfile from './Feed/FeedsProfile';
 import FeedSectionStyles from './css/feedSection.module.css';
 
 function feedSection() {
@@ -11,7 +12,7 @@ function feedSection() {
     <div className={FeedSectionStyles["feed-section"]}>
       <div className={FeedSectionStyles["left-sidebar"]}>
         {/* <Profile /> */}
-        <Events />
+        <FeedsProfile />
       </div>
       <div className={FeedSectionStyles["main-content"]}>
         <Feeds />

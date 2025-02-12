@@ -2,6 +2,8 @@
     display: flex;
     justify-content: space-evenly;
     padding: 20px;
+    padding-top: 15vh;
+    background-color: #e2eaf9;
   }
   
   .left-sidebar {
