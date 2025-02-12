@@ -1,0 +1,93 @@
+.container {
+    width: 100%;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .searchBar {
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    padding: 8px 0;
+  }
+
+  .searchInputContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #f0f0f0;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1), 
+              inset -2px -2px 0 rgba(255, 255, 255, 0.75);
+    border-radius: 20px;
+    padding: 0 12px;
+  }
+  
+  .searchIcon {
+    color: gray;
+  }
+  
+  .searchInput {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .filter {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #2d2b3a;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .filterIcon {
+    margin-right: 4px;
+  }
+  
+  .separator {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin: 10px 0;
+  }
+  
+  .categories {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .yourChoice {
+    background: orange;
+    color: black;
+    font-weight: 900;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .categoryButton {
+    background: #c3d4ff;
+    color: black;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .moreIcon {
+    color: black;
+    cursor: pointer;
+  }
+  

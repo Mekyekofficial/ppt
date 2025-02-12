@@ -4,6 +4,7 @@ import NewsLeftContent from './News/NewsLeftContent';
 import NewsTabStyles from './css/NewsTab.module.css';
 import NewsCategories from './News/NewsCategories';
 import NewsHeader from './News/NewsHeader';
+import NewsSearchBar from './News/NewsSearchBar';
 import NewsItem from './News/NewsItem';
 import NewsPics from './News/NewsPics';
 import NewsRecommendation from './News/NewsRecommendation';
@@ -33,7 +34,7 @@ const NewsTab = () => {
         <NewsLeftContent />
       </div>
       <div className={NewsTabStyles["main-news"]}>
-        <NewsHeader />
+        <NewsSearchBar />
         <div className={NewsTabStyles["news-items"]}>
           {news.length > 0 ? (
             news.map((item) => (
