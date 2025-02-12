@@ -1,17 +1,19 @@
 .news-tab {
     display: flex;
-    flex-direction: column;
-    padding: 0 20px;
+    justify-content: space-evenly;
+    padding: 20px;
+    padding-top: 15vh;
+    background-color: #fbfbec;
   }
-  
-  .news-content {
-    display: flex;
-    justify-content: space-between;
+
+  .left-sidebar {
+    width: 20%;
+    position: fixed;
+    left: 4vw;
   }
   
   .main-news {
-    flex: 2.5;
-    padding: 20px;
+    flex: 0.45;
   }
 
   .main-news .news-items {
@@ -22,6 +24,8 @@
   }
   
   .sidebar {
-    margin: 0 20px;
+    width: 20%;
+    position: fixed;
+    right: 4vw;
   }
   

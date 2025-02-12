@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../api';  // Ensure this points to your backend API setup
+import NewsLeftContent from './News/NewsLeftContent';
 import NewsTabStyles from './css/NewsTab.module.css';
 import NewsCategories from './News/NewsCategories';
 import NewsHeader from './News/NewsHeader';
@@ -26,25 +27,25 @@ const NewsTab = () => {
 
   return (
     <div className={NewsTabStyles["news-tab"]}>
-      <NewsCategories />
-      <div className={NewsTabStyles["news-content"]}>
-        <div className={NewsTabStyles["main-news"]}>
-          <NewsHeader />
-          <div className={NewsTabStyles["news-items"]}>
-            {news.length > 0 ? (
-              news.map((item) => (
-                <NewsItem key={item._id} news={item} />
-              ))
-            ) : (
-              <p>Loading news...</p>
-            )}
-          </div>
+      <div className={NewsTabStyles["left-sidebar"]}>
+        <NewsLeftContent />
+      </div>
+      <div className={NewsTabStyles["main-news"]}>
+        <NewsHeader />
+        <div className={NewsTabStyles["news-items"]}>
+          {news.length > 0 ? (
+            news.map((item) => (
+              <NewsItem key={item._id} news={item} />
+            ))
+          ) : (
+            <p>Loading news...</p>
+          )}
         </div>
-        <div className={NewsTabStyles.sidebar}>
-          <NewsPics />
-          <NewsRecommendation />
-          <NewsChannelSuggestion />
-        </div>
+      </div>
+      <div className={NewsTabStyles["right-sidebar"]}>
+        <NewsPics />
+        <NewsRecommendation />
+        <NewsChannelSuggestion />
       </div>
     </div>
   );
