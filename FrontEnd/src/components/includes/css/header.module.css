@@ -43,6 +43,7 @@
     align-items: start;
     text-decoration: none;
     font-size: 1vw;
+    font-weight: bold;
     cursor: pointer;
     transition: color 0.1s ease-in-out;
   }
