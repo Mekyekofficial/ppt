@@ -68,6 +68,7 @@
 
 .banner img {
   width: 5%;
+  margin: 0 20px;
   object-fit: contain;
 }
 
