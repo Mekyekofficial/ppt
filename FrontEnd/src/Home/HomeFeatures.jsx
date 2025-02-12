@@ -51,7 +51,7 @@ const HomeFeatures = () => {
                 <img src={feature.img} alt={feature.title} />
             </div>
             <div className={styles.icon}>
-                <ArrowRight size={30} className={styles.ArrowRight}/>
+                <ArrowRight className={styles.ArrowRight}/>
                 <span>Learn more</span>
             </div>
           </div>

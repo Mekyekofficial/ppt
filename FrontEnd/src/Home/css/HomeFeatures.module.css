@@ -109,6 +109,8 @@ html {
     border-radius: 50%;
     background-color: #4A4A4A;
     color: #ffff5c;
+    height: 30px;
+    width: 30px;
   }
 
   .darkBg .ArrowRight {
