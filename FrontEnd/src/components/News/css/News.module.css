@@ -1,0 +1,113 @@
+.newsCard {
+    width: 100%;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 4vh;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background: #e0e0e0;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1), 
+              inset -2px -2px 0 rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .newsSource {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .timeAgo {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  .moreIcon {
+    cursor: pointer;
+  }
+  
+  .content {
+    margin-top: 10px;
+    padding: 0 10px;
+  }
+  
+  .title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+  
+  .description {
+    font-size: 14px;
+    color: #333;
+    margin-top: 4px;
+    text-align: justify;
+  }
+  
+  .media {
+    width: 90%;
+    height: 180px;
+    background: black;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .separator {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin: 10px 0;
+    margin-top: 30px;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .action {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    margin-right: 2vw;
+  }
+  
+  .action:hover {
+    color: black;
+  }
+
+  .actionSource {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    margin-left: auto;
+    margin-right: 10px;
+  }
+  

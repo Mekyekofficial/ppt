@@ -6,6 +6,7 @@ import NewsCategories from './News/NewsCategories';
 import NewsHeader from './News/NewsHeader';
 import NewsSearchBar from './News/NewsSearchBar';
 import NewsItem from './News/NewsItem';
+import News from './News/News';
 import NewsPics from './News/NewsPics';
 import NewsRecommendation from './News/NewsRecommendation';
 import NewsChannelSuggestion from './News/NewsChannelSuggestion';
@@ -41,7 +42,13 @@ const NewsTab = () => {
               <NewsItem key={item._id} news={item} />
             ))
           ) : (
-            <p>Loading news...</p>
+            <>
+            <News />
+            <News />
+            <News />
+            <News />
+            <News />
+            </>
           )}
         </div>
       </div>
