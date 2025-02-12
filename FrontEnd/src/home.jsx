@@ -4,6 +4,7 @@ import HomeHero from './Home/HomeHero';
 import HomeBusiness from './Home/HomeBusiness';
 import HomeFeatures from './Home/HomeFeatures';
 import HomeCompanies from './Home/HomeCompanies';
+import HomeCards from './Home/HomeCards';
 import HomeTestimonial from './Home/HomeTestimonial';
 import HomeFAQ from './Home/HomeFAQ';
 import HeaderBeforeLogIn from './components/includes/headerBeforeLogIn';
@@ -19,6 +20,7 @@ const Home = () => {
       <HomeBusiness />
       <HomeFeatures />
       <HomeCompanies />
+      <HomeCards />
       <HomeTestimonial />
       <HomeFAQ />
     </div>
