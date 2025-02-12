@@ -23,7 +23,7 @@ const AppOutlet = () => {
                 {!hideHeader && <Header />}
                 <Outlet />
                 {!hidePost && <Post closePost={closePost} />}
-                {!hideFooter && <Footer />}
+                {/* {!hideFooter && <Footer />} */}
             </div>
         </PostContext.Provider>
     );
