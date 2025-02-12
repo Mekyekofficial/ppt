@@ -7,7 +7,9 @@
   }
   
   .left-sidebar {
-    flex: 0.2;
+    width: 20%;
+    position: fixed;
+    left: 4vw;
   }
   
   .main-content {
@@ -15,5 +17,7 @@
   }
   
   .right-sidebar {
-    flex: 0.2;
+    width: 20%;
+    position: fixed;
+    right: 4vw;
   }
