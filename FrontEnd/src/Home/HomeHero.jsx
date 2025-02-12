@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./css/HomeHero.module.css";
-import { Search, MapPin } from "lucide-react";
 import heroImage from "../assets/hero-image.png"; 
 import AIlogo from "../assets/gemini-icon.png";
 
 const HomeHero = () => {
+  const [text, setText] = useState("");
+  const fullText = "Emmpower Your Future,\nOne Step at a Time !!";
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < fullText.length - 1) {
+        setText((prev) => prev + fullText[index]);
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 125);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className={styles.hero}>
       <div className={styles.content}>
         <h1>
-          Empower Your Future, <br />
-          One Step at a Time !!
+          {text.split("\n").map((line, idx, arr) => (
+            <React.Fragment key={idx}>
+              {line}
+              {idx < arr.length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </h1>
         <p className={styles.poweredBy}>
           <span>Powered by AI <img src={AIlogo} alt="AIlogo" /></span>
