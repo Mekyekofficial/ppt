@@ -10,6 +10,7 @@ import EventLeftContent from './Event/EventLeftContent';
 import EventSearchBar from './Event/EventSearchBar';
 import EventUpcoming from './Event/EventUpcoming';
 import EventSection from './Event/EventSection';
+import EventBrowse from './Event/EventBrowse';
 
 const EventTab = () => {
   return (
@@ -24,6 +25,7 @@ const EventTab = () => {
         </div>
         <div className={EventTabStyles["main-Event"]}>
           <EventSection />
+          <EventBrowse />
         </div>
       </div>
     </div>
