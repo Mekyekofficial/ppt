@@ -8,15 +8,14 @@ import WorkItems from './Work/WorkItems';
 const WorkTab = () => {
   return (
     <div className={WorkTabStyles["Work-tab"]}>
-      <WorkBanner />
-      <div className={WorkTabStyles.content}>
-        <div className={WorkTabStyles.sidebar}>
-          <WorkFilter />
-          <WorkFilterByJob />
-        </div>
-        <div className={WorkTabStyles["main-content"]}>
-          <WorkItems />
-        </div>
+      <div className={WorkTabStyles["left-sidebar"]}>
+        <WorkFilter />
+      </div>
+      <div className={WorkTabStyles["main-content"]}>
+
+      </div>
+      <div className={WorkTabStyles["right-sidebar"]}>
+
       </div>
     </div>
   );

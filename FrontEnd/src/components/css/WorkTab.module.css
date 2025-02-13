@@ -1,30 +1,21 @@
 .Work-tab {
-    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    background-color: transparent;
-}
-
-.content {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: start;
-    width: 100%;
+    justify-content: space-evenly;
     padding: 20px;
+    padding-top: 15vh;
+    background-color: #ecfbfa;
+    min-height: 100vh;
 }
 
-.sidebar {
-    flex: 1;
-    padding: 20px 40px;
+.left-sidebar {
+    flex: 0.2;
 }
 
 .main-content {
-    flex: 5;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex: 0.45;
+}
+
+.right-sidebar {
+    flex: 0.2;
 }
   

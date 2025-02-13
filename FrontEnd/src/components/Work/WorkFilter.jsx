@@ -1,96 +1,100 @@
 import React, { useState } from "react";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import styles from "./css/WorkFilter.module.css";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
+const filterOptions = {
+  Job: {
+    "Job type": ["In Office", "Remote", "Hybrid", "Field Work"],
+    Eligibility: ["Professionals", "College Students"],
+    Salary: ["0-3 Lakhs", "3-6 Lakhs", "6-12 Lakhs"],
+    Location: ["Kolkata", "Mumbai", "Delhi/NCR", "Bengaluru", "Hyderabad"],
+    Experience: ["Freshers", "0-2 Year", "2-5 Year", "5+ Year"],
+  },
+  Internship: {
+    "Internship type": ["In Office", "Remote", "Hybrid", "Field Work"],
+    Location: ["Kolkata", "Mumbai", "Delhi/NCR", "Bengaluru", "Hyderabad"],
+  },
+  Project: {
+    "Project Type": [
+      "Web Development",
+      "Database administrator",
+      "Software Engineer",
+      "Network Engineer",
+      "Data Scientist",
+      "UI/UX Designer",
+      "Data Analysis",
+      "Cybersecurity",
+      "Application Development",
+      "System Engineer",
+      "Artificial Intelligence",
+      "Robotics",
+      "Python Project",
+      "Java Project",
+      "C Projects",
+      "C++ Projects",
+      "Machine Learning",
+      "Library Management System",
+      "Blockchain",
+      "Cloud Computing",
+      "Game Development",
+      "Virtual Reality (VR) / Augmented Reality (AR)",
+      "Embedded Systems",
+    ],
+  },
+};
 
 const WorkFilter = () => {
-  const [openDropdowns, setOpenDropdowns] = useState({
-    jobType: false,
-    eligibility: false,
-    salary: false,
-    location: false,
-    experience: false,
-  });
+  const [selectedCategory, setSelectedCategory] = useState("Job");
+  const [openFilters, setOpenFilters] = useState({});
 
-  const toggleDropdown = (key) => {
-    setOpenDropdowns((prev) => ({ ...prev, [key]: !prev[key] }));
+  const toggleFilter = (category) => {
+    setOpenFilters((prev) => ({
+      ...prev,
+      [category]: !prev[category],
+    }));
   };
 
   return (
-    <div className={styles.filterContainer}>
-      <h3 className={styles.filterTitle}>All Filters</h3>
-
-      {/* Job Type Filter */}
-      <div className={styles.filterSection}>
-        <div className={styles.filterHeader} onClick={() => toggleDropdown("jobType")}>
-          Job Type {openDropdowns.jobType ? <FaAngleUp /> : <FaAngleDown />}
-        </div>
-        {openDropdowns.jobType && (
-          <div className={styles.filterOptions}>
-            <label><input type="radio" name="jobType" /> In Office</label>
-            <label><input type="radio" name="jobType" /> Remote</label>
-            <label><input type="radio" name="jobType" /> Hybrid</label>
-            <label><input type="radio" name="jobType" /> Field Work</label>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h2>Filter</h2>
+        <div className={styles.dropdown}>
+          <button className={styles.categoryBtn}>
+            {selectedCategory} <ChevronDown size={16} className={styles.ChevronDown} />
+          </button>
+          <div className={styles.dropdownContent}>
+            {["Job", "Internship", "Project"].map((category) => (
+              <div
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={styles.dropdownItem}
+              >
+                {category}
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Eligibility Filter */}
-      <div className={styles.filterSection}>
-        <div className={styles.filterHeader} onClick={() => toggleDropdown("eligibility")}>
-          Eligibility {openDropdowns.eligibility ? <FaAngleUp /> : <FaAngleDown />}
-        </div>
-        {openDropdowns.eligibility && (
-          <div className={styles.filterOptions}>
-            <label><input type="radio" name="eligibility" /> Professionals</label>
-            <label><input type="radio" name="eligibility" /> College Students</label>
+      <div className={styles.filters}>
+        {Object.entries(filterOptions[selectedCategory]).map(([filter, options]) => (
+          <div key={filter} className={styles.filterSection}>
+            <div className={styles.filterHeader} onClick={() => toggleFilter(filter)}>
+              <span>{filter}</span>
+              {openFilters[filter] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </div>
+            {openFilters[filter] && (
+              <div className={styles.filterOptions}>
+                {options.map((option) => (
+                  <label key={option} className={styles.option}>
+                    <input type="radio" name={filter} value={option} />
+                    {option}
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </div>
-
-      {/* Salary Filter */}
-      <div className={styles.filterSection}>
-        <div className={styles.filterHeader} onClick={() => toggleDropdown("salary")}>
-          Salary {openDropdowns.salary ? <FaAngleUp /> : <FaAngleDown />}
-        </div>
-        {openDropdowns.salary && (
-          <div className={styles.filterOptions}>
-            <label><input type="radio" name="salary" /> 0-3 lakhs</label>
-            <label><input type="radio" name="salary" /> 3-6 lakhs</label>
-            <label><input type="radio" name="salary" /> 6-10 lakhs</label>
-            <label><input type="radio" name="salary" /> 10-12 lakhs</label>
-          </div>
-        )}
-      </div>
-
-      {/* Location Filter */}
-      <div className={styles.filterSection}>
-        <div className={styles.filterHeader} onClick={() => toggleDropdown("location")}>
-          Location {openDropdowns.location ? <FaAngleUp /> : <FaAngleDown />}
-        </div>
-        {openDropdowns.location && (
-          <div className={styles.filterOptions}>
-            <label><input type="radio" name="location" /> Delhi/NCR</label>
-            <label><input type="radio" name="location" /> Mumbai</label>
-            <label><input type="radio" name="location" /> Kolkata</label>
-            <label><input type="radio" name="location" /> Bengaluru</label>
-            <label><input type="radio" name="location" /> Hyderabad</label>
-          </div>
-        )}
-      </div>
-
-      {/* Experience Filter */}
-      <div className={styles.filterSection}>
-        <div className={styles.filterHeader} onClick={() => toggleDropdown("experience")}>
-          Experience {openDropdowns.experience ? <FaAngleUp /> : <FaAngleDown />}
-        </div>
-        {openDropdowns.experience && (
-          <div className={styles.filterOptions}>
-            <label><input type="radio" name="experience" /> 0-1 years</label>
-            <label><input type="radio" name="experience" /> 1-3 years</label>
-            <label><input type="radio" name="experience" /> 3-5 years</label>
-            <label><input type="radio" name="experience" /> 5+ years</label>
-          </div>
-        )}
+        ))}
       </div>
     </div>
   );

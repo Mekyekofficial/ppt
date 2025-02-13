@@ -1,45 +1,109 @@
-.filterContainer {
-    background-color: #fff;
-    border: 1px solid #000;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 8px;
-    width: 100%;
-    font-family: Arial, sans-serif;
-  }
-  
-  .filterTitle {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 24px;
-  }
-  
-  .filterSection {
-    margin-bottom: 20px;
-  }
-  
-  .filterHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .filterOptions {
-    margin-top: 16px;
-    padding-left: 10px;
-  }
-  
-  .filterOptions label {
-    display: block;
-    margin-bottom: 16px;
-    font-size: 0.9rem;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  input[type="radio"] {
-    margin-right: 8px;
-  }
-  
+.container {
+  width: 320px;
+  background: #f8ffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+   margin-left: auto;
+   transform: translateX(30%);
+   margin-bottom: 0;
+}
+
+.categoryBtn {
+  background: #ff725e;
+  color: black;
+  font-weight: 700;
+  padding: 5px 15px;
+  padding-right: 5px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0px 0 8px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown {
+  position: relative;
+  margin-left: auto;
+}
+
+.dropdownContent {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  display: none;
+  font-size: 10px;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdownItem {
+  padding: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdownItem:hover {
+  background: #ff5c5c;
+  color: white;
+}
+
+.filters {
+  margin-top: 10px;
+}
+
+.filterSection {
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.filterOptions {
+  padding: 6px;
+}
+
+.option {
+  display: block;
+  margin: 4px 0;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.option input {
+  width: min-content;
+  margin-right: 20px;
+}
