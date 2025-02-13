@@ -1,0 +1,48 @@
+.card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+    width: 225px;
+  }
+  
+  .imageContainer {
+    background: black;
+    height: 150px;
+  }
+  
+  .eventImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .eventInfo {
+    text-align: start;
+  }
+  
+  .eventName {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    margin-left: 5px;
+  }
+  
+  .eventDetails {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    font-size: 12px;
+  }
+  
+  .detailItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+  
