@@ -1,14 +1,23 @@
 .Event-tab {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 50px;
-    background-color: #e8dad9;
-  }
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+  padding-top: 15vh;
+  background-color: #fbece8;
+  min-height: 100vh;
+}
+
+.leftSidebar {
+  position: fixed;
+  left: 4vw;
+  width: 20%;
+}
   
-  .Event-content {
-    display: flex;
-    justify-content: space-between;
-  }
+.Event-content {
+  flex: 0.8;
+  display: flex;
+  justify-content: space-between;
+}
   
   .main-Event {
     flex: 2.5;
@@ -23,9 +32,5 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-  }
-  
-  .sidebar {
-    margin: 40px 0;
   }
   

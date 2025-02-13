@@ -6,24 +6,19 @@ import EventHost from './Event/EventHost';
 import EventPicks from './Event/EventPicks';
 import EventCategoryRecommendation from './Event/EventCategoryRecommendation';
 import EventCategory from './Event/EventCategory';
+import EventLeftContent from './Event/EventLeftContent';
 
 const EventTab = () => {
   return (
     <div className={EventTabStyles["Event-tab"]}>
-      <EventBar />
+      <div className={EventTabStyles.leftSidebar}>
+          <EventLeftContent />
+      </div>
       <div className={EventTabStyles["Event-content"]}>
-        <div className={EventTabStyles["main-Event"]}>
-          <EventBanner />
-          <EventHost />
-          <div className={EventTabStyles["Event-items"]}>
-            <EventCategory />
-            <EventCategory />
-            <EventCategory />
-          </div>
+        <div className={EventTabStyles["Event-bar"]}>
+          <EventBar />
         </div>
-        <div className={EventTabStyles.sidebar}>
-          <EventPicks />
-          <EventCategoryRecommendation />
+        <div className={EventTabStyles["main-Event"]}>
         </div>
       </div>
     </div>
