@@ -17,4 +17,9 @@
   flex: 0.7;
   margin-right: 4vw;
 }
+
+.Event-bar {
+  display: flex;
+  justify-content: space-between;
+}
   
