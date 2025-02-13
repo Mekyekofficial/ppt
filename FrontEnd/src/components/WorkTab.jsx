@@ -4,6 +4,7 @@ import WorkBanner from './Work/WorkBanner';
 import WorkFilter from './Work/WorkFilter';
 import WorkFilterByJob from './Work/WorkFilterByJob';
 import WorkItems from './Work/WorkItems';
+import WorkDescription from './Work/WorkDescription';
 
 const WorkTab = () => {
   return (
@@ -15,7 +16,7 @@ const WorkTab = () => {
         <WorkItems />
       </div>
       <div className={WorkTabStyles["right-sidebar"]}>
-
+        <WorkDescription />
       </div>
     </div>
   );

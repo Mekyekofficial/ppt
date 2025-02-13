@@ -1,0 +1,200 @@
+.container {
+    width: 100%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Tabs */
+  .tabs {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .tab {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    color: #555;
+  }
+  
+  .activeTab {
+    color: black;
+    border-bottom: 3px solid #0052cc;
+  }
+  
+  /* Job Details */
+  .jobDetails {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .logo {
+    width: 60px;
+    height: 60px;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1), 
+              inset -2px -2px 0 rgba(255, 255, 255, 0.75);
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .companyName, .location, .date {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .icon {
+    margin-right: 5px;
+  }
+  
+  /* Apply Button */
+  .applyButton {
+    background: linear-gradient(to right, #7b67ff, #4c2fd1);
+    color: white;
+    border: none;
+    padding: 5px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    align-self: flex-end;
+  }
+
+  
+  /* Section Titles with Horizontal Lines */
+  .sectionTitleWrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .sectionTitle {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 15px;
+    white-space: nowrap;
+  }
+  
+  /* Requirements */
+  .requirements {
+    list-style-type: none;
+    padding-left: 0;
+    color: #000000d4;
+    margin: 10px 0;
+    margin-left: 15px;
+  }
+  
+  /* Additional Info */
+  .infoGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  .infoItem {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Featured Opportunity */
+  .featuredCards {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .cardCompanyDetails {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+    .card img {
+        width: 15px;
+        height: 15px;
+        border-radius: 8px;
+    }
+  
+  .card h4 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .cardCompanyDetails p {
+    font-size: 10px;
+    color: blue !important;
+  }
+  
+  .card p {
+    font-size: 12px;
+    color: #777;
+  }
+  
+  /* Feedback */
+  .feedbackInput {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .stars {
+    margin: 10px 0;
+    margin-left: 20px;
+  }
+  
+  .submitButton {
+    background: #ff9900;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
