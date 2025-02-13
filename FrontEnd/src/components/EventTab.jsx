@@ -7,6 +7,7 @@ import EventPicks from './Event/EventPicks';
 import EventCategoryRecommendation from './Event/EventCategoryRecommendation';
 import EventCategory from './Event/EventCategory';
 import EventLeftContent from './Event/EventLeftContent';
+import EventSearchBar from './Event/EventSearchBar';
 
 const EventTab = () => {
   return (
@@ -16,7 +17,7 @@ const EventTab = () => {
       </div>
       <div className={EventTabStyles["Event-content"]}>
         <div className={EventTabStyles["Event-bar"]}>
-          <EventBar />
+          <EventSearchBar />
         </div>
         <div className={EventTabStyles["main-Event"]}>
         </div>

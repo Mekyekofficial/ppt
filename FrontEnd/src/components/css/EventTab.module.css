@@ -1,7 +1,7 @@
 .Event-tab {
   display: flex;
-  justify-content: space-evenly;
-  padding: 20px;
+  justify-content: end;
+  padding: 20px 0;
   padding-top: 15vh;
   background-color: #fbece8;
   min-height: 100vh;
@@ -14,23 +14,7 @@
 }
   
 .Event-content {
-  flex: 0.8;
-  display: flex;
-  justify-content: space-between;
+  flex: 0.7;
+  margin-right: 4vw;
 }
-  
-  .main-Event {
-    flex: 2.5;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .main-Event .Event-items {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
   
