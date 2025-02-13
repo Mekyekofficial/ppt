@@ -12,7 +12,7 @@ const WorkTab = () => {
         <WorkFilter />
       </div>
       <div className={WorkTabStyles["main-content"]}>
-
+        <WorkItems />
       </div>
       <div className={WorkTabStyles["right-sidebar"]}>
 

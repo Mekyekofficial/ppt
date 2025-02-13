@@ -1,0 +1,110 @@
+.workCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+    border: 1px solid #f0f0f0;
+  }
+  
+  .content {
+    display: flex;
+    align-items: start;
+    width: 100%;
+  }
+  
+  .companyLogo {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1), 
+              inset -2px -2px 0 rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+    object-fit: contain;
+    background: white;
+    margin-right: 12px;
+  }
+  
+  .details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .headerTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+  }
+  
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    font-weight: 800;
+  }
+  
+  .companyName {
+    font-size: 14px;
+    color: #6a0dad;
+    margin-bottom: 6px;
+  }
+
+  .bookmarkIcon {
+    color: #444;
+    cursor: pointer;
+  }
+  
+  .info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .location,
+  .jobType,
+  .salary {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: gray;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .location svg,
+  .jobType svg,
+  .salary svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .salary span {
+    color: #007e8a;
+    font-weight: bold;
+  }
+  
+  .dollarIcon {
+    background: black;
+    color: white;
+    border-radius: 50%;
+    padding: 2px;
+    margin-right: 4px;
+  }
+  
+
+  

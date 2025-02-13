@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './css/WorkItems.module.css';
 import WorkItem from './WorkItem';
+import Work from './Work';
 import axios from 'axios';
 import companyLogo from '../../assets/logo.png';
 
@@ -28,7 +29,13 @@ const WorkItems = () => {
           <WorkItem key={job._id} job={job}/>
         ))
       ) : (
-        <p>Loading jobs...</p>
+        <div className={styles.works}>
+          <Work />
+          <Work />
+          <Work />
+          <Work />
+          <Work />
+        </div>
       )}
     </div>
   );
