@@ -139,7 +139,7 @@ const Header = () => {
               {imageLoaded ? (
                 <img src={userinfo?.profilePhoto} alt="User Avatar" className={HeaderStyles.avatarImg} />
               ) : (
-                <RxAvatar className={HeaderStyles.avatar} fontSize={"30px"} />
+                <div className=""></div>
               )}
             </>
           ) : (
