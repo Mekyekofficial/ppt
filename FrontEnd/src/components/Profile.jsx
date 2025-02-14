@@ -1,12 +1,14 @@
 import React from 'react';
 import Styles from './css/Profile.module.css';
 import ProfileBanner from './Profile/ProfileBanner';
+import ProfileAbout from './Profile/ProfileAbout';
 
 const Profile = () => {
     return (
         <div className={Styles.container}>
             <div className={Styles.mainContent}>
                 <ProfileBanner />
+                <ProfileAbout />
             </div>
             <div className={Styles.rightSideBar}>
 
