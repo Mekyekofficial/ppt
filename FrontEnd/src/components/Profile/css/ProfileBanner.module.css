@@ -1,0 +1,153 @@
+.profileBanner {
+    width: 100%;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .coverImage {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to right, #d2b48c, #f5deb3);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+  
+  .profileContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 50px;
+  }
+  
+  .leftSection {
+    display: flex;
+    align-items: center;
+  }
+  
+  .avatar {
+    position: absolute;
+    top: 165px;
+    left: 90px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #fdd7aa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info {
+    margin-left: 15px;
+  }
+  
+  .info h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+    margin-top: 25px;
+  }
+  
+  .location {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .icon {
+    margin-right: 5px;
+  }
+  
+  .description {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+  
+  .rightSection {
+    text-align: right;
+  }
+  
+  .stats {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .stats span {
+    display: block;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .connect {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .verify {
+    background: #d3e3fd;
+    color: #000;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .verifyIcon {
+    margin-right: 5px;
+    color: blue;
+  }
+  
+  .options {
+    margin-top: 10px;
+    text-align: right;
+    
+  }
+  
+  .optionsIcon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    color: #666;
+  }
+  
+  .tabs {
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px 50px;
+    background: #ece6ce;
+    border-radius: 1400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-50%);
+  }
+  
+  .tab {
+    padding: 8px 15px;
+    background: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), 
+              inset -2px -2px 0 rgba(255, 255, 255, 0.75);
+  }
+  
