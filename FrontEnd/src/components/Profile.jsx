@@ -2,6 +2,8 @@ import React from 'react';
 import Styles from './css/Profile.module.css';
 import ProfileBanner from './Profile/ProfileBanner';
 import ProfileAbout from './Profile/ProfileAbout';
+import ProfileWorkExperience from './Profile/ProfileWorkExperience';
+import ProfileSkills from './Profile/ProfileSkills';
 
 const Profile = () => {
     return (
@@ -9,6 +11,8 @@ const Profile = () => {
             <div className={Styles.mainContent}>
                 <ProfileBanner />
                 <ProfileAbout />
+                <ProfileWorkExperience />
+                <ProfileSkills />
             </div>
             <div className={Styles.rightSideBar}>
 
