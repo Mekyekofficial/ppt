@@ -3,7 +3,9 @@ import styles from "./css/WorkDescription.module.css";
 import SampleImage from "../../assets/google.png";
 import { FaMapMarkerAlt, FaCalendarAlt, FaBriefcase, FaClock, FaFileAlt, FaMoneyBillWave , FaStar} from "react-icons/fa";
 
-const WorkDescription = () => {
+const WorkDescription = ({job}) => {
+  if (!job) return null;
+  console.log(job);
   return (
     <div className={styles.container}>
       {/* Tabs */}
@@ -16,7 +18,7 @@ const WorkDescription = () => {
       {/* Job Details */}
       <div className={styles.jobDetails}>
         <div className={styles.detailsWithLogo}>
-            <img src={SampleImage} alt="Company Logo" className={styles.logo} />
+            <img src={job.company.companyLogo} alt="Company Logo" className={styles.logo} />
             <div className={styles.details}>
                 <h3>
                     <svg className={styles.icon} viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +32,7 @@ const WorkDescription = () => {
                     </clipPath>
                     </defs>
                     </svg>
-                    Data Analytics
+                    {job.jobDescription}
                 </h3>
                 <div className={styles.companyName}>
                     <svg className={styles.icon} viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +48,7 @@ const WorkDescription = () => {
                     </clipPath>
                     </defs>
                     </svg>
-                    Noida, UP
+                    {job.location}
                 </div>
                 <div className={styles.date}>
                     <svg className={styles.icon} viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +56,7 @@ const WorkDescription = () => {
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M128.573 42.8605C128.573 27.0809 115.781 14.2891 100.001 14.2891C84.2217 14.2891 71.4297 27.0809 71.4297 42.8605V100.003C71.4297 115.783 84.2217 128.575 100.001 128.575C115.781 128.575 128.573 115.783 128.573 100.003V42.8605ZM328.573 42.8605C328.573 27.0809 315.781 14.2891 300.001 14.2891C284.222 14.2891 271.43 27.0809 271.43 42.8605V100.003C271.43 115.783 284.222 128.575 300.001 128.575C315.781 128.575 328.573 115.783 328.573 100.003V42.8605Z" fill="#2859C5"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M292.683 169.591C301.591 177.384 302.491 190.922 294.7 199.829L194.699 314.115C187.318 322.549 174.683 323.872 165.715 317.146L108.573 274.289C99.1049 267.188 97.1863 253.757 104.287 244.289C111.388 234.822 124.819 232.903 134.287 240.004L175.532 270.937L262.446 171.607C270.239 162.7 283.777 161.798 292.683 169.591Z" fill="#2859C5"/>
                     </svg>
-                    Posted on: Feb 2, 2025
+                    Posted on: {new Date(job.postedOn).toDateString()}
                 </div>
             </div>
         </div>
@@ -66,10 +68,10 @@ const WorkDescription = () => {
         <span className={styles.sectionTitle}>Requirements</span>
       </h3>
       <ul className={styles.requirements}>
-        <li>Database: Oracle</li>
-        <li>Database: PostgreSQL</li>
-        <li>Tester: ETL</li>
-        <li>Reporting: Power BI</li>
+        <li>{job.experience}</li>
+        <li>{job.industryType} {job.role}</li>
+        <li>{job.qualifications}</li>
+        <li>{job.employmentType}</li>
       </ul>
 
       {/* Additional Information Section */}
@@ -95,7 +97,7 @@ const WorkDescription = () => {
             </filter>
             </defs>
             </svg>
-          Experience
+          {job.experience}
         </div>
         <div className={styles.infoItem}>
         <svg className={styles.icon} viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -107,7 +109,7 @@ const WorkDescription = () => {
         <image id="image0_2651_4012" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAA9dJREFUaAXtmS+oFUEUxr9gMBgMBoPBYDAYDAaDgtFoMBgMBsMLBoPBYHjBYDAICgoaBIvBYDAICgYFg4KCQUFBQcFgMBgMBr2/y87lY9idP7tzr1fwwLL77s7M+b4z59/sk8bLNkknJF2X9EjSK0mfJf2W9FXSG0lPJN2UdErSzvGq2s3c0oEB8K8OLIBLr+eSzkna2g5S+UrHJL2vAJsixQ6dloRBli67JWG5IUDfJD2UdHsG6KKkCzNEm93fD2ZAvyTmvpW0f5kMDnX+HIPHgoDlfYkVAQmxDz1kfkhid5sLgRf7+feZFqw71ochuzFgFAg2E8DHVn8saUcjDWQwXC7Wwa5OFtwitvy1QlepVX6+R9fJ2kV8PAGLf7tlzvqAzDO5nt3bkxnnr49HJIiJAz6g5jnONli+VPDvjx15QNQULozkRqMgVscZmcAXwedLMkwgyO75/CPhReH9VjSfglcsAPUiRbapDdipBMDgaRYM20sZUBXdeqTKWplKAH0EsOO4VAoCdwkTCeJq/5ulxRYEwPvasBBTWSEne9ocm4tbEYi9YV+OAS1xsD536sAYaUWA7OV4shX6hk2gMRsrrQig/6VholFMivt/dnBipZYEqD9hFz4ldM5fedDQn6SEeAFo34XrBaXca+uA6yULhrUoikkJx0AmpAL4qKSftnBQMHSfQiBuJpNZ0QHQXA3JvQrwrDmFAMZyXOz4oFDxwuBUAYutEub03cnfxVW0BxlzQ19FQCeFIAkgLidHSns7y2Ld1DUFfIDAGsRV0n0Y7Cnrfpj9L909ZU2pA3+Nc1y6aw4jDppDSMqtWr87GNr9uAClUqkD9mfmhDha5Z3MOJdnBoDorznIsID38askQBM6l9iN+PRRI57JVkkAXXMhVflhnmfahlJxAmxrX6vR6jeOmm6kBcZ4F+4s3uQfnECun8qvlh4RF9TFaPzeGztYln6jWQsCMOH04w0bQcJ3m5ysDQGAxq4ECbYtJWMIsOPsMA0kOktjbtCFHOCVKFBwp6uJvqSWAGBfdDpC8iB973IQA89FBJjbRwIlfZ/Cawl44QsEMNLdAdD+czEBJp2JvliE9BXXiVoC3kA6AVr7nFQRYDFa2neRS8Vday0BP4c7AdbJSTUBFiTgCDYsxEVj5lJLwEE4gZI+zOfiEVVCxe47YNQSQClgyXCBAAWwpAebRGCI7RgCrMUH5MOF2SfoXisCAVTN/T+BPmuNdaG+tXK/LX0HnnatB4qWccX/yckRLnrvOxCK3aruRQBzg+I2fFXgs99Nc8DDe/ojPsmsCjh6AL/xB4ELvDSBPTp9AAAAAElFTkSuQmCC"/>
         </defs>
         </svg>
-          Type/Time
+          {job.employmentType}
         </div>
         <div className={styles.infoItem}>
         <svg className={styles.icon} viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -119,13 +121,13 @@ const WorkDescription = () => {
         <image id="image0_2651_4017" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAmxJREFUaAXtmr9uFDEQxr+CImUKyhQp8wgUFBSUPEIKGvoookQibwAFBQUSvEXo4AGQEimRko5IiZQiBQUFBQXcTzorI8seO7de3xUeydrVeuabb2Z8u/5z0jTZlvRW0pmkv4v7f5UNXWywBWMtsifpupKwFxgYYHWVx5JuG5APgYEFZlPZlbQv6Z2kz1H7EZG/lPRG0svKhi42IQCuYMZ+8A0HuFTLI0mvJf2JHFhn9v5U0lY1+r0iNtharNw9XOAEt6KgmANKPT8sIuYVsE1h5p7BzRVKFWf+ZjEsrkyLf7ivXES/E1tLFmzri3vbDzd3ODHerMGLjP9fRu9kwhDCNvi7y/h6YnTQhWNW3htlMp+Tj0YP0IuF4lHlD5gfOrrYBPJcP+ScLasSdOGYlS8GlPLlpPdr1A4lOGalNgAAen7IZgmAIJgGMBzOV5hKYINtzVRitgAIooeMAHpk2fMxKuBlp0ffqECPLHs+RgW87PToGxXokWXPx6iAl50efbNUgFnks0atNCNtHgAO47VxWDGtcv1ZmFY3D4DMr0LUs3nqjMXmAbCnE29ueeRKfWB5e0vNAwjJYoujRQt4uetsAeQctn4+Amid0YfijQqkMsYO27GkbxMbGGB50rwCbGqVXo0P7fdOaUYAqfJS9q+LudD3iQ2M7kMoFdCcz5oPoTnJprBHAKms9HxWXYFP5vWI0aaIDQCOWbEnlByolVZKWaCGHUyzf5vEHnjYz40iHyIO4TDgNbeOhm++9PajCEdXeK9bg026h1tRWKDEfwPYhCDgtFNkv1Rg3HF+xVIvPvjuGQy+4QCX5JLzPx6H5wWNSP5BAAAAAElFTkSuQmCC"/>
         </defs>
         </svg>
-          Details
+          {job.roleCategory}
         </div>
         <div className={styles.infoItem}>
         <svg className={styles.icon} viewBox="0 0 577 700" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M84.5049 84.9243C138.609 30.5482 211.989 0 288.503 0C365.017 0 438.397 30.5482 492.501 84.9243C546.605 139.3 577 213.05 577 289.95C577 366.849 546.605 440.599 492.501 494.975L288.503 700L84.5049 494.975C57.7137 468.051 36.4616 436.088 21.9622 400.91C7.46279 365.731 0 328.027 0 289.95C0 251.872 7.46279 214.168 21.9622 178.989C36.4616 143.811 57.7137 111.848 84.5049 84.9243ZM288.503 372.788C310.363 372.788 331.328 364.06 346.785 348.525C362.243 332.99 370.927 311.92 370.927 289.95C370.927 267.979 362.243 246.909 346.785 231.374C331.328 215.839 310.363 207.111 288.503 207.111C266.643 207.111 245.678 215.839 230.221 231.374C214.763 246.909 206.08 267.979 206.08 289.95C206.08 311.92 214.763 332.99 230.221 348.525C245.678 364.06 266.643 372.788 288.503 372.788Z" fill="black"/>
         </svg>
-          Location
+          {job.location}
         </div>
         <div className={styles.infoItem}>
         <svg className={styles.icon} viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -137,7 +139,7 @@ const WorkDescription = () => {
         <image id="image0_2651_4028" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAA9lJREFUaAXNmS+oFUEUxr9gMBgEDYIGo8FgNBgMBoPBIAhiMBgMBqPBYDAYDAabgoJBQcGgoKCgQVBQUHhBQUHBYFAwGAwGfT948/j2vLl7d2f/Hlh2792ZM9858805Z2alctkh6bqkH5L+dbg+STovaVM5lPY9t0v61gF0zuDb7WGU97jSM/hk0IFySO16vjUDViSdlnSq4Dor6Y/putAORnnr1zbou3I12iPpr+kazYCLNijTf7LQiFdBz/5CPa27bZX0ywYnkrSNItAncZ/73dYoOnZguh0AgJrKLkm/rT+hmMg2qmyW9N1A8LylIYKH1g8nEAAmEaKPzwJrY5kcC32eLesw5Ht4/9kAsS521gy4LWRuaLS7pv3gr/ZJemMGMBvQY5E8Cm1Z/OgYXVhwNwMYp9JTSWRVZoiL5+c17SkjWNijCBzuWsC5sekZ+g26mPH6vYwXyaS3JJ0IuSEBi3eAHl/r41k4tYOCVLq9CjzNVZ+UFM5haHA/lAcJGDUP75wqeyW9yDiFkNxbVoYynnQAxG8S16Lsy2wdkXRm7eK5LlGhyzM7Y2BwZ0pR4yQPpjuV6BChj5nJzca5Ui7h+chRuE4GHkqY0RsZp4GllcDrCJ5t31iC19OMcwdL4zWBF6jxXcHlsZDbONGID01nP9b6TOlUcq2tI4m/vsUjdFL7TyVUt1/MCKhUmyPguVOH8De1HAqYFla8cN+T1fupkdv4fohAksvmn2gpSWguQkJzZhzOAfPFyzpourvK6er7P3KPr81LuQGemJXUOHOTl4Yvu4vzeufq3NCvMsJPA8FaEQot51jnIqqivZ8fcR1UikOKMzeABT03iUGmUlCy5XMDDs4N/dq21DFWDoIB7C8r1s3EmMiSipOjAZWXMzGgFiPls89A6WHtkLbGRcx2dF1IFF7/ZxPFeutpHjyMgnVDOeH1BjXRnCTWadlEG0+bs/XGRFZRFTvFsx9C2FQ7jajDp9wLJF+RsLxKpiZauCeIG+oHOa4lzSPcoc7j4P3aMgePu7VMG+eclbQ9AnCGYEzGduqAbWmVzO7fCzsUQKejIwFnGMaKjgSTnwLWwiFpRCMwhNMKlG8IYbXamr1EJ7rjiQjjgqVSOjRRibUfwxSm6eQYkCNxEl6XsoO+6LiTOVpMY4GhkrSagE9tSHAkEN8NJcV+5z2e4/Sa7wYkQnZ4hDsunvmPd7Sh7TKdOIl+vZwEsrhRFg9g3Yi+nhPwQUI4EQCeEm77/MiBLnSiuxePrzq8kcBNDl6hCR+qOV3mo9/X1eP3n7Z+eOY/3tGGtvShbzG/QfgfAXUf6f9wWzwAAAAASUVORK5CYII="/>
         </defs>
         </svg>
-          Salary
+          {job.salary}
         </div>
       </div>
 

@@ -3,7 +3,7 @@ import styles from './css/WorkItems.module.css';
 import Work from './Work';
 import axios from 'axios';
 
-const WorkItems = () => {
+const WorkItems = ({ setSelectedJob }) => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,6 @@ const WorkItems = () => {
       try {
         const response = await axios.get('http://localhost:5000/posts/jobs');
         setJobs(response.data); // Store fetched jobs
-        console.log("Jobs:", response.data);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
@@ -24,7 +23,7 @@ const WorkItems = () => {
     <div className={styles.works}>
       {jobs.length > 0 ? (
         jobs.map(job => (
-          <Work key={job._id} job={job}/>
+          <Work key={job._id} job={job} onSelectJob={setSelectedJob} />
         ))
       ) : (
         <p>Loading Jobs</p>
