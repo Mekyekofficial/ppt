@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./css/News.module.css";
 
 const News = ({ news }) => {
-  console.log(news);
+  const [liked, setLiked] = useState(false);
+  const toggleLike = () => {
+    setLiked(!liked);
+  };
+
+  const [shared, setShared] = useState(false);
+  const handleShare = async () => {
+    const currentUrl = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Check this out!',
+          url: currentUrl,
+        });
+        setShared(true); // Indicate that the link was shared
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      alert('Share functionality is not supported in this browser.');
+    }
+  };
+
+  const [isExpanded, setIsExpanded] = useState(false);
+      const [comment, setComment] = useState("");
+      const [comments, setComments] = useState([]);
+      const handleAddComment = () => {
+        if (comment.trim()) {
+          setComments([...comments, comment]);
+          setComment("");
+        }
+      };
   return (
     <div className={styles.newsCard}>
       {/* Header */}
@@ -42,13 +73,14 @@ const News = ({ news }) => {
 
       {/* Footer */}
       <div className={styles.footer}>
-        <div className={styles.action}>
-        <svg viewBox="0 0 432 467" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <   path fill-rule="evenodd" clip-rule="evenodd" d="M101.232 86.0805C71.37 100.83 49.5 135.933 49.5 177.788C49.5 220.538 65.7 253.5 88.884 281.753C108.018 305.026 131.166 324.328 153.738 343.125C159.114 347.6 164.424 352.063 169.668 356.512C179.136 364.588 187.578 371.651 195.732 376.807C203.886 381.964 210.42 384.299 216 384.299C221.58 384.299 228.132 381.964 236.268 376.807C244.422 371.651 252.864 364.588 262.332 356.512C267.576 352.05 272.886 347.594 278.262 343.145C300.834 324.309 323.982 305.026 343.116 281.753C366.318 253.5 382.5 220.538 382.5 177.788C382.5 135.952 360.63 100.83 330.768 86.0805C301.752 71.7397 262.764 75.5341 225.72 117.155C224.461 118.568 222.951 119.691 221.281 120.459C219.611 121.226 217.815 121.621 216 121.621C214.185 121.621 212.389 121.226 210.719 120.459C209.049 119.691 207.539 118.568 206.28 117.155C169.236 75.5341 130.248 71.7397 101.232 86.0805ZM216 86.781C174.384 46.5022 127.782 40.8593 90 59.5198C50.148 79.2701 22.5 125.036 22.5 177.807C22.5 229.663 42.48 269.242 68.706 301.153C89.694 326.702 115.38 348.087 138.078 366.961C143.238 371.242 148.194 375.406 152.946 379.454C162.18 387.315 172.08 395.682 182.106 402.025C192.132 408.369 203.58 413.506 216 413.506C228.42 413.506 239.868 408.349 249.894 402.025C259.938 395.682 269.82 387.315 279.054 379.454C283.806 375.406 288.762 371.242 293.922 366.961C316.602 348.087 342.306 326.683 363.294 301.153C389.52 269.242 409.5 229.663 409.5 177.807C409.5 125.036 381.87 79.2701 342 59.5588C304.218 40.8788 257.616 46.5217 216 86.781Z" fill="black"/>
+        <div className={styles.action} onClick={toggleLike} style={{ cursor: "pointer" }}>
+        <svg viewBox="0 0 432 467" fill="none" fillRule="evenodd"
+          clipRule="evenodd" xmlns="http://www.w3.org/2000/svg">
+        <   path fill-rule="evenodd" clip-rule="evenodd" d="M101.232 86.0805C71.37 100.83 49.5 135.933 49.5 177.788C49.5 220.538 65.7 253.5 88.884 281.753C108.018 305.026 131.166 324.328 153.738 343.125C159.114 347.6 164.424 352.063 169.668 356.512C179.136 364.588 187.578 371.651 195.732 376.807C203.886 381.964 210.42 384.299 216 384.299C221.58 384.299 228.132 381.964 236.268 376.807C244.422 371.651 252.864 364.588 262.332 356.512C267.576 352.05 272.886 347.594 278.262 343.145C300.834 324.309 323.982 305.026 343.116 281.753C366.318 253.5 382.5 220.538 382.5 177.788C382.5 135.952 360.63 100.83 330.768 86.0805C301.752 71.7397 262.764 75.5341 225.72 117.155C224.461 118.568 222.951 119.691 221.281 120.459C219.611 121.226 217.815 121.621 216 121.621C214.185 121.621 212.389 121.226 210.719 120.459C209.049 119.691 207.539 118.568 206.28 117.155C169.236 75.5341 130.248 71.7397 101.232 86.0805ZM216 86.781C174.384 46.5022 127.782 40.8593 90 59.5198C50.148 79.2701 22.5 125.036 22.5 177.807C22.5 229.663 42.48 269.242 68.706 301.153C89.694 326.702 115.38 348.087 138.078 366.961C143.238 371.242 148.194 375.406 152.946 379.454C162.18 387.315 172.08 395.682 182.106 402.025C192.132 408.369 203.58 413.506 216 413.506C228.42 413.506 239.868 408.349 249.894 402.025C259.938 395.682 269.82 387.315 279.054 379.454C283.806 375.406 288.762 371.242 293.922 366.961C316.602 348.087 342.306 326.683 363.294 301.153C389.52 269.242 409.5 229.663 409.5 177.807C409.5 125.036 381.87 79.2701 342 59.5588C304.218 40.8788 257.616 46.5217 216 86.781Z" fill={liked ? "red" : "black"}/>
         </svg>
-          <span>Like</span>
+        <span>{liked ? "Liked" : "Like"}</span>
         </div>
-        <div className={styles.action}>
+        <div className={styles.action} onClick={() => setIsExpanded(!isExpanded)}>
             <svg viewBox="0 0 732 491" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="732" height="491" fill="url(#pattern0_2544_3382)"/>
                 <defs>
@@ -59,6 +91,22 @@ const News = ({ news }) => {
                 </defs>
             </svg>
           <span>Comment</span>
+          {isExpanded && (
+                  <div className={styles.commentSection}>
+                    <textarea
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      placeholder="Write a comment..."
+                    />
+                    <button onClick={handleAddComment}>Add Comment</button>
+          
+                    <div className={styles.commentsList}>
+                      {comments.map((c, index) => (
+                        <p key={index}>{c}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
         </div>
         <div className={styles.action}>
             <svg viewBox="0 0 532 427" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,7 +114,7 @@ const News = ({ news }) => {
             </svg>
           <span>Play</span>
         </div>
-        <div className={styles.action}>
+        <div className={styles.action} onClick={handleShare} >
             <svg viewBox="0 0 526 414" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="526" height="414" fill="url(#pattern0_2282_5576)"/>
                 <defs>

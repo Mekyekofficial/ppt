@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./css/post.module.css";
 import ProfileImage from "../../assets/profile-image.png";
 import { FaEllipsisH, FaRegComment, FaRegBookmark, FaRegShareSquare } from "react-icons/fa";
 import { IoSparklesOutline } from "react-icons/io5";
 
 const Post = () => {
+  const [liked, setLiked] = useState(false);
+    const toggleLike = () => {
+      setLiked(!liked);
+    };
+  
+    const [shared, setShared] = useState(false);
+    const handleShare = async () => {
+      const currentUrl = window.location.href;
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'Check this out!',
+            url: currentUrl,
+          });
+          setShared(true); // Indicate that the link was shared
+        } catch (error) {
+          console.error('Error sharing:', error);
+        }
+      } else {
+        alert('Share functionality is not supported in this browser.');
+      }
+    };
+
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [comment, setComment] = useState("");
+    const [comments, setComments] = useState([]);
+    const handleAddComment = () => {
+      if (comment.trim()) {
+        setComments([...comments, comment]);
+        setComment("");
+      }
+    };
   return (
     <div className={styles.post}>
       {/* Post Header */}
@@ -34,7 +66,7 @@ const Post = () => {
 
       {/* Post Actions */}
       <div className={styles.actions}>
-        <div className={styles.action}>
+        <div className={styles.action} onClick={toggleLike} style={{ cursor: "pointer" }}>
           <svg className={styles.icon} viewBox="0 0 565 554" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M82.3984 311.625C169.839 290.19 213.559 247.321 235.419 161.583C257.279 247.321 301 290.19 388.44 311.625C301 333.06 257.279 375.929 235.419 461.667C213.559 375.929 169.839 333.06 82.3984 311.625Z" fill="#292556" fill-opacity="0.18"/>
             <path d="M317.815 150.042C364.898 138.5 388.44 115.417 400.211 69.25C411.982 115.417 435.523 138.5 482.607 150.042C435.523 161.583 411.982 184.667 400.211 230.833C388.44 184.667 364.898 161.583 317.815 150.042Z" fill="#292556" fill-opacity="0.18"/>
@@ -44,15 +76,32 @@ const Post = () => {
             <path d="M329.586 444.354C353.128 438.583 364.898 427.042 370.784 403.958C376.669 427.042 388.44 438.583 411.982 444.354C388.44 450.125 376.669 461.667 370.784 484.75C364.898 461.667 353.128 450.125 329.586 444.354Z" stroke="#292556" stroke-width="27.5" stroke-linejoin="round"/>
           </svg>
 
-          <span>Like</span>
+          <span>{liked ? "Liked" : "Like"}</span>
         </div>
-        <div className={styles.action}>
+        <div className={styles.action} onClick={() => setIsExpanded(!isExpanded)}>
           <svg className={styles.icon} viewBox="0 0 464 484" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M274.917 342.831H232.213C232.073 342.831 231.935 342.865 231.811 342.929L116 403.331L135.333 342.831C92.6233 342.831 58 308.207 58 265.497V211.747C58 139.352 116.688 80.6641 189.083 80.6641H274.917C347.312 80.6641 406 139.352 406 211.747C406 284.143 347.312 342.831 274.917 342.831Z" fill="#292556" fill-opacity="0.18" stroke="#292556" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span>Comment</span>
         </div>
-        <div className={styles.action}>
+        {isExpanded && (
+        <div className={styles.commentSection}>
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Write a comment..."
+          />
+          <button onClick={handleAddComment}>Add Comment</button>
+
+          <div className={styles.commentsList}>
+            {comments.map((c, index) => (
+              <p key={index}>{c}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
+        <div className={styles.action} onClick={handleShare}>
           <svg className={styles.icon} viewBox="0 0 448 428" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M56 214C56 179.528 83.9449 151.583 118.417 151.583H124.25C158.722 151.583 186.667 179.528 186.667 214C186.667 248.472 158.722 276.417 124.25 276.417H118.417C83.9448 276.417 56 248.472 56 214Z" fill="#292556" fill-opacity="0.18"/>
             <path d="M280 107C280 77.4528 303.953 53.5 333.5 53.5H338.5C368.047 53.5 392 77.4528 392 107C392 136.547 368.047 160.5 338.5 160.5H333.5C303.953 160.5 280 136.547 280 107Z" fill="#292556" fill-opacity="0.18"/>
