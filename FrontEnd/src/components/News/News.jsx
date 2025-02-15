@@ -1,17 +1,21 @@
 import React from "react";
 import styles from "./css/News.module.css";
-import { MoreHorizontal, Heart, MessageCircle, Play, Share2, Globe } from "lucide-react";
 
-const News = () => {
+const News = ({ news }) => {
+  console.log(news);
   return (
     <div className={styles.newsCard}>
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.profile}>
-          <div className={styles.avatar}></div>
+          <img className={styles.avatar} src={news.author.profilePhoto} alt="avatar" />
           <div>
-            <div className={styles.newsSource}>ABC News</div>
-            <div className={styles.timeAgo}>Posted 2h ago</div>
+            <div className={styles.newsSource}>
+              {news.author.firstName} {news.author.lastName}
+            </div>
+            <div className={styles.timeAgo}>
+              {new Date(news.date).toLocaleDateString()} at {new Date(news.date).toLocaleTimeString()}
+            </div>
           </div>
         </div>
         <svg className={styles.moreIcon} viewBox="0 0 514 470" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,18 +27,16 @@ const News = () => {
 
       {/* Content */}
       <div className={styles.content}>
-        <h3 className={styles.title}>Hyundai Motor India's IPO Performance</h3>
+        <h3 className={styles.title}>
+          {news.title}
+        </h3>
         <p className={styles.description}>
-          Hyundai Motor India's recent Initial Public Offering (IPO) has garnered 
-          significant attention. The company's shares debuted at a 1.5% discount 
-          to their issue price of ₹1,960, opening at ₹1,931 on the BSE and ₹1,934 
-          on the NSE. This performance has been a topic of discussion among 
-          investors and market analysts.
+          {news.content}
         </p>
       </div>
 
       {/* Placeholder for Image/Video */}
-      <div className={styles.media}></div>
+      <img className={styles.media} src={news.newsPhoto} alt="newsPhoto" />
 
       <div className={styles.separator}></div>
 

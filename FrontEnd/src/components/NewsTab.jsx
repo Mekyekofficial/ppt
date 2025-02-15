@@ -39,7 +39,7 @@ const NewsTab = () => {
         <div className={NewsTabStyles["news-items"]}>
           {news.length > 0 ? (
             news.map((item) => (
-              <NewsItem key={item._id} news={item} />
+              <News key={item._id} news={item} />
             ))
           ) : (
             <>

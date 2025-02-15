@@ -22,6 +22,7 @@ import JobApplicants from "./components/ATS/Jobs/JobApplicants";
 import ComingSoon from "./commingSoon";
 import RefreshHandler from "./RefreshHandler";
 import Profile from "./components/Profile";
+import Post from "./components/Post";
 
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;
@@ -75,7 +76,11 @@ const App = () => {
     {
       path: "/Profile",
       element: <Profile />,
-    }
+    },
+    {
+      path: "/Post",
+      element: <Post />,
+    },
   ]);
 
   return <RouterProvider router={router} />;
