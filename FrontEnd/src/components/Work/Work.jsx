@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./css/Work.module.css";
 
 const Work = ({ job }) => {
@@ -16,8 +16,13 @@ const Work = ({ job }) => {
     window.location.href = `/Work/job-Details/${_id}`;
   };
 
+  const [saved, setSaved] = useState(false);
+      const toggleSaved = () => {
+        setSaved(!saved);
+      };
+
   return (
-    <div className={styles.workCard} onClick={handleJobDetailsClick}>
+    <div className={styles.workCard}>
       <div className={styles.content}>
         <img src={company.companyLogo} alt={`${company.companyName} logo`} className={styles.companyLogo} />
         <div className={styles.details}>
@@ -26,11 +31,19 @@ const Work = ({ job }) => {
                 <h3 className={styles.title}>{role} || {job.department}</h3>
                 <p className={styles.companyName}>{company.companyName}</p>
             </div>
-            <svg className={styles.bookmarkIcon} viewBox="0 0 412 381" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {saved ? 
+            (
+              <svg onClick={toggleSaved} className={styles.bookmarkIcon} viewBox="0 0 412 381" fill="black" xmlns="http://www.w3.org/2000/svg">
                 <path d="M85.8359 97.375C85.8359 74.8766 85.8359 63.6274 91.5654 55.7414C93.4158 53.1946 95.6555 50.9549 98.2024 49.1045C106.088 43.375 117.338 43.375 139.836 43.375H272.169C294.668 43.375 305.917 43.375 313.803 49.1045C316.35 50.9549 318.589 53.1946 320.44 55.7414C326.169 63.6274 326.169 74.8766 326.169 97.375V358.339C326.169 362.124 326.169 364.016 325.269 364.609C324.992 364.791 324.674 364.902 324.344 364.931C323.27 365.025 322.096 363.541 319.747 360.573L208.825 220.441C207.677 218.99 207.103 218.265 206.361 218.13C206.124 218.087 205.881 218.087 205.644 218.13C204.902 218.265 204.328 218.99 203.18 220.441L92.2587 360.573C89.9096 363.541 88.735 365.025 87.661 364.931C87.331 364.902 87.0133 364.791 86.7366 364.609C85.8359 364.016 85.8359 362.124 85.8359 358.339V97.375Z" stroke="#292556" stroke-width="30.5" stroke-linejoin="round"/>
-            </svg>
+              </svg>
+            ) : (
+              <svg onClick={toggleSaved} className={styles.bookmarkIcon} viewBox="0 0 412 381" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M85.8359 97.375C85.8359 74.8766 85.8359 63.6274 91.5654 55.7414C93.4158 53.1946 95.6555 50.9549 98.2024 49.1045C106.088 43.375 117.338 43.375 139.836 43.375H272.169C294.668 43.375 305.917 43.375 313.803 49.1045C316.35 50.9549 318.589 53.1946 320.44 55.7414C326.169 63.6274 326.169 74.8766 326.169 97.375V358.339C326.169 362.124 326.169 364.016 325.269 364.609C324.992 364.791 324.674 364.902 324.344 364.931C323.27 365.025 322.096 363.541 319.747 360.573L208.825 220.441C207.677 218.99 207.103 218.265 206.361 218.13C206.124 218.087 205.881 218.087 205.644 218.13C204.902 218.265 204.328 218.99 203.18 220.441L92.2587 360.573C89.9096 363.541 88.735 365.025 87.661 364.931C87.331 364.902 87.0133 364.791 86.7366 364.609C85.8359 364.016 85.8359 362.124 85.8359 358.339V97.375Z" stroke="#292556" stroke-width="30.5" stroke-linejoin="round"/>
+              </svg>
+            )}
+            
           </div>
-          <div className={styles.info}>
+          <div className={styles.info} onClick={handleJobDetailsClick}>
             <div className={styles.location}>
                 <svg viewBox="0 0 276 325" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M40.4218 39.4291C66.3015 14.1831 101.402 0 138.001 0C174.601 0 209.701 14.1831 235.581 39.4291C261.461 64.6752 276 98.9161 276 134.619C276 170.323 261.461 204.564 235.581 229.81L138.001 325L40.4218 229.81C27.6066 217.31 17.4409 202.469 10.5053 186.137C3.56972 169.804 0 152.298 0 134.619C0 116.941 3.56972 99.4351 10.5053 83.1023C17.4409 66.7694 27.6066 51.9292 40.4218 39.4291ZM138.001 173.08C148.458 173.08 158.486 169.028 165.88 161.815C173.274 154.602 177.428 144.82 177.428 134.619C177.428 124.419 173.274 114.636 165.88 107.424C158.486 100.211 148.458 96.1587 138.001 96.1587C127.545 96.1587 117.517 100.211 110.123 107.424C102.729 114.636 98.5753 124.419 98.5753 134.619C98.5753 144.82 102.729 154.602 110.123 161.815C117.517 169.028 127.545 173.08 138.001 173.08Z" fill="black" fill-opacity="0.79"/>

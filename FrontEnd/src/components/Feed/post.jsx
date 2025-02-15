@@ -9,6 +9,11 @@ const Post = () => {
     const toggleLike = () => {
       setLiked(!liked);
     };
+
+    const [saved, setSaved] = useState(false);
+    const toggleSaved = () => {
+      setSaved(!saved);
+    };
   
     const [shared, setShared] = useState(false);
     const handleShare = async () => {
@@ -110,11 +115,11 @@ const Post = () => {
           </svg>
           <span>Share</span>
         </div>
-        <div className={styles.actionSave}>
+        <div className={styles.actionSave} onClick={toggleSaved}>
           <svg className={styles.icon} viewBox="0 0 412 375" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M85.8359 97.375C85.8359 74.8766 85.8359 63.6274 91.5654 55.7414C93.4158 53.1946 95.6555 50.9549 98.2024 49.1045C106.088 43.375 117.338 43.375 139.836 43.375H272.169C294.668 43.375 305.917 43.375 313.803 49.1045C316.35 50.9549 318.589 53.1946 320.44 55.7414C326.169 63.6274 326.169 74.8766 326.169 97.375V358.339C326.169 362.124 326.169 364.016 325.269 364.609C324.992 364.791 324.674 364.902 324.344 364.931C323.27 365.025 322.096 363.541 319.747 360.573L208.825 220.441C207.677 218.99 207.103 218.265 206.361 218.13C206.124 218.087 205.881 218.087 205.644 218.13C204.902 218.265 204.328 218.99 203.18 220.441L92.2587 360.573C89.9096 363.541 88.735 365.025 87.661 364.931C87.331 364.902 87.0133 364.791 86.7366 364.609C85.8359 364.016 85.8359 362.124 85.8359 358.339V97.375Z" stroke="#292556" stroke-width="19.5" stroke-linejoin="round"/>
           </svg>
-          <span>Save</span>
+          <span>{saved ? "Saved" : "Save"}</span>
         </div>
       </div>
     </div>
