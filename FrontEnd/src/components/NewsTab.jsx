@@ -18,9 +18,11 @@ const NewsTab = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
+      console.log('Fetching news...');
       try {
         const response = await API.get('/posts/news'); // Ensure your backend route is correct
         setNews(response.data);
+        console.log('News fetched:', response.data);
       } catch (error) {
         console.error('Error fetching news:', error);
       }
@@ -42,13 +44,7 @@ const NewsTab = () => {
               <News key={item._id} news={item} />
             ))
           ) : (
-            <>
-            <News />
-            <News />
-            <News />
-            <News />
-            <News />
-            </>
+            <p>Loading news...</p>
           )}
         </div>
       </div>

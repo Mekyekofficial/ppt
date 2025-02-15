@@ -1,32 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Event from './Event';
 import styles from './css/EventSection.module.css';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
-const events = [
-  {
-    id: 1,
-    eventName: 'ABC Events',
-    eventImage: '', // Placeholder for image URL
-  },
-  {
-    id: 2,
-    eventName: 'ABC Events',
-    eventImage: '',
-  },
-  {
-    id: 3,
-    eventName: 'ABC Events',
-    eventImage: '',
-  },
-  {
-    id: 4,
-    eventName: 'ABC Events',
-    eventImage: '',
-  },
-];
-
 const EventSection = () => {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/posts/events');
+        setEvents(response.data); // Store fetched events
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -38,9 +31,11 @@ const EventSection = () => {
       </div>
 
       <div className={styles.eventList}>
-        {events.map(event => (
-          <Event key={event.id} event={event} />
-        ))}
+        {events.length > 0 ? (
+          events.map(event => <Event key={event._id} event={event} />)
+        ) : (
+          <p>Loading events...</p>
+        )}
       </div>
     </div>
   );

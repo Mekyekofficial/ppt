@@ -3,7 +3,7 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
-    width: 225px;
+    width: max-content;
   }
   
   .imageContainer {
@@ -33,6 +33,7 @@
     justify-content: space-around;
     padding: 10px;
     font-size: 12px;
+    gap: 15px;
   }
   
   .detailItem {
