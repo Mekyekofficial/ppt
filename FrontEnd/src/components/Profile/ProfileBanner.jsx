@@ -11,10 +11,10 @@ const ProfileBanner = () => {
     setDot3Clicked(!dot3Clicked);
   }
 
-  const [editBanner, setEditBanner] = useState(false);
-  const handleEditBanner = () => {
+  const [edit, setEdit] = useState(false);
+  const handleEdit = () => {
     setDot3Clicked(false);
-    setEditBanner(!editBanner);
+    setEdit(!edit);
   }
 
   return (
@@ -43,7 +43,7 @@ const ProfileBanner = () => {
             </svg>
           </div>
           {dot3Clicked && <div className={styles.optionsDropdown}>
-              <div className={styles.option} onClick={handleEditBanner}>Edit Profile</div>
+              <div className={styles.option} onClick={handleEdit}>Edit Profile</div>
               <div className={styles.option}>Settings</div>
           </div>}
         </div>
@@ -56,7 +56,7 @@ const ProfileBanner = () => {
         <span className={styles.tab}>Credentials</span>
         <span className={styles.tab}>Analysis</span>
       </div>
-      {editBanner && <ProfileBannerEdit isOpen={editBanner} onClose={handleEditBanner} />}
+      {edit && <ProfileBannerEdit isOpen={edit} onClose={handleEdit} />}
     </>
   );
 };
