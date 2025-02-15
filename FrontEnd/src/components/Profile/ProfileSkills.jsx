@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./css/ProfileSkills.module.css";
+import ProfileSkillEdit from "./Edit/ProfileSkillEdit";
 import { FaStar } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 
 const ProfileSkills = () => {
+  const [edit, setEdit] = useState(false);
+      const handleEdit = () => {
+        setEdit(!edit);
+      }
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -21,7 +26,7 @@ const ProfileSkills = () => {
 
         </div>
         <div className={styles.editIcon}>
-          <svg className={styles.editIcon} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={styles.editIcon} onClick={handleEdit} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M41.6667 158.333H53.5417L135 76.875L123.125 65L41.6667 146.458V158.333ZM25 175V139.583L146.875 18.125L181.667 53.75L60.4167 175H25ZM128.958 71.0417L123.125 65L135 76.875L128.958 71.0417Z" fill="black"/>
                   </svg>
         </div>
@@ -53,6 +58,7 @@ const ProfileSkills = () => {
               <path d="M66.2109 94.5835L113.503 141.875L160.794 94.5835" stroke="black" stroke-width="22.67" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
       </div>
+      {edit && <ProfileSkillEdit isOpen={edit} onClose={handleEdit} />}
     </div>
   );
 };
