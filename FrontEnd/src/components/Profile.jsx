@@ -5,6 +5,7 @@ import ProfileAbout from './Profile/ProfileAbout';
 import ProfileWorkExperience from './Profile/ProfileWorkExperience';
 import ProfileSkills from './Profile/ProfileSkills';
 import ProfileEducation from './Profile/ProfileEducation';
+import ProfileCertificate from './Profile/ProfileCertificate';
 
 const Profile = () => {
     return (
@@ -15,6 +16,7 @@ const Profile = () => {
                 <ProfileWorkExperience />
                 <ProfileSkills />
                 <ProfileEducation />
+                <ProfileCertificate />
             </div>
             <div className={Styles.rightSideBar}>
 
