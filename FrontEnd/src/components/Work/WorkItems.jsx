@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './css/WorkItems.module.css';
-import WorkItem from './WorkItem';
 import Work from './Work';
 import axios from 'axios';
-import companyLogo from '../../assets/logo.png';
 
 const WorkItems = () => {
   const [jobs, setJobs] = useState([]);
@@ -23,19 +21,13 @@ const WorkItems = () => {
   }, []);
 
   return (
-    <div className={styles.workItemsContainer}>
+    <div className={styles.works}>
       {jobs.length > 0 ? (
         jobs.map(job => (
-          <WorkItem key={job._id} job={job}/>
+          <Work key={job._id} job={job}/>
         ))
       ) : (
-        <div className={styles.works}>
-          <Work />
-          <Work />
-          <Work />
-          <Work />
-          <Work />
-        </div>
+        <p>Loading Jobs</p>
       )}
     </div>
   );
