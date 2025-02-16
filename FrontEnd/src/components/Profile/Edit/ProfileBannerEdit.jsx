@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import styles from "./css/ProfileBannerEdit.module.css";
 import { FaCamera } from "react-icons/fa";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
 Modal.setAppElement("#root"); // Ensure accessibility
 
-const ProfileBannerEdit = ({ isOpen, onClose }) => {
+const ProfileBannerEdit = ({ isOpen, onClose, userId }) => {
   const [profileImage, setProfileImage] = useState(null);
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
@@ -17,8 +19,31 @@ const ProfileBannerEdit = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleSave = () => {
-    console.log("Profile Updated:", { profileImage, location, description });
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("profileImage", profileImage);
+      formData.append("location", location);
+      formData.append("description", description);
+
+      const responce = await API.post("/profile/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (responce.status === 201) {
+        window.location.reload();
+      }
+      else {
+        toast.error("Failed to update profile", responce.data);
+      }
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update profile", error);
+    }
     onClose(); // Close modal after saving
   };
 

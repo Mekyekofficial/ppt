@@ -9,6 +9,7 @@ const ProfileWorkExperience = ({user}) => {
       const handleEdit = () => {
         setEdit(!edit);
       }
+      console.log(user);
   return (
     <div className={styles.workContainer}>
       <div className={styles.workHeader}>
@@ -21,13 +22,13 @@ const ProfileWorkExperience = ({user}) => {
       </div>
       <div className={styles.workContent}>
         <p className={styles.jobTitle}><b>
-          {user?.workExperience?.title || "add your Job Title"} || {user?.workExperience?.company || "add your Company"}
+          {user?.workExperience[0]?.title || "add your Job Title"} || {user?.workExperience[0]?.company || "add your Company"}
         </b></p>
         <p className={styles.jobDuration}><b>
-          {user?.workExperience?.startDate || "add your Job Start date"} - {user?.workExperience?.endDate || "add your Job End date"}
+          {user?.workExperience[0]?.startDate || "add your Job Start date"} - {user?.workExperience[0]?.endDate || "add your Job End date"}
         </b></p>
         <ul className={styles.jobDetails}>
-          {user?.workExperience?.description || "add your Job Description"}
+          {user?.workExperience[0]?.description || "add your Job Description"}
         </ul>
       </div>
       <div className={styles.showMore}>
@@ -36,7 +37,7 @@ const ProfileWorkExperience = ({user}) => {
         <path d="M66.2109 94.5835L113.503 141.875L160.794 94.5835" stroke="black" stroke-width="22.67" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
        </div>
-      {edit && <ProfileExperienceEdit isOpen={edit} onClose={handleEdit} />}
+      {edit && <ProfileExperienceEdit isOpen={edit} onClose={handleEdit} userId={user?._id} />}
     </div>
   );
 };

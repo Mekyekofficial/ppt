@@ -2,12 +2,12 @@ const joi = require('joi');
 const { use } = require('./Routes/CompanyRouter');
 
 const userSchema = joi.object({
-    firstName: joi.string().required(),
-    lastName: joi.string().required(),
+    firstName: joi.string(),
+    lastName: joi.string(),
     dob: joi.date().optional(),
-    email: joi.string().email().required(),
+    email: joi.string().email(),
     phoneNumber: joi.string().pattern(/^\d+$/).optional(), // Ensures numeric input as a string
-    password: joi.string().min(6).required(),
+    password: joi.string().min(6),
     profilePhoto: joi.string().optional(),
     country: joi.string().optional(),
     gender: joi.string().valid("Male", "Female", "Other").optional(),
@@ -17,102 +17,102 @@ const userSchema = joi.object({
     }).optional(),
     about: joi.string().optional(),
     workExperience: joi.array().items(joi.object({
-        title: joi.string().required(),
-        company: joi.string().required(),
-        location: joi.string().required(),
-        startDate: joi.date().required(),
+        title: joi.string(),
+        company: joi.string(),
+        location: joi.string(),
+        startDate: joi.date(),
         endDate: joi.date().optional(),
         description: joi.string().optional(),
     })).optional(),
     skills: joi.array().items(joi.string()).optional(),
     education: joi.array().items(joi.object({
-        name: joi.string().required(),
-        steam: joi.string().required(),
-        endDate: joi.date().required(),
+        name: joi.string(),
+        steam: joi.string(),
+        endDate: joi.date(),
     })).optional(),
     certificate : joi.array().items(joi.object({
-        name: joi.string().required(),
-        issuedBy: joi.string().required(),
-        courseType: joi.string().required(),
-        duration: joi.string().required(),
+        name: joi.string(),
+        issuedBy: joi.string(),
+        courseType: joi.string(),
+        duration: joi.string(),
         photo: joi.string().optional(),
     })).optional(),
 
 });
 
 const newsSchema = joi.object({
-    content: joi.string().required().messages({
+    content: joi.string().messages({
         "string.empty": "Content is required."
     }),
     date: joi.date().default(() => new Date()), // Ensures a default date
     newsPhoto: joi.string().optional(),
     author: joi.object({
-        firstName: joi.string().required(),
-        lastName: joi.string().required(),
+        firstName: joi.string(),
+        lastName: joi.string(),
         profilePhoto: joi.string().optional(),
-    }).required(),
+    }),
 });
 
 const eventSchema = joi.object({
-    eventType: joi.string().valid("local", "seminar", "cultural").required().messages({
+    eventType: joi.string().valid("local", "seminar", "cultural").messages({
         "any.only": "Event type must be 'local', 'seminar', or 'cultural'.",
         "string.empty": "Event type is required."
     }),
-    eventName: joi.string().required().messages({
+    eventName: joi.string().messages({
         "string.empty": "Event name is required."
     }),
     eventImage: joi.string().optional(),
-    location: joi.string().required().messages({
+    location: joi.string().messages({
         "string.empty": "Location is required."
     }),
-    date: joi.date().required().messages({
+    date: joi.date().messages({
         "date.base": "Invalid date format.",
         "any.required": "Date is required."
     }),
-    time: joi.string().required().messages({
+    time: joi.string().messages({
         "string.empty": "Time is required."
     }),
     author: joi.object({
-        firstName: joi.string().required(),
-        lastName: joi.string().required(),
+        firstName: joi.string(),
+        lastName: joi.string(),
         profilePhoto: joi.string().optional(),
-    }).required(),
+    }),
 });
 
 const jobSchema = joi.object({
-    qualifications: joi.string().required().messages({
+    qualifications: joi.string().messages({
         "string.empty": "Qualifications are required."
     }),
-    location: joi.string().required().messages({
+    location: joi.string().messages({
         "string.empty": "Location is required."
     }),
     jobBenefits: joi.string().optional(),
-    jobDescription: joi.string().required().messages({
+    jobDescription: joi.string().messages({
         "string.empty": "Job description is required."
     }),
-    role: joi.string().required().messages({
+    role: joi.string().messages({
         "string.empty": "Role is required."
     }),
-    industryType: joi.string().required().messages({
+    industryType: joi.string().messages({
         "string.empty": "Industry type is required."
     }),
-    department: joi.string().required().messages({
+    department: joi.string().messages({
         "string.empty": "Department is required."
     }),
-    employmentType: joi.string().valid("Full-time", "Part-time", "Remote").required().messages({
+    employmentType: joi.string().valid("Full-time", "Part-time", "Remote").messages({
         "any.only": "Employment type must be 'Full-time', 'Part-time', or 'Remote'.",
         "string.empty": "Employment type is required."
     }),
-    roleCategory: joi.string().required().messages({
+    roleCategory: joi.string().messages({
         "string.empty": "Role category is required."
     }),
-    salary: joi.string().required().messages({
+    salary: joi.string().messages({
         "string.empty": "Salary is required."
     }),
-    experience: joi.string().required().messages({
+    experience: joi.string().messages({
         "string.empty": "Experience is required."
     }),
-    jobType: joi.string().valid("Permanent", "Contract", "Internship").required().messages({
+    jobType: joi.string().valid("Permanent", "Contract", "Internship").messages({
         "any.only": "Job type must be 'Permanent', 'Contract', or 'Internship'.",
         "string.empty": "Job type is required."
     }),
@@ -120,11 +120,11 @@ const jobSchema = joi.object({
         "date.base": "Invalid date format."
     }),
     company : joi.object({
-        companyName: joi.string().required(),
-        companyEmail: joi.string().email().required(),
+        companyName: joi.string(),
+        companyEmail: joi.string().email(),
         companyLogo: joi.string().optional(),
-        companyId: joi.string().required(),
-    }).required(),
+        companyId: joi.string(),
+    }),
 });
 
 const companyRegistrationSchema = joi.object({
@@ -150,28 +150,28 @@ const companyRegistrationSchema = joi.object({
 });
 
 const jobApplySchema = joi.object({
-    jobID: joi.string().required().messages({
+    jobID: joi.string().messages({
         "string.empty": "Job ID is required."
     }),
-    firstName: joi.string().required().messages({
+    firstName: joi.string().messages({
         "string.empty": "First name is required."
     }),
-    lastName: joi.string().required().messages({
+    lastName: joi.string().messages({
         "string.empty": "Last name is required."
     }),
-    email: joi.string().email().required().messages({
+    email: joi.string().email().messages({
         "string.empty": "Email is required.",
         "string.email": "Invalid email format."
     }),
-    phoneNumber: joi.string().pattern(/^\d+$/).required().messages({
+    phoneNumber: joi.string().pattern(/^\d+$/).messages({
         "string.empty": "Phone number is required.",
         "string.pattern.base": "Phone number must be numeric."
     }),
     resume: joi.string().optional(),
-    area: joi.string().required().messages({
+    area: joi.string().messages({
         "string.empty": "Area is required."
     }),
-    cityStateCountry: joi.string().required().messages({
+    cityStateCountry: joi.string().messages({
         "string.empty": "City, state, and country are required."
     }),
     getEmailUpdates: joi.boolean().default(false)

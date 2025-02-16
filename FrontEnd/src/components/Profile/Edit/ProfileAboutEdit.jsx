@@ -1,11 +1,28 @@
 import { useState } from "react";
 import styles from "./css/ProfileAboutEdit.module.css";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
-const ProfileAboutEdit = ({ onClose, onSave, initialText = "" }) => {
+const ProfileAboutEdit = ({ onClose, onSave, initialText = "", userId }) => {
   const [aboutText, setAboutText] = useState(initialText);
 
-  const handleSave = () => {
-    onSave(aboutText);
+  const handleSave = async () => {
+    const formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("about", aboutText);
+
+    const response = await API.post("/profile/update", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (response.status === 201) {
+      window.location.reload();
+    } else {
+      toast.error("Failed to update profile", response.data);
+    }
+
     onClose();
   };
 

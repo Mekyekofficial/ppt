@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styles from "./css/ProfileExperienceEdit.module.css";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
-const ProfileExperienceEdit = ({ onClose, onSave }) => {
+const ProfileExperienceEdit = ({ onClose, onSave, userId }) => {
   const [experiences, setExperiences] = useState([
     { company: "",title: "", jobType: "", startDate: "", endDate: "", description: "" },
   ]);
@@ -19,8 +21,27 @@ const ProfileExperienceEdit = ({ onClose, onSave }) => {
     ]);
   };
 
-  const handleSave = () => {
-    onSave(experiences);
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("experiences", JSON.stringify(experiences));
+
+      const responce = await API.post("/profile/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (responce.status === 201) {
+        window.location.reload();
+      } else {
+        toast.error("Failed to update profile", responce.data);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update profile", error);
+    }
     onClose();
   };
 

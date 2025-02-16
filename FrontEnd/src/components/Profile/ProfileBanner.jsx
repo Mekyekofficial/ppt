@@ -61,7 +61,7 @@ const ProfileBanner = ({user}) => {
         <span className={styles.tab}>Credentials</span>
         <span className={styles.tab}>Analysis</span>
       </div>
-      {edit && <ProfileBannerEdit isOpen={edit} onClose={handleEdit} />}
+      {edit && <ProfileBannerEdit isOpen={edit} onClose={handleEdit} userId={user?._id} />}
     </>
   );
 };

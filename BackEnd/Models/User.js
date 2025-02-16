@@ -52,9 +52,6 @@ const UserSchema = new Schema({
         company: {
             type: String,
         },
-        location: {
-            type: String,
-        },
         startDate: {
             type: Date,
         },
@@ -63,7 +60,10 @@ const UserSchema = new Schema({
         },
         description: {
             type: String,
-        }
+        },
+        jobType: {
+            type: String,
+        },
     }],
     skills: [
         {

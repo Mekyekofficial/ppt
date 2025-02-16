@@ -21,7 +21,7 @@ const ProfileAbout = ({user}) => {
       <p className={styles.aboutText}>
         {user?.about || "Add your about information here"}
       </p>
-      {edit && <ProfileAboutEdit isOpen={edit} onClose={handleEdit} />}
+      {edit && <ProfileAboutEdit isOpen={edit} onClose={handleEdit} userId={user?._id}/>}
     </div>
   );
 };
