@@ -6,6 +6,7 @@ import ProfileWorkExperience from './Profile/ProfileWorkExperience';
 import ProfileSkills from './Profile/ProfileSkills';
 import ProfileEducation from './Profile/ProfileEducation';
 import ProfileCertificate from './Profile/ProfileCertificate';
+import ProfileUrlAndHighlights from './Profile/ProfileUrlAndHighlights';
 
 const Profile = () => {
     return (
@@ -19,7 +20,7 @@ const Profile = () => {
                 <ProfileCertificate />
             </div>
             <div className={Styles.rightSideBar}>
-
+                <ProfileUrlAndHighlights />
             </div>
             <div className={Styles.back} onClick={() => window.history.back()}> 
                 <svg viewBox="0 0 631 586" fill="none" xmlns="http://www.w3.org/2000/svg">
