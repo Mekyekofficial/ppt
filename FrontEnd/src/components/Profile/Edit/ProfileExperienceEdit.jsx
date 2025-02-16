@@ -3,7 +3,7 @@ import styles from "./css/ProfileExperienceEdit.module.css";
 
 const ProfileExperienceEdit = ({ onClose, onSave }) => {
   const [experiences, setExperiences] = useState([
-    { company: "", jobType: "", startDate: "", endDate: "", description: "" },
+    { company: "",title: "", jobType: "", startDate: "", endDate: "", description: "" },
   ]);
 
   const handleChange = (index, field, value) => {
@@ -15,7 +15,7 @@ const ProfileExperienceEdit = ({ onClose, onSave }) => {
   const addExperience = () => {
     setExperiences([
       ...experiences,
-      { company: "", jobType: "", startDate: "", endDate: "", description: "" },
+      { company: "",title: "", jobType: "", startDate: "", endDate: "", description: "" },
     ]);
   };
 
@@ -30,6 +30,12 @@ const ProfileExperienceEdit = ({ onClose, onSave }) => {
         <h2>Add your work Experience</h2>
         {experiences.map((exp, index) => (
           <div key={index} className={styles.experienceBlock}>
+            <input
+              type="text"
+              placeholder="Title*"
+              value={exp.title}
+              onChange={(e) => handleChange(index, "title", e.target.value)}
+            />
             <input
               type="text"
               placeholder="Company name*"

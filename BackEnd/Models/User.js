@@ -1,3 +1,5 @@
+const e = require('cors');
+const { language } = require('googleapis/build/src/apis/language');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -63,6 +65,69 @@ const UserSchema = new Schema({
             type: String,
         }
     }],
+    skills: [
+        {
+            technicalKnowledge: [
+                {
+                    language: {
+                        type: String,
+                    },
+                    framework: {
+                        type: String,
+                    },
+                }
+            ]
+        },
+        {
+            coreKnowledge: [
+                {
+                    type: String,
+                }
+            ]
+        },
+        {
+            language: [
+                {
+                    type: String,
+                }
+            ]
+        }
+    ],
+    education: [
+        {
+            name: {
+                type: String,
+            },
+            stream: {
+                type: String,
+            },
+            endDate: {
+                type: Date,
+            },
+        }
+    ],
+    certificate: [
+        {
+            name: {
+                type: String,
+            },
+            issuedBy: {
+                type: String,
+            },
+            courseType: {
+                type: String,
+            },
+            duration: {
+                type: String,
+            },
+            description: {
+                type: String,
+            },
+            photo : {
+                type: String,
+            }
+        }
+    ],
 });
 
 const UserModal = mongoose.model('users', UserSchema);

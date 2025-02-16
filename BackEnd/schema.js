@@ -11,6 +11,33 @@ const userSchema = joi.object({
     profilePhoto: joi.string().optional(),
     country: joi.string().optional(),
     gender: joi.string().valid("Male", "Female", "Other").optional(),
+    profileBanner: joi.object({
+        location: joi.string().optional(),
+        description: joi.string().optional(),
+    }).optional(),
+    about: joi.string().optional(),
+    workExperience: joi.array().items(joi.object({
+        title: joi.string().required(),
+        company: joi.string().required(),
+        location: joi.string().required(),
+        startDate: joi.date().required(),
+        endDate: joi.date().optional(),
+        description: joi.string().optional(),
+    })).optional(),
+    skills: joi.array().items(joi.string()).optional(),
+    education: joi.array().items(joi.object({
+        name: joi.string().required(),
+        steam: joi.string().required(),
+        endDate: joi.date().required(),
+    })).optional(),
+    certificate : joi.array().items(joi.object({
+        name: joi.string().required(),
+        issuedBy: joi.string().required(),
+        courseType: joi.string().required(),
+        duration: joi.string().required(),
+        photo: joi.string().optional(),
+    })).optional(),
+
 });
 
 const newsSchema = joi.object({

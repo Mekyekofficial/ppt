@@ -2,12 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const multer = require('multer');
-const ExpressError = require('./utils/ExpressError');
-const authRoutes = require('./Routes/AuthRouter');
-const postRoutes = require('./Routes/PostRouter');
-const companyRoutes = require('./Routes/CompanyRouter');
-const ATSRouter = require('./Routes/ATSRouter');
-require('./mongodb');
+const ExpressError = require('./utils/ExpressError.js');
+const authRoutes = require('./Routes/AuthRouter.js');
+const postRoutes = require('./Routes/PostRouter.js');
+const companyRoutes = require('./Routes/CompanyRouter.js');
+const ATSRouter = require('./Routes/ATSRouter.js');
+const profileRoutes = require('./Routes/ProfileRouter.js');
+require('./mongodb.js');
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use('/auth', authRoutes);
 app.use('/posts', postRoutes);
 app.use('/company', companyRoutes);
 app.use('/ATS', ATSRouter);
+app.use('/profile', profileRoutes);
 
 app.get('/ping', (req, res) => res.send('PONG'));
 
