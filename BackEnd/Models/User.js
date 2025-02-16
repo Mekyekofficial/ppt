@@ -67,16 +67,14 @@ const UserSchema = new Schema({
     }],
     skills: [
         {
-            technicalKnowledge: [
-                {
-                    language: {
-                        type: String,
-                    },
-                    framework: {
-                        type: String,
-                    },
-                }
-            ]
+            technicalKnowledge: {
+                language: [{
+                    type: String,
+                }],
+                framework: [{
+                    type: String,
+                }],
+            }
         },
         {
             coreKnowledge: [
@@ -88,7 +86,12 @@ const UserSchema = new Schema({
         {
             language: [
                 {
-                    type: String,
+                    name: {
+                        type: String,
+                    },
+                    level: {
+                        type: String,
+                    }
                 }
             ]
         }

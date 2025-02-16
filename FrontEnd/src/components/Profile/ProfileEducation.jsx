@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./css/ProfileEducation.module.css";
 import ProfileEducationEdit from "./Edit/ProfileEducationEdit";
 
-const ProfileEducation = () => {
+const ProfileEducation = ({user}) => {
   const [edit, setEdit] = useState(false);
   return (
     <div className={styles.educationCard}>
@@ -21,8 +21,12 @@ const ProfileEducation = () => {
             </svg>
 
             <div>
-              <div className={styles.degree}>University Name</div>
-              <div className={styles.field}>B.TECH in Computer Science</div>
+              <div className={styles.degree}>
+                {user?.education[0]?.name || "Add your Education Institution"}
+              </div>
+              <div className={styles.field}>
+                {user?.education[0]?.stream || "Add Stream"}
+              </div>
             </div>
           </div>
 
@@ -33,16 +37,24 @@ const ProfileEducation = () => {
             <path d="M450.628 364.792V216.729L257.503 321.875L21.4609 193.125L257.503 64.375L493.544 193.125V364.792H450.628ZM257.503 450.625L107.294 369.083V261.792L257.503 343.333L407.711 261.792V369.083L257.503 450.625Z" fill="black"/>
             </svg>
             <div>
-              <div className={styles.degree}>High School Name <span className={styles.smallText}>(12th)</span></div>
-              <div className={styles.field}>PCM</div>
+              <div className={styles.degree}>
+                {user?.education[1]?.name || "Add your Education Institution"}
+              </div>
+              <div className={styles.field}>
+                {user?.education[1]?.stream || "Add Stream"}
+              </div>
             </div>
           </div>
         </div>
 
         <div className={styles.passingYear}>
           <div className={styles.yearText}>Passing Year</div>
-          <div className={styles.year}>2027</div>
-          <div className={styles.year}>2022</div>
+          <div className={styles.year}>
+            {user?.education[0]?.endDate || "Add Year"}
+          </div>
+          <div className={styles.year}>
+            {user?.education[1]?.endDate || "Add Year"}
+          </div>
         </div>
       </div>
 

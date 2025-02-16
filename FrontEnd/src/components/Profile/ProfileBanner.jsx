@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./css/ProfileBanner.module.css";
 import ProfileImage from "../../assets/profile-image.png";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import API from "../../api";
 
 import ProfileBannerEdit from "./Edit/ProfileBannerEdit";
+import { toast } from "react-toastify";
+import { use } from "react";
 
-const ProfileBanner = () => {
+const ProfileBanner = ({user}) => {
+
   const [dot3Clicked, setDot3Clicked] = useState(false);
   const handleDot3Click = () => {
     setDot3Clicked(!dot3Clicked);
@@ -23,14 +27,15 @@ const ProfileBanner = () => {
       <div className={styles.coverImage}></div>
       <div className={styles.profileContent}>
         <div className={styles.leftSection}>
-          <img src={ProfileImage} alt="ProfileImage" className={styles.avatar}/>
+          <img src={user?.profilePhoto} alt="ProfileImage" className={styles.avatar}/>
           <div className={styles.info}>
-            <h2>Alex Rosan</h2>
+            <h2>{user.firstName} {user.lastName}</h2>
             <p className={styles.location}>
-              <FaMapMarkerAlt className={styles.icon} /> New York, United States
+              <FaMapMarkerAlt className={styles.icon} />
+              {user?.profileBanner?.location || 'Update your Location'}
             </p>
             <p className={styles.description}>
-              Experienced [Your Job Title] specializing in [Key Skills]. Passionate about driving growth, innovation, and delivering impactful results.
+              {user?.profileBanner?.description || 'Update your Bio'}
             </p>
           </div>
         </div>

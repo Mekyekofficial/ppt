@@ -4,7 +4,7 @@ import ProfileExperienceEdit from "./Edit/ProfileExperienceEdit";
 import { FiEdit2 } from "react-icons/fi";
 import { HiDotsVertical } from "react-icons/hi";
 
-const ProfileWorkExperience = () => {
+const ProfileWorkExperience = ({user}) => {
   const [edit, setEdit] = useState(false);
       const handleEdit = () => {
         setEdit(!edit);
@@ -20,12 +20,14 @@ const ProfileWorkExperience = () => {
         </div>
       </div>
       <div className={styles.workContent}>
-        <p className={styles.jobTitle}><b>Job Title || Company Name</b></p>
-        <p className={styles.jobDuration}><b>Month Year – Month Year</b></p>
+        <p className={styles.jobTitle}><b>
+          {user?.workExperience?.title || "add your Job Title"} || {user?.workExperience?.company || "add your Company"}
+        </b></p>
+        <p className={styles.jobDuration}><b>
+          {user?.workExperience?.startDate || "add your Job Start date"} - {user?.workExperience?.endDate || "add your Job End date"}
+        </b></p>
         <ul className={styles.jobDetails}>
-          <li>Led a team of [X] in the development and execution of [specific projects or initiatives].</li>
-          <li>Managed [responsibility], resulting in [quantifiable achievement, e.g., a 20% increase in sales].</li>
-          <li>Spearheaded process improvements that increased efficiency by [X]%.</li>
+          {user?.workExperience?.description || "add your Job Description"}
         </ul>
       </div>
       <div className={styles.showMore}>

@@ -53,9 +53,9 @@ const postProfile = wrapAsync(async (req, res) => {
     };
 
     let user;
-    user = await UserModal.findOne({ email : data.email });
+    user = await UserModal.findOne({ _id: req.body._id });
     if(user){
-        await UserModal.findOneAndUpdate({ email : data.email }, data);
+        await UserModal.findOneAndUpdate({ _id: req.body._id  }, data);
     } else {
         user = await UserModal.create(data);
     }
@@ -63,4 +63,10 @@ const postProfile = wrapAsync(async (req, res) => {
     res.status(201).json(user);
 });
 
-module.exports = { postProfile };
+const getProfile = wrapAsync(async (req, res) => {
+    const id = req.query._id;
+    const user = await UserModal.findOne({_id: id});
+    res.status(200).json(user);
+});
+
+module.exports = { postProfile, getProfile };

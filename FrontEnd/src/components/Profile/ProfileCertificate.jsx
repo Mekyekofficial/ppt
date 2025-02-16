@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./css/ProfileEducation.module.css";
 import ProfileCertificateEdit from "./Edit/ProfileCertificateEdit";
 
-const ProfileCertificate = () => {
+const ProfileCertificate = ({user}) => {
   const [edit, setEdit] = useState(false);
   return (
     <div className={styles.educationCard}>
@@ -25,8 +25,12 @@ const ProfileCertificate = () => {
 
 
             <div>
-              <div className={styles.degree}>ABC Certification</div>
-              <div className={styles.field}>Data Analytics</div>
+              <div className={styles.degree}>
+                {user?.certificate[0]?.name || "Add your Certification"}
+              </div>
+              <div className={styles.field}>
+                {user?.certificate[0]?.field || "Field"}
+              </div>
             </div>
           </div>
 
@@ -41,15 +45,23 @@ const ProfileCertificate = () => {
             </svg>
 
             <div>
-              <div className={styles.degree}>ABC Certification</div>
-              <div className={styles.field}>Data Analytics</div>
+            <div className={styles.degree}>
+                {user?.certificate[1]?.name || "Add your Certification"}
+              </div>
+              <div className={styles.field}>
+                {user?.certificate[1]?.field || "Field"}
+              </div>
             </div>
           </div>
         </div>
 
         <div className={styles.passingYear}>
-          <div className={styles.year}>2-3 WEEKS</div>
-          <div className={styles.year}>2-3 WEEKS</div>
+          <div className={styles.year}>
+            {user?.certificate[0]?.duration || "Add Duration"}
+          </div>
+          <div className={styles.year}>
+            {user?.certificate[1]?.duration || "Add Duration"}
+          </div>
         </div>
       </div>
 

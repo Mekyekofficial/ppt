@@ -3,8 +3,9 @@ import styles from "./css/ProfileSkills.module.css";
 import ProfileSkillEdit from "./Edit/ProfileSkillEdit";
 import { FaStar } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
+import { use } from "react";
 
-const ProfileSkills = () => {
+const ProfileSkills = ({user}) => {
   const [edit, setEdit] = useState(false);
       const handleEdit = () => {
         setEdit(!edit);
@@ -36,18 +37,30 @@ const ProfileSkills = () => {
       <div className={styles.content}>
         <div className={styles.section}>
           <h3>Technical Knowledge</h3>
-          <p><strong>Languages:</strong> C, JAVA, HTML/CSS</p>
-          <p><strong>Frameworks:</strong> React, Redux, Typescript</p>
+          <p><strong>Languages: </strong> 
+            {user?.skills?.technicalKnowledge?.language.map((language, index) => {
+              return <span key={index}>{language}, </span>
+            }) || 'add your technical language'}
+          </p>
+          <p><strong>Frameworks:</strong> 
+            {user?.skills?.technicalKnowledge?.framework.map((framework, index) => {
+              return <span key={index}>{framework}, </span>
+            }) || 'add your technical framework'}
+          </p>
         </div>
 
         <div className={styles.section}>
-          <h3>Core Knowledge</h3>
-          <p>DBMS, Software Development Life Cycle</p>
+          <h3>Core Knowledge </h3>
+          {user?.skills?.coreKnowledge?.map((core, index) => {
+            return <p key={index}>{core}</p>
+          }) || 'add your core knowledge'}
         </div>
 
         <div className={styles.section}>
-          <h3>Languages</h3>
-          <p>English (Intermediate) &nbsp;&nbsp; Bengali (Beginner)</p>
+          <h3>Languages </h3>
+          {user?.skills?.language?.map((language, index) => {
+            return <p key={index}>{language?.name}({language?.level})&nbsp;&nbsp;</p>
+          }) || 'add your language'}
         </div>
       </div>
 
