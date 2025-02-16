@@ -1,0 +1,74 @@
+.container {
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px;
+    background: #ffefef;
+    border-radius: 8px;
+    color: #4b2e2e;
+    width: min-content;
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+  
+  .list {
+    margin-top: 10px;
+  }
+  
+  .friendItem {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .friendItem:last-child {
+    border-bottom: none;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .name {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .job {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  .showMore {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  .showMore:hover {
+    text-decoration: underline;
+  }
+  

@@ -32,6 +32,37 @@ const UserSchema = new Schema({
     country : {
         type: String,
     },
+    profileBanner: {
+        location: {
+            type: String,
+        },
+        description : {
+            type: String,
+        }
+    },
+    about: {
+        type: String,
+    },
+    workExperience: [{
+        title: {
+            type: String,
+        },
+        company: {
+            type: String,
+        },
+        location: {
+            type: String,
+        },
+        startDate: {
+            type: Date,
+        },
+        endDate: {
+            type: Date,
+        },
+        description: {
+            type: String,
+        }
+    }],
 });
 
 const UserModal = mongoose.model('users', UserSchema);

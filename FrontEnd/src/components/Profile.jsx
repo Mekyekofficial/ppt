@@ -7,6 +7,7 @@ import ProfileSkills from './Profile/ProfileSkills';
 import ProfileEducation from './Profile/ProfileEducation';
 import ProfileCertificate from './Profile/ProfileCertificate';
 import ProfileUrlAndHighlights from './Profile/ProfileUrlAndHighlights';
+import ProfileFriends from './Profile/ProfileFriends';
 
 const Profile = () => {
     return (
@@ -21,6 +22,7 @@ const Profile = () => {
             </div>
             <div className={Styles.rightSideBar}>
                 <ProfileUrlAndHighlights />
+                <ProfileFriends />
             </div>
             <div className={Styles.back} onClick={() => window.history.back()}> 
                 <svg viewBox="0 0 631 586" fill="none" xmlns="http://www.w3.org/2000/svg">
