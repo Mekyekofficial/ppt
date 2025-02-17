@@ -50,10 +50,10 @@ const ProfileEducation = ({user}) => {
         <div className={styles.passingYear}>
           <div className={styles.yearText}>Passing Year</div>
           <div className={styles.year}>
-            {user?.education[0]?.endDate || "Add Year"}
+            {user?.education[0]?.endDate ? new Date(user.education[0].endDate).getFullYear() : "Add Year"}
           </div>
           <div className={styles.year}>
-            {user?.education[1]?.endDate || "Add Year"}
+            {user?.education[1]?.endDate ? new Date(user.education[1].endDate).getFullYear() : "Add Year"}
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@ const ProfileEducation = ({user}) => {
                     </svg>
             </div>
 
-      <ProfileEducationEdit isOpen={edit} onClose={() => setEdit(false)}/>
+      <ProfileEducationEdit isOpen={edit} onClose={() => setEdit(false)} userId={user?._id}/>
     </div>
   );
 };

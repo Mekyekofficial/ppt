@@ -97,7 +97,8 @@ const postProfile = wrapAsync(async (req, res) => {
 
     // Only map education if it exists
     if (req.body.education) {
-        data.education = req.body.education.map(edu => ({
+        const educationArray = JSON.parse(req.body.education);
+        data.education = educationArray.map(edu => ({
             name: edu.name,
             stream: edu.stream,
             endDate: edu.endDate

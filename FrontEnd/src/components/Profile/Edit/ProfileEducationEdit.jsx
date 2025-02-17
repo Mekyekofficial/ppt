@@ -2,10 +2,12 @@ import { useState } from "react";
 import styles from "./css/ProfileEducationEdit.module.css";
 import { Dialog } from "@headlessui/react";
 import { v4 as uuidv4 } from "uuid";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
-const ProfileEducationEdit = ({ isOpen, onClose }) => {
+const ProfileEducationEdit = ({ isOpen, onClose, userId }) => {
   const [educationList, setEducationList] = useState([
-    { id: uuidv4(), university: "", stream: "", endDate: "", school: "", schoolStream: "", schoolEndDate: "" }
+    { name: "", stream: "", endDate: "" }
   ]);
 
   const handleChange = (id, field, value) => {
@@ -19,12 +21,32 @@ const ProfileEducationEdit = ({ isOpen, onClose }) => {
   const addMore = () => {
     setEducationList((prev) => [
       ...prev,
-      { id: uuidv4(), university: "", stream: "", endDate: "", school: "", schoolStream: "", schoolEndDate: "" },
+      { id: uuidv4(), name: "", stream: "", endDate: "" }
     ]);
   };
 
-  const handleSave = () => {
-    console.log("Saved Data:", educationList);
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("education", JSON.stringify(educationList));
+
+      const response = await API.post("/profile/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 201) {
+        window.location.reload();
+      } else {
+        toast.error("Failed to update education");
+      }
+    } catch (error) {
+      console.error("Failed to update education", error);
+      toast.error("Failed to update education");
+    }
+
     onClose();
   };
 
@@ -32,41 +54,43 @@ const ProfileEducationEdit = ({ isOpen, onClose }) => {
     <Dialog open={isOpen} onClose={onClose} className={styles.popupContainer}>
       <div className={styles.modal}>
         <h2 className={styles.header}>Add Education</h2>
-        {educationList.map((edu, index) => (
+        {educationList.map((edu) => (
           <div key={edu.id} className={styles.educationBlock}>
             <div className={styles.row}>
               <div className={styles.inputGroup}>
-                <label>University Name*</label>
-                <input type="text" value={edu.university} onChange={(e) => handleChange(edu.id, "university", e.target.value)} />
+                <label>Institution Name*</label>
+                <input
+                  type="text"
+                  value={edu.name}
+                  onChange={(e) => handleChange(edu.id, "name", e.target.value)}
+                />
               </div>
               <div className={styles.inputGroup}>
-                <label>Add Stream*</label>
-                <input type="text" value={edu.stream} onChange={(e) => handleChange(edu.id, "stream", e.target.value)} />
+                <label>Stream*</label>
+                <input
+                  type="text"
+                  value={edu.stream}
+                  onChange={(e) => handleChange(edu.id, "stream", e.target.value)}
+                />
               </div>
             </div>
             <div className={styles.inputGroup}>
               <label>End Date*</label>
-              <input type="date" value={edu.endDate} onChange={(e) => handleChange(edu.id, "endDate", e.target.value)} />
-            </div>
-            <div className={styles.row}>
-              <div className={styles.inputGroup}>
-                <label>School Name*</label>
-                <input type="text" value={edu.school} onChange={(e) => handleChange(edu.id, "school", e.target.value)} />
-              </div>
-              <div className={styles.inputGroup}>
-                <label>Add Stream</label>
-                <input type="text" value={edu.schoolStream} onChange={(e) => handleChange(edu.id, "schoolStream", e.target.value)} />
-              </div>
-            </div>
-            <div className={styles.inputGroup}>
-              <label>End Date*</label>
-              <input type="date" value={edu.schoolEndDate} onChange={(e) => handleChange(edu.id, "schoolEndDate", e.target.value)} />
+              <input
+                type="date"
+                value={edu.endDate}
+                onChange={(e) => handleChange(edu.id, "endDate", e.target.value)}
+              />
             </div>
           </div>
         ))}
         <div className={styles.buttons}>
-          <button className={styles.addMore} onClick={addMore}>+ Add More</button>
-          <button className={styles.save} onClick={handleSave}>Save</button>
+          <button className={styles.addMore} onClick={addMore}>
+            + Add More
+          </button>
+          <button className={styles.save} onClick={handleSave}>
+            Save
+          </button>
         </div>
       </div>
       <div className={styles.overlay} onClick={onClose}></div>
