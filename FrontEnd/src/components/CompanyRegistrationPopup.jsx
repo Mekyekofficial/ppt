@@ -92,12 +92,10 @@ const CompanyRegistrationPopup = ({ open, onClose }) => {
             });
             const data = response.data;
             const company = data.company;
-            const companyToken = data.companyToken;
             const { companyName, email, companyLogo  } = company;
             const companyInfo = { companyName, companyEmail: email, companyLogo };
 
             localStorage.setItem("company-info", JSON.stringify(companyInfo));
-            localStorage.setItem("company-token", companyToken);
             localStorage.setItem("company-id", company._id);
         
             onClose();

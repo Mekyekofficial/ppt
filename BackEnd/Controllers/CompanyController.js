@@ -74,6 +74,27 @@ const registerCompany = wrapAsync(async (req, res) => {
     res.status(201).json({ message: "Company registered successfully!", success: true, companyToken, company: savedCompany, companyID: _id });
 });
 
+// Get Company by userId
+
+const getCompanyByUserId = wrapAsync(async (req, res) => {
+    console.log("🚀 Getting Company by userId...");
+
+    const { userId } = req.query;
+
+    const company = await CompanyModel.findOne({ userId: userId });
+
+    if (!company) {
+        console.log("❌ Company not found.");
+        return res.status(404).json({ message: "Company not found.", success: false });
+    }
+
+    
+
+    console.log("🚀 Company found successfully!");
+    res.status(200).json({ message: "Company found successfully!", success: true, company });
+});
+
+
 // Apply for Job
 const applyForJob = wrapAsync(async (req, res) => {
     console.log("🚀 Processing Job Application...");
@@ -128,4 +149,4 @@ const applyForJob = wrapAsync(async (req, res) => {
     res.status(201).json({ message: "Job application submitted successfully!", success: true, jobApplication: savedJobApplication });
 });
 
-module.exports = { registerCompany, applyForJob };
+module.exports = { registerCompany, applyForJob, getCompanyByUserId };

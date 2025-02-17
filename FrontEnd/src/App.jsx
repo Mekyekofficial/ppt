@@ -74,7 +74,7 @@ const App = () => {
       ],
     },
     {
-      path: "/Profile",
+      path: "/Profile/:userId",
       element: <Profile />,
     },
     {
