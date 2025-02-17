@@ -12,7 +12,7 @@ const postFeed = async (req, res) => {
         author: {
             firstName: req.body.firstName || "Unknown",
             lastName: req.body.lastName || "Unknown",
-            profilePhoto: req.body.userPhoto || "",
+            profilePhoto: req.body.profilePhoto || "",
         },
         image: req.file ? `data:image/png;base64,${req.file.buffer.toString("base64")}` : null,
         postOn: req.body.postOn,

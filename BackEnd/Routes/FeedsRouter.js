@@ -11,14 +11,16 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.post('/post', upload.single('feedImage'), (req, res, next) => {
-
+router.post('/post', upload.single('file'), (req, res, next) => {
+    console.log("Processing Feed Post...");
+    console.log("Req Body", req.body);
+    console.log("Req File", req.file);
     if (!req.file) {
         console.error("❌ File upload failed! No file received.");
     }
 
     next();
-}, feedValidation, postFeed);
+}, postFeed);
 
 
 module.exports = router;
