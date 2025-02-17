@@ -48,19 +48,52 @@ const postProfile = wrapAsync(async (req, res) => {
     // Only map skills if they exist
     if (req.body.skills) {
         try {
-        const skills = JSON.parse(req.body.skills);
-        data.skills = req.body.skills.map(skill => ({
-            technicalKnowledge: skill.technicalKnowledge?.map(tech => ({
-                language: tech.language,
-                framework: tech.framework
-            })),
-            coreKnowledge: skill.coreKnowledge?.map(core => core),
-            language: skill.language?.map(lang => lang)
-        }));
-    } catch (error) {
-        console.error("Error parsing skills:", error);
-        return res.status(400).json({ error: "Invalid skills format" });
-    }
+          const parsedSkills = JSON.parse(req.body.skills);
+      
+          // Initialize data.skills with the same shape as your schema
+          data.skills = {
+            technicalKnowledge: {
+              language: [],
+              framework: []
+            },
+            coreKnowledge: [],
+            languages: []
+          };
+      
+          // Handle technicalKnowledge if it's an array
+          if (Array.isArray(parsedSkills.technicalKnowledge)) {
+            parsedSkills.technicalKnowledge.forEach(item => {
+              // Each 'item' might look like: { language: "xxxx", framework: "yyyy" }
+              if (item.language) {
+                // Push into the language array
+                data.skills.technicalKnowledge.language.push(item.language);
+              }
+              if (item.framework) {
+                // Push into the framework array
+                data.skills.technicalKnowledge.framework.push(item.framework);
+              }
+            });
+          }
+      
+          // Handle coreKnowledge if it's an array of strings
+          if (Array.isArray(parsedSkills.coreKnowledge)) {
+            data.skills.coreKnowledge = parsedSkills.coreKnowledge;
+          }
+      
+          // Handle languages if it's an array of objects
+          if (Array.isArray(parsedSkills.languages)) {
+            // Each object: { name: "xxxx", level: "xxxx" }
+            data.skills.languages = parsedSkills.languages;
+          }
+      
+        } catch (error) {
+          console.error("Error parsing skills:", error);
+          return res.status(400).json({ error: "Invalid skills format" });
+        }
+      }
+      
+      
+    
 
     // Only map education if it exists
     if (req.body.education) {

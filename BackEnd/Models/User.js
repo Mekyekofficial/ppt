@@ -65,37 +65,31 @@ const UserSchema = new Schema({
             type: String,
         },
     }],
-    skills: [
-        {
-            technicalKnowledge: {
-                language: [{
-                    type: String,
-                }],
-                framework: [{
-                    type: String,
-                }],
+    skills: {
+        technicalKnowledge: {
+            language: [{
+                type: String,
+            }],
+            framework: [{
+                type: String,
+            }],
+        },
+        coreKnowledge: [
+            {
+                type: String,
             }
-        },
-        {
-            coreKnowledge: [
-                {
+        ],
+        languages: [
+            {
+                name: {
+                    type: String,
+                },
+                level: {
                     type: String,
                 }
-            ]
-        },
-        {
-            language: [
-                {
-                    name: {
-                        type: String,
-                    },
-                    level: {
-                        type: String,
-                    }
-                }
-            ]
-        }
-    ],
+            }
+        ]
+    },
     education: [
         {
             name: {

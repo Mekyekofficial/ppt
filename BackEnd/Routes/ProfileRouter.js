@@ -13,7 +13,7 @@ const upload = multer({ storage });
 
 router.post('/update', upload.array('certificate'), (req, res, next) => {
     next();
-},profileValidation, postProfile);
+}, postProfile);
 
 router.get('/get', getProfile);
 

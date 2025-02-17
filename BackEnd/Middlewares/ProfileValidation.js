@@ -2,7 +2,7 @@ const { userSchema } = require('../schema.js');
 const ExpressError = require('../utils/ExpressError.js');
 
 const profileValidation = (req, _, next) => {
-    console.log("Validating profile:");
+    console.log("Validating profile:", req.body);
     const data = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -49,7 +49,11 @@ const profileValidation = (req, _, next) => {
         }))
     };
 
+    console.log("Validating profile data:");
+
     const { error } = userSchema.validate(data, { abortEarly: false });
+
+    console.log("Validation error:", error);
 
     if (error) {
         return next(new ExpressError(error.details.map(err => err.message).join(', '), 400));

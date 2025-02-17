@@ -58,9 +58,15 @@ const ProfileSkills = ({user}) => {
 
         <div className={styles.section}>
           <h3>Languages </h3>
-          {user?.skills?.language?.map((language, index) => {
-            return <p key={index}>{language?.name}({language?.level})&nbsp;&nbsp;</p>
-          }) || 'add your language'}
+          {user?.skills?.languages?.length > 0 ? (
+              user.skills.languages.map((language, index) => (
+                <span key={index}>
+                  {language.name} ({language.level}) &nbsp;&nbsp;
+                </span>
+              ))
+            ) : (
+              <p>add your language</p>
+          )}
         </div>
       </div>
 
@@ -71,7 +77,7 @@ const ProfileSkills = ({user}) => {
               <path d="M66.2109 94.5835L113.503 141.875L160.794 94.5835" stroke="black" stroke-width="22.67" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
       </div>
-      {edit && <ProfileSkillEdit isOpen={edit} onClose={handleEdit} />}
+      {edit && <ProfileSkillEdit isOpen={edit} onClose={handleEdit} userId={user?._id} />}
     </div>
   );
 };

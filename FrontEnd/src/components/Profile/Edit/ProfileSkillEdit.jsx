@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styles from "./css/ProfileSkillEdit.module.css";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
-const ProfileSkillEdit = ({ onClose, onSave }) => {
+const ProfileSkillEdit = ({ onClose, onSave, userId }) => {
   const [skills, setSkills] = useState({
     technicalKnowledge: [{ language: "", framework: "" }],
     coreKnowledge: [""],
@@ -44,8 +46,27 @@ const ProfileSkillEdit = ({ onClose, onSave }) => {
     });
   };
 
-  const handleSave = () => {
-    onSave(skills);
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("skills", JSON.stringify(skills));
+
+      const responce = await API.post("/profile/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (responce.status === 201) {
+        window.location.reload();
+      } else {
+        toast.error("Failed to update profile", responce.data);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update profile", error);
+    }
     onClose();
   };
 

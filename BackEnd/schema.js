@@ -24,20 +24,29 @@ const userSchema = joi.object({
         endDate: joi.date().optional(),
         description: joi.string().optional(),
     })).optional(),
-    skills: joi.array().items(joi.string()).optional(),
+    skills: joi.array().items(joi.object({
+        technicalKnowledge: joi.object({
+            language: joi.array().items(joi.string()),
+            framework: joi.array().items(joi.string()),
+        }),
+        coreKnowledge: joi.array().items(joi.string()),
+        language: joi.array().items(joi.object({
+            name: joi.string(),
+            level: joi.string(),
+        })),
+    })).optional(),
     education: joi.array().items(joi.object({
         name: joi.string(),
         steam: joi.string(),
         endDate: joi.date(),
     })).optional(),
-    certificate : joi.array().items(joi.object({
+    certificate: joi.array().items(joi.object({
         name: joi.string(),
         issuedBy: joi.string(),
         courseType: joi.string(),
         duration: joi.string(),
         photo: joi.string().optional(),
     })).optional(),
-
 });
 
 const newsSchema = joi.object({
