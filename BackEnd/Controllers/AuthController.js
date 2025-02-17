@@ -64,6 +64,11 @@ const googleLogin = wrapAsync(async (req, res) => {
 
     let user = await UserModel.findOne({ email });
 
+    if (user) {
+        user = await UserModel
+        .findOneAndUpdate({ email }, { firstName: given_name, lastName: family_name, profilePhoto: picture }, { new: true });
+    }
+
     if (!user) {
         user = await UserModel.create({ firstName: given_name, lastName: family_name, email, profilePhoto: picture });
     }
