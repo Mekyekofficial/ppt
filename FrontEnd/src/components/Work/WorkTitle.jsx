@@ -11,8 +11,8 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ApplyJob1 from "./ApplyJob/ApplyJob1";
 import ApplyJob2 from "./ApplyJob/ApplyJob2";
 import ApplyJob3 from "./ApplyJob/ApplyJob3";
-import API from '../../api';
-import { toast } from 'react-toastify';
+import API from "../../api";
+import { toast } from "react-toastify";
 
 const WorkTitle = ({ job }) => {
   const navigate = useNavigate();
@@ -66,17 +66,20 @@ const WorkTitle = ({ job }) => {
       });
       closeApplyJobPopup();
       navigate("/work");
-
     } catch (error) {
       console.error("Error submitting application:", error);
       toast.error("Error submitting application. Please try again.");
     }
   };
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <img src={job.company.companyLogo} alt={`${job.company.companyName} logo`} className={styles.icon} />
+        <img
+          src={job.company.companyLogo}
+          alt={`${job.company.companyName} logo`}
+          className={styles.icon}
+        />
         <div className={styles.details}>
           <h3>{job.jobType}</h3>
           <p>{job.company.companyName}</p>
@@ -104,20 +107,52 @@ const WorkTitle = ({ job }) => {
 
       <div className={styles["action-apply"]}>
         <div className={styles.actionSection}>
-          <div className={styles.action}>Report <ReportProblemIcon /></div>
-          <div className={styles.action}>Share <ShareIcon /></div>
-          <div className={styles.action}>Save <BookmarkBorderIcon /></div>
+          <div className={styles.action}>
+            Report <ReportProblemIcon />
+          </div>
+          <div className={styles.action}>
+            Share <ShareIcon />
+          </div>
+          <div className={styles.action}>
+            Save <BookmarkBorderIcon />
+          </div>
         </div>
 
         <div className={styles.applySection}>
-          <button className={styles.applyNow} onClick={() => setApplyJobStep(1)}>Apply Now</button>
+          <button
+            className={styles.applyNow}
+            onClick={() => setApplyJobStep(1)}>
+            Apply Now
+          </button>
           <button className={styles.quickApply}>Quick Apply</button>
         </div>
       </div>
 
-      {applyJobStep === 1 && <ApplyJob1 formData={formData} updateFormData={updateFormData} onNext={nextApplyJobStep} onClose={closeApplyJobPopup} />}
-      {applyJobStep === 2 && <ApplyJob2 formData={formData} updateFormData={updateFormData} onNext={nextApplyJobStep} onBack={prevApplyJobStep} onClose={closeApplyJobPopup} />}
-      {applyJobStep === 3 && <ApplyJob3 formData={formData} onSubmit={handleSubmit} onBack={prevApplyJobStep} onClose={closeApplyJobPopup} />}
+      {applyJobStep === 1 && (
+        <ApplyJob1
+          formData={formData}
+          updateFormData={updateFormData}
+          onNext={nextApplyJobStep}
+          onClose={closeApplyJobPopup}
+        />
+      )}
+      {applyJobStep === 2 && (
+        <ApplyJob2
+          formData={formData}
+          updateFormData={updateFormData}
+          onNext={nextApplyJobStep}
+          onBack={prevApplyJobStep}
+          onClose={closeApplyJobPopup}
+        />
+      )}
+      {applyJobStep === 3 && (
+        <ApplyJob3
+          formData={formData}
+          onSubmit={handleSubmit}
+          onBack={prevApplyJobStep}
+          onClose={closeApplyJobPopup}
+        />
+      )}
     </div>
   );
 };
