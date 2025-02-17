@@ -27,10 +27,7 @@ app.use('/posts', postRoutes);
 app.use('/company', companyRoutes);
 app.use('/ATS', ATSRouter);
 app.use('/profile', profileRoutes);
-app.use('/feeds', (req, res, next) => {
-    console.log('Reached feeds router');
-    next();
-}, feedsRoutes);
+app.use('/feeds', feedsRoutes);
 
 app.get('/ping', (req, res) => res.send('PONG'));
 

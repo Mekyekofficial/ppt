@@ -1,5 +1,6 @@
 const { auth } = require('googleapis/build/src/apis/abusiveexperiencereport');
 const FeedsModal = require('../Models/Feed');
+const wrapAsync = require('../utils/wrapAsync');
 
 
 // POST Feed
@@ -26,4 +27,9 @@ const postFeed = async (req, res) => {
     res.status(201).json({ message: 'Feed created successfully', success: true, feed: savedFeed });
 }
 
-module.exports = { postFeed };
+const getFeeds = wrapAsync(async (req, res) => {
+    const feeds = await FeedsModal.find({});
+    res.status(200).json(feeds);
+});
+
+module.exports = { postFeed, getFeeds };

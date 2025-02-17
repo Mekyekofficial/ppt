@@ -4,7 +4,7 @@ import ProfileImage from "../../assets/profile-image.png";
 import { FaEllipsisH, FaRegComment, FaRegBookmark, FaRegShareSquare } from "react-icons/fa";
 import { IoSparklesOutline } from "react-icons/io5";
 
-const Post = () => {
+const Post = ({post}) => {
   const [liked, setLiked] = useState(false);
     const toggleLike = () => {
       setLiked(!liked);
@@ -47,10 +47,14 @@ const Post = () => {
       {/* Post Header */}
       <div className={styles.header}>
         <div className={styles.profileSection}>
-          <img src={ProfileImage} alt="Profile" className={styles.profileImage} />
+          <img src={post?.author?.profilePhoto} alt="Profile" className={styles.profileImage} />
           <div className={styles.userInfo}>
-            <span className={styles.userName}>Sarah Wilson</span>
-            <span className={styles.postTime}>Posted 2h ago</span>
+            <span className={styles.userName}>
+              {post?.author?.firstName} {post?.author?.lastName}
+            </span>
+            <span className={styles.postTime}>
+              {new Date(post?.createdAt).toDateString()}
+            </span>
           </div>
         </div>
         <svg className={styles.optionsIcon} viewBox="0 0 514 470" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,9 +68,9 @@ const Post = () => {
       {/* Post Content */}
       <div className={styles.content}>
         <p className={styles.text}>
-          Just finished working on a new project! Can’t wait to share more details with the community.
+          {post?.content}
         </p>
-        <div className={styles.postImage}></div>
+        <img src={post?.image} alt="image" className={styles.postImage}/>
       </div>
 
       {/* Post Actions */}
