@@ -2,10 +2,12 @@ import { useState } from "react";
 import styles from "./css/ProfileCertificateEdit.module.css";
 import { Dialog } from "@headlessui/react";
 import { v4 as uuidv4 } from "uuid";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
-const ProfileCertificateEdit = ({ isOpen, onClose }) => {
+const ProfileCertificateEdit = ({ isOpen, onClose, userId }) => {
   const [certificates, setCertificates] = useState([
-    { id: uuidv4(), courseName: "", courseFrom: "", type: "", duration: "", description: "", file: null }
+    {id: uuidv4(), courseName: "", courseFrom: "", type: "", duration: "", description: "" }
   ]);
 
   const handleChange = (id, field, value) => {
@@ -15,20 +17,40 @@ const ProfileCertificateEdit = ({ isOpen, onClose }) => {
   };
 
   const handleFileChange = (id, file) => {
-    setCertificates((prev) =>
-      prev.map((cert) => (cert.id === id ? { ...cert, file } : cert))
-    );
+    // setCertificates((prev) =>
+    //   prev.map((cert) => (cert.id === id ? { ...cert, file } : cert))
+    // );
+    toast.success("File uploaded successfully");
   };
 
   const addMore = () => {
     setCertificates((prev) => [
       ...prev,
-      { id: uuidv4(), courseName: "", courseFrom: "", type: "", duration: "", description: "", file: null },
+      {id: uuidv4(), courseName: "", courseFrom: "", type: "", duration: "", description: "" },
     ]);
   };
 
-  const handleSave = () => {
-    console.log("Saved Certificates:", certificates);
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("certificates", JSON.stringify(certificates));
+
+      const response = await API.post("/profile/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 201) {
+        window.location.reload();
+      } else {
+        toast.error("Failed to update certificates");
+      }
+    } catch (error) {
+      console.error("Failed to update certificates", error);
+      toast.error("Failed to update certificates");
+    }
     onClose();
   };
 

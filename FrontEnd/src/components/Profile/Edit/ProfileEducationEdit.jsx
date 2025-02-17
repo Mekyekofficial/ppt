@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const ProfileEducationEdit = ({ isOpen, onClose, userId }) => {
   const [educationList, setEducationList] = useState([
-    { name: "", stream: "", endDate: "" }
+    {id: uuidv4(), name: "", stream: "", endDate: "" }
   ]);
 
   const handleChange = (id, field, value) => {

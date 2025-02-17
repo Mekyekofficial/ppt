@@ -5,7 +5,6 @@ const wrapAsync = require('../utils/wrapAsync');
 // POST Profile
 const postProfile = wrapAsync(async (req, res) => {
     console.log("Processing Profile Post...");
-    console.log(req.body);
 
     // Initialize an empty object for the data
     const data = {};
@@ -106,14 +105,14 @@ const postProfile = wrapAsync(async (req, res) => {
     }
 
     // Only map certificates if they exist
-    if (req.body.certificate) {
-        data.certificate = req.body.certificate.map(cert => ({
-            name: cert.name,
-            issuedBy: cert.issuedBy,
-            courseType: cert.courseType,
+    if (req.body.certificates) {
+        const certificateArray = JSON.parse(req.body.certificates);
+        data.certificate = certificateArray.map(cert => ({
+            name: cert.courseName,
+            issuedBy: cert.courseFrom,
+            courseType: cert.type,
             duration: cert.duration,
             description: cert.description,
-            photo: cert.photo
         }));
     }
 

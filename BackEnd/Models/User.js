@@ -120,9 +120,6 @@ const UserSchema = new Schema({
             description: {
                 type: String,
             },
-            photo : {
-                type: String,
-            }
         }
     ],
 });

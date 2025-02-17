@@ -11,9 +11,10 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.post('/update', upload.array('certificate'), (req, res, next) => {
+router.post('/update', (req, res, next) => {
+    console.log("Request body:", req.body);
     next();
-}, postProfile);
+}, upload.single('certificate'), postProfile);
 
 router.get('/get', getProfile);
 

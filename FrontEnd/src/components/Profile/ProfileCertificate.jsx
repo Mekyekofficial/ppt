@@ -71,7 +71,7 @@ const ProfileCertificate = ({user}) => {
                     <path d="M66.2109 94.5835L113.503 141.875L160.794 94.5835" stroke="black" stroke-width="22.67" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
             </div>
-      <ProfileCertificateEdit isOpen={edit} onClose={() => setEdit(false)}/>
+      <ProfileCertificateEdit isOpen={edit} onClose={() => setEdit(false)} userId={user?._id}/>
     </div>
   );
 };

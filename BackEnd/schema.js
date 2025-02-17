@@ -45,7 +45,6 @@ const userSchema = joi.object({
         issuedBy: joi.string(),
         courseType: joi.string(),
         duration: joi.string(),
-        photo: joi.string().optional(),
     })).optional(),
 });
 
