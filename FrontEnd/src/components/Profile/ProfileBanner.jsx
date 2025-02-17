@@ -27,7 +27,15 @@ const ProfileBanner = ({user}) => {
       <div className={styles.coverImage}></div>
       <div className={styles.profileContent}>
         <div className={styles.leftSection}>
-          <img src={user?.profilePhoto} alt="ProfileImage" className={styles.avatar}/>
+          <img 
+            src={user?.profilePhoto || ProfileImage} 
+            alt="ProfileImage" 
+            className={styles.avatar}
+            onError={(e) => {
+              e.target.onerror = null; // Prevents infinite loop if fallback fails
+              e.target.src = ProfileImage;
+            }}
+          />
           <div className={styles.info}>
             <h2>{user.firstName} {user.lastName}</h2>
             <p className={styles.location}>

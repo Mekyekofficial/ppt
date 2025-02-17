@@ -8,6 +8,7 @@ const postRoutes = require('./Routes/PostRouter.js');
 const companyRoutes = require('./Routes/CompanyRouter.js');
 const ATSRouter = require('./Routes/ATSRouter.js');
 const profileRoutes = require('./Routes/ProfileRouter.js');
+const feedsRoutes = require('./Routes/FeedsRouter.js');
 require('./mongodb.js');
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use('/posts', postRoutes);
 app.use('/company', companyRoutes);
 app.use('/ATS', ATSRouter);
 app.use('/profile', profileRoutes);
+app.use('/feeds', feedsRoutes);
 
 app.get('/ping', (req, res) => res.send('PONG'));
 
