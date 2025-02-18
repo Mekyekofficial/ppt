@@ -161,6 +161,12 @@ const jobApplySchema = joi.object({
     jobID: joi.string().messages({
         "string.empty": "Job ID is required."
     }),
+    userId: joi.string().messages({
+        "string.empty": "User ID is required."
+    }),
+    companyId: joi.string().messages({
+        "string.empty": "Company ID is required."
+    }),
     firstName: joi.string().messages({
         "string.empty": "First name is required."
     }),

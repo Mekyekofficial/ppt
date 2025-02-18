@@ -44,7 +44,7 @@ const TableView = ({ jobs, selectedColumns }) => {
           {jobs.map((job) => (
             <tr key={job._id} onClick={() => handleRowClick(job)} className={TableViewStyles["clickable-row"]}>
               <td>{job.title}</td>
-              {selectedColumns.includes("Applicants") && <td>{job.applicants || 0}</td>}
+              {selectedColumns.includes("Applicants") && <td>{job.totalCandidates?.length || 0}</td>}
               {selectedColumns.includes("Posted On") && <td>{new Date(job.postedOn).toLocaleDateString()}</td>}
               {selectedColumns.includes("Posted By") && <td>{job.postedBy}</td>}
               {selectedColumns.includes("Rejected") && <td>{job.rejected || 0}</td>}

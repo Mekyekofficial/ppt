@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./css/WorkDescription.module.css";
 import SampleImage from "../../assets/google.png";
@@ -22,6 +22,14 @@ const WorkDescription = ({ job }) => {
 
   const navigate = useNavigate();
 
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("user-info"));
+    setUserInfo(userInfo);
+    setFormData((prevData) => ({ ...prevData, userId: userInfo?._id }));
+  }, []);
+
   const [applyJobStep, setApplyJobStep] = useState(0);
 
   const nextApplyJobStep = () => setApplyJobStep((prev) => prev + 1);
@@ -30,6 +38,7 @@ const WorkDescription = ({ job }) => {
 
   const [formData, setFormData] = useState({
     jobID: job._id,
+    companyId: job.company.companyId,
     firstName: "",
     lastName: "",
     email: "",
@@ -38,6 +47,7 @@ const WorkDescription = ({ job }) => {
     area: "",
     cityStateCountry: "",
     getEmailUpdates: false,
+    userId: userInfo?._id,
   });
 
   const updateFormData = (newData) => {
@@ -59,6 +69,7 @@ const WorkDescription = ({ job }) => {
       toast.success("Application submitted successfully.");
       setFormData({
         jobID: job._id,
+        companyId: job.company.companyId,
         firstName: "",
         lastName: "",
         email: "",
@@ -68,6 +79,7 @@ const WorkDescription = ({ job }) => {
         area: "",
         cityStateCountry: "",
         getEmailUpdates: false,
+        userId: userInfo?._id,
       });
       closeApplyJobPopup();
       navigate("/work");

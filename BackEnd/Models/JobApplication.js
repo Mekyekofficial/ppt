@@ -6,6 +6,16 @@ const jobApplySchema = new mongoose.Schema({
         ref: 'Job',
         required: true
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    companyId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true
+    },
     firstName: {
         type: String,
         required: true,

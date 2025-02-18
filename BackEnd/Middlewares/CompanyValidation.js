@@ -42,6 +42,8 @@ const jobApplyValidation = (req, res, next) => {
         area: req.body.area,
         cityStateCountry: req.body.cityStateCountry,
         getEmailUpdates: req.body.getEmailUpdates || false,
+        userId: req.body.userId,
+        companyId: req.body.companyId,
     };
 
     // const { error } = jobApplicationSchema.validate(data, { abortEarly: false });
