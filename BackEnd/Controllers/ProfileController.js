@@ -134,6 +134,7 @@ const postProfile = wrapAsync(async (req, res) => {
 
 
 const getProfile = wrapAsync(async (req, res) => {
+  console.log("Processing Profile Get...");
     const id = req.query._id;
     const user = await UserModal.findOne({_id: id});
     res.status(200).json(user);

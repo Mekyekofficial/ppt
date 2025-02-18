@@ -13,6 +13,7 @@ import {
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import API from "../../../api"; // Adjust the path to match your API service file
 import styles from "./css/JobApplicants.module.css";
+import ApplicantDetails from "./ApplicantDetails"; // Import the ApplicantDetails component
 
 const JobApplicants = () => {
   const { jobId } = useParams(); // Get jobId from the URL
@@ -127,6 +128,14 @@ const JobApplicants = () => {
     return count > max ? count : max;
   }, 0);
 
+  const [selectedApplicantId, setSelectedApplicantId] = useState(null);
+  const closeApplicantDetails = () => {
+    setOpenApplicantDetails(false);
+    setSelectedApplicantId(null);
+  };
+  const [openApplicantDetails, setOpenApplicantDetails] = useState(false);
+  
+
   return (
     <div className={styles.container}>
       <Card className={styles.viewsSection}>
@@ -191,7 +200,10 @@ const JobApplicants = () => {
                         key={col}
                         className={styles.cell}
                         onClick={() => {
-                          if (applicant) console.log(applicant.id);
+                          if (applicant) {
+                            setSelectedApplicantId(applicant.id);
+                            setOpenApplicantDetails(true);
+                          }
                         }}>
                         {applicant ? applicant.name : "—"}
                       </TableCell>
@@ -211,6 +223,7 @@ const JobApplicants = () => {
           </TableBody>
         </Table>
       )}
+      {openApplicantDetails && <ApplicantDetails applicantId={selectedApplicantId} onClose={closeApplicantDetails}/>}
     </div>
   );
 };

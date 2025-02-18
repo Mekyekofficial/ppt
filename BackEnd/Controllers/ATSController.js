@@ -36,4 +36,6 @@ const getApplicants = wrapAsync(async (req, res) => {
     res.status(200).json(jobs);
 });
 
+// 
+
 module.exports = { getCompanyJobs, getApplicants };
