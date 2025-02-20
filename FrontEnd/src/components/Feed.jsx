@@ -8,7 +8,7 @@ import TrendingNews from './Feed/trendingNews';
 import FeedsProfile from './Feed/FeedsProfile';
 import FeedSectionStyles from './css/FeedSection.module.css';
 
-function feedSection() {
+function FeedSection() {
   return (
     <div className={FeedSectionStyles["feed-section"]}>
       <div className={FeedSectionStyles["left-sidebar"]}>
@@ -26,4 +26,4 @@ function feedSection() {
   );
 }
 
-export default feedSection;
+export default FeedSection;

@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 import Home from "./home";
 import AppOutlet from "./AppOutlet";
-import FeedSection from "./components/feedSection";
+import FeedSection from "./components/Feed";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
 import CourseTab from "./components/CourseTab";
@@ -14,10 +18,10 @@ import EventTab from "./components/EventTab";
 import WorkTab from "./components/WorkTab";
 import WorkDetails from "./components/Work/WorkDetails";
 import ATSOutlet from "./components/ATSOutlet";
-import Dashboard from './components/ATS/Dashboard';
-import Jobs from './components/ATS/Jobs';
-import Applications from './components/ATS/Applications';
-import TalentPool from './components/ATS/TalentPool';
+import Dashboard from "./components/ATS/Dashboard";
+import Jobs from "./components/ATS/Jobs";
+import Applications from "./components/ATS/Applications";
+import TalentPool from "./components/ATS/TalentPool";
 import JobApplicants from "./components/ATS/Jobs/JobApplicants";
 import ComingSoon from "./commingSoon";
 import RefreshHandler from "./RefreshHandler";
@@ -44,7 +48,14 @@ const App = () => {
         </>
       ),
       children: [
-        { path: "/", element: <PrivateRouteLogin isLogged={isLogged}><Home /></PrivateRouteLogin> },
+        {
+          path: "/",
+          element: (
+            <PrivateRouteLogin isLogged={isLogged}>
+              <Home />
+            </PrivateRouteLogin>
+          ),
+        },
         { path: "/feeds", element: <FeedSection /> },
         { path: "/news", element: <NewsTab /> },
         { path: "/community", element: <CommunityTab /> },
@@ -68,7 +79,10 @@ const App = () => {
             { path: "/ATS/MarketPlace", element: <ComingSoon /> },
             { path: "/ATS/Settings", element: <ComingSoon /> },
             { path: "/ATS/Setup", element: <ComingSoon /> },
-            {path: "/ATS/jobs/job-applicants/:jobId", element: <JobApplicants />},
+            {
+              path: "/ATS/jobs/job-applicants/:jobId",
+              element: <JobApplicants />,
+            },
           ],
         },
       ],
