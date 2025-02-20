@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./css/TrendingTopic.module.css";
+import styles from "./css/trendingTopic.module.css";
 
 const trendingTopics = [
   { topic: "#Webdevelopment", count: "2.4K" },

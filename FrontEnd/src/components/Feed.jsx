@@ -3,7 +3,7 @@ import React from 'react';
 import Events from './Feed/events';
 import Feeds from './Feed/feeds';
 import UserSuggestions from './Feed/userSuggestions';
-import TrendingTopic from './Feed/TrendingTopic';
+import TrendingTopic from './Feed/trendingTopic';
 import TrendingNews from './Feed/trendingNews';
 import FeedsProfile from './Feed/FeedsProfile';
 import FeedSectionStyles from './css/FeedSection.module.css';
