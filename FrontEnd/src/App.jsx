@@ -7,7 +7,7 @@ import {
 
 import Home from "./home";
 import AppOutlet from "./AppOutlet";
-import FeedSection from "./components/feedSection";
+import FeedSection from "./components/Feed";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
 import CourseTab from "./components/CourseTab";
