@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://mekyek.com', // Adjust the URL based on your backend
+  baseURL: 'http://server.mekyek.com', // Adjust the URL based on your backend
 });
 
 // Add login request
