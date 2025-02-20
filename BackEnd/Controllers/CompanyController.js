@@ -1,4 +1,4 @@
-const CompanyModel = require("../models/Company");
+const CompanyModel = require("../Models/Company");
 const JobApplicationModel = require("../Models/JobApplication");
 const CompanyJobModel = require("../Models/ATS/CompanyJobs");
 const wrapAsync = require("../utils/wrapAsync");
