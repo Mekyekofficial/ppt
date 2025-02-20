@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 createRoot(document.getElementById("root")).render(
-  <GoogleOAuthProvider clientId="137399153709-dl079hd78sbv82mj2th7voonfrl8313i.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId="GOOGLE_CLIENT_ID">
     <StrictMode>
       <App />
       <ToastContainer/>
