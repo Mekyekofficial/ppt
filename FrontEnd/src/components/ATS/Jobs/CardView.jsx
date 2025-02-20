@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import CardViewStyles from './css/CardView.module.css';
+import CardViewStyles from './css/cardView.module.css';
 
 const CardView = ({ jobs }) => {
   const navigate = useNavigate();
