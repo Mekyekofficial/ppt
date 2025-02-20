@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Styles from './css/LoginSignupPop.module.css';
 import LoginPopup from './LoginSignupPop/LoginPopup';
 import SignUpPopup from './LoginSignupPop/SignUpPopup';
-import ConfirmEmailModal from './LoginSignupPop/ConfirmEmailModal';
+import ConfirmEmailModal from './LoginSignupPop/confirmEmailModal';
 import ConfirmPhNumberModal from './LoginSignupPop/confirmPhNumberModal';
 import NameModal from './LoginSignupPop/nameModal';
 import BirthModal from './LoginSignupPop/birthModal';
