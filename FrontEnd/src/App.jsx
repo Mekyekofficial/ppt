@@ -3,7 +3,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 
 import Home from "./home";
 import AppOutlet from "./AppOutlet";
-import FeedSection from "./components/feedSection";
+import FeedSection from "./components/FeedSection";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
 import CourseTab from "./components/CourseTab";
