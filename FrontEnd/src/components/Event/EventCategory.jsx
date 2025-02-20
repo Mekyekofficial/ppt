@@ -3,7 +3,7 @@ import axios from "axios";
 import EventItem from "./EventItem";
 import styles from "./css/EventCategory.module.css";
 
-const SERVER_URL = process.env.PUBLIC_SERVER_URL;
+const SERVER_URL = import.meta.env.PUBLIC_SERVER_URL;
 
 const EventCategory = () => {
   const [events, setEvents] = useState([]);

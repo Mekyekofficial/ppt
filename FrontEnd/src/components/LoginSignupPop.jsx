@@ -12,7 +12,7 @@ import NameModal from "./LoginSignupPop/nameModal";
 import BirthModal from "./LoginSignupPop/birthModal";
 import AddProfessionalPhoto from "./LoginSignupPop/AddProfessionalPhoto";
 
-const SERVER_URL = process.env.PUBLIC_SERVER_URL;
+const SERVER_URL = import.meta.env.PUBLIC_SERVER_URL;
 
 const LoginSignupPop = ({ onLogInClick }) => {
   const navigate = useNavigate();
