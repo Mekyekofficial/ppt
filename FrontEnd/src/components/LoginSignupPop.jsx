@@ -10,7 +10,7 @@ import ConfirmEmailModal from "./LoginSignupPop/confirmEmailModal";
 import ConfirmPhNumberModal from "./LoginSignupPop/confirmPhNumberModal";
 import NameModal from "./LoginSignupPop/nameModal";
 import BirthModal from "./LoginSignupPop/birthModal";
-import AddProfessionalPhoto from "./LoginSignupPop/addProfessionalPhoto";
+import AddProfessionalPhoto from "./LoginSignupPop/AddProfessionalPhoto";
 
 const LoginSignupPop = ({ onLogInClick }) => {
   const navigate = useNavigate();

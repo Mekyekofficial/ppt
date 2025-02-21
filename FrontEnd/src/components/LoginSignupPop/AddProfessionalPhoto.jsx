@@ -1,8 +1,8 @@
-import React from 'react';
-import GeminiIcon from '../../assets/gemini-icon.png';
-import CameraIcon from '../../assets/camera-icon.jpg';
-import styles from "./css/AddProfessionalPhoto.module.css"; 
-import { completeProfile } from '../../api';
+import React from "react";
+import GeminiIcon from "../../assets/gemini-icon.png";
+import CameraIcon from "../../assets/camera-icon.jpg";
+import styles from "./css/AddProfessionalPhoto.module.css";
+import { completeProfile } from "../../api";
 
 const AddProfessionalPhoto = ({ userData, onComplete, onClose }) => {
   const handleSubmit = async () => {
@@ -10,7 +10,7 @@ const AddProfessionalPhoto = ({ userData, onComplete, onClose }) => {
       await completeProfile(userData);
       onComplete(); // End the process
     } catch (error) {
-      console.error('Profile submission failed:', error);
+      console.error("Profile submission failed:", error);
     }
   };
 
@@ -26,13 +26,22 @@ const AddProfessionalPhoto = ({ userData, onComplete, onClose }) => {
         <hr />
         <button className={styles["add-image-btn"]}>Add Image</button>
         <div className={styles["or-section"]}>
-          <div></div><span>Or</span><div></div>
+          <div></div>
+          <span>Or</span>
+          <div></div>
         </div>
-        <button className={styles["create-with-ai-btn"]}><img src={GeminiIcon} alt="gemini-icon" className='gemini-icon'/>Create With AI</button>
+        <button className={styles["create-with-ai-btn"]}>
+          <img src={GeminiIcon} alt="gemini-icon" className="gemini-icon" />
+          Create With AI
+        </button>
       </div>
       <div className={styles["popup-footer"]}>
-        <button onClick={onClose} className={styles["skip-btn"]}>Skip</button>
-        <button onClick={handleSubmit} className={styles["submit-btn"]}>Submit</button>
+        <button onClick={onClose} className={styles["skip-btn"]}>
+          Skip
+        </button>
+        <button onClick={handleSubmit} className={styles["submit-btn"]}>
+          Submit
+        </button>
       </div>
     </div>
   );
