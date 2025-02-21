@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { googleAuth, signup, login } from '../api';
-import { useNavigate } from 'react-router-dom';
+import { googleAuth, signup, login } from "../api";
+import { useNavigate } from "react-router-dom";
 
-import Styles from './css/LoginSignupPop.module.css';
-import LoginPopup from './LoginSignupPop/LoginPopup';
-import SignUpPopup from './LoginSignupPop/SignUpPopup';
-import ConfirmEmailModal from './LoginSignupPop/confirmEmailModal';
-import ConfirmPhNumberModal from './LoginSignupPop/confirmPhNumberModal';
-import NameModal from './LoginSignupPop/NameModal';
-import BirthModal from './LoginSignupPop/BirthModal';
-import AddProfessionalPhoto from './LoginSignupPop/AddProfessionalPhoto';
+import Styles from "./css/LoginSignupPop.module.css";
+import LoginPopup from "./LoginSignupPop/LoginPopup";
+import SignUpPopup from "./LoginSignupPop/SignUpPopup";
+import ConfirmEmailModal from "./LoginSignupPop/confirmEmailModal";
+import ConfirmPhNumberModal from "./LoginSignupPop/confirmPhNumberModal";
+import NameModal from "./LoginSignupPop/nameModal";
+import BirthModal from "./LoginSignupPop/BirthModal";
+import AddProfessionalPhoto from "./LoginSignupPop/AddProfessionalPhoto";
 
-const LoginSignupPop = ({onLogInClick}) => {
+const LoginSignupPop = ({ onLogInClick }) => {
   const navigate = useNavigate();
 
   const [currentStep, setCurrentStep] = useState(1);
 
   const [userData, setUserData] = useState({
-    email: '',
-    phNumber: '',
-    password: '',
-    emailVerificationCode: '',
-    phNumberVerificationCode: '',
-    firstName: '',
-    lastName: '',
-    dob: { day: '', month: '', year: '' },
-    gender: '',
-    professionalPhoto: '',
+    email: "",
+    phNumber: "",
+    password: "",
+    emailVerificationCode: "",
+    phNumberVerificationCode: "",
+    firstName: "",
+    lastName: "",
+    dob: { day: "", month: "", year: "" },
+    gender: "",
+    professionalPhoto: "",
   });
 
-  useEffect(() => {
-  }, [userData]);
-  
-
+  useEffect(() => {}, [userData]);
 
   const overlayClick = (e) => {
-    if (e.target.classList.contains(Styles.overlay) && (currentStep == 1 || currentStep == 2) ) {
+    if (
+      e.target.classList.contains(Styles.overlay) &&
+      (currentStep == 1 || currentStep == 2)
+    ) {
       onLogInClick();
     }
   };
@@ -50,15 +50,15 @@ const LoginSignupPop = ({onLogInClick}) => {
         const token = response.data.token;
         const userData = { email, firstName, lastName, profilePhoto, _id };
 
-        localStorage.setItem('token', token);
-        localStorage.setItem('user-info', JSON.stringify(userData));
-        
+        localStorage.setItem("token", token);
+        localStorage.setItem("user-info", JSON.stringify(userData));
+
         setCurrentStep(0);
-        navigate('/feeds');
+        navigate("/feeds");
         window.location.reload();
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error("Error logging in:", error);
     }
   };
 
@@ -83,7 +83,6 @@ const LoginSignupPop = ({onLogInClick}) => {
     setCurrentStep(3);
   };
 
-
   // const handleEmailVerification = async (verificationCode) => {
   //   // try {
   //   //   const response = await fetch('/auth/verify-email', {
@@ -92,7 +91,7 @@ const LoginSignupPop = ({onLogInClick}) => {
   //   //     body: JSON.stringify({ email: userData.email, verificationCode }),
   //   //   });
   //   //   const data = await response.json();
-  
+
   //   //   if (response.ok) {
   //   //     setUserData({ ...userData, verificationCode });
   //   //     setCurrentStep(3); // Move to the next modal
@@ -111,13 +110,16 @@ const LoginSignupPop = ({onLogInClick}) => {
   // const handlePhNumberVerification = async (verificationCode) => {
   //   if (verificationCode === '123456') {
   //     setUserData({ ...userData, phNumberVerificationCode: verificationCode });
-  //     setCurrentStep(5);  
-  //   } 
+  //     setCurrentStep(5);
+  //   }
   // };
-  
 
   const handleNameSubmit = async (firstName, lastName) => {
-    const updatedUserData = { ...userData, firstName: firstName, lastName: lastName };
+    const updatedUserData = {
+      ...userData,
+      firstName: firstName,
+      lastName: lastName,
+    };
     setUserData(updatedUserData);
     SignUp(updatedUserData);
   };
@@ -125,20 +127,24 @@ const LoginSignupPop = ({onLogInClick}) => {
   const SignUp = async (updatedUserData) => {
     try {
       const response = await signup(updatedUserData);
-      console.log('response:', response);
+      console.log("response:", response);
       if (response.status == 201) {
-        localStorage.setItem('token', response.data.token);
-        const userInfo = { _id: response.data.user._id, email: response.data.user.email, firstName: response.data.user.firstName, lastName: response.data.user.lastName };
-        localStorage.setItem('user-info', JSON.stringify(userInfo));
+        localStorage.setItem("token", response.data.token);
+        const userInfo = {
+          _id: response.data.user._id,
+          email: response.data.user.email,
+          firstName: response.data.user.firstName,
+          lastName: response.data.user.lastName,
+        };
+        localStorage.setItem("user-info", JSON.stringify(userInfo));
         setCurrentStep(0);
-        navigate('/feeds');
+        navigate("/feeds");
         window.location.reload();
       }
     } catch (error) {
-      console.error('Error completing profile:', error);
+      console.error("Error completing profile:", error);
     }
   };
-
 
   // const handleBirthSubmit = (birthDate, gender) => {
   //   setUserData({ ...userData, birthDate, gender });
@@ -149,14 +155,14 @@ const LoginSignupPop = ({onLogInClick}) => {
   //   try {
   //     const response = await fetch('/api/profile', {
   //       method: 'POST',
-  //       headers: { 
+  //       headers: {
   //         'Content-Type': 'application/json',
   //         'Authorization': Bearer ${localStorage.getItem('token')},
   //       },
   //       body: JSON.stringify(userData),
   //     });
   //     const data = await response.json();
-  
+
   //     if (response.ok) {
   //       console.log('Signup complete:', data);
   //       setCurrentStep(0); // Reset the popup flow
@@ -168,24 +174,25 @@ const LoginSignupPop = ({onLogInClick}) => {
   //   }
   // };
 
-  const responseGoogle = async (authResult) => { 
+  const responseGoogle = async (authResult) => {
     try {
-      if (authResult['code']) {
-        const result = await googleAuth(authResult['code']);
+      if (authResult["code"]) {
+        const result = await googleAuth(authResult["code"]);
         const { email, firstName, lastName, profilePhoto } = result.data.user;
         const _id = result.data.user._id;
         const token = result.data.token;
         const userData = { email, firstName, lastName, profilePhoto, _id };
 
-        localStorage.setItem('token', token);
-        localStorage.setItem('user-info', JSON.stringify(userData));
-        
+        localStorage.setItem("token", token);
+        localStorage.setItem("user-info", JSON.stringify(userData));
+
         setCurrentStep(0);
-        navigate('/feeds');
+        navigate("/feeds");
         window.location.reload();
       }
     } catch (err) {
-      const errorMessage = err?.response?.data?.message || err?.message || 'Failed to Sign Up';
+      const errorMessage =
+        err?.response?.data?.message || err?.message || "Failed to Sign Up";
       setError(errorMessage);
     }
   };
@@ -196,13 +203,21 @@ const LoginSignupPop = ({onLogInClick}) => {
     flow: "auth-code",
   });
 
-  return ( 
+  return (
     <div className={Styles["login-signup-pop"]}>
       {currentStep === 1 && (
-        <LoginPopup onSubmit={handleLoginSubmit} onSignUp={() => setCurrentStep(2)} googleLogin={googleLogin} />
+        <LoginPopup
+          onSubmit={handleLoginSubmit}
+          onSignUp={() => setCurrentStep(2)}
+          googleLogin={googleLogin}
+        />
       )}
       {currentStep === 2 && (
-        <SignUpPopup onSubmit={handleSignUpSubmit} onLogIn={() => setCurrentStep(1)} googleLogin={googleLogin} />
+        <SignUpPopup
+          onSubmit={handleSignUpSubmit}
+          onLogIn={() => setCurrentStep(1)}
+          googleLogin={googleLogin}
+        />
       )}
       {/* {currentStep === 3 && (
         <ConfirmEmailModal onSubmit={handleEmailVerification} />
@@ -210,9 +225,7 @@ const LoginSignupPop = ({onLogInClick}) => {
       {currentStep === 4 && (
         <ConfirmPhNumberModal onSubmit={handlePhNumberVerification} />
       )} */}
-      {currentStep === 3 && (
-        <NameModal onSubmit={handleNameSubmit} />
-      )}
+      {currentStep === 3 && <NameModal onSubmit={handleNameSubmit} />}
       {/* {currentStep === 6 && (
         <BirthModal onSubmit={handleBirthSubmit} />
       )}
@@ -223,6 +236,6 @@ const LoginSignupPop = ({onLogInClick}) => {
       <div className={Styles.overlay} onClick={overlayClick} />
     </div>
   );
-}
+};
 
 export default LoginSignupPop;
