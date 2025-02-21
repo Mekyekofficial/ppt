@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./css/NameModal.module.css";
 
 const Modal = ({ onSubmit, onClose }) => {
 //   if (!showModal) return null; // Don't render if showModal is false
   const [firstName, setFirstName] = useState('');
-  const [surname, setSurname] = useState('');
+  const [lastName, setlastName] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(firstName, surname); // Pass data to parent component
+    console.log(firstName, lastName);
+    onSubmit(firstName, lastName); // Pass data to parent component
   };
 
   return (
@@ -28,13 +29,13 @@ const Modal = ({ onSubmit, onClose }) => {
               />
           </div>
           <div className={styles["form-group"]}>
-            <label>Surname</label>
+            <label>lastName</label>
             <input
                 type="text"
-                placeholder="Surname"
-                className={styles["surname-input"]}
-                value={surname}
-                onChange={(e) => setSurname(e.target.value)}
+                placeholder="Last Name"
+                className={styles["lastName-input"]}
+                value={lastName}
+                onChange={(e) => setlastName(e.target.value)}
                 required
               />
           </div>
