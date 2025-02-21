@@ -9,8 +9,8 @@ import SignUpPopup from "./LoginSignupPop/SignUpPopup";
 import ConfirmEmailModal from "./LoginSignupPop/confirmEmailModal";
 import ConfirmPhNumberModal from "./LoginSignupPop/confirmPhNumberModal";
 import NameModal from "./LoginSignupPop/nameModal";
-import BirthModal from "./LoginSignupPop/BirthModal";
-import AddProfessionalPhoto from "./LoginSignupPop/AddProfessionalPhoto";
+import BirthModal from "./LoginSignupPop/birthModal";
+import AddProfessionalPhoto from "./LoginSignupPop/addProfessionalPhoto";
 
 const LoginSignupPop = ({ onLogInClick }) => {
   const navigate = useNavigate();
