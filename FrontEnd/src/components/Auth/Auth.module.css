@@ -1,0 +1,281 @@
+.authContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.authCard {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.authHeader h2 {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.authHeader p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.socialAuth {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.socialButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+  color: #2d3748;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.socialButton:hover {
+  background: #f8fafc;
+  border-color: #cbd5e0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.socialButton:active {
+  transform: translateY(0);
+}
+
+.socialButton img {
+  width: 24px;
+  height: 24px;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background: #e1e1e1;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.divider span {
+  background: white;
+  padding: 0 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.authForm {
+  margin-bottom: 2rem;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: #4a5568;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e8edf5;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #2d3748;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.formGroup input:hover {
+  border-color: #4a90e2;
+  background-color: #ffffff;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #3182ce;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.formGroup input::placeholder {
+  color: #94a3b8;
+}
+
+/* Error state styling */
+.formGroup .errorInput {
+  border-color: #fc8181;
+  background-color: #fff5f5;
+}
+
+.formGroup .errorInput:focus {
+  border-color: #fc8181;
+  box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.1);
+}
+
+.errorText {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.primaryButton {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(to right, #4a90e2, #357abd);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(74, 144, 226, 0.12);
+}
+
+.primaryButton:hover {
+  background: linear-gradient(to right, #357abd, #2d6da3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px rgba(74, 144, 226, 0.15);
+}
+
+.primaryButton:active {
+  transform: translateY(0);
+}
+
+.primaryButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.authFooter {
+  text-align: center;
+  color: #666;
+}
+
+.authLink {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.authLink:hover {
+  color: #357abd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .authContainer {
+    padding: 1rem;
+  }
+
+  .authCard {
+    padding: 1.5rem;
+  }
+
+  .authHeader h2 {
+    font-size: 1.75rem;
+  }
+
+  .formGroup input {
+    padding: 0.875rem 1rem;
+  }
+  
+  .primaryButton,
+  .secondaryButton,
+  .socialButton {
+    padding: 0.875rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .authCard {
+    padding: 1.25rem;
+  }
+
+  .authHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .socialButton {
+    font-size: 0.9rem;
+  }
+}
+
+/* Add these new styles to your existing CSS */
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.secondaryButton {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: white;
+  color: #4a90e2;
+  border: 2px solid #4a90e2;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondaryButton:hover {
+  background: #f7fafd;
+  border-color: #357abd;
+  color: #357abd;
+} 
