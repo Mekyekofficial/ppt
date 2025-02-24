@@ -29,6 +29,13 @@ import Profile from "./components/Profile";
 import Post from "./components/Post";
 import CountdownTimer from "./components/Feed/CountdownTimer";
 import Signup from "./components/Auth/Signup";
+import HomeHero from "./Home/HomeHero";
+import HomeTrending from "./Home/HomeTrending";
+import HomeFeatures from "./Home/HomeFeatures";
+import HomeBusiness from "./Home/HomeBusiness";
+import HomeCompanies from "./Home/HomeCompanies";
+import HomeFeedback from "./Home/HomeFeedback";
+import HomeFAQ from "./Home/HomeFAQ";
 
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;

@@ -1,124 +1,255 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import styles from "./css/HomeCards.module.css";
-import Card1Image from "../assets/card1.png";
-import Card2Image from "../assets/card2.png";
-import Card3Image from "../assets/card3.png";
-import Card4Image from "../assets/card4.png";
-
-const cardData = [
-  {
-    title: "Learn, Grow, and Get Hired – Your Career Starts Here!",
-    text: "Learning courses help individuals acquire multiple skills, enhancing their expertise and making them more competitive in the job market. By gaining diverse skills through structured learning, job seekers can increase their chances of securing better opportunities.",
-    image: Card1Image,
-    bgColor: "#F8F8DC", // Light Yellow
-    textColor: "black",
-    flexDirection: "row",
-    transform: "rotateZ(-10deg)",
-  },
-  {
-    title: "Connect, Learn, and Unlock Opportunities!",
-    text: "Hosting and attending live events create valuable opportunities for networking, learning, and professional growth. These events bring together industry experts, professionals, and job seekers, fostering real-time interactions and meaningful connections.",
-    image: Card2Image,
-    bgColor: "#333333", // Dark Theme
-    textColor: "#D6C668",
-    flexDirection: "row-reverse",
-    transform: "rotateZ(10deg)",
-  },
-  {
-    title: "Stay Informed, Stay Ahead with Our Daily Audio News Digest!",
-    text: "In today's fast-paced world, staying updated on the latest news is essential. Our audio-embedded news provides a quick and efficient way to get informed on various topics including technology, politics, health, and entertainment.",
-    image: Card3Image,
-    bgColor: "#F8F8DC", // Light Yellow
-    textColor: "black",
-    flexDirection: "row",
-    transform: "rotateZ(-10deg)",
-  },
-  {
-    title: "ATS: Connecting Talent, Simplifying Hiring!",
-    text: "An Applicant Tracking System (ATS) streamlines hiring by automating job postings, filtering applications, and helping recruiters find top talent efficiently. Employers can post jobs across multiple platforms, set candidate criteria, and manage applications in one place.",
-    image: Card4Image,
-    bgColor: "#333333", // Dark Theme
-    textColor: "#D6C668",
-    flexDirection: "row-reverse",
-    transform: "rotateZ(10deg)",
-  },
-];
+import {
+  FaBriefcase,
+  FaUsers,
+  FaGraduationCap,
+  FaNewspaper,
+  FaCalendar,
+  FaArrowRight,
+  FaMapMarkerAlt,
+  FaDollarSign,
+  FaClock,
+} from "react-icons/fa";
 
 const HomeCards = () => {
-  const [currentCard, setCurrentCard] = useState(0);
-  const containerRef = useRef(null);
-  // Lock to prevent rapid scroll events
-  const scrollingRef = useRef(false);
+  const [activeTab, setActiveTab] = useState("Jobs");
 
-  useEffect(() => {
-    const handleWheel = (event) => {
-      // Only process scroll events if the cursor is over the container.
-      if (!containerRef.current || !containerRef.current.matches(":hover")) {
-        return;
-      }
-      // Prevent default scrolling behavior.
-      event.preventDefault();
+  const navItems = [
+    { icon: <FaBriefcase />, title: "Jobs", color: "#4F46E5" },
+    { icon: <FaUsers />, title: "Community", color: "#059669" },
+    { icon: <FaGraduationCap />, title: "Courses", color: "#DC2626" },
+    { icon: <FaNewspaper />, title: "News & Articles", color: "#7C3AED" },
+    { icon: <FaCalendar />, title: "Events", color: "#2563EB" },
+  ];
 
-      if (scrollingRef.current) return;
-      scrollingRef.current = true;
+  const trendingContent = {
+    Jobs: [
+      {
+        title: "Senior Software Engineer",
+        company: "Google",
+        location: "Bangalore",
+        salary: "₹25-45 LPA",
+        type: "Full-time",
+        posted: "2 days ago",
+      },
+      {
+        title: "Product Manager",
+        company: "Microsoft",
+        location: "Hyderabad",
+        salary: "₹28-40 LPA",
+        type: "Full-time",
+        posted: "1 day ago",
+      },
+      {
+        title: "UI/UX Designer",
+        company: "Apple",
+        location: "Remote",
+        salary: "₹18-35 LPA",
+        type: "Full-time",
+        posted: "3 days ago",
+      },
+    ],
+    Community: [
+      {
+        title: "Tech Innovators",
+        members: "15.2K",
+        description: "A community of tech enthusiasts and innovators",
+      },
+      {
+        title: "Design Hub",
+        members: "8.7K",
+        description: "Connect with UI/UX designers worldwide",
+      },
+      {
+        title: "Startup Network",
+        members: "12.4K",
+        description: "For entrepreneurs and startup enthusiasts",
+      },
+    ],
+    Courses: [
+      {
+        title: "Full Stack Development",
+        provider: "Udacity",
+        duration: "6 months",
+        rating: "4.8",
+        students: "12K+",
+      },
+      {
+        title: "AI & Machine Learning",
+        provider: "Coursera",
+        duration: "4 months",
+        rating: "4.9",
+        students: "15K+",
+      },
+      {
+        title: "Cloud Computing",
+        provider: "AWS",
+        duration: "3 months",
+        rating: "4.7",
+        students: "8K+",
+      },
+    ],
+    "News & Articles": [
+      {
+        title: "The Future of AI in 2024",
+        source: "TechCrunch",
+        readTime: "5 min read",
+        category: "Technology",
+      },
+      {
+        title: "Top Programming Languages to Learn",
+        source: "Medium",
+        readTime: "8 min read",
+        category: "Development",
+      },
+      {
+        title: "Remote Work Trends",
+        source: "Forbes",
+        readTime: "6 min read",
+        category: "Career",
+      },
+    ],
+    Events: [
+      {
+        title: "Tech Conference 2024",
+        date: "Mar 15, 2024",
+        location: "Bangalore",
+        type: "In-person",
+      },
+      {
+        title: "Web Development Workshop",
+        date: "Mar 20, 2024",
+        location: "Online",
+        type: "Virtual",
+      },
+      {
+        title: "AI Summit",
+        date: "Apr 5, 2024",
+        location: "Delhi",
+        type: "Hybrid",
+      },
+    ],
+  };
 
-      if (event.deltaY > 0) {
-        // Scrolling down: If not on the last card, go to the next card.
-        if (currentCard < cardData.length - 1) {
-          setCurrentCard((prev) => prev + 1);
-        }
-      } else if (event.deltaY < 0) {
-        // Scrolling up: If not on the first card, go to the previous card.
-        if (currentCard > 0) {
-          setCurrentCard((prev) => prev - 1);
-        }
-      }
-
-      // Reset the scroll lock after the transition completes.
-      setTimeout(() => {
-        scrollingRef.current = false;
-      }, 900);
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("wheel", handleWheel, { passive: false });
-    }
-    return () => {
-      if (container) {
-        container.removeEventListener("wheel", handleWheel);
-      }
-    };
-  }, [currentCard]);
+  const renderContent = () => {
+    const content = trendingContent[activeTab];
+    return (
+      <div className={styles.content}>
+        <div className={styles.sectionHeader}>
+          <h3>Trending in {activeTab}</h3>
+          <button className={styles.seeAll}>
+            See All <FaArrowRight />
+          </button>
+        </div>
+        <div className={styles.trendingGrid}>
+          {content.map((item, index) => (
+            <div key={index} className={styles.trendingCard}>
+              {activeTab === "Jobs" && (
+                <>
+                  <div className={styles.cardHeader}>
+                    <h4>{item.title}</h4>
+                    <span className={styles.jobType}>{item.type}</span>
+                  </div>
+                  <p className={styles.company}>{item.company}</p>
+                  <div className={styles.jobDetails}>
+                    <span>
+                      <FaMapMarkerAlt /> {item.location}
+                    </span>
+                    <span>
+                      <FaDollarSign /> {item.salary}
+                    </span>
+                    <span>
+                      <FaClock /> {item.posted}
+                    </span>
+                  </div>
+                  <button className={styles.applyButton}>Apply Now</button>
+                </>
+              )}
+              {activeTab === "Community" && (
+                <>
+                  <div className={styles.cardHeader}>
+                    <div className={styles.cardInfo}>
+                      <h4>{item.title}</h4>
+                      <span className={styles.members}>
+                        {item.members} members
+                      </span>
+                    </div>
+                    <button className={styles.joinButton}>Join</button>
+                  </div>
+                  <p>{item.description}</p>
+                </>
+              )}
+              {activeTab === "Courses" && (
+                <>
+                  <div className={styles.cardHeader}>
+                    <h4>{item.title}</h4>
+                    <span className={styles.rating}>⭐ {item.rating}</span>
+                  </div>
+                  <p className={styles.provider}>{item.provider}</p>
+                  <div className={styles.courseDetails}>
+                    <span>{item.duration}</span>
+                    <span>{item.students} students</span>
+                  </div>
+                  <button className={styles.enrollButton}>Enroll Now</button>
+                </>
+              )}
+              {activeTab === "News & Articles" && (
+                <>
+                  <span className={styles.category}>{item.category}</span>
+                  <h4>{item.title}</h4>
+                  <div className={styles.articleDetails}>
+                    <span>{item.source}</span>
+                    <span>•</span>
+                    <span>{item.readTime}</span>
+                  </div>
+                  <button className={styles.readButton}>Read More</button>
+                </>
+              )}
+              {activeTab === "Events" && (
+                <>
+                  <div className={styles.cardHeader}>
+                    <h4>{item.title}</h4>
+                    <span className={styles.eventType}>{item.type}</span>
+                  </div>
+                  <div className={styles.eventDetails}>
+                    <span>
+                      <FaCalendar /> {item.date}
+                    </span>
+                    <span>
+                      <FaMapMarkerAlt /> {item.location}
+                    </span>
+                  </div>
+                  <button className={styles.registerButton}>
+                    Register Now
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <div className={styles.cardsContainer} ref={containerRef}>
-      {cardData.map((card, index) => (
-        <div
-          key={index}
-          className={`${styles.cardContainer} ${
-            index === currentCard ? styles.active : styles.inactive
-          }`}
-        >
-          <div
-            className={styles.card}
-            style={{
-              backgroundColor: card.bgColor,
-              color: card.textColor,
-              flexDirection: card.flexDirection,
-              transform: card.transform,
-            }}
+    <div className={styles.container}>
+      <nav className={styles.nav}>
+        {navItems.map((item, index) => (
+          <button
+            key={index}
+            className={`${styles.navItem} ${
+              activeTab === item.title ? styles.active : ""
+            }`}
+            onClick={() => setActiveTab(item.title)}
+            style={{ "--accent-color": item.color }}
           >
-            <div className={styles.cardContent}>
-              <h3>{card.title}</h3>
-              <p>{card.text}</p>
-            </div>
-            <div className={styles.cardImage}>
-              <img src={card.image} alt={`Card ${index + 1}`} />
-            </div>
-          </div>
-        </div>
-      ))}
+            <span className={styles.icon}>{item.icon}</span>
+            <span className={styles.title}>{item.title}</span>
+          </button>
+        ))}
+      </nav>
+      {renderContent()}
     </div>
   );
 };

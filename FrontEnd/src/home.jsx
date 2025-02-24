@@ -5,7 +5,7 @@ import HomeBusiness from "./Home/HomeBusiness";
 import HomeFeatures from "./Home/HomeFeatures";
 import HomeCompanies from "./Home/HomeCompanies";
 import HomeCards from "./Home/HomeCards";
-import HomeTestimonial from "./Home/HomeTestimonial";
+import HomeFeedback from "./Home/HomeFeedback";
 import HomeFAQ from "./Home/HomeFAQ";
 import HeaderBeforeLogIn from "./components/includes/headerBeforeLogIn";
 import Footer from "./components/Footer";
@@ -19,7 +19,7 @@ const Home = () => {
       <HomeFeatures />
       <HomeCompanies />
       <HomeCards />
-      <HomeTestimonial />
+      <HomeFeedback />
       <HomeFAQ />
       <Footer />
     </div>

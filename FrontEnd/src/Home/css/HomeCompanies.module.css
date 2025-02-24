@@ -4,79 +4,169 @@
   align-items: center;
   padding: 20px;
   width: 100%;
-  height: 400px;
+  margin: 100px 0;
 }
 
 .banner {
   position: relative;
-  z-index: 100;
   background: white;
-  padding: 30px;
+  padding: 40px;
   width: 100%;
-  height: 200px;
-  border-radius: 12px;
-  border: 2px solid black;
-  /* Remove overflow: hidden here so the pseudo-elements can be visible */
-  /* overflow: hidden; */
+  max-width: 1200px;
+  min-height: 300px;
+  border-radius: 20px;
+  border: 2px solid rgba(79, 70, 229, 0.1);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 
-/* Pseudo-elements for decorative gradients */
 .banner::before,
 .banner::after {
   content: "";
   position: absolute;
   width: 100%;
   height: 35px;
-  background: linear-gradient(90deg, #8a63d2, #b896ff);
+  background: linear-gradient(90deg, #4F46E5, #7C3AED);
   border-radius: 20px;
   left: 0;
-  z-index: 1000;
+  transform-origin: center;
+  transition: transform 0.5s ease;
 }
 
 .banner::before {
   top: -10px;
   transform: translateX(-10px) skewY(-1.1deg);
-  /* Optional box-shadow if needed */
-  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75); */
 }
 
 .banner::after {
   bottom: -20px;
-  /* Adjust z-index if necessary; here we keep it high to ensure visibility */
-  z-index: 1000;
+  z-index: -1;
   transform: translateX(10px) skewY(1deg);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 30px rgba(124, 58, 237, 0.2);
 }
 
-/* New wrapper to clip scrolling images */
+.content {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #4F46E5, #7C3AED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content p {
+  font-size: 1.1rem;
+  color: #4B5563;
+}
+
 .imagesWrapper {
+  position: relative;
   width: 100%;
-  height: 100%;
-  overflow: hidden; /* This will clip the scrolling images */
+  height: 120px;
+  overflow: hidden;
 }
 
-.images {
-  position: relative;
-  z-index: 1;
+.imagesWrapper::before,
+.imagesWrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 200px;
   height: 100%;
-  width: 200%; /* Set to 200% to accommodate duplicated images */
+  z-index: 2;
+}
+
+.imagesWrapper::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.imagesWrapper::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+.track {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 30s linear infinite;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  animation: scroll 20s linear infinite;
 }
 
-.banner img {
-  width: 5%;
-  margin: 0 20px;
+.track:hover {
+  animation-play-state: paused;
+}
+
+.track:nth-child(2) {
+  animation: marquee2 30s linear infinite;
+  animation-delay: -15s;
+}
+
+.companyLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+}
+
+.companyLogo img {
+  height: 60px;
   object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
 }
 
-@keyframes scroll {
-  0% {
+.companyLogo:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+@keyframes marquee {
+  from {
     transform: translateX(0);
   }
-  100% {
+  to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee2 {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .banner {
+    padding: 30px 20px;
+  }
+
+  .content h2 {
+    font-size: 2rem;
+  }
+
+  .content p {
+    font-size: 1rem;
+  }
+
+  .companyLogo {
+    padding: 0 20px;
+  }
+
+  .companyLogo img {
+    height: 40px;
   }
 }

@@ -1,24 +1,42 @@
 import React, { useState } from "react";
 import styles from "./css/HomeFAQ.module.css";
-import { Plus, Minus } from "lucide-react"; // Using Lucide React for icons
-
-const faqs = [
-  {
-    id: 1,
-    question: "What is this platform about?",
-    answer:
-      "This platform serves as a bridge between job seekers and companies, providing a space for professionals to network, share insights, and explore career opportunities. Whether you're looking to advance in your field or take the first step in your career, you can connect with industry experts, gain valuable knowledge, and discover job openings that match your skills. By fostering meaningful professional relationships, this platform helps individuals showcase their expertise, learn from others, and stay updated on industry trends. It’s designed to support career growth and make the job search process more accessible, efficient, and rewarding for professionals at all levels.",
-  },
-  { id: 2, question: "Can I apply for jobs directly through this platform?", answer: "This platform serves as a bridge between job seekers and companies, providing a space for professionals to network, share insights, and explore career opportunities. Whether you're looking to advance in your field or take the first step in your career, you can connect with industry experts, gain valuable knowledge, and discover job openings that match your skills. By fostering meaningful professional relationships, this platform helps individuals showcase their expertise, learn from others, and stay updated on industry trends. It’s designed to support career growth and make the job search process more accessible, efficient, and rewarding for professionals at all levels." },
-  { id: 3, question: "Can I connect with recruiters and hiring managers?", answer: "This platform serves as a bridge between job seekers and companies, providing a space for professionals to network, share insights, and explore career opportunities. Whether you're looking to advance in your field or take the first step in your career, you can connect with industry experts, gain valuable knowledge, and discover job openings that match your skills. By fostering meaningful professional relationships, this platform helps individuals showcase their expertise, learn from others, and stay updated on industry trends. It’s designed to support career growth and make the job search process more accessible, efficient, and rewarding for professionals at all levels." },
-  { id: 4, question: "How can I increase my visibility to employers?", answer: "This platform serves as a bridge between job seekers and companies, providing a space for professionals to network, share insights, and explore career opportunities. Whether you're looking to advance in your field or take the first step in your career, you can connect with industry experts, gain valuable knowledge, and discover job openings that match your skills. By fostering meaningful professional relationships, this platform helps individuals showcase their expertise, learn from others, and stay updated on industry trends. It’s designed to support career growth and make the job search process more accessible, efficient, and rewarding for professionals at all levels." },
-  { id: 5, question: "What strategies can I use to stand out to potential employers?", answer: "This platform serves as a bridge between job seekers and companies, providing a space for professionals to network, share insights, and explore career opportunities. Whether you're looking to advance in your field or take the first step in your career, you can connect with industry experts, gain valuable knowledge, and discover job openings that match your skills. By fostering meaningful professional relationships, this platform helps individuals showcase their expertise, learn from others, and stay updated on industry trends. It’s designed to support career growth and make the job search process more accessible, efficient, and rewarding for professionals at all levels." },
-  { id: 6, question: "What strategies can I use to stand out to potential employers?", answer: "This platform serves as a bridge between job seekers and companies, providing a space for professionals to network, share insights, and explore career opportunities. Whether you're looking to advance in your field or take the first step in your career, you can connect with industry experts, gain valuable knowledge, and discover job openings that match your skills. By fostering meaningful professional relationships, this platform helps individuals showcase their expertise, learn from others, and stay updated on industry trends. It’s designed to support career growth and make the job search process more accessible, efficient, and rewarding for professionals at all levels." },
-  { id: 7, question: "What strategies can I use to stand out to potential employers?", answer: "This platform serves as a bridge between job seekers and companies, providing a space for professionals to network, share insights, and explore career opportunities. Whether you're looking to advance in your field or take the first step in your career, you can connect with industry experts, gain valuable knowledge, and discover job openings that match your skills. By fostering meaningful professional relationships, this platform helps individuals showcase their expertise, learn from others, and stay updated on industry trends. It’s designed to support career growth and make the job search process more accessible, efficient, and rewarding for professionals at all levels." },
-];
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 const HomeFAQ = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
+
+  const faqs = [
+    {
+      id: 1,
+      question: "What is this platform about?",
+      answer:
+        "Our platform connects job seekers with opportunities, offering AI-powered job matching, skill development resources, and a professional network. We help you build your career path with personalized recommendations and industry insights.",
+    },
+    {
+      id: 2,
+      question: "How can I find the right job opportunities?",
+      answer:
+        "Our smart job matching system analyzes your profile, skills, and preferences to recommend relevant positions. You can also use advanced filters, save searches, and get real-time notifications for new openings.",
+    },
+    {
+      id: 3,
+      question: "What makes this platform unique?",
+      answer:
+        "We combine AI technology with human expertise to provide personalized job recommendations, skill assessments, and career guidance. Our platform also offers exclusive access to industry events, mentorship programs, and learning resources.",
+    },
+    {
+      id: 4,
+      question: "Is it free to join?",
+      answer:
+        "Yes, basic membership is completely free! You can create a profile, search jobs, and connect with professionals. We also offer premium features for enhanced career development and networking opportunities.",
+    },
+    {
+      id: 5,
+      question: "How can employers use this platform?",
+      answer:
+        "Employers can post jobs, access our talent pool, use AI-powered candidate matching, and manage their hiring process through our ATS integration. We also provide analytics and tools to optimize recruitment strategies.",
+    },
+  ];
 
   const toggleFAQ = (id) => {
     setOpenFAQ(openFAQ === id ? null : id);
@@ -26,22 +44,33 @@ const HomeFAQ = () => {
 
   return (
     <div className={styles.faqContainer}>
-      {faqs.map((faq) => (
-        <div
-          key={faq.id}
-          className={`${styles.faqItem} ${openFAQ === faq.id ? styles.active : ""}`}
-          onClick={() => toggleFAQ(faq.id)}
-        >
-          <div className={styles.faqQuestion}>
-            <span className={styles.faqNumber}>{`0${faq.id}`}</span>
-            <span className={styles.faqText}>{faq.question}</span>
-            {openFAQ === faq.id ? <Minus size={30} className={styles.minus}/> : <Plus size={25}  className={styles.plus}/>}
+      <div className={styles.faqHeader}>
+        <h2>Frequently Asked Questions</h2>
+        <p>Everything you need to know about our platform</p>
+      </div>
+      <div className={styles.faqList}>
+        {faqs.map((faq) => (
+          <div
+            key={faq.id}
+            className={`${styles.faqItem} ${
+              openFAQ === faq.id ? styles.active : ""
+            }`}
+          >
+            <button
+              className={styles.faqQuestion}
+              onClick={() => toggleFAQ(faq.id)}
+            >
+              <span className={styles.questionText}>{faq.question}</span>
+              <span className={styles.icon}>
+                {openFAQ === faq.id ? <FaMinus /> : <FaPlus />}
+              </span>
+            </button>
+            <div className={styles.faqAnswer}>
+              <p>{faq.answer}</p>
+            </div>
           </div>
-          {openFAQ === faq.id && faq.answer && (
-            <div className={styles.faqAnswer}><hr />{faq.answer}</div>
-          )}
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
