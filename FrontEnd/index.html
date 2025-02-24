@@ -13,5 +13,31 @@
 <body>
     <div id="root"></div>
     <script type="module" src="./src/main.jsx"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqq3UNtiWz-LexLzTgqvrHfIJCmPpO_JI&callback=initMap" async defer></script>
+      <script>
+            function initMap() {
+            // Define the location coordinates
+            const location = { lat: 22.576091388745656, lng: 88.42849922793046 };
+
+            // Ensure the Google Maps API is available
+            if (typeof google === "undefined" || !google.maps) {
+                console.error("Google Maps API failed to load.");
+                return;
+            }
+
+            // Create the map centered at the specified location
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: location,
+            });
+
+            // Add a marker at the specified location
+            new google.maps.Marker({
+                position: location,
+                map: map,
+                title: "We are here!",
+            });
+        }
+      </script>
 </body>
 </html>

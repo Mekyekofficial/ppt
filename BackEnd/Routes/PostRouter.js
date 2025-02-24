@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const { getNews, postNews, getEvents, postEvents, postJob, getJobs, getJobById } = require('../Controllers/PostController');
+const { getNews, postNews, getEvents, getEventsById, postEvents, postJob, getJobs, getJobById } = require('../Controllers/PostController');
 const { newsValidation, eventValidation, jobValidation } = require('../Middlewares/PostValidation');
 
 const router = express.Router();
@@ -31,6 +31,7 @@ router.post('/event', upload.single('eventImage'), (req, res, next) => {
 }, eventValidation, postEvents);
 
 router.get('/events', getEvents);
+router.get('/events/:eventId', getEventsById);
 
 router.post('/job',upload.none(), (req, res, next ) => {
     console.log("Processing Job Post...");

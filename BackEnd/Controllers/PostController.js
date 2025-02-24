@@ -70,6 +70,19 @@ const getEvents = wrapAsync(async (req, res) => {
     res.status(200).json(events);
 });
 
+// GET Event by ID
+const getEventsById = wrapAsync(async (req, res) => {
+    const { eventId } = req.params;
+    console.log("Fetching event with ID:", req.params);
+    const event = await EventModel.findById(eventId);
+
+    if (!event) {
+        return res.status(404).json({ message: "Event not found" });
+    }
+
+    res.status(200).json(event);
+});
+
 // POST Job
 const postJob = wrapAsync(async (req, res) => {
     console.log("Processing Job Post...");
@@ -183,4 +196,4 @@ const getJobById = wrapAsync(async (req, res) => {
     res.status(200).json(job);
 });
 
-module.exports = { getNews, postNews, getEvents, postEvents, getJobs, getJobById, postJob };
+module.exports = { getNews, postNews, getEvents, postEvents, getEventsById, getJobs, getJobById, postJob };

@@ -1,10 +1,16 @@
 import React from 'react';
 import styles from './css/Event.module.css';
+import EventDetails from './EventDetails';
+
 
 const Event = ({ event }) => {
-  console.log(event);
+  const goToEventDetails = () => {
+    window.location.href = `/events/${event._id}`;
+  }
+
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={goToEventDetails}>
       <div className={styles.imageContainer}>
         <img src={event.eventImage || 'https://via.placeholder.com/200x120'} alt={event.eventName} className={styles.eventImage} />
       </div>

@@ -8,45 +8,52 @@ const { oauth2client } = require('../utils/googleconfig');
 
 
 const signup = wrapAsync(async (req, res) => {
-    const { name, email, password, phoneNumber } = req.body;
+    const { email, password, firstName, lastName } = req.body;
+    console.log(email, password, firstName, lastName, req.body);
 
-    const user = await UserModel.findOne({ email, phoneNumber });
+    const user = await UserModel.findOne({ email: email });
     if (user) {
+        console.log('User already exists');
         return res.status(409).json({ message: 'User already exists', success: false });
     }
 
-    if (!name || !email || !password || !phoneNumber) {
-        return res.status(400).json({ message: 'All fields are required' });
-    }
+    // if (!name || !email || !password || !phoneNumber) {
+    //     return res.status(400).json({ message: 'All fields are required' });
+    // }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new UserModel({ name, email, password: hashedPassword, phoneNumber });
+    const newUser = new UserModel({ email: email, password: hashedPassword, firstName: firstName, lastName: lastName });
     const savedUser = await newUser.save();
 
-    res.status(201).json({ message: 'User created successfully', success: true });
+    const jwtToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
+    console.log('User created successfully');
+    res.status(201).json({ message: 'User created successfully', success: true, user: savedUser, token: jwtToken });
 }
 );
 
 const login = wrapAsync(async (req, res) => {
-
+    console.log('Login request received');
+    console.log(req.body);
     const { email, password } = req.body;
 
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email: email });
 
     if (!user) {
+        console.log('User not found');  
         return res.status(403).json({ message: 'User not found', success: false });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
+        console.log('Invalid credentials');
         return res.status(403).json({ message: 'Invalid credentials', success: false });
     }
 
     const jwtToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
-    res.status(200).json({ message: 'Login successful', token: jwtToken, success: true, email,name: user.name });
+    res.status(200).json({ message: 'Login successful', token: jwtToken, success: true, user: user });
 });
 
 const googleLogin = wrapAsync(async (req, res) => {

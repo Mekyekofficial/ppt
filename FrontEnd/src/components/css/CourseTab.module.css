@@ -1,23 +1,29 @@
 .Course-tab {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 50px;
-    background-color: #f4c191;
-  }
+  display: flex;
+  justify-content: end;
+  padding: 20px 0;
+  padding-top: 15vh;
+  background-color: #f8d8b9;
+  min-height: 100vh;
+}
+
+.leftSidebar {
+  position: fixed;
+  left: 4vw;
+  width: 20%;
+}
   
-  .Course-content {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .main-Course {
-    flex: 2.5;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .sidebar {
-    margin: 40px 0;
-  }
+.Course-content {
+  flex: 0.7;
+  margin-right: 4vw;
+}
+
+.main-Course {
+  margin-top: 40px;
+}
+
+.Course-bar {
+  display: flex;
+  justify-content: space-between;
+}
   

@@ -9,6 +9,7 @@ const CommunityJoined = ({ logo, name, description }) => {
                 <p className={styles.name}>{name}</p>
                 <p className={styles.description}>{description}</p>
             </div>
+            <button className={styles.view}>View</button>
         </div>
     );
 };

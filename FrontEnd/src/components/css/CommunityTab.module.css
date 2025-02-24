@@ -1,18 +1,23 @@
-.Community-tab {
-    display: flex;
-    justify-content: space-between;
+.community-section {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+  padding-top: 15vh;
+  background-color: #ffded8;
+}
 
-    padding: 20px 50px;
-  }
-  
-  .main-Community {
-    flex: 2.5;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .sidebar {
-    margin: 40px 0;
-  }
-  
+.left-sidebar {
+  width: 20%;
+  position: fixed;
+  left: 4vw;
+}
+
+.main-content {
+  flex: 0.45;
+}
+
+.right-sidebar {
+  width: 20%;
+  position: fixed;
+  right: 4vw;
+}

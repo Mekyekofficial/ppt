@@ -4,8 +4,8 @@ const { signup, login, googleLogin } = require('../Controllers/AuthController');
 const router = require('express').Router();
 
 
-router.post('/login', loginValidation, login);
+router.post('/login', login);
 router.get('/google', googleLogin);
-router.post('/signup', singupValidation , signup);
+router.post('/signup', signup);
 
 module.exports = router;

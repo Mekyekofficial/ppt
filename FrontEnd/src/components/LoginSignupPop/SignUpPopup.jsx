@@ -19,18 +19,19 @@ const SignUpPopup = ({ onSubmit, onLogIn, googleLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValue);
-      const userData = {
-        email: isEmail ? inputValue : null,
-        phoneNumber: !isEmail ? inputValue : null,
-        password: password,
-      };
-      const response = await signup(userData);
-      localStorage.setItem('token', response.data.token); // Save token
-      onSubmit(email, password); // Proceed to the next step
+      // const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValue);
+      // const userData = {
+      //   email: isEmail ? inputValue : null,
+      //   phoneNumber: !isEmail ? inputValue : null,
+      //   password: password,
+      // };
+      // const response = await signup(userData);
+      // localStorage.setItem('token', response.data.token); // Save token
+
+      onSubmit(inputValue, password); // Proceed to the next step
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Failed to Sign In');
+      setError(err.response?.data?.message);
     }
 
   };
@@ -42,10 +43,10 @@ const SignUpPopup = ({ onSubmit, onLogIn, googleLogin }) => {
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
         <div className={styles["input-field"]}>
-            <label><b>Email or Phone Number</b></label>
+            <label><b>Email</b></label>
             <input
               type="text"
-              placeholder="Enter email or phone number"
+              placeholder="Enter email"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               required
