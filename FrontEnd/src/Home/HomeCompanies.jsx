@@ -15,36 +15,62 @@ import Flipkart from "../assets/flipkart.png";
 import Amazon from "../assets/amazon.png";
 import Google from "../assets/google.png";
 
-const HomeBusiness = () => {
-  // Create an array of image objects
-  const images = [
-    { src: Rapido, alt: "Rapido" },
-    { src: Swiggy, alt: "Swiggy" },
-    { src: TCS, alt: "TCS" },
-    { src: Paytm, alt: "Paytm" },
-    { src: Tinder, alt: "Tinder" },
-    { src: Boat, alt: "Boat" },
-    { src: Concentrix, alt: "Concentrix" },
-    { src: Ola, alt: "Ola" },
-    { src: Zomato, alt: "Zomato" },
-    { src: UrbanCompany, alt: "UrbanCompany" },
-    { src: PhonePe, alt: "PhonePe" },
-    { src: Flipkart, alt: "Flipkart" },
-    { src: Amazon, alt: "Amazon" },
-    { src: Google, alt: "Google" },
+const HomeCompanies = () => {
+  const companies = [
+    Rapido,
+    Swiggy,
+    TCS,
+    Paytm,
+    Tinder,
+    Boat,
+    Concentrix,
+    Ola,
+    Zomato,
+    UrbanCompany,
+    PhonePe,
+    Flipkart,
+    Amazon,
+    Google,
+    // Duplicate for seamless loop
+    Rapido,
+    Swiggy,
+    TCS,
+    Paytm,
+    Tinder,
+    Boat,
+    Concentrix,
+    Ola,
+    Zomato,
+    UrbanCompany,
+    PhonePe,
+    Flipkart,
+    Amazon,
+    Google,
   ];
-  
-  // Duplicate the images array for a seamless scroll
-  const duplicatedImages = [...images, ...images];
 
   return (
     <div className={styles.container}>
       <div className={styles.banner}>
-        {/* This wrapper will clip the scrolling images */}
+        <div className={styles.content}>
+          <h2>Trusted by Leading Companies</h2>
+          <p>
+            Join thousands of companies that trust our platform for their hiring
+            needs
+          </p>
+        </div>
         <div className={styles.imagesWrapper}>
-          <div className={styles.images}>
-            {duplicatedImages.map((img, index) => (
-              <img key={index} src={img.src} alt={img.alt} />
+          <div className={styles.track}>
+            {companies.slice(0, companies.length / 2).map((company, index) => (
+              <div key={index} className={styles.companyLogo}>
+                <img src={company} alt={`Company ${index + 1}`} />
+              </div>
+            ))}
+          </div>
+          <div className={styles.track}>
+            {companies.slice(companies.length / 2).map((company, index) => (
+              <div key={`duplicate-${index}`} className={styles.companyLogo}>
+                <img src={company} alt={`Company ${index + 1}`} />
+              </div>
             ))}
           </div>
         </div>
@@ -53,4 +79,4 @@ const HomeBusiness = () => {
   );
 };
 
-export default HomeBusiness;
+export default HomeCompanies;

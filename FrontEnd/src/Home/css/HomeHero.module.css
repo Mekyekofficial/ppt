@@ -2,117 +2,382 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 100px 80px;
-  margin-top: 50px;
+  padding: 4rem 6rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+  min-height: 90vh;
+  position: relative;
+  overflow: hidden;
+  gap: 4rem;
 }
 
 .content {
-  max-width: 50%;
+  flex: 0 0 50%;
+  max-width: 600px;
+  z-index: 2;
 }
 
-h1 {
-  font-size: 48px;
-  font-weight: bold;
+.content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.8rem;
+  font-weight: 700;
   line-height: 1.2;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #1e1b4b, #4f46e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+  animation: slideFromBackground 1.5s ease-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideFromBackground {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    background-position: 200% center;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    background-position: center;
+  }
 }
 
 .poweredBy {
-  color: #6a0dad;
-  font-weight: bold;
-  margin-top: 5px;
-  text-align: end;
-  margin-right: 150px; 
+  display: inline-flex;
+  align-items: center;
+  background: rgba(79, 70, 229, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+}
+
+.poweredBy span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4f46e5;
+  font-weight: 500;
 }
 
 .poweredBy img {
-  width: 30px;
-  margin-left: 10px;
-  margin-top: 10px;
+  width: 20px;
+  height: 20px;
 }
 
 .description {
-  font-size: 16px;
-  margin: 20px 0;
-  color: #333;
-  font-weight: 600;
-  text-align: start;
-  line-height: 2;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  color: #4b5563;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  position: relative;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background-color: #4b5563;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animatedWord {
+  display: inline-block;
+  margin-right: 0.25rem;
+  white-space: pre-wrap;
 }
 
 .searchBar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-radius: 10px;
-  padding: 5px;
-  gap: 5px;
-  width: 100%;
+  gap: 1rem;
+  background: #ffffff;
+  padding: 0.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 2px solid #eef2ff;
+  transition: all 0.3s ease;
+}
+
+.searchBar:focus-within {
+  border-color: #4f46e5;
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.15);
 }
 
 .searchInput {
+  flex: 1;
   display: flex;
-  width: 100%;
-  border: 2px solid #222;
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
-  padding: 10px;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border-right: 2px solid #eef2ff;
 }
 
 .input {
   flex: 1;
   border: none;
-  background: transparent;
-  padding: 10px;
-  font-size: 14px;
+  outline: none;
+  font-size: 1.1rem;
+  color: #1f2937;
+  padding: 0.25rem 0;
 }
 
 .input::placeholder {
-  font-weight: 600;
+  color: #9ca3af;
 }
 
 .searchInput i {
-  color: #222;
-  font-size: 25px;
-  margin-top: 10px;
-  margin-right: 20px;
+  color: #6b7280;
+  font-size: 1.25rem;
 }
 
 .jobsButton {
-  background: #ff5733;
-  color: black;
-  padding: 5px 15px !important;
-  border: 1px solid #000;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow: 5px 5px 15px #FDB268;
+  transition: all 0.2s ease;
+}
+
+.jobsButton:hover {
+  background: #e0e7ff;
+  color: #4338ca;
 }
 
 .jobsButton span {
-  font-size: 10px;
+  font-size: 0.8rem;
+  margin-top: 2px;
 }
 
 .searchButton {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(to right, #4f46e5, #4338ca);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  background: #222;
-  color: white;
-  padding: 20px 25px;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-left: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
-  border: 1px solid #ffffff8f;
+  gap: 0.5rem;
+}
+
+.searchButton:hover {
+  background: linear-gradient(to right, #4338ca, #3730a3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
 }
 
 .searchButton i {
-  margin-right: 5px;
-  font-size: 15px;
+  font-size: 1.1rem;
 }
 
-.heroImage img {
-  width: 450px;
+.heroImagePlaceholder {
+  flex: 1;
+  min-height: 80vh;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(147, 197, 253, 0.1) 100%);
+  border-radius: 24px;
+  position: sticky;
+  top: 2rem;
+  align-self: flex-start;
 }
+
+@media (max-width: 1280px) {
+  .hero {
+    padding: 3rem 4rem;
+    gap: 2rem;
+  }
+
+  .content {
+    flex: 0 0 55%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    padding: 3rem 2rem;
+    text-align: center;
+    gap: 3rem;
+  }
+
+  .content {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .heroImagePlaceholder {
+    width: 100%;
+    min-height: 300px;
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .content h1 {
+    font-size: 2.5rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+.jobsWrapper {
+  position: relative;
+}
+
+.jobsList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #eef2ff;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.jobItem {
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #4b5563;
+}
+
+.jobItem:hover {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.signupPrompt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.promptContent {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.promptContent h3 {
+  color: #1e1b4b;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.promptContent p {
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+}
+
+.signupForm {
+  margin-top: 1.5rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #eef2ff;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1f2937;
+  transition: all 0.3s ease;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.formGroup input::placeholder {
+  color: #9ca3af;
+}
+
+.promptButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.signupButton {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(to right, #4f46e5, #4338ca);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.signupButton:hover {
+  background: linear-gradient(to right, #4338ca, #3730a3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.cancelButton {
+  padding: 0.75rem 2rem;
+  background: #f3f4f6;
+  color: #4b5563;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.cancelButton:hover {
+  background: #e5e7eb;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
