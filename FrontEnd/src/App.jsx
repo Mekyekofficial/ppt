@@ -28,6 +28,8 @@ import ComingSoon from "./commingSoon";
 import RefreshHandler from "./RefreshHandler";
 import Profile from "./components/Profile";
 import Post from "./components/Post";
+import CountdownTimer from "./components/Feed/CountdownTimer";
+import Signup from "./components/Auth/Signup";
 
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;
@@ -38,6 +40,12 @@ const App = () => {
   const [isLogged, setIsLogged] = useState(false);
 
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+  // const router = createBrowserRouter([
+  //   {
+  //     path: "/",
+  //     element: <CountdownTimer />,
+  //   },
+  // ]);
 
   const router = createBrowserRouter([
     {
@@ -96,6 +104,10 @@ const App = () => {
     {
       path: "/Post",
       element: <Post />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
     },
   ]);
 

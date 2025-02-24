@@ -15,9 +15,134 @@
   .main-content {
     flex: 0.45;
   }
-  
   .right-sidebar {
     width: 20%;
     position: fixed;
     right: 4vw;
   }
+
+.countdown-title {
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+.countdown-container {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1024px;
+  margin: 0 auto;
+  margin-top: 10vh;
+  text-align: center;
+}
+
+.countdown-container h1 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.countdown-container h3 {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+}
+
+.countdown-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.countdown-box {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  min-width: 120px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.countdown-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #FC914F;
+  margin-bottom: 5px;
+}
+
+.countdown-label {
+  display: block;
+  font-size: 1rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+
+.welcome-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 140, 0, 0.1) 0%,
+    rgba(255, 107, 0, 0.1) 100%
+  );
+  z-index: 0;
+}
+
+.welcome-container:hover {
+  transform: translateY(-5px);
+}
+
+.welcome-heading {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 1;
+  color: #4a5568;
+  line-height: 1.6;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.welcome-content p {
+  margin-bottom: 15px;
+}
+
+
+.subscribe-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.subscribe-container button {
+  background-color: #FC914F;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 2px solid #FC914F;
+}
+

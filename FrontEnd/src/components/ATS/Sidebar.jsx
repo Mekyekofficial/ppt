@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/logo.png';
 import { FaHome, FaBriefcase, FaEnvelope, FaUsers, FaSearch, FaStore, FaCog, FaList } from 'react-icons/fa';
-import SidebarStyles from './css/sidebar.module.css';
+import SidebarStyles from './css/Sidebar.module.css';
 import { NavLink } from 'react-router-dom';
 import { use, useEffect, useState } from 'react';
 

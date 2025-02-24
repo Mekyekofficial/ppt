@@ -1,6 +1,6 @@
 import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import FoldersStyles from './css/folders.module.css';
+import FoldersStyles from './css/Folders.module.css';
 
 const Folders = () => {
   return (
