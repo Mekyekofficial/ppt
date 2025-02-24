@@ -5,7 +5,6 @@ import AIlogo from "../assets/gemini-icon.png";
 
 const HomeHero = () => {
   const [showJobList, setShowJobList] = useState(false);
-  const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [typedText, setTypedText] = useState("");
   const navigate = useNavigate();
 
@@ -36,11 +35,8 @@ const HomeHero = () => {
   }, []);
 
   const handleSearch = () => {
-    setShowSignupPrompt(true);
-  };
-
-  const handleSignup = () => {
-    navigate("/signup");
+    // Search functionality will be implemented later
+    console.log("Search clicked");
   };
 
   const handleJobSelect = (jobType) => {
@@ -103,46 +99,7 @@ const HomeHero = () => {
             </button>
           </div>
         </div>
-
-        <div className={styles.heroImageSection}>
-          <div className={styles.heroImage}>
-            <div className={styles.floatingCard} data-position="top">
-              <div className={styles.cardIcon}>🎯</div>
-              <div className={styles.cardContent}>
-                <span>AI Match Score</span>
-                <strong>98% Match</strong>
-              </div>
-            </div>
-            <div className={styles.floatingCard} data-position="bottom">
-              <div className={styles.cardIcon}>💼</div>
-              <div className={styles.cardContent}>
-                <span>New Jobs Today</span>
-                <strong>2.5K+</strong>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-
-      {showSignupPrompt && (
-        <div className={styles.signupPrompt}>
-          <div className={styles.promptContent}>
-            <h3>Sign Up to Continue</h3>
-            <p>Create an account to access job listings and more features</p>
-            <div className={styles.promptButtons}>
-              <button onClick={handleSignup} className={styles.signupButton}>
-                Sign Up
-              </button>
-              <button
-                onClick={() => setShowSignupPrompt(false)}
-                className={styles.cancelButton}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

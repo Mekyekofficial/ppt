@@ -3,7 +3,8 @@ import axios from 'axios';
 const SERVER_URL = import.meta.env.PUBLIC_SERVER_URL;
 
 const API = axios.create({
-  baseURL: SERVER_URL, // Adjust the URL based on your backend
+  // baseURL: SERVER_URL, // Adjust the URL based on your backend
+  baseURL: "http://localhost:500",
 });
 
 // Add login request

@@ -32,3 +32,220 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #fff;
 }
+
+/* Add these styles for the auth buttons */
+.authButtons {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+  padding: 0 20px;
+}
+
+.loginButton,
+.signupButton {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.loginButton {
+  color: #4F46E5;
+  background: transparent;
+  border: 1px solid #4F46E5;
+}
+
+.loginButton:hover {
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.signupButton {
+  color: white;
+  background: #4F46E5;
+  border: none;
+}
+
+.signupButton:hover {
+  background: #4338CA;
+}
+
+@media (max-width: 768px) {
+  .authButtons {
+    flex-direction: column;
+    padding: 20px;
+    gap: 8px;
+  }
+
+  .loginButton,
+  .signupButton {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 15px 40px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.logo a {
+  color: #4F46E5;
+  text-decoration: none;
+  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navItems {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: 60px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748B;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.navItem svg {
+  font-size: 1.2rem;
+}
+
+.navItem:hover {
+  color: #4F46E5;
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.navItem.active {
+  color: #4F46E5;
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.authButtons {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+}
+
+.loginButton, 
+.signupButton {
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.loginButton {
+  color: #4F46E5;
+  border: 2px solid #4F46E5;
+}
+
+.loginButton:hover {
+  background: rgba(79, 70, 229, 0.1);
+  transform: translateY(-1px);
+}
+
+.signupButton {
+  background: #4F46E5;
+  color: white;
+  border: none;
+}
+
+.signupButton:hover {
+  background: #4338CA;
+  transform: translateY(-1px);
+}
+
+.menuIcon {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.menuIcon div {
+  width: 24px;
+  height: 2px;
+  background: #4F46E5;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    padding: 15px 20px;
+  }
+
+  .navItems {
+    margin-left: 30px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menuIcon {
+    display: flex;
+  }
+
+  .navItems {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    gap: 15px;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .nav.open .navItems {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .authButtons {
+    display: none;
+  }
+
+  .nav.open .authButtons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .nav.open .loginButton,
+  .nav.open .signupButton {
+    width: 100%;
+    text-align: center;
+  }
+}
