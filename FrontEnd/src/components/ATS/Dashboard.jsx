@@ -16,8 +16,12 @@ const Dashboard = () => {
         </div>
       </div>
       <div className={DashboardStyles["bottom-panels"]}>
-        <div className={DashboardStyles["bottom-panel"]}></div>
-        <div className={DashboardStyles["bottom-panel"]}></div>
+        <div className={DashboardStyles["bottom-panel"]}>
+          <button className={DashboardStyles["post-course-button"]}>Post Course</button>
+        </div>
+        <div className={DashboardStyles["bottom-panel"]}>
+          <button className={DashboardStyles["post-news-button"]}>Post News</button>
+        </div>
       </div>
     </div>
   );

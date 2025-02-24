@@ -1,22 +1,25 @@
 import React from 'react';
 import CourseTabStyles from './css/CourseTab.module.css';
-import CourseTabHeading from './CourseTab/CourseTabHeading';
-import CourseTools from './CourseTab/CourseTools';
-import CourseBanner from './CourseTab/CourseBanner';
+import CourseLeftContent from './CourseTab/CourseLeftContent';
+import CourseSearchBar from './CourseTab/CourseSearchBar';
 import CourseSection from './CourseTab/CourseSection';
-
+import CourseBrowse from './CourseTab/CourseBrowse';
+import CourseRightContent from './CourseTab/CourseRightContent';
 
 const CourseTab = () => {
   return (
     <div className={CourseTabStyles["Course-tab"]}>
-      <CourseTabHeading />
+      <div className={CourseTabStyles.leftSidebar}>
+          <CourseLeftContent />
+      </div>
       <div className={CourseTabStyles["Course-content"]}>
-        <div className={CourseTabStyles.sidebar}>
-            <CourseTools />
+        <div className={CourseTabStyles["Course-bar"]}>
+          <CourseSearchBar />
+          <CourseRightContent />
         </div>
         <div className={CourseTabStyles["main-Course"]}>
-            <CourseBanner />
-            <CourseSection />
+          <CourseSection />
+          <CourseBrowse />
         </div>
       </div>
     </div>

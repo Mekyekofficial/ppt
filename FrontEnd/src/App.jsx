@@ -15,6 +15,7 @@ import CourseCategory from "./components/CourseTab/CourseCategory";
 import Course from "./components/CourseTab/Course";
 import CourseSettings from "./components/CourseTab/CourseSettings";
 import EventTab from "./components/EventTab";
+import EventDetails from "./components/Event/EventDetails";
 import WorkTab from "./components/WorkTab";
 import WorkDetails from "./components/Work/WorkDetails";
 import ATSOutlet from "./components/ATSOutlet";
@@ -79,6 +80,7 @@ const App = () => {
         { path: "/learn/:category/:course", element: <Course /> },
         { path: "/learn/settings", element: <CourseSettings /> },
         { path: "/events", element: <EventTab /> },
+        {path: "/events/:eventId", element: <EventDetails />},
         { path: "/Work", element: <WorkTab /> },
         { path: "/Work/job-Details/:jobId", element: <WorkDetails /> },
         {

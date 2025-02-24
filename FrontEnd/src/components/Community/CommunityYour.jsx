@@ -38,10 +38,10 @@ const CommunityYour = () => {
                         logo={community.logo}
                     />
                 ))}
-                <button className={styles.showMore}>
-                    Show more <ExpandMoreIcon />
-                </button>
             </div>
+            <button className={styles.showMore}>
+                    Show more <ExpandMoreIcon />
+            </button>
         </div>
     );
 };

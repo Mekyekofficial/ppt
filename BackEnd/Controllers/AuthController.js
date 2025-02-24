@@ -17,9 +17,9 @@ const signup = wrapAsync(async (req, res) => {
         return res.status(409).json({ message: 'User already exists', success: false });
     }
 
-    // if (!name  !password || !phoneNumber) {
-    //     return res.status(400).json({ message: 'All fields are required' });
-    // }
+    if (!name || !email || !password || !phoneNumber) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 

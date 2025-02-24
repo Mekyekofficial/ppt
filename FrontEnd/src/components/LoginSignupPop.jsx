@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useGoogleLogin } from "@react-oauth/google";
-import { googleAuth, signup, login } from "../api";
-import { useNavigate } from "react-router-dom";
+import { googleAuth, signup, login } from '../api';
+import { useNavigate } from 'react-router-dom';
 
 import Styles from "./css/LoginSignupPop.module.css";
 import LoginPopup from "./LoginSignupPop/LoginPopup";
@@ -18,19 +18,22 @@ const LoginSignupPop = ({ onLogInClick }) => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const [userData, setUserData] = useState({
-    email: "",
-    phNumber: "",
-    password: "",
-    emailVerificationCode: "",
-    phNumberVerificationCode: "",
-    firstName: "",
-    lastName: "",
-    dob: { day: "", month: "", year: "" },
-    gender: "",
-    professionalPhoto: "",
+    email: '',
+    phNumber: '',
+    password: '',
+    emailVerificationCode: '',
+    phNumberVerificationCode: '',
+    firstName: '',
+    lastName: '',
+    dob: { day: '', month: '', year: '' },
+    gender: '',
+    professionalPhoto: '',
   });
 
-  useEffect(() => {}, [userData]);
+  useEffect(() => {
+  }, [userData]);
+  
+
 
   const overlayClick = (e) => {
     if (
@@ -50,11 +53,11 @@ const LoginSignupPop = ({ onLogInClick }) => {
         const token = response.data.token;
         const userData = { email, firstName, lastName, profilePhoto, _id };
 
-        localStorage.setItem("token", token);
-        localStorage.setItem("user-info", JSON.stringify(userData));
-
+        localStorage.setItem('token', token);
+        localStorage.setItem('user-info', JSON.stringify(userData));
+        
         setCurrentStep(0);
-        navigate("/feeds");
+        navigate('/feeds');
         window.location.reload();
       }
     } catch (error) {
@@ -83,6 +86,7 @@ const LoginSignupPop = ({ onLogInClick }) => {
     setCurrentStep(3);
   };
 
+
   // const handleEmailVerification = async (verificationCode) => {
   //   // try {
   //   //   const response = await fetch('/auth/verify-email', {
@@ -91,7 +95,7 @@ const LoginSignupPop = ({ onLogInClick }) => {
   //   //     body: JSON.stringify({ email: userData.email, verificationCode }),
   //   //   });
   //   //   const data = await response.json();
-
+  
   //   //   if (response.ok) {
   //   //     setUserData({ ...userData, verificationCode });
   //   //     setCurrentStep(3); // Move to the next modal
@@ -110,16 +114,13 @@ const LoginSignupPop = ({ onLogInClick }) => {
   // const handlePhNumberVerification = async (verificationCode) => {
   //   if (verificationCode === '123456') {
   //     setUserData({ ...userData, phNumberVerificationCode: verificationCode });
-  //     setCurrentStep(5);
-  //   }
+  //     setCurrentStep(5);  
+  //   } 
   // };
+  
 
   const handleNameSubmit = async (firstName, lastName) => {
-    const updatedUserData = {
-      ...userData,
-      firstName: firstName,
-      lastName: lastName,
-    };
+    const updatedUserData = { ...userData, firstName: firstName, lastName: lastName };
     setUserData(updatedUserData);
     SignUp(updatedUserData);
   };
@@ -127,18 +128,13 @@ const LoginSignupPop = ({ onLogInClick }) => {
   const SignUp = async (updatedUserData) => {
     try {
       const response = await signup(updatedUserData);
-      console.log("response:", response);
+      console.log('response:', response);
       if (response.status == 201) {
-        localStorage.setItem("token", response.data.token);
-        const userInfo = {
-          _id: response.data.user._id,
-          email: response.data.user.email,
-          firstName: response.data.user.firstName,
-          lastName: response.data.user.lastName,
-        };
-        localStorage.setItem("user-info", JSON.stringify(userInfo));
+        localStorage.setItem('token', response.data.token);
+        const userInfo = { _id: response.data.user._id, email: response.data.user.email, firstName: response.data.user.firstName, lastName: response.data.user.lastName };
+        localStorage.setItem('user-info', JSON.stringify(userInfo));
         setCurrentStep(0);
-        navigate("/feeds");
+        navigate('/feeds');
         window.location.reload();
       }
     } catch (error) {
@@ -174,7 +170,36 @@ const LoginSignupPop = ({ onLogInClick }) => {
   //   }
   // };
 
-  const responseGoogle = async (authResult) => {
+
+  // const handleBirthSubmit = (birthDate, gender) => {
+  //   setUserData({ ...userData, birthDate, gender });
+  //   setCurrentStep(5);
+  // };
+
+  // const handleComplete = async () => {
+  //   try {
+  //     const response = await fetch('/api/profile', {
+  //       method: 'POST',
+  //       headers: { 
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+  //       },
+  //       body: JSON.stringify(userData),
+  //     });
+  //     const data = await response.json();
+  
+  //     if (response.ok) {
+  //       console.log('Signup complete:', data);
+  //       setCurrentStep(0); // Reset the popup flow
+  //     } else {
+  //       console.error(data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error completing profile:', error);
+  //   }
+  // };
+
+  const responseGoogle = async (authResult) => { 
     try {
       if (authResult["code"]) {
         const result = await googleAuth(authResult["code"]);
@@ -225,7 +250,9 @@ const LoginSignupPop = ({ onLogInClick }) => {
       {currentStep === 4 && (
         <ConfirmPhNumberModal onSubmit={handlePhNumberVerification} />
       )} */}
-      {currentStep === 3 && <NameModal onSubmit={handleNameSubmit} />}
+      {currentStep === 3 && (
+        <NameModal onSubmit={handleNameSubmit} />
+      )}
       {/* {currentStep === 6 && (
         <BirthModal onSubmit={handleBirthSubmit} />
       )}
