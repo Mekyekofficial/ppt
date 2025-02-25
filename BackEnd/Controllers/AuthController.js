@@ -8,8 +8,8 @@ const { oauth2client } = require('../utils/googleconfig');
 
 
 const signup = wrapAsync(async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
-    console.log(email, password, firstName, lastName, req.body);
+    const { email, password, name } = req.body;
+    console.log(req.body);
 
     const user = await UserModel.findOne({ email: email });
     if (user) {
@@ -17,13 +17,14 @@ const signup = wrapAsync(async (req, res) => {
         return res.status(409).json({ message: 'User already exists', success: false });
     }
 
-    if (!email || !password || !firstName || !lastName) {
+    if (!email || !password || !name) {
+        console.log('All fields are required');
         return res.status(400).json({ message: 'All fields are required' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new UserModel({ email: email, password: hashedPassword, firstName: firstName, lastName: lastName });
+    const newUser = new UserModel({ email: email, password: hashedPassword, name: name });
     const savedUser = await newUser.save();
 
     const jwtToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
