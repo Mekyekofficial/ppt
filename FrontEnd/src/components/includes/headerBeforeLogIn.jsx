@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./css/headerBeforeLogIn.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaBriefcase, FaUserPlus, FaTimes } from "react-icons/fa";
+import { login, signup } from "../../api";
 
 const HeaderBeforeLogIn = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
@@ -22,14 +24,39 @@ const HeaderBeforeLogIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your authentication logic here
     try {
       if (isLogin) {
-        // Login logic
         console.log("Login:", formData);
+        const { email, password } = formData;
+        const response = await login(email, password);
+        if (response.status == 200) {
+          const { email, name, profilePhoto } =
+            response.data.user;
+          const _id = response.data.user._id;
+          const token = response.data.token;
+          const userData = { email, name, profilePhoto, _id };
+
+          localStorage.setItem("token", token);
+          localStorage.setItem("user-info", JSON.stringify(userData));
+
+          navigate("/feeds");
+          window.location.reload();
+        }
       } else {
-        // Signup logic
         console.log("Signup:", formData);
+        const response = await signup(formData);
+        console.log("response:", response);
+        if (response.status == 201) {
+          localStorage.setItem("token", response.data.token);
+          const userInfo = {
+            _id: response.data.user._id,
+            email: response.data.user.email,
+            name: response.data.user.name,
+          };
+          localStorage.setItem("user-info", JSON.stringify(userInfo));
+          navigate("/feeds");
+          window.location.reload();
+        }
       }
     } catch (error) {
       console.error("Auth error:", error);
@@ -73,8 +100,7 @@ const HeaderBeforeLogIn = () => {
             onClick={() => {
               setIsLogin(true);
               setIsModalOpen(true);
-            }}
-          >
+            }}>
             Log In
           </button>
           <button
@@ -82,8 +108,7 @@ const HeaderBeforeLogIn = () => {
             onClick={() => {
               setIsLogin(false);
               setIsModalOpen(true);
-            }}
-          >
+            }}>
             Sign Up
           </button>
         </div>
@@ -94,8 +119,7 @@ const HeaderBeforeLogIn = () => {
           <div className={styles.modal}>
             <button
               className={styles.closeButton}
-              onClick={() => setIsModalOpen(false)}
-            >
+              onClick={() => setIsModalOpen(false)}>
               <FaTimes />
             </button>
 
