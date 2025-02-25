@@ -1,9 +1,9 @@
 .header {
   position: fixed;
-  top: 1vh;
+  top: 0.1vh;
   z-index: 1000000;
-  width: 98.5vw;
-  left: 0.5vw;
+  width: 99.25vw;
+  left: 0.1vw;
   border: 2px solid black;
   border-radius: 10px;
   box-shadow: 0 3px 0px rgba(0, 0, 0, 0.1);

@@ -47,12 +47,6 @@ const App = () => {
   const [isLogged, setIsLogged] = useState(false);
 
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <CountdownTimer />,
-  //   },
-  // ]);
 
   const router = createBrowserRouter([
     {
@@ -80,7 +74,7 @@ const App = () => {
         { path: "/learn/:category/:course", element: <Course /> },
         { path: "/learn/settings", element: <CourseSettings /> },
         { path: "/events", element: <EventTab /> },
-        {path: "/events/:eventId", element: <EventDetails />},
+        { path: "/events/:eventId", element: <EventDetails /> },
         { path: "/Work", element: <WorkTab /> },
         { path: "/Work/job-Details/:jobId", element: <WorkDetails /> },
         {

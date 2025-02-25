@@ -4,6 +4,7 @@
     padding: 20px;
     padding-top: 15vh;
     background-color: #e2eaf9;
+    min-height: 250vh;
   }
   
   .left-sidebar {

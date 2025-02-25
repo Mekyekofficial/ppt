@@ -15,7 +15,6 @@ function FeedSection() {
       <div className={FeedSectionStyles["left-sidebar"]}>
         {/* <Profile /> */}
         <FeedsProfile />
-        <CountdownTimer />
       </div>
       <div className={FeedSectionStyles["main-content"]}>
         <Feeds />
