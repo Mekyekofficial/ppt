@@ -18,7 +18,7 @@ const Post = ({ post }) => {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("user-info")) || {};
     setUserInfo(userInfo);
-    if (post.likeBy.includes(userInfo._id)) {
+    if (post?.likeBy?.includes(userInfo?._id)) {
       setLiked(true);
     }
 
