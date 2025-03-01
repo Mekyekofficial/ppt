@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import styles from "./css/searchBar.module.css";
+import {useNavigate} from "react-router-dom";
+import styles from "./css/SearchBar.module.css";
 import ProfileImage from "../../assets/profile-image.png";
 import { toast } from "react-toastify";
 import API from "../../api";
 
 const SearchBar = () => {
+  const navigate = useNavigate();
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
 
   const userInfo = JSON.parse(localStorage.getItem("user-info")) || {};
-  const { firstName, lastName, profilePhoto } = userInfo;
+  const { firstName, lastName, profilePhoto, _id } = userInfo;
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -29,6 +31,7 @@ const SearchBar = () => {
     postData.append("firstName", firstName || "Anonymous");
     postData.append("lastName", lastName || "User");
     postData.append("profilePhoto", profilePhoto || ProfileImage);
+    postData.append("userId", _id);
 
     if (file) {
       postData.append("file", file);
@@ -61,7 +64,7 @@ const SearchBar = () => {
   return (
     <div className={styles.searchBar}>
       <div className={styles.inputContainer}>
-        <img src={profilePhoto || ProfileImage} alt="Profile" className={styles.profileImage} />
+        <img src={profilePhoto || ProfileImage} alt="Profile" className={styles.profileImage} onClick={()=>navigate(`/profile/${_id}`)} style={{cursor:'pointer'}}/>
         <input
           type="text"
           placeholder="What’s on your mind?"

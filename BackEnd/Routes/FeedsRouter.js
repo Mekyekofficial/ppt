@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 
-const { postFeed, getFeeds } = require('../Controllers/FeedsController');
+const { postFeed, getFeeds, likeFeed, commentPostFeed, getComments } = require('../Controllers/FeedsController');
 const { feedValidation } = require('../Middlewares/FeedValidation');
 
 const router = express.Router();
@@ -23,6 +23,12 @@ router.post('/post', upload.single('file'), (req, res, next) => {
 }, postFeed);
 
 router.get('/getFeeds', getFeeds);
+
+router.post('/like', likeFeed);
+
+router.post('/commentPost', commentPostFeed);
+
+router.get('/getComments', getComments);    
 
 
 module.exports = router;

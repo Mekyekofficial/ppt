@@ -17,6 +17,10 @@ const NewsSchema = new Schema({
         },
         profilePhoto: {
             type: String,
+        },
+        _id: {
+            type: String,
+            required: true
         }
     },
     date: {
@@ -25,7 +29,36 @@ const NewsSchema = new Schema({
     },
     newsPhoto: {
         type: String,
-    }
+    },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    likeBy: [
+        {
+            type: Schema.Types.ObjectId,
+                ref: 'User'
+        }
+    ],
+    comments: [
+        {
+            comment: {
+                type: String,
+                required: true
+            },
+            commenter: {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            },
+            createdAt: {
+                type: Date,
+                default: Date.now
+            },
+            userName: {
+                type: String
+            },
+        }
+    ]
 });
 
 const NewsModel = mongoose.model('News', NewsSchema);

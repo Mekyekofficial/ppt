@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 
 const { profileValidation } = require('../Middlewares/ProfileValidation');
-const { postProfile, getProfile } = require('../Controllers/ProfileController');
+const { postProfile, getProfile, getAllProfiles } = require('../Controllers/ProfileController');
 const { get } = require('mongoose');
 
 const router = express.Router();
@@ -17,5 +17,6 @@ router.post('/update', (req, res, next) => {
 }, upload.single('certificate'), postProfile);
 
 router.get('/get', getProfile);
+router.get('/getAll', getAllProfiles);
 
 module.exports = router;

@@ -9,6 +9,7 @@ const companyRoutes = require('./Routes/CompanyRouter.js');
 const ATSRouter = require('./Routes/ATSRouter.js');
 const profileRoutes = require('./Routes/ProfileRouter.js');
 const feedsRoutes = require('./Routes/FeedsRouter.js');
+const ComunityRouter = require('./Routes/ComunityRouter.js');
 require('./mongodb.js');
 
 dotenv.config();
@@ -19,7 +20,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: process.env.CORS_ORIGIN , credentials: true }));
+app.use(cors({ origin: process.env.CORS_ORIGIN }));
 
 // Routes
 app.use('/auth', authRoutes);
@@ -28,6 +29,7 @@ app.use('/company', companyRoutes);
 app.use('/ATS', ATSRouter);
 app.use('/profile', profileRoutes);
 app.use('/feeds', feedsRoutes);
+app.use('/comunity', ComunityRouter);
 
 app.get('/ping', (req, res) => res.send('PONG'));
 

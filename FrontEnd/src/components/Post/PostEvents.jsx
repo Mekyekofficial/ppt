@@ -56,6 +56,7 @@ const PostEvents = () => {
         if (userinfo?.profilePhoto) {
             formData.append("userPhoto", userinfo.profilePhoto);
         }
+        formData.append("userId", userinfo._id);
         formData.append('eventType', eventData.eventType);
         formData.append('eventName', eventData.eventName);
         formData.append('eventImage', eventData.eventImage);

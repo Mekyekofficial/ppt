@@ -1,57 +1,68 @@
-import React from 'react';
-import TableViewStyles from './css/TableView.module.css';
+import React, { useState, useEffect } from "react";
+import TableViewStyles from "./css/TableView.module.css";
+import API from "../../../api";
 
-const TableView = () => {
+const TableView = ({ applicants, selectedColumns, jobs }) => {
+  const [applicantDetails, setApplicantDetails] = useState([]);
+
+  const columns = [
+    { key: "Applicant", label: "Applicant" },
+    { key: "Apply For", label: "Apply For" },
+    { key: "Job location", label: "Job location" },
+    { key: "Status", label: "Status" },
+    { key: "Applied On", label: "Applied On" },
+    { key: "Email", label: "Email" },
+    { key: "Applicant Location", label: "Applicant Location" },
+    { key: "Action", label: "Action" },
+  ];
+
+  const displayedColumns = columns.filter(
+    (col) => selectedColumns.includes(col.label) || col.key === "Action"
+  );
+
+  useEffect(() => {
+    applicants.map( async (applicant) => {
+      const jobId = applicant.jobID;
+      const response = await API.get(`/posts/jobs/${jobId}`);
+      const job = response.data;
+
+      applicantDetails.push({
+        Applicant: applicant.firstName + " " + applicant.lastName,
+        "Apply For": job.role,
+        "Job location": job.location,
+        Status: "Applied",
+        "Applied On": new Date(applicant.createdAt).toLocaleDateString(),
+        Email: applicant.email,
+        "Applicant Location": applicant.area + " " + applicant.cityStateCountry,
+        Action: <button>View</button>,
+      });
+    });
+  }, [applicants]);
+
   return (
     <div className={TableViewStyles["table-view"]}>
       <table>
         <thead>
           <tr>
-            <th>
-              <span className={TableViewStyles['th-name']}>Title</span>
-              <span className={TableViewStyles["sorting-arrows"]}>
-                <span className={TableViewStyles["arrow-up"]}>▲</span>
-                <span className={TableViewStyles["arrow-down"]}>▼</span>
-              </span>
-            </th>
-            <th>
-              Applicants
-              <span className={TableViewStyles["sorting-arrows"]}>
-                <span className={TableViewStyles["arrow-up"]}>▲</span>
-                <span className={TableViewStyles["arrow-down"]}>▼</span>
-              </span>
-            </th>
-            <th>
-              Posted On
-              <span className={TableViewStyles["sorting-arrows"]}>
-                <span className={TableViewStyles["arrow-up"]}>▲</span>
-                <span className={TableViewStyles["arrow-down"]}>▼</span>
-              </span>
-            </th>
-            <th>
-              Posted By
-              <span className={TableViewStyles["sorting-arrows"]}>
-                <span className={TableViewStyles["arrow-up"]}>▲</span>
-                <span className={TableViewStyles["arrow-down"]}>▼</span>
-              </span>
-            </th>
-            <th>
-              Action
-              <span className={TableViewStyles["sorting-arrows"]}>
-                <span className={TableViewStyles["arrow-up"]}>▲</span>
-                <span className={TableViewStyles["arrow-down"]}>▼</span>
-              </span>
-            </th>
+            {displayedColumns.map((col) => (
+              <th key={col.key}>
+                {col.label}
+                <span className={TableViewStyles["sorting-arrows"]}>
+                  <span className={TableViewStyles["arrow-up"]}>▲</span>
+                  <span className={TableViewStyles["arrow-down"]}>▼</span>
+                </span>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Job 1</td>
-            <td>5</td>
-            <td>01/10/2024</td>
-            <td>John Doe</td>
-            <td>Edit</td>
-          </tr>
+          {applicantDetails.map((applicant, index) => (
+            <tr key={index}>
+              {displayedColumns.map((col) => (
+                <td key={col.key}>{applicant[col.key]}</td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

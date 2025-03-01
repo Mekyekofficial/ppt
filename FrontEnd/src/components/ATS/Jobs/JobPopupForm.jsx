@@ -229,7 +229,7 @@ const JobPopupForm = ({ open, onClose }) => {
                 label="Job Type"
               >
                 <MenuItem value="Permanent">Permanent</MenuItem>
-                <MenuItem value="Contract">Contract</MenuItem>
+                <MenuItem value="Project">Project</MenuItem>
                 <MenuItem value="Internship">Internship</MenuItem>
               </Select>
             </FormControl>

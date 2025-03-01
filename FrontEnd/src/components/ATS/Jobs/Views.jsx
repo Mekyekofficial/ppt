@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { IoOptionsOutline } from "react-icons/io5";
 import ViewsStyles from "./css/Views.module.css";
 
-const allColumns = [
-  "Applicants",
-  "Posted On",
-  "Posted By",
-  "Rejected",
-  "On Hold",
-  "Interviewed",
-  "Hired",
-];
+const Views = ({ setView, selectedColumns, setSelectedColumns, role }) => {
+  const allColumns = [
+    "Applicants",
+    "Posted On",
+    "Posted By",
+    "Rejected",
+    "On Hold",
+    "Interviewed",
+    "Hired",
+  ];
 
-const Views = ({ setView, selectedColumns, setSelectedColumns }) => {
   const [showViews, setShowViews] = useState(false);
 
   const toggleViews = () => {
@@ -30,6 +30,8 @@ const Views = ({ setView, selectedColumns, setSelectedColumns }) => {
       setSelectedColumns([...selectedColumns, column]);
     }
   };
+
+  console.log(selectedColumns);
 
   return (
     <div className={ViewsStyles.views}>

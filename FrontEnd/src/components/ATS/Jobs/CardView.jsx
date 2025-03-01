@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardViewStyles from './css/CardView.module.css';
 
-const CardView = ({ jobs }) => {
+const CardView = ({ jobs, role }) => {
   const navigate = useNavigate();
 
   const handleCardClick = (job) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/logo.png';
 import { FaHome, FaBriefcase, FaEnvelope, FaUsers, FaSearch, FaStore, FaCog, FaList } from 'react-icons/fa';
-import SidebarStyles from './css/Sidebar.module.css';
+import SidebarStyles from './css/sidebar.module.css';
 import { NavLink } from 'react-router-dom';
 import { use, useEffect, useState } from 'react';
 
@@ -63,31 +63,31 @@ const Sidebar = () => {
             <FaEnvelope className={SidebarStyles["menu-icon"]} /> Applications
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/ATS/talentPool" style={active} className={SidebarStyles["menu-item"]}>
             <FaUsers className={SidebarStyles["menu-icon"]} /> Talent Pool
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to="/ATS/talentHunt" style={active} className={SidebarStyles["menu-item"]}>
             <FaList className={SidebarStyles["menu-icon"]} /> Talent Hunt
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/ATS/marketPlace" style={active} className={SidebarStyles["menu-item"]}>
             <FaStore className={SidebarStyles["menu-icon"]} /> Market Place
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to="/ATS/settings" style={active} className={SidebarStyles["menu-item"]}>
             <FaCog className={SidebarStyles["menu-icon"]} /> Settings
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/ATS/setup" style={active} className={SidebarStyles["menu-item"]}>
             <FaList className={SidebarStyles["menu-icon"]} /> Setup
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

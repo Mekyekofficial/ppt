@@ -1,6 +1,6 @@
-const NewsModel = require('../Models/News');
-const EventModel = require('../Models/Event');
-const JobModel = require('../Models/job');
+const NewsModel = require('../models/News');
+const EventModel = require('../models/Event');
+const JobModel = require('../models/Job');
 const CompanyJobModel = require('../Models/ATS/CompanyJobs');
 const wrapAsync = require('../utils/wrapAsync');
 
@@ -18,8 +18,12 @@ const postNews = wrapAsync(async (req, res) => {
             firstName: req.body.firstName || "Unknown",
             lastName: req.body.lastName || "Unknown",
             profilePhoto: req.body.userPhoto || "",
+            _id: req.body.userId || "",
         },
         newsPhoto: req.file ? `data:image/png;base64,${req.file.buffer.toString("base64")}` : null,
+        likes: 0,
+        likeBy: [],
+        comments: [],
     });
 
     const savedNews = await news.save();
@@ -32,6 +36,75 @@ const postNews = wrapAsync(async (req, res) => {
 const getNews = wrapAsync(async (req, res) => {
     const news = await NewsModel.find({});
     res.status(200).json(news);
+});
+
+// Like News
+
+const likeNews = wrapAsync(async (req, res) => {
+    console.log("Processing News Like...");
+    const { newsId, userId } = req.body;
+
+    const News = await NewsModel.findById(newsId);
+    if (!News) {
+        console.error("❌ News not found");
+        return res.status(404).json({ message: "News not found", success: false });
+    }
+
+    if (News.likeBy.includes(userId)) {
+        News.likes -= 1;
+        News.likeBy = News.likeBy.filter((id) => 
+            id.toString() !== userId.toString()
+        );
+        const updatedNews = await News.save();
+        console.log("✅ News unliked successfully:", updatedNews);
+
+        res.status(200).json({ message: "News unliked successfully", success: true, News: updatedNews });
+        return;
+    }
+
+    News.likes += 1;
+    News.likeBy.push(userId);
+
+    const updatedNews = await News.save();
+    console.log("✅ News liked successfully:", updatedNews);
+
+    res.status(200).json({ message: "News liked successfully", success: true, News: updatedNews });
+}
+);  
+
+const commentPostNews = wrapAsync(async (req, res) => {
+    console.log("Processing News Comment...");
+    const { newsId, userId, comment, userName } = req.body;
+
+    const News = await NewsModel.findById(newsId);
+    if (!News) {
+        console.error("❌ News not found");
+        return res.status(404).json({ message: "News not found", success: false });
+    }
+
+    News.comments.push({
+        userId,
+        comment,
+        userName,
+        createdAt: new Date(),
+    });
+
+    const updatedNews = await News.save();
+    console.log("✅ News commented successfully:", updatedNews);
+
+    res.status(200).json({ message: "News commented successfully", success: true, News: updatedNews });
+});
+
+const getComments = wrapAsync(async (req, res) => {
+    const { newsId } = req.query;
+
+    const News = await NewsModel.findById(newsId);
+    if (!News) {
+        console.error("❌ News not found");
+        return res.status(404).json({ message: "News not found", success: false });
+    }
+
+    res.status(200).json({ comments: News.comments });
 });
 
 // POST Event
@@ -55,6 +128,7 @@ const postEvents = wrapAsync(async (req, res) => {
             firstName: req.body.firstName || "Unknown",
             lastName: req.body.lastName || "Unknown",
             profilePhoto: req.body.userPhoto || "",
+            _id: req.body.userId || "",
         },
     });
 
@@ -149,6 +223,7 @@ const postJob = wrapAsync(async (req, res) => {
         jobId: savedJob._id,
         companyId: companyId,
         title: role,
+        jobType: jobType,
         applicants: 0,
         postedOn: savedJob.postedOn,
         postedBy: 'Admin',
@@ -196,4 +271,4 @@ const getJobById = wrapAsync(async (req, res) => {
     res.status(200).json(job);
 });
 
-module.exports = { getNews, postNews, getEvents, postEvents, getEventsById, getJobs, getJobById, postJob };
+module.exports = { getNews, postNews, likeNews, commentPostNews, getComments, getEvents, postEvents, getEventsById, getJobs, getJobById, postJob };

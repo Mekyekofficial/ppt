@@ -1,4 +1,4 @@
-const CompanyModel = require("../Models/Company");
+const CompanyModel = require("../models/Company");
 const JobApplicationModel = require("../Models/JobApplication");
 const CompanyJobModel = require("../Models/ATS/CompanyJobs");
 const wrapAsync = require("../utils/wrapAsync");
@@ -113,6 +113,25 @@ const getCompanyByUserId = wrapAsync(async (req, res) => {
     .json({ message: "Company found successfully!", success: true, company });
 });
 
+const getCompany = wrapAsync(async (req, res) => {
+
+  const { _id } = req.query;
+
+  const company = await CompanyModel.findOne({ _id: _id });
+
+  if (!company) {
+    return res
+      .status(404)
+      .json({ message: "Company not found.", success: false });
+  }
+
+  console.log("🚀 Company found successfully!");
+
+  res
+    .status(200)
+    .json({ message: "Company found successfully!", success: true, company });
+});
+
 // Apply for Job
 const applyForJob = wrapAsync(async (req, res) => {
   console.log("🚀 Processing Job Application...");
@@ -185,4 +204,4 @@ const applyForJob = wrapAsync(async (req, res) => {
     });
 });
 
-module.exports = { registerCompany, applyForJob, getCompanyByUserId };
+module.exports = { registerCompany, applyForJob, getCompanyByUserId, getCompany };

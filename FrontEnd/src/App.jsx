@@ -7,6 +7,7 @@ import {
 
 import Home from "./home";
 import AppOutlet from "./AppOutlet";
+// import ChatBox from './ChatBox/src/index';
 import FeedSection from "./components/Feed";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
@@ -23,20 +24,13 @@ import Dashboard from "./components/ATS/Dashboard";
 import Jobs from "./components/ATS/Jobs";
 import Applications from "./components/ATS/Applications";
 import TalentPool from "./components/ATS/TalentPool";
+import TalentHunt from "./components/ATS/TalentHunt";
 import JobApplicants from "./components/ATS/Jobs/JobApplicants";
 import ComingSoon from "./commingSoon";
 import RefreshHandler from "./RefreshHandler";
 import Profile from "./components/Profile";
+import CompanyProfile from "./components/CompanyProfile";
 import Post from "./components/Post";
-import CountdownTimer from "./components/Feed/CountdownTimer";
-import Signup from "./components/Auth/Signup";
-import HomeHero from "./Home/HomeHero";
-import HomeTrending from "./Home/HomeTrending";
-import HomeFeatures from "./Home/HomeFeatures";
-import HomeBusiness from "./Home/HomeBusiness";
-import HomeCompanies from "./Home/HomeCompanies";
-import HomeFeedback from "./Home/HomeFeedback";
-import HomeFAQ from "./Home/HomeFAQ";
 
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;
@@ -74,7 +68,7 @@ const App = () => {
         { path: "/learn/:category/:course", element: <Course /> },
         { path: "/learn/settings", element: <CourseSettings /> },
         { path: "/events", element: <EventTab /> },
-        { path: "/events/:eventId", element: <EventDetails /> },
+        {path: "/events/:eventId", element: <EventDetails />},
         { path: "/Work", element: <WorkTab /> },
         { path: "/Work/job-Details/:jobId", element: <WorkDetails /> },
         {
@@ -86,7 +80,7 @@ const App = () => {
             { path: "/ATS/Jobs", element: <Jobs /> },
             { path: "/ATS/Applications", element: <Applications /> },
             { path: "/ATS/TalentPool", element: <TalentPool /> },
-            { path: "/ATS/TalentHunt", element: <ComingSoon /> },
+            { path: "/ATS/TalentHunt", element: <TalentHunt /> },
             { path: "/ATS/MarketPlace", element: <ComingSoon /> },
             { path: "/ATS/Settings", element: <ComingSoon /> },
             { path: "/ATS/Setup", element: <ComingSoon /> },
@@ -103,12 +97,12 @@ const App = () => {
       element: <Profile />,
     },
     {
-      path: "/Post",
-      element: <Post />,
+      path: "/Company-Profile/:userId",
+      element: <CompanyProfile />,
     },
     {
-      path: "/signup",
-      element: <Signup />,
+      path: "/Post",
+      element: <Post />,
     },
   ]);
 

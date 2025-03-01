@@ -135,9 +135,15 @@ const postProfile = wrapAsync(async (req, res) => {
 
 const getProfile = wrapAsync(async (req, res) => {
   console.log("Processing Profile Get...");
-    const id = req.query._id;
-    const user = await UserModal.findOne({_id: id});
+    const { _id } = req.query;
+    const user = await UserModal.findOne({_id: _id});
     res.status(200).json(user);
 });
 
-module.exports = { postProfile, getProfile };
+const getAllProfiles = wrapAsync(async (req, res) => {
+    console.log("Processing Profile Get All...");
+    const users = await UserModal.find();
+    res.status(200).json(users);
+});
+
+module.exports = { postProfile, getProfile, getAllProfiles };
