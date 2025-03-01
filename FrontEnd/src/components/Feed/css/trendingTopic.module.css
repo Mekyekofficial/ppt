@@ -33,4 +33,47 @@
   .count {
     font-weight: bold;
   }
+  .topicItem {
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.topicItem:hover {
+    background: #f8f9fa; /* Hover state */
+}
+
+.count {
+    color: #6366f1; /* Accent color */
+}
+
+.heading {
+  font-size: 14px;
+}
+
+.topicItem {
+  font-size: 13px;
+}
+
+@media (min-width: 480px) {
+  .heading {
+      font-size: 16px;
+  }
   
+  .topicItem {
+      font-size: 14px;
+  }
+}
+/* Add to all component files */
+.post,
+.events-container,
+.card {
+  transform: translateZ(0); /* Enable hardware acceleration */
+}
+
+/* Add smooth transitions for hover states */
+.event:hover,
+.userItem:hover {
+  transition: transform 0.3s ease;
+  transform: translateY(-2px);
+}

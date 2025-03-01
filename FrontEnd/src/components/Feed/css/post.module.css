@@ -4,7 +4,7 @@
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
-  margin: 2vh 0;
+  margin: 1vh 0;
 }
 
 /* Header */
@@ -129,4 +129,78 @@
 .commentSection textarea {
   width: 90%;
   margin-left: 2px;
+}
+.post {
+  transition: transform 0.2s ease; /* Hover effect */
+}
+
+.post:hover {
+  transform: translateY(-2px);
+}
+
+.postImage {
+  background: linear-gradient(45deg, #f3f4f6, #e5e7eb); /* Gradient placeholder */
+}
+
+.commentSection {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Matching shadow */
+  transition: opacity 0.2s ease; /* Smooth appearance */
+}
+
+.post {
+  /* Existing styles */
+  padding: 15px;
+}
+
+.content {
+  width: 95%; /* Adjusted from 85% */
+}
+
+.postImage {
+  height: 180px; /* Reduced from 230px */
+}
+
+@media (min-width: 768px) {
+  .post {
+      padding: 20px;
+  }
+  
+  .content {
+      width: 85%;
+  }
+  
+  .postImage {
+      height: 230px;
+  }
+}
+
+.post {
+  animation-name: slideUp;
+}
+
+.header {
+  animation-name: fadeIn;
+}
+
+.content {
+  animation-name: slideUp;
+  animation-delay: 100ms;
+}
+
+.actions {
+  animation-name: fadeIn;
+  animation-delay: 200ms;
+}
+/* Add to all component files */
+.post,
+.events-container,
+.card {
+  transform: translateZ(0); /* Enable hardware acceleration */
+}
+
+/* Add smooth transitions for hover states */
+.event:hover,
+.userItem:hover {
+  transition: transform 0.3s ease;
+  transform: translateY(-2px);
 }

@@ -69,4 +69,64 @@
     font-weight: bold;
     color: #5b577d;
   }
+  .card {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Softer shadow */
+}
+
+.profileImage img {
+    border: 3px solid #e0e7ff; /* Coordinated border color */
+}
+
+.stats {
+    background: #f8f9fa; /* Subtle background */
+    border-radius: 8px;
+    padding: 12px 20px; /* Increased padding */
+}
+
+.card {
+  /* Existing styles */
+  padding: 15px;
+}
+
+.profileImage img {
+  width: 80px;
+  height: 80px;
+}
+
+@media (min-width: 480px) {
+  .card {
+      padding: 20px;
+  }
   
+  .profileImage img {
+      width: 100px;
+      height: 100px;
+  }
+}
+
+.card {
+  animation-name: slideUp;
+}
+
+.profileImage {
+  animation-name: fadeIn;
+  animation-delay: 100ms;
+}
+
+.stats {
+  animation-name: slideUp;
+  animation-delay: 200ms;
+}
+/* Add to all component files */
+.post,
+.events-container,
+.card {
+  transform: translateZ(0); /* Enable hardware acceleration */
+}
+
+/* Add smooth transitions for hover states */
+.event:hover,
+.userItem:hover {
+  transition: transform 0.3s ease;
+  transform: translateY(-2px);
+}

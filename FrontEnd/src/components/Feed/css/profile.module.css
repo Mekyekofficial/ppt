@@ -33,4 +33,38 @@
   .profile-links button:hover {
     background-color: #e0e0e0;
   }
-  
+  .profile-card {
+    background-color: #fef9c3; /* Softer yellow */
+}
+
+.profile-links button {
+    transition: all 0.2s ease;
+}
+
+.profile-links button:hover {
+    transform: translateX(4px); /* Interactive effect */
+}
+
+.profile-card {
+  width: 100%; /* Changed from 200px */
+  margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+  .profile-card {
+      width: 200px;
+  }
+}
+/* Add to all component files */
+.post,
+.events-container,
+.card {
+  transform: translateZ(0); /* Enable hardware acceleration */
+}
+
+/* Add smooth transitions for hover states */
+.event:hover,
+.userItem:hover {
+  transition: transform 0.3s ease;
+  transform: translateY(-2px);
+}

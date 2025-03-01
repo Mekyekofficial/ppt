@@ -1,6 +1,19 @@
-.feeds {
+
+  .feeds {
     display: flex;
     flex-direction: column;
-  }
+    gap: 16px; /* Space between feed items */
+}
+/* Add to all component files */
+.post,
+.events-container,
+.card {
+  transform: translateZ(0); /* Enable hardware acceleration */
+}
 
-  
+/* Add smooth transitions for hover states */
+.event:hover,
+.userItem:hover {
+  transition: transform 0.3s ease;
+  transform: translateY(-2px);
+}

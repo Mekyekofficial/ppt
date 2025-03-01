@@ -1,4 +1,6 @@
 .searchBar {
+  position: sticky;
+  top: 76px;
   width: 100%;
   background: white;
   border-radius: 12px;
@@ -82,4 +84,56 @@
 
 .postButton:hover {
   background: #f58c30;
+}
+.inputField {
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.05); /* Subtler inset */
+  transition: border-color 0.2s ease;
+}
+
+.inputField:focus {
+  border-color: #6366f1; /* Focus state */
+}
+
+.postButton {
+  transition: all 0.2s ease;
+}
+
+.postButton:hover {
+  transform: scale(1.02); /* Button interaction */
+}
+
+.searchBar {
+  /* Existing styles */
+  padding: 15px;
+  top: 60px; /* Adjusted from 76px */
+}
+
+.postButton {
+  padding: 6px 18px;
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  .searchBar {
+      padding: 20px;
+      top: 76px;
+  }
+  
+  .postButton {
+      padding: 8px 24px;
+      font-size: 16px;
+  }
+}
+/* Add to all component files */
+.post,
+.events-container,
+.card {
+  transform: translateZ(0); /* Enable hardware acceleration */
+}
+
+/* Add smooth transitions for hover states */
+.event:hover,
+.userItem:hover {
+  transition: transform 0.3s ease;
+  transform: translateY(-2px);
 }

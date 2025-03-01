@@ -6,7 +6,6 @@ import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import { MdKeyboardArrowDown } from "react-icons/md";
 import EventsStyles from './css/events.module.css';
 
-
 const Events = () => {
   return (
     <div className={EventsStyles["events-container"]}>
