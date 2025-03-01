@@ -12,6 +12,7 @@ const feedValidation = (req, res, next) => {
             firstName: req.body.firstName || "",
             lastName: req.body.lastName || "",
             profilePhoto: req.body.userPhoto || "",
+            _id: req.body.userId || "",
         },
         feedImage: req.file ? req.file.buffer.toString("base64") : undefined,
         postOn: req.body.postOn,

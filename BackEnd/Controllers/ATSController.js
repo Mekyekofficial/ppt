@@ -4,15 +4,28 @@ const JobApplicationModel = require("../Models/JobApplication");
 
 // GET Company Jobs
 const getCompanyJobs = wrapAsync(async (req, res) => {
-    const { companyId } = req.query;
+    const { companyId, jobType } = req.query;
 
     if (!companyId) {
+        console.log("Company ID is missing.");
         return res.status(400).json({ error: "Company ID is required." });
     }
 
-    const jobs = await CompanyJobModel.find({ companyId });
+    if (!jobType) {
+        console.log("Job Type is missing.");
+        return res.status(400).json({ error: "Job Type is required." });
+    }
+
+    let jobs;
+
+    if (jobType == "All") {
+        jobs = await CompanyJobModel.find({ companyId: companyId });
+    } else {
+        jobs = await CompanyJobModel.find({ companyId: companyId, jobType: jobType });
+    }
 
     if (!jobs.length) {
+        console.log("No jobs found for this company.");
         return res.status(404).json({ message: "No jobs found for this company." });
     }
 

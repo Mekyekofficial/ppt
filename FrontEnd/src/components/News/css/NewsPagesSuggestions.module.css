@@ -33,8 +33,6 @@
   }
   
   .searchIcon {
-    height: 10px;
-    width: 10px;
     color: gray;
     margin-left: 10px;
   }
@@ -94,9 +92,8 @@
   }
   
   .moreIcon {
-    height: 20px;
-    width: 20px;
     text-align: center;
+    font-size: 20px;
     cursor: pointer;
   }
   

@@ -26,6 +26,13 @@
     color: black;
     border-bottom: 3px solid #0052cc;
   }
+
+  .company {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
   
   /* Job Details */
   .jobDetails {
@@ -42,6 +49,7 @@
               inset -2px -2px 0 rgba(255, 255, 255, 0.75);
     border-radius: 8px;
     border: 1px solid #ddd;
+    object-fit: contain;
   }
   
   .details {

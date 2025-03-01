@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./css/ApplyJob3.module.css";
+import styles from "./css/applyJob3.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";

@@ -88,6 +88,10 @@ const WorkDescription = ({ job }) => {
       toast.error("Error submitting application. Please try again.");
     }
   };
+
+  const goToCompanyProfile = () => {
+    navigate(`/company-profile/${job.company.companyId}`);
+  };
   return (
     <>
       <div className={styles.container}>
@@ -103,11 +107,14 @@ const WorkDescription = ({ job }) => {
         {/* Job Details */}
         <div className={styles.jobDetails}>
           <div className={styles.detailsWithLogo}>
-            <img
-              src={job.company.companyLogo}
-              alt="Company Logo"
-              className={styles.logo}
-            />
+            <div className={styles.company} onClick={goToCompanyProfile} style={{ cursor: "pointer" }}>
+              <img
+                src={job.company.companyLogo}
+                alt="Company Logo"
+                className={styles.logo}
+              />
+              <h1>{job.company.companyName}</h1>
+            </div>
             <div className={styles.details}>
               <h3>
                 <svg

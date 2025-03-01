@@ -46,6 +46,7 @@ const PostNews = () => {
         if (userinfo?.profilePhoto) {
             formData.append("userPhoto", userinfo.profilePhoto);
         }
+        formData.append("userId", userinfo._id);
         formData.append("content", content);
         formData.append("date", new Date().toISOString());
     

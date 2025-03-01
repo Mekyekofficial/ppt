@@ -48,7 +48,7 @@ const JobSchema = new Schema({
   },
   jobType: {
     type: String,
-    enum: ["Permanent", "Contract", "Internship"],
+    enum: ["Permanent", "Project", "Internship"],
     required: true,
   },
   postedOn: {

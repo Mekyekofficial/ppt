@@ -18,17 +18,35 @@ const NewsTab = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      console.log('Fetching news...');
+      let backendNews = [];
+      let mediastackNews = [];
+    
       try {
-        const response = await API.get('/posts/news'); // Ensure your backend route is correct
-        setNews(response.data);
-        console.log('News fetched:', response.data);
+        const response = await API.get('/posts/news');
+        backendNews = response.data;
       } catch (error) {
-        console.error('Error fetching news:', error);
+        console.error('Error fetching news from backend:', error);
       }
-    };
+    
+      try {
+        const response = await fetch(
+          `https://api.mediastack.com/v1/news?access_key=${import.meta.env.VITE_MEDIASHACK_API_ACCESS_TOKEN}&countries=in`
+        );
+        const data = await response.json();
+        mediastackNews = data.data;
+      } catch (error) {
+        console.error('Error fetching news from mediastack:', error);
+      }
 
+      console.log(mediastackNews);
+    
+      // Combine both arrays and update state
+      const combinedNews = [...backendNews, ...mediastackNews];
+      setNews(combinedNews);
+    };
+    
     fetchNews();
+    
   }, []);
 
   return (

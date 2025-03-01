@@ -12,6 +12,10 @@ const eventSchema = new mongoose.Schema({
         },
         profilePhoto: {
             type: String,
+        },
+        _id: {
+            type: String,
+            required: true
         }
     },
     eventType: {

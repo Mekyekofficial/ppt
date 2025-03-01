@@ -15,6 +15,10 @@ const CompanyJobSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  jobType: {
+    type: String,
+    required: true
+  },
   applicants: {
     type: Number,
     default: 0

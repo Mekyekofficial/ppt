@@ -58,7 +58,16 @@ const newsSchema = joi.object({
         firstName: joi.string(),
         lastName: joi.string(),
         profilePhoto: joi.string().optional(),
+        _id: joi.string(),
     }),
+    likes: joi.number().default(0),
+    likeBy: joi.array().items(joi.string()),
+    comments: joi.array().items(joi.object({
+        comment: joi.string().required(),
+        commenter: joi.string().required(),
+        createdAt: joi.date().default(() => new Date()),
+        userName: joi.string().optional(),
+    })),
 });
 
 const eventSchema = joi.object({
@@ -84,6 +93,7 @@ const eventSchema = joi.object({
         firstName: joi.string(),
         lastName: joi.string(),
         profilePhoto: joi.string().optional(),
+        _id: joi.string(),
     }),
 });
 
@@ -120,8 +130,8 @@ const jobSchema = joi.object({
     experience: joi.string().messages({
         "string.empty": "Experience is required."
     }),
-    jobType: joi.string().valid("Permanent", "Contract", "Internship").messages({
-        "any.only": "Job type must be 'Permanent', 'Contract', or 'Internship'.",
+    jobType: joi.string().valid("Permanent", "Project", "Internship").messages({
+        "any.only": "Job type must be 'Permanent', 'Project', or 'Internship'.",
         "string.empty": "Job type is required."
     }),
     postedOn: joi.date().default(() => new Date()).messages({

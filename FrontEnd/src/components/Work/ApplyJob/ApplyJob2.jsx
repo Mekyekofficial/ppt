@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./css/ApplyJob2.module.css";
+import styles from "./css/applyJob2.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";

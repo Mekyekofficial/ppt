@@ -44,7 +44,10 @@ const HeaderBeforeLogIn = () => {
         }
       } else {
         console.log("Signup:", formData);
-        const response = await signup(formData);
+        const { name, email, password, confirmPassword } = formData;
+        const [firstName, lastName] = name.split(" ");
+        const signupData = { firstName, lastName, email, password, confirmPassword };
+        const response = await signup(signupData);
         console.log("response:", response);
         if (response.status == 201) {
           localStorage.setItem("token", response.data.token);

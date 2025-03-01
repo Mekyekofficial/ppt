@@ -1,6 +1,12 @@
+.jobsWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .jobs {
     padding: 20px;
-    width: 75%;
+    width: 100%;
   }
   
   .top-bar {

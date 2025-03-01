@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import TableViewStyles from "./css/TableView.module.css";
 
-const TableView = ({ jobs, selectedColumns }) => {
+const TableView = ({ jobs, selectedColumns, role }) => {
   const navigate = useNavigate();
 
   const handleRowClick = (job) => {

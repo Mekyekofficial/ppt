@@ -10,6 +10,7 @@ const newsValidation = (req, res, next) => {
             firstName: req.body.firstName || "",
             lastName: req.body.lastName || "",
             profilePhoto: req.body.userPhoto || "",
+            _id: req.body.userId || "",
         },
         newsPhoto: req.file ? req.file.buffer.toString("base64") : undefined,
     };
@@ -33,6 +34,7 @@ const eventValidation = (req, res, next) => {
             firstName: req.body.firstName || "",
             lastName: req.body.lastName || "",
             profilePhoto: req.body.userPhoto || "",
+            _id: req.body.userId || "",
         },
         eventType: req.body.eventType,
         eventName: req.body.eventName,

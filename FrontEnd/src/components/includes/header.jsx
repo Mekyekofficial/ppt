@@ -1,16 +1,4 @@
 import React from "react";
-import {
-  FaNewspaper,
-  FaUsers,
-  FaBook,
-  FaCalendarAlt,
-  FaBriefcase,
-  FaBell,
-  FaEnvelope,
-  FaBars,
-} from "react-icons/fa";
-import { RxAvatar } from "react-icons/rx";
-import { MdFeed } from "react-icons/md";
 import Logo from "../../assets/logo.png";
 import HeaderStyles from "./css/header.module.css";
 import { NavLink } from "react-router-dom";
@@ -20,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import LoginSignupPop from "../LoginSignupPop";
 import CompanyRegistrationPopup from "../CompanyRegistrationPopup";
 import API from "../../api";
+import { FaBriefcase, FaTimes } from "react-icons/fa";
+import { login, signup } from "../../api";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -83,16 +73,83 @@ const Header = () => {
     }
   }, [userinfo?.profilePhoto]);
 
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    name: "",
+    confirmPassword: "",
+  });
 
-  const onLogInClick = () => {
-    if (!isLoginPopupOpen) {
-      setIsLoginPopupOpen(true);
-    } else {
-      setIsLoginPopupOpen(false);
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (isLogin) {
+        console.log("Login:", formData);
+        const { email, password } = formData;
+        const response = await login(email, password);
+        if (response.status == 200) {
+          const { email, name, profilePhoto } = response.data.user;
+          const _id = response.data.user._id;
+          const token = response.data.token;
+          const userData = { email, name, profilePhoto, _id };
+
+          localStorage.setItem("token", token);
+          localStorage.setItem("user-info", JSON.stringify(userData));
+
+          navigate("/feeds");
+          window.location.reload();
+        }
+      } else {
+        console.log("Signup:", formData);
+        const { name, email, password, confirmPassword } = formData;
+        const [firstName, lastName] = name.split(" ");
+        const signupData = {
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword,
+        };
+        const response = await signup(signupData);
+        console.log("response:", response);
+        if (response.status == 201) {
+          localStorage.setItem("token", response.data.token);
+          const userInfo = {
+            _id: response.data.user._id,
+            email: response.data.user.email,
+            name: response.data.user.name,
+          };
+          localStorage.setItem("user-info", JSON.stringify(userInfo));
+          navigate("/feeds");
+          window.location.reload();
+        }
+      }
+    } catch (error) {
+      console.error("Auth error:", error);
     }
   };
 
+  // Add effect to handle body scroll
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isModalOpen]);
   const [openCompanyRegistrationPopup, setOpenCompanyRegistrationPopup] =
     useState(false);
 
@@ -288,13 +345,20 @@ const Header = () => {
                   src={userinfo?.profilePhoto}
                   alt="User Avatar"
                   className={HeaderStyles.avatarImg}
+                  onClick={() => navigate(`/profile/${userinfo?._id}`)}
+                  style={{ cursor: "pointer" }}
                 />
               ) : (
                 <div className=""></div>
               )}
             </>
           ) : (
-            <div className={HeaderStyles.loginBtn} onClick={onLogInClick}>
+            <div
+              className={HeaderStyles.loginBtn}
+              onClick={() => {
+                setIsLogin(true);
+                setIsModalOpen(true);
+              }}>
               Log In
             </div>
           )}
@@ -320,7 +384,7 @@ const Header = () => {
         </svg>
         <div id="dropdown-menu-bar" className={HeaderStyles.dropdownBar}>
           <NavLink
-            to="/profile/:userId"
+            to={`/profile/${userinfo?._id}`}
             className={HeaderStyles["dropdown-item-bar"]}>
             Profile
           </NavLink>
@@ -359,8 +423,90 @@ const Header = () => {
           )}
         </div>
       </div>
-      {!token && isLoginPopupOpen && (
-        <LoginSignupPop onLogInClick={onLogInClick} />
+      {isModalOpen && (
+        <div className={HeaderStyles.modalOverlay}>
+          <div className={HeaderStyles.modal}>
+            <button
+              className={HeaderStyles.closeButton}
+              onClick={() => setIsModalOpen(false)}>
+              <FaTimes />
+            </button>
+
+            <h2>{isLogin ? "Welcome Back" : "Create Account"}</h2>
+            <p className={HeaderStyles.modalSubtitle}>
+              {isLogin
+                ? "Enter your details to access your account"
+                : "Join our community and unlock all features"}
+            </p>
+
+            <form onSubmit={handleSubmit}>
+              {!isLogin && (
+                <div className={HeaderStyles.inputGroup}>
+                  <label>Full Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+              )}
+
+              <div className={HeaderStyles.inputGroup}>
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div className={HeaderStyles.inputGroup}>
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+
+              {!isLogin && (
+                <div className={HeaderStyles.inputGroup}>
+                  <label>Confirm Password</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    placeholder="Confirm your password"
+                    required
+                  />
+                </div>
+              )}
+
+              <button type="submit" className={HeaderStyles.submitButton}>
+                {isLogin ? "Log In" : "Sign Up"}
+              </button>
+            </form>
+
+            <p className={HeaderStyles.switchMode}>
+              {isLogin
+                ? "Don't have an account? "
+                : "Already have an account? "}
+              <button onClick={() => setIsLogin(!isLogin)}>
+                {isLogin ? "Sign Up" : "Log In"}
+              </button>
+            </p>
+          </div>
+        </div>
       )}
       <CompanyRegistrationPopup
         open={openCompanyRegistrationPopup}

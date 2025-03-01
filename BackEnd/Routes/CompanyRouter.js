@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 
-const { registerCompany, applyForJob, getCompanyByUserId } = require("../Controllers/CompanyController");
+const { registerCompany, applyForJob, getCompanyByUserId, getCompany } = require("../Controllers/CompanyController");
 const { companyValidation, jobApplyValidation } = require("../Middlewares/CompanyValidation");
 
 const router = express.Router();
@@ -44,8 +44,10 @@ router.post(
     registerCompany
 );
 
-// route for company data
+// route for company data by owner(UserId)
 router.get("/get", getCompanyByUserId);
+
+router.get("/getCompany", getCompany);
 
 // route for job application
 router.post(

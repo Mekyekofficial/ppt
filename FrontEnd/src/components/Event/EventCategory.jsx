@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import EventItem from "./EventItem";
-import styles from "./css/EventCategory.module.css";
-
-const SERVER_URL = import.meta.env.PUBLIC_SERVER_URL;
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import EventItem from './EventItem';
+import styles from './css/EventCategory.module.css';
 
 const EventCategory = () => {
   const [events, setEvents] = useState([]);
@@ -11,7 +9,7 @@ const EventCategory = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(`${SERVER_URL}/posts/events`);
+        const response = await axios.get('http://localhost:5000/posts/events');
         setEvents(response.data); // Store fetched events
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -26,7 +24,7 @@ const EventCategory = () => {
       <button className={styles.categoryButton}>Free events</button>
       <div className={styles.eventList}>
         {events.length > 0 ? (
-          events.map((event) => <EventItem key={event._id} event={event} />)
+          events.map(event => <EventItem key={event._id} event={event} />)
         ) : (
           <p>Loading events...</p>
         )}
