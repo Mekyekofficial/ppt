@@ -34,11 +34,11 @@ const Sidebar = () => {
   return (
     <div className={SidebarStyles.sidebar}>
       {companyLogoLoaded && companyToken ? (
-        <div className={SidebarStyles["company-container"]}>
+        <div className={SidebarStyles["company-container"]} onClick={() => window.location.href = "/Work"} style={{cursor: "pointer"}}>
           <img src={companyInfo.companyLogo} alt="logo" className={SidebarStyles.logo} /> {companyInfo.companyName}
         </div>
       ) : (
-        <div className={SidebarStyles["company-container"]}>
+        <div className={SidebarStyles["company-container"]} onClick={() => window.location.href = "/Work"} style={{cursor: "pointer"}}>
           <img src={logo} alt="logo" className={SidebarStyles.logo} /> Mekyek
         </div>
       )

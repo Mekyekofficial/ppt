@@ -194,9 +194,9 @@ const JobDashboard = () => {
           {loading ? (
             <p>Loading Intership...</p>
           ) : viewForInternships === "table" ? (
-            <TableView jobs={Internship} selectedColumns={selectedColumnsForInternships} role="internship"/>
+            <TableView jobs={Internship} selectedColumns={selectedColumnsForInternships} role="Internship"/>
           ) : (
-            <CardView jobs={Internship} role="internship"/>
+            <CardView jobs={Internship} role="Internship"/>
           )}
         </div>
       </div>
@@ -223,9 +223,9 @@ const JobDashboard = () => {
           {loading ? (
             <p>Loading Projects...</p>
           ) : viewForProjects === "table" ? (
-            <TableView jobs={Projects} selectedColumns={selectedColumnsForProjects} role="project"/>
+            <TableView jobs={Projects} selectedColumns={selectedColumnsForProjects} role="Project"/>
           ) : (
-            <CardView jobs={Projects} role="project"/>
+            <CardView jobs={Projects} role="Project"/>
           )}
         </div>
       </div>

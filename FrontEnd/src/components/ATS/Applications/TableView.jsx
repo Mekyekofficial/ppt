@@ -56,13 +56,13 @@ const TableView = ({ applicants, selectedColumns, jobs }) => {
           </tr>
         </thead>
         <tbody>
-          {applicantDetails.map((applicant, index) => (
+          {applicantDetails.length > 0 ? applicantDetails.map((applicant, index) => (
             <tr key={index}>
               {displayedColumns.map((col) => (
                 <td key={col.key}>{applicant[col.key]}</td>
               ))}
             </tr>
-          ))}
+          )) : <tr><td colSpan={displayedColumns.length}>No applicants found</td></tr>}
         </tbody>
       </table>
     </div>
