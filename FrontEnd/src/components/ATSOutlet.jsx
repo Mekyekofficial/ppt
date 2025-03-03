@@ -7,7 +7,7 @@ const ATSOutlet = () => {
   return (
     <div className={ATSOutletStyles["ATS-container"]}>
       <Sidebar />
-      <Outlet /> 
+      <Outlet />
     </div>
   );
 };
