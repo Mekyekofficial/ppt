@@ -28,6 +28,8 @@
   
   .editIcon {
     font-size: 18px;
+    width: 15px;
+    height: 15px;
     color: #000;
     cursor: pointer;
   }

@@ -10,7 +10,8 @@
   }
   
   .editIcon {
-    width: 18px;
+    width: 15px;
+    height: 15px;
     cursor: pointer;
     align-self: flex-end;
   }

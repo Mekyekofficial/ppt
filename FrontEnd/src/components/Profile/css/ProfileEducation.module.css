@@ -26,6 +26,8 @@
   .editIcon {
     cursor: pointer;
     font-size: 14px;
+    width: 15px;
+    height: 15px;
     color: #666;
   }
   
@@ -96,5 +98,10 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+  }
+
+  .showMore svg {
+    width: 15px;
+    height: 15px;
   }
   
