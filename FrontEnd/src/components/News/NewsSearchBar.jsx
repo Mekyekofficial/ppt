@@ -144,8 +144,8 @@ const NewsSearchBar = () => {
               {category}
             </button>
           ))}
+                  <ChevronRight className={styles.moreIcon} size={18} />
         </div>
-        <ChevronRight className={styles.moreIcon} size={18} />
       </div>
     </div>
   );

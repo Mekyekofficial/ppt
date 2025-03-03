@@ -1,18 +1,18 @@
 .news-tab {
     display: flex;
-    justify-content: space-evenly;
-    padding: 20px;
+    justify-content: space-between;
+    padding: 60px;
     padding-top: 15vh;
     background-color: #fbfbec;
     min-height: 100vh;
   }
 
   .left-sidebar {
-    flex: 0.2;
+    flex: 0.1;
   }
   
   .main-news {
-    flex: 0.45;
+    flex: 0.5;
   }
 
   .main-news .news-items {
@@ -23,6 +23,6 @@
   }
   
   .right-sidebar {
-    flex: 0.2;
+    flex: 0.25;
   }
   
