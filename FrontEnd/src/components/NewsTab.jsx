@@ -28,22 +28,23 @@ const NewsTab = () => {
         console.error('Error fetching news from backend:', error);
       }
     
-      try {
-        const response = await fetch(
-          `https://newsapi.org/v2/everything?q=keyword&apiKey=f19eeff5c93a491ea04fa9bfeb7dd94d`
-        );
-        const data = await response.json();
-        console.log(data);
-        mediastackNews = data.articales;
-      } catch (error) {
-        console.error('Error fetching news from mediastack:', error);
-      }
+      // try {
+      //   const response = await fetch(
+      //     `https://newsapi.org/v2/everything?q=keyword&apiKey=f19eeff5c93a491ea04fa9bfeb7dd94d`
+      //   );
+      //   const data = await response.json();
+      //   console.log(data);
+      //   mediastackNews = data.articales;
+      // } catch (error) {
+      //   console.error('Error fetching news from mediastack:', error);
+      // }
 
-      console.log(mediastackNews);
+      // console.log(mediastackNews);
     
       // Combine both arrays and update state
-      const combinedNews = [...backendNews, ...mediastackNews];
-      setNews(combinedNews);
+      // const combinedNews = [...backendNews, ...mediastackNews];
+      // setNews(combinedNews);
+      setNews(backendNews);
     };
     
     fetchNews();

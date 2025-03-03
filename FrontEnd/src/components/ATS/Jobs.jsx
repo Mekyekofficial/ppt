@@ -354,6 +354,9 @@ const JobDashboard = () => {
 
         <div className={JobsStyles.content}>
           {loading ? (
+            <p>Loading Projects...</p>
+          ) : viewForProjects === "table" ? (
+            <TableView jobs={Projects} selectedColumns={selectedColumnsForProjects} role="Project"/>
             <div className={JobsStyles.loadingState}>
               <Loader2 className={JobsStyles.spinner} size={40} />
               <p>Loading {title.toLowerCase()}...</p>
@@ -372,6 +375,7 @@ const JobDashboard = () => {
           ) : view === "table" ? (
             <TableView jobs={filteredData} selectedColumns={selectedColumns} role={type} />
           ) : (
+            <CardView jobs={Projects} role="Project"/>
             <CardView jobs={filteredData} role={type.toLowerCase()} />
           )}
         </div>

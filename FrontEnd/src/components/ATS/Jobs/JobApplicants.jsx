@@ -57,8 +57,6 @@ const JobApplicants = () => {
 
   // Fetch both applicants and job-specific applicant distribution data
   useEffect(() => {
-    console.log("Fetching data for job ID:", jobId);
-    console.log("Fetching data for company ID:", companyId);
     if (!jobId || !companyId) return; // Ensure jobId and companyId exist before fetching
 
     const fetchData = async () => {
@@ -71,10 +69,11 @@ const JobApplicants = () => {
           throw new Error("Failed to fetch applicants");
         const applicantData = responseApplicants.data;
         setApplicants(applicantData);
+        console.log('job type', jobType)
 
         // 2. Fetch job data (which includes the arrays of applicant IDs per category)
         const responseJobs = await API.get(
-          `/ATS/get-company-jobs?companyId=${companyId}&jobtype=${jobType}`
+          `/ATS/get-company-jobs?companyId=${companyId}&jobType=${jobType}`
         );
         if (responseJobs.status !== 200)
           throw new Error("Failed to fetch job distribution");

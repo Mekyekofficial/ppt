@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './css/WorkItems.module.css';
 import Work from './Work';
 import axios from 'axios';
+import API from '../../api';
 
 const WorkItems = ({ setSelectedJob }) => {
   const [jobs, setJobs] = useState([]);
@@ -11,7 +12,7 @@ const WorkItems = ({ setSelectedJob }) => {
       let backendJobs = [];
       let dataworksJobs = [];
       try {
-        const response = await axios.get('http://localhost:5000/posts/jobs');
+        const response = await API.get('/posts/jobs');
         backendJobs = response.data;
 
         // const dataworksResponse = await axios.get('https://findwork.dev/api/jobs/', {

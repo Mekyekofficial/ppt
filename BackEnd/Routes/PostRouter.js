@@ -17,7 +17,7 @@ router.post('/news', upload.single('newsPhoto'), (req, res, next) => {
     }
 
     next();
-}, newsValidation, postNews);
+}, postNews);
 
 router.get('/news', getNews);
 
@@ -34,7 +34,7 @@ router.post('/event', upload.single('eventImage'), (req, res, next) => {
     }
 
     next();
-}, postEvents);
+},  postEvents);
 
 router.get('/events', getEvents);
 router.get('/events/:eventId', getEventsById);
