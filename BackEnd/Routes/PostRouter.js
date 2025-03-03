@@ -17,7 +17,7 @@ router.post('/news', upload.single('newsPhoto'), (req, res, next) => {
     }
 
     next();
-}, newsValidation, postNews);
+}, postNews);
 
 router.get('/news', getNews);
 

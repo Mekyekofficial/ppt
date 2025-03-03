@@ -3,6 +3,7 @@ import axios from 'axios';
 import Event from './Event';
 import styles from './css/EventSection.module.css';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import API from '../../api'
 
 const EventSection = () => {
   const [events, setEvents] = useState([]);
@@ -10,7 +11,7 @@ const EventSection = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/posts/events');
+        const response = await API.get('/posts/events');
         setEvents(response.data); // Store fetched events
       } catch (error) {
         console.error("Error fetching events:", error);
