@@ -16,7 +16,7 @@ import styles from "./css/JobApplicants.module.css";
 import ApplicantDetails from "./ApplicantDetails"; // Import the ApplicantDetails component
 
 const JobApplicants = () => {
-  const { jobId } = useParams(); // Get jobId from the URL
+  const { jobId, jobType } = useParams(); // Get jobId from the URL
   const companyId = localStorage.getItem("company-id"); // Get companyId from localStorage
 
   // These are the columns that will always be shown initially.
@@ -69,7 +69,7 @@ const JobApplicants = () => {
 
         // 2. Fetch job data (which includes the arrays of applicant IDs per category)
         const responseJobs = await API.get(
-          `/ATS/get-company-jobs?companyId=${companyId}`
+          `/ATS/get-company-jobs?companyId=${companyId}&jobtype=${jobType}`
         );
         if (responseJobs.status !== 200)
           throw new Error("Failed to fetch job distribution");

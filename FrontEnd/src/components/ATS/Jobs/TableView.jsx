@@ -6,7 +6,7 @@ const TableView = ({ jobs, selectedColumns, role }) => {
   const navigate = useNavigate();
 
   const handleRowClick = (job) => {
-    navigate(`/ATS/jobs/job-applicants/${job.jobId}`); // Navigate to JobApplication page
+    navigate(`/ATS/jobs/job-applicants?jobId=${job.jobId}&jobType=${role}`); // Navigate to JobApplication page
   };
 
   const columns = [

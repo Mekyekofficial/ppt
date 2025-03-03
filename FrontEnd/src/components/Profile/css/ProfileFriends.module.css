@@ -20,6 +20,8 @@
   }
   
   .icon {
+    width: 15px;
+    height: 15px;
     margin-right: 10px;
   }
   
@@ -70,5 +72,10 @@
   
   .showMore:hover {
     text-decoration: underline;
+  }
+
+  .showMore svg {
+    width: 15px;
+    height: 15px;
   }
   

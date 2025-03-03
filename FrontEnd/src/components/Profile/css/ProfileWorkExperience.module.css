@@ -39,6 +39,8 @@
     font-size: 18px;
     color: #666;
     cursor: pointer;
+    width: 15px;
+    height: 15px;
   }
   
   .workContent {
@@ -71,3 +73,7 @@
     align-items: center;
   }
   
+  .showMore svg {
+    width: 15px;
+    height: 15px;
+  }

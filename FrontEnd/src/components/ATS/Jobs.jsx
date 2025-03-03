@@ -165,7 +165,7 @@ const JobDashboard = () => {
           {loading ? (
             <p>Loading jobs...</p>
           ) : viewForJobs === "table" ? (
-            <TableView jobs={jobs} selectedColumns={selectedColumnsForJobs} role="job"/>
+            <TableView jobs={jobs} selectedColumns={selectedColumnsForJobs} role="Permanent"/>
           ) : (
             <CardView jobs={jobs} role="job"/>
           )}

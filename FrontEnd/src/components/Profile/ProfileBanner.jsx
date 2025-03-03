@@ -38,7 +38,7 @@ const ProfileBanner = ({ user, profileOwner }) => {
             />
             <div className={styles.info}>
               <h2>
-                {user.firstName} {user.lastName}
+                {user?.firstName} {user?.lastName}
               </h2>
               <p className={styles.location}>
                 <FaMapMarkerAlt className={styles.icon} />

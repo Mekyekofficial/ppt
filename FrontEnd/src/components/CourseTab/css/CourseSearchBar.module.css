@@ -26,6 +26,8 @@
   }
   
   .searchIcon {
+    width: 24px;
+    height: 24px;
     width :20px;
     height : 20px;
     color: gray;
@@ -49,6 +51,8 @@
   }
   
   .locationIcon {
+    width: 24px;
+    height: 24px;
     margin: 0 8px;
   }
 
