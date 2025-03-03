@@ -51,6 +51,7 @@ const SearchBar = () => {
         toast.success("Posted successfully");
         setContent("");
         setFile(null);
+        window.location.reload();
       } else {
         toast.error("Failed to post data");
       }

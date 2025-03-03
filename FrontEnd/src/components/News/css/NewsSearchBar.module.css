@@ -25,6 +25,8 @@
   }
   
   .searchIcon {
+    width: 20px;
+    height: 20px;
     color: gray;
   }
   
@@ -47,6 +49,8 @@
   }
   
   .filterIcon {
+    width: 20px;
+    height: 20px;
     margin-right: 4px;
   }
   

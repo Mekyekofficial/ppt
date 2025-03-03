@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../../assets/logo.png";
+import ProfileImage from "../../assets/profile-image.png";
 import HeaderStyles from "./css/header.module.css";
 import { NavLink } from "react-router-dom";
 import { use, useEffect, useState } from "react";
@@ -349,7 +350,13 @@ const Header = () => {
                   style={{ cursor: "pointer" }}
                 />
               ) : (
-                <div className=""></div>
+                <img
+                  src={ProfileImage}
+                  alt="User Avatar"
+                  className={HeaderStyles.avatarImg}
+                  onClick={() => navigate(`/profile/${userinfo?._id}`)}
+                  style={{ cursor: "pointer" }}
+                />
               )}
             </>
           ) : (

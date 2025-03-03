@@ -41,6 +41,8 @@
   
   .moreIcon {
     cursor: pointer;
+    width: 20px;
+    height: 20px;
   }
   
   .content {
@@ -98,6 +100,11 @@
   
   .action:hover {
     color: black;
+  }
+
+  .action svg {
+    width: 20px;
+    height: 20px;
   }
 
   .actionSource {
