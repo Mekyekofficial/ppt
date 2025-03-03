@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from 'react-router-dom';
 import { useParams } from "react-router-dom"; // Get jobId from URL
 import {
   Card,
@@ -16,7 +17,9 @@ import styles from "./css/JobApplicants.module.css";
 import ApplicantDetails from "./ApplicantDetails"; // Import the ApplicantDetails component
 
 const JobApplicants = () => {
-  const { jobId, jobType } = useParams(); // Get jobId from the URL
+  const [searchParams] = useSearchParams();
+  const jobId = searchParams.get('jobId');
+  const jobType = searchParams.get('jobType');
   const companyId = localStorage.getItem("company-id"); // Get companyId from localStorage
 
   // These are the columns that will always be shown initially.
@@ -54,6 +57,8 @@ const JobApplicants = () => {
 
   // Fetch both applicants and job-specific applicant distribution data
   useEffect(() => {
+    console.log("Fetching data for job ID:", jobId);
+    console.log("Fetching data for company ID:", companyId);
     if (!jobId || !companyId) return; // Ensure jobId and companyId exist before fetching
 
     const fetchData = async () => {
@@ -77,6 +82,7 @@ const JobApplicants = () => {
         // Assume you get a single job document for this jobId; adjust if needed.
         const jobData = jobDataArray.find((job) => job.jobId === jobId) || {};
         setJobApplicantsMap(jobData);
+        console.log("Job data:", jobData);
       } catch (err) {
         console.error("Error fetching data:", err);
         setError(err.message);
