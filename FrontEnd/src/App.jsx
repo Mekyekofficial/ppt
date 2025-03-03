@@ -87,7 +87,7 @@ const App = () => {
         { path: "/ATS/Settings", element: <ComingSoon /> },
         { path: "/ATS/Setup", element: <ComingSoon /> },
         {
-          path: "/ATS/jobs/job-applicants/:jobId",
+          path: "/ATS/jobs/job-applicants/",
           element: <JobApplicants />,
         },
       ],
