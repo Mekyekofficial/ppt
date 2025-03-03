@@ -6,8 +6,6 @@ import { NavLink } from 'react-router-dom';
 import { use, useEffect, useState } from 'react';
 
 const Sidebar = () => {
-  const companyToken = localStorage.getItem('company-token');
-
   const [companyInfo, setCompanyInfo] = useState(null);
 
   useEffect(() => {
@@ -16,16 +14,6 @@ const Sidebar = () => {
     setCompanyInfo(companyInfo);
   }, []);
 
-  const [companyLogoLoaded, setCompanyLogoLoaded] = useState(false);
-
-  useEffect(() => {
-    if (companyInfo?.companyLogo) {
-      const img = new Image();
-      img.src = companyInfo.companyLogo;
-      img.onload = () => setCompanyLogoLoaded(true);
-    }
-  }, [companyInfo?.companyLogo]);
-
 
 
   const active = ({isActive}) => {
@@ -33,9 +21,9 @@ const Sidebar = () => {
   }
   return (
     <div className={SidebarStyles.sidebar}>
-      {companyLogoLoaded && companyToken ? (
+      {companyInfo ? (
         <div className={SidebarStyles["company-container"]} onClick={() => window.location.href = "/Work"} style={{cursor: "pointer"}}>
-          <img src={companyInfo.companyLogo} alt="logo" className={SidebarStyles.logo} /> {companyInfo.companyName}
+          <img src={companyInfo?.companyLogo} alt="logo" className={SidebarStyles.logo} /> {companyInfo?.companyName}
         </div>
       ) : (
         <div className={SidebarStyles["company-container"]} onClick={() => window.location.href = "/Work"} style={{cursor: "pointer"}}>
