@@ -34,7 +34,7 @@ router.post('/event', upload.single('eventImage'), (req, res, next) => {
     }
 
     next();
-}, eventValidation, postEvents);
+}, postEvents);
 
 router.get('/events', getEvents);
 router.get('/events/:eventId', getEventsById);

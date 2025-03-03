@@ -30,10 +30,11 @@ const NewsTab = () => {
     
       try {
         const response = await fetch(
-          `https://api.mediastack.com/v1/news?access_key=${import.meta.env.VITE_MEDIASHACK_API_ACCESS_TOKEN}&countries=in`
+          `https://newsapi.org/v2/everything?q=keyword&apiKey=f19eeff5c93a491ea04fa9bfeb7dd94d`
         );
         const data = await response.json();
-        mediastackNews = data.data;
+        console.log(data);
+        mediastackNews = data.articales;
       } catch (error) {
         console.error('Error fetching news from mediastack:', error);
       }
