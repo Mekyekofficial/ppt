@@ -1,18 +1,39 @@
-import React from 'react';
-import Logo from '../../assets/logo.png';
+import React, { useState } from 'react';
+import { UserPlus } from 'lucide-react';
 import styles from './css/CommunitySuggested.module.css';
 
-const CommunitySuggested = ({ name }) => {
+const CommunitySuggested = ({ name, memberCount = 0, logo }) => {
+    const [isJoining, setIsJoining] = useState(false);
+
+    const handleJoin = () => {
+        setIsJoining(true);
+        // Simulate API call
+        setTimeout(() => {
+            setIsJoining(false);
+        }, 1000);
+    };
+
     return (
         <div className={styles.suggestion}>
             <div className={styles.community}>
-                <img src={Logo} alt="community" className={styles.image} />
+                <div className={styles.imageContainer}>
+                    <img src={logo} alt={name} className={styles.image} />
+                </div>
                 <div className={styles.details}>
-                    <p className={styles.name}>{name}</p>
-                    <p className={styles.role}>members</p>
+                    <h3 className={styles.name}>{name}</h3>
+                    <p className={styles.memberCount}>
+                        {memberCount.toLocaleString()} members
+                    </p>
                 </div>
             </div>
-            <button className={styles.joinButton}>Join</button>
+            <button 
+                className={`${styles.joinButton} ${isJoining ? styles.joining : ''}`}
+                onClick={handleJoin}
+                disabled={isJoining}
+            >
+                <UserPlus size={16} />
+                <span>{isJoining ? 'Joining...' : 'Join'}</span>
+            </button>
         </div>
     );
 };

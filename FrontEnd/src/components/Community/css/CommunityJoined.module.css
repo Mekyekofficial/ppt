@@ -1,51 +1,126 @@
 .communityItem {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
-    border-bottom: 1px solid #e0e0e0;
+    gap: 1rem;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    animation: slideIn 0.3s ease forwards;
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.communityItem:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logoContainer {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 16px;
-    object-fit: contain;
-    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1), 
-              inset -2px -2px 0 rgba(255, 255, 255, 0.75);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 4px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+}
+
+.communityItem:hover .logo {
+    transform: scale(1.1);
 }
 
 .details {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
+    flex: 1;
+    min-width: 0;
 }
 
 .name {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
     margin: 0;
-    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .description {
-    font-size: 10px;
-    color: #666;
-    margin-top: 4px;
-    line-height: 1.4;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0.25rem 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.view {
-    font-size: 12px;
-    font-weight: bold;
-    color: #000;
-    background-color: #f9ff80;
+.viewButton {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 8px;
+    color: #4b5563;
+    font-size: 0.75rem;
+    font-weight: 500;
     cursor: pointer;
-    border: 1px solid #f7c262;
-    border-radius: 0 12px 0 12px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    margin-left: 10px;
+    transition: all 0.2s ease;
+}
+
+.viewButton:hover {
+    background: #e5e7eb;
+    color: #1f2937;
+    transform: translateX(2px);
+}
+
+.viewButton svg {
+    transition: transform 0.2s ease;
+}
+
+.viewButton:hover svg {
+    transform: translateX(2px);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .communityItem {
+        padding: 0.75rem;
+    }
+
+    .logoContainer {
+        width: 40px;
+        height: 40px;
+    }
+
+    .name {
+        font-size: 0.8125rem;
+    }
+
+    .description {
+        font-size: 0.75rem;
+    }
+
+    .viewButton {
+        padding: 0.375rem 0.625rem;
+        font-size: 0.75rem;
+    }
 }
