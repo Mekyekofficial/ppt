@@ -11,6 +11,7 @@ import CompanyRegistrationPopup from "../CompanyRegistrationPopup";
 import API from "../../api";
 import { FaBriefcase, FaTimes } from "react-icons/fa";
 import { login, signup } from "../../api";
+import { Bell, MoreVertical } from 'lucide-react';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,6 +20,42 @@ const Header = () => {
 
   const [userinfo, setUserinfo] = useState(null);
   const [companyInfo, setCompanyInfo] = useState(null);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      type: 'message',
+      content: 'John Doe sent you a message',
+      time: '2 minutes ago',
+      read: false
+    },
+    {
+      id: 2,
+      type: 'like',
+      content: 'Your post received 10 likes',
+      time: '1 hour ago',
+      read: false
+    },
+    {
+      id: 3,
+      type: 'comment',
+      content: 'Sarah commented on your post',
+      time: '2 hours ago',
+      read: true
+    }
+  ]);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map(n => ({ ...n, read: true })));
+  };
+
+  const markAsRead = (id) => {
+    setNotifications(notifications.map(n => 
+      n.id === id ? { ...n, read: true } : n
+    ));
+  };
 
   useEffect(() => {
     const user = localStorage.getItem("user-info");
@@ -325,18 +362,54 @@ const Header = () => {
 
       {/* User Section */}
       <div className={HeaderStyles["user-section"]}>
-        <svg
-          className={HeaderStyles.notificationIcon}
-          viewBox="0 0 553 575"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M286.557 53.9062H266.39C251.392 53.9062 243.892 53.9062 238.635 57.7259C236.937 58.9595 235.444 60.4527 234.21 62.1505C230.39 67.4079 230.39 74.9073 230.39 89.9062V104.234C176.772 124.539 140.118 179.111 145.238 239.803C148.123 274 137.729 308.391 116.162 335.087L35.2652 435.224C32.6681 438.439 34.9563 443.229 39.0891 443.229H224.334H328.628H513.904C518.036 443.229 520.325 438.439 517.727 435.224L436.831 335.087C415.264 308.391 404.87 274 407.755 239.803C412.876 179.094 376.2 124.509 322.557 104.217V89.9062C322.557 74.9073 322.557 67.4079 318.737 62.1505C317.504 60.4527 316.011 58.9595 314.313 57.7259C309.056 53.9062 301.556 53.9062 286.557 53.9062ZM322.569 479.167H230.402C230.402 505.63 251.035 527.083 276.486 527.083C301.937 527.083 322.569 505.63 322.569 479.167Z"
-            fill="currentColor"
-          />
-        </svg>
+        <div className={HeaderStyles.notificationWrapper}>
+          <div 
+            className={HeaderStyles.notificationIconContainer}
+            onClick={() => setShowNotifications(!showNotifications)}
+          >
+            <Bell className={HeaderStyles.notificationIcon} />
+            {unreadCount > 0 && (
+              <span className={HeaderStyles.notificationBadge}>
+                {unreadCount}
+              </span>
+            )}
+          </div>
+
+          {showNotifications && (
+            <div className={HeaderStyles.notificationsPopup}>
+              <div className={HeaderStyles.notificationsHeader}>
+                <h3>Notifications</h3>
+                <button 
+                  className={HeaderStyles.markAllRead}
+                  onClick={markAllAsRead}
+                >
+                  Mark all as read
+                </button>
+              </div>
+              <div className={HeaderStyles.notificationsList}>
+                {notifications.map((notification) => (
+                  <div 
+                    key={notification.id}
+                    className={`${HeaderStyles.notificationItem} ${
+                      !notification.read ? HeaderStyles.unread : ''
+                    }`}
+                    onClick={() => markAsRead(notification.id)}
+                  >
+                    <div className={HeaderStyles.notificationContent}>
+                      <p>{notification.content}</p>
+                      <span className={HeaderStyles.notificationTime}>
+                        {notification.time}
+                      </span>
+                    </div>
+                    {!notification.read && (
+                      <span className={HeaderStyles.unreadDot}></span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className={HeaderStyles.profile}>
           {userinfo && token ? (
@@ -370,64 +443,52 @@ const Header = () => {
             </div>
           )}
         </div>
-        <svg
-          className={HeaderStyles.dots3}
-          onClick={clickBar}
-          viewBox="0 0 642 685"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M367.812 156.979C367.812 184.565 346.854 206.927 321 206.927C295.146 206.927 274.188 184.565 274.188 156.979C274.188 129.394 295.146 107.031 321 107.031C346.854 107.031 367.812 129.394 367.812 156.979Z"
-            fill="currentColor"
+        <div className={HeaderStyles.menuIconWrapper}>
+          <MoreVertical
+            className={HeaderStyles.menuIcon}
+            onClick={clickBar}
+            size={24}
           />
-          <path
-            d="M367.812 528.021C367.812 555.606 346.854 577.969 321 577.969C295.146 577.969 274.188 555.606 274.188 528.021C274.188 500.435 295.146 478.073 321 478.073C346.854 478.073 367.812 500.435 367.812 528.021Z"
-            fill="currentColor"
-          />
-          <path
-            d="M367.812 342.5C367.812 370.085 346.854 392.448 321 392.448C295.146 392.448 274.188 370.085 274.188 342.5C274.188 314.915 295.146 292.552 321 292.552C346.854 292.552 367.812 314.915 367.812 342.5Z"
-            fill="currentColor"
-          />
-        </svg>
-        <div id="dropdown-menu-bar" className={HeaderStyles.dropdownBar}>
-          <NavLink
-            to={`/profile/${userinfo?._id}`}
-            className={HeaderStyles["dropdown-item-bar"]}>
-            Profile
-          </NavLink>
-          <NavLink to="/settings" className={HeaderStyles["dropdown-item-bar"]}>
-            Settings
-          </NavLink>
-          {userinfo && token ? (
-            <>
-              <button
-                className={HeaderStyles["dropdown-item-bar"]}
-                onClick={() => {
-                  localStorage.removeItem("user-info");
-                  localStorage.removeItem("token");
-                  localStorage.removeItem("company-info");
-                  localStorage.removeItem("company-id");
-                  navigate("/");
-                }}>
-                Logout
-              </button>
-              {companyInfo ? (
+          <div id="dropdown-menu-bar" className={HeaderStyles.dropdownBar}>
+            <NavLink
+              to={`/profile/${userinfo?._id}`}
+              className={HeaderStyles["dropdown-item-bar"]}>
+              Profile
+            </NavLink>
+            <NavLink to="/settings" className={HeaderStyles["dropdown-item-bar"]}>
+              Settings
+            </NavLink>
+            {userinfo && token ? (
+              <>
                 <button
                   className={HeaderStyles["dropdown-item-bar"]}
-                  onClick={() => navigate("/ATS")}>
-                  Go to Company Profile
+                  onClick={() => {
+                    localStorage.removeItem("user-info");
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("company-info");
+                    localStorage.removeItem("company-id");
+                    navigate("/");
+                  }}>
+                  Logout
                 </button>
-              ) : (
-                <button
-                  className={HeaderStyles["dropdown-item-bar"]}
-                  onClick={() => setOpenCompanyRegistrationPopup(true)}>
-                  Register Company
-                </button>
-              )}
-            </>
-          ) : (
-            <div></div>
-          )}
+                {companyInfo ? (
+                  <button
+                    className={HeaderStyles["dropdown-item-bar"]}
+                    onClick={() => navigate("/ATS")}>
+                    Go to Company Profile
+                  </button>
+                ) : (
+                  <button
+                    className={HeaderStyles["dropdown-item-bar"]}
+                    onClick={() => setOpenCompanyRegistrationPopup(true)}>
+                    Register Company
+                  </button>
+                )}
+              </>
+            ) : (
+              <div></div>
+            )}
+          </div>
         </div>
       </div>
       {isModalOpen && (

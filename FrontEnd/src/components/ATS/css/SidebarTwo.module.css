@@ -1,7 +1,7 @@
 .sidebar {
   width: 280px;
   height: 100vh;
-  background: #ffffff;
+  background: linear-gradient(to bottom, #ffffff, #fafafa);
   border-right: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   top: 0;
   z-index: 50;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar.collapsed {
@@ -19,12 +19,12 @@
 
 /* Header Section */
 .sidebarHeader {
-  padding: 20px;
+  padding: 24px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #e2e8f0;
-  background: linear-gradient(to right, #ffffff, #f8fafc);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .logoContainer {
@@ -36,43 +36,44 @@
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   background: #ffffff;
   padding: 4px;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .logo:hover {
   transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .logoSkeleton {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
 .companyName {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #1e293b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .collapseButton {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   border: 1px solid #e2e8f0;
   background: #ffffff;
   color: #64748b;
@@ -80,7 +81,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .collapseButton:hover {
@@ -96,7 +97,7 @@
 
 /* Search Section */
 .searchContainer {
-  padding: 16px;
+  padding: 20px 16px;
   position: relative;
   transition: all 0.3s ease;
 }
@@ -113,14 +114,14 @@
 
 .searchInput {
   width: 100%;
-  height: 40px;
+  height: 42px;
   padding: 0 16px 0 40px;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #f8fafc;
   color: #1e293b;
   font-size: 0.95rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .searchInput:focus {
@@ -139,7 +140,7 @@
 }
 
 .collapsed .searchInput {
-  width: 40px;
+  width: 42px;
   padding: 0;
   cursor: pointer;
 }
@@ -155,7 +156,7 @@
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   overflow-y: auto;
 }
 
@@ -163,11 +164,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
-  border-radius: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
   color: #64748b;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   position: relative;
   font-weight: 500;
   border: 1px solid transparent;
@@ -177,6 +178,7 @@
   background: #f8fafc;
   color: #1e293b;
   border-color: #e2e8f0;
+  transform: translateX(4px);
 }
 
 .menuItem.active {
@@ -204,11 +206,12 @@
   width: 24px;
   height: 24px;
   flex-shrink: 0;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
 .menuItem:hover .menuIcon {
   transform: translateX(2px);
+  color: #F27900;
 }
 
 .menuLabel {
@@ -216,13 +219,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 0.95rem;
+  letter-spacing: -0.01em;
 }
 
 /* Footer Section */
 .sidebarFooter {
   padding: 16px;
   border-top: 1px solid #e2e8f0;
-  background: linear-gradient(to right, #ffffff, #f8fafc);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .logoutButton {
@@ -230,25 +234,26 @@
   align-items: center;
   gap: 12px;
   width: 100%;
-  padding: 12px 16px;
+  padding: 14px 16px;
   border: 1px solid #fecaca;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #fff5f5;
   color: #ef4444;
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .logoutButton:hover {
   background: #fee2e2;
   border-color: #ef4444;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
 }
 
 .logoutButton svg {
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
 .logoutButton:hover svg {
@@ -259,23 +264,24 @@
 .mobileToggle {
   display: none;
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: 20px;
+  left: 20px;
   z-index: 100;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #ffffff;
   color: #1e293b;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .mobileToggle:hover {
   background: #f8fafc;
   color: #F27900;
+  transform: scale(1.05);
 }
 
 /* Animations */
@@ -313,11 +319,11 @@
   }
 
   .searchInput {
-    height: 36px;
+    height: 38px;
   }
 
   .menuItem {
-    padding: 10px 14px;
+    padding: 12px 14px;
   }
 
   .logoContainer {
@@ -325,12 +331,12 @@
   }
 
   .logo {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
   }
 
   .companyName {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -355,13 +361,13 @@
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   .sidebar {
-    background: #1e293b;
+    background: linear-gradient(to bottom, #1e293b, #0f172a);
     border-right-color: #334155;
   }
 
   .sidebarHeader,
   .sidebarFooter {
-    background: linear-gradient(to right, #1e293b, #1e293b);
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     border-color: #334155;
   }
 
@@ -416,4 +422,14 @@
     background: #7f1d1d;
     color: #fecaca;
   }
-}
+
+  .mobileToggle {
+    background: #1e293b;
+    color: #f8fafc;
+  }
+
+  .mobileToggle:hover {
+    background: #334155;
+    color: #F27900;
+  }
+} 
