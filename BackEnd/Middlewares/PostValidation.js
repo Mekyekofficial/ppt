@@ -44,7 +44,7 @@ const eventValidation = (req, res, next) => {
         time: req.body.time,
     };
 
-    const { error } = eventSchema.validate(data, { abortEarly: false });
+    // const { error } = eventSchema.validate(data, { abortEarly: false });
 
     if (error) {
         return next(new ExpressError(error.details.map(err => err.message).join(', '), 400));
