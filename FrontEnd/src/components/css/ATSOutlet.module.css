@@ -1,6 +1,7 @@
 .ATS-container {
     display: flex;
-    gap: 60px;
-    margin-top: 12vh;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-top: 70px;
 }
   
