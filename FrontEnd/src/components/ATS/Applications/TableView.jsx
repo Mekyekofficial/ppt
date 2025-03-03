@@ -20,6 +20,8 @@ const TableView = ({ applicants, selectedColumns, jobs }) => {
     (col) => selectedColumns.includes(col.label) || col.key === "Action"
   );
 
+  if (applicants?.length > 0) {
+
   useEffect(() => {
     applicants.map( async (applicant) => {
       const jobId = applicant.jobID;
@@ -38,6 +40,7 @@ const TableView = ({ applicants, selectedColumns, jobs }) => {
       });
     });
   }, [applicants]);
+}
 
   return (
     <div className={TableViewStyles["table-view"]}>
