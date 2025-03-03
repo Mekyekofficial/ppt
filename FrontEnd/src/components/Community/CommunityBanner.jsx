@@ -1,26 +1,52 @@
-import React from 'react';
-import yourCommunities from '../../assets/yourCommunity.png';
-import requestedCommunity from '../../assets/requestedCommunity.png';
+import React, { useState } from 'react';
+import { Search, Plus, ChevronDown } from 'lucide-react';
 import styles from './css/CommunityBanner.module.css';
 
 const CommunityBanner = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.searchSection}>
-        <input type="text" className={styles.searchInput} placeholder="Search..." />
-        <button className={styles.searchButton}>Search</button>
-      </div>
-      <div className={styles.communitiesSection}>
-        <div className={styles.communityItem}>
-          <img src={yourCommunities} alt="Your Communities" className={styles.communityImage} />
-          <p>Your Communities</p>
+      <div className={`${styles.searchSection} ${isSearchFocused ? styles.focused : ''}`}>
+        <div className={styles.searchInputWrapper}>
+          <Search className={styles.searchIcon} size={20} />
+          <input 
+            type="text" 
+            className={styles.searchInput} 
+            placeholder="Find Communities" 
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onFocus={() => setIsSearchFocused(true)}
+            onBlur={() => setIsSearchFocused(false)}
+          />
         </div>
-        <div className={styles.communityItem}>
-          <img src={requestedCommunity} alt="Requested" className={styles.communityImage} />
-          <p>Requested</p>
+        <button className={styles.filterButton}>
+          Filter
+          <ChevronDown size={16} />
+        </button>
+      </div>
+
+      <div className={styles.navigationSection}>
+        <div className={styles.navItem}>
+          <span className={styles.active}>Main Group</span>
+        </div>
+        <div className={styles.navItem}>
+          <span>Invitation</span>
+        </div>
+        <div className={styles.navItem}>
+          <span>Your Communities</span>
         </div>
       </div>
-      <button className={styles.createGroupButton}>Create Group</button>
+
+      <button className={styles.createButton}>
+        <Plus size={20} />
+        Create Community
+      </button>
     </div>
   );
 };
