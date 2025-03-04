@@ -26,11 +26,15 @@ import Applications from "./components/ATS/Applications";
 import TalentPool from "./components/ATS/TalentPool";
 import TalentHunt from "./components/ATS/TalentHunt";
 import JobApplicants from "./components/ATS/Jobs/JobApplicants";
+import Payroll from "./components/ATS/Payroll/Payroll";
 import ComingSoon from "./commingSoon";
 import RefreshHandler from "./RefreshHandler";
 import Profile from "./components/Profile";
 import CompanyProfile from "./components/CompanyProfile";
-import Post from "./components/Post";
+import Post from './components/ATS/Post/Post';
+import Report from './components/ATS/Report/Report';
+import EmployTeam from './components/ATS/EmployTeam/EmployTeam';
+import Documents from './components/ATS/Documents/Documents';
 
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;
@@ -83,6 +87,7 @@ const App = () => {
         { path: "/ATS/Applications", element: <Applications /> },
         { path: "/ATS/TalentPool", element: <TalentPool /> },
         { path: "/ATS/TalentHunt", element: <TalentHunt /> },
+        { path: "/ATS/payroll", element: <Payroll /> },
         { path: "/ATS/MarketPlace", element: <ComingSoon /> },
         { path: "/ATS/Settings", element: <ComingSoon /> },
         { path: "/ATS/Setup", element: <ComingSoon /> },
@@ -90,6 +95,10 @@ const App = () => {
           path: "/ATS/jobs/job-applicants/",
           element: <JobApplicants />,
         },
+        { path: "/ATS/report", element: <Report /> },
+        { path: "/ATS/post", element: <Post /> },
+        { path: "/ATS/employteam", element: <EmployTeam /> },
+        { path: "/ATS/documents", element: <Documents /> },
       ],
     },
     {

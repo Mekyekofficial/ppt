@@ -185,7 +185,7 @@
   .viewControls {
     width: 100%;
   }
-
+  
   .viewButton {
     flex: 1;
     justify-content: center;
@@ -370,8 +370,8 @@
 .filterActions {
   padding: 16px 20px;
   border-top: 1px solid #e2e8f0;
-  display: flex;
-  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .applyButton {
@@ -382,7 +382,7 @@
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 500;
-  cursor: pointer;
+    cursor: pointer;
   transition: all 0.3s ease;
 }
 
@@ -424,5 +424,5 @@
   .optionsGrid {
     grid-template-columns: 1fr;
   }
-}
+  }
   

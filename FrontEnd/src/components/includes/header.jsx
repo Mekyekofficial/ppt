@@ -446,48 +446,48 @@ const Header = () => {
         <div className={HeaderStyles.menuIconWrapper}>
           <MoreVertical
             className={HeaderStyles.menuIcon}
-            onClick={clickBar}
+          onClick={clickBar}
             size={24}
           />
-          <div id="dropdown-menu-bar" className={HeaderStyles.dropdownBar}>
-            <NavLink
-              to={`/profile/${userinfo?._id}`}
-              className={HeaderStyles["dropdown-item-bar"]}>
-              Profile
-            </NavLink>
-            <NavLink to="/settings" className={HeaderStyles["dropdown-item-bar"]}>
-              Settings
-            </NavLink>
-            {userinfo && token ? (
-              <>
+        <div id="dropdown-menu-bar" className={HeaderStyles.dropdownBar}>
+          <NavLink
+            to={`/profile/${userinfo?._id}`}
+            className={HeaderStyles["dropdown-item-bar"]}>
+            Profile
+          </NavLink>
+          <NavLink to="/settings" className={HeaderStyles["dropdown-item-bar"]}>
+            Settings
+          </NavLink>
+          {userinfo && token ? (
+            <>
+              <button
+                className={HeaderStyles["dropdown-item-bar"]}
+                onClick={() => {
+                  localStorage.removeItem("user-info");
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("company-info");
+                  localStorage.removeItem("company-id");
+                  navigate("/");
+                }}>
+                Logout
+              </button>
+              {companyInfo ? (
                 <button
                   className={HeaderStyles["dropdown-item-bar"]}
-                  onClick={() => {
-                    localStorage.removeItem("user-info");
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("company-info");
-                    localStorage.removeItem("company-id");
-                    navigate("/");
-                  }}>
-                  Logout
+                  onClick={() => navigate("/ATS")}>
+                  Go to Company Profile
                 </button>
-                {companyInfo ? (
-                  <button
-                    className={HeaderStyles["dropdown-item-bar"]}
-                    onClick={() => navigate("/ATS")}>
-                    Go to Company Profile
-                  </button>
-                ) : (
-                  <button
-                    className={HeaderStyles["dropdown-item-bar"]}
-                    onClick={() => setOpenCompanyRegistrationPopup(true)}>
-                    Register Company
-                  </button>
-                )}
-              </>
-            ) : (
-              <div></div>
-            )}
+              ) : (
+                <button
+                  className={HeaderStyles["dropdown-item-bar"]}
+                  onClick={() => setOpenCompanyRegistrationPopup(true)}>
+                  Register Company
+                </button>
+              )}
+            </>
+          ) : (
+            <div></div>
+          )}
           </div>
         </div>
       </div>

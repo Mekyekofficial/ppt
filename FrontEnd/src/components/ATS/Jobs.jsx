@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import JobsStyles from "./css/Jobs.module.css";
 import JobPopupForm from "./Jobs/JobPopupForm";
 import API from "../../api";
-import { Search, Loader2, AlertCircle, FileSpreadsheet, Grid, Filter, Plus, ChevronDown, Check, X } from 'lucide-react';
+import { Search, Loader2, AlertCircle, FileSpreadsheet, Grid, Filter, Plus, ChevronDown, Check, X, LayoutGrid, List } from 'lucide-react';
 
 const JobDashboard = () => {
   const [openJobForm, setOpenJobForm] = useState(false);
@@ -211,13 +211,13 @@ const JobDashboard = () => {
     <div className={JobsStyles.filterPopup}>
       <div className={JobsStyles.filterHeader}>
         <h3>Filter {section}</h3>
-        <button 
+          <button
           onClick={() => clearFilters(section.toLowerCase())} 
           className={JobsStyles.clearButton}
         >
           Clear all
-        </button>
-      </div>
+          </button>
+        </div>
 
       <div className={JobsStyles.filterContent}>
         <div className={JobsStyles.filterGroup}>
@@ -294,8 +294,8 @@ const JobDashboard = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className={JobsStyles.searchInput}
-            />
-          </div>
+          />
+        </div>
           <button
             className={JobsStyles.createJobBtn}
             onClick={() => setOpenForm(true)}
@@ -354,13 +354,18 @@ const JobDashboard = () => {
 
         <div className={JobsStyles.content}>
           {loading ? (
-            <p>Loading Projects...</p>
-          ) : viewForProjects === "table" ? (
-            <TableView jobs={Projects} selectedColumns={selectedColumnsForProjects} role="Project"/>
             <div className={JobsStyles.loadingState}>
               <Loader2 className={JobsStyles.spinner} size={40} />
               <p>Loading {title.toLowerCase()}...</p>
             </div>
+          ) : viewForProjects === "table" ? (
+            <>
+              <TableView jobs={Projects} selectedColumns={selectedColumnsForProjects} role="Project"/>
+              <div className={JobsStyles.loadingState}>
+                <Loader2 className={JobsStyles.spinner} size={40} />
+                <p>Loading {title.toLowerCase()}...</p>
+              </div>
+            </>
           ) : error ? (
             <div className={JobsStyles.errorState}>
               <AlertCircle size={40} />
@@ -375,8 +380,10 @@ const JobDashboard = () => {
           ) : view === "table" ? (
             <TableView jobs={filteredData} selectedColumns={selectedColumns} role={type} />
           ) : (
-            <CardView jobs={Projects} role="Project"/>
-            <CardView jobs={filteredData} role={type.toLowerCase()} />
+            <>
+              <CardView jobs={Projects} role="Project"/>
+              <CardView jobs={filteredData} role={type.toLowerCase()} />
+            </>
           )}
         </div>
 

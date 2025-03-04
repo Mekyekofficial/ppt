@@ -132,7 +132,7 @@ const NewsSearchBar = () => {
         )}
         
         <div className={styles.categoryButtons}>
-          {categories.map((category, index) => (
+        {categories.map((category, index) => (
             <button 
               key={index} 
               className={`${styles.categoryButton} ${
@@ -143,8 +143,8 @@ const NewsSearchBar = () => {
             >
               {category}
             </button>
-          ))}
-                  <ChevronRight className={styles.moreIcon} size={18} />
+        ))}
+        <ChevronRight className={styles.moreIcon} size={18} />
         </div>
       </div>
     </div>
