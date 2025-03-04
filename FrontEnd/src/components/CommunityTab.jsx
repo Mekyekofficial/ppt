@@ -6,9 +6,11 @@ import CommunitySuggested from './Community/CommunitySuggested';
 import CommunityYour from './Community/CommunityYour';
 import { Search, Users, ChevronRight } from 'lucide-react';
 import API from '../api';
+import CreateCommunity from './Community/CreateComunity';
 
 const CommunityTab = () => {
   const [communities, setCommunities] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [yourCommunities, setYourCommunities] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -107,7 +109,7 @@ const CommunityTab = () => {
             </button>
           </div>
 
-          <button className={styles.createButton}>
+          <button className={styles.createButton} onClick={() => setShowPopup(true)}>
             <Users size={20} />
             Create Community
           </button>
@@ -146,6 +148,7 @@ const CommunityTab = () => {
           </div>
         </div>
       </div>
+      {showPopup && <CreateCommunity onClose={() => setShowPopup(false)} />}
     </div>
   );
 };
