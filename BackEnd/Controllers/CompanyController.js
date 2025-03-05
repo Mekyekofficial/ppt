@@ -1,5 +1,5 @@
-const CompanyModel = require("../models/Company");
-const JobApplicationModel = require("../Models/JobApplication");
+const CompanyModel = require("../Models/Company");
+const UserModal = require("../Models/User");
 const CompanyJobModel = require("../Models/ATS/CompanyJobs");
 const wrapAsync = require("../utils/wrapAsync");
 const mongoose = require("mongoose");
@@ -138,20 +138,13 @@ const applyForJob = wrapAsync(async (req, res) => {
 
   let {
     jobID,
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    resume,
-    area,
-    cityStateCountry,
-    getEmailUpdates,
     userId,
     companyId,
+    getEmailUpdates,
   } = req.body;
 
   // Validate required fields
-  if (!jobID || !firstName || !lastName || !email || !phoneNumber) {
+  if (!jobID || !userId || !companyId) {
     console.log("❌ Required fields are missing.");
     return res
       .status(400)
@@ -169,22 +162,23 @@ const applyForJob = wrapAsync(async (req, res) => {
   console.log("🚀 Creating Job Application...");
 
   // Create and save the job application
-  const newJobApplication = new JobApplicationModel({
-    jobID,
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    resume: resumeData,
-    area,
-    cityStateCountry,
-    getEmailUpdates,
-    userId,
-    companyId,
-  });
+  const user = await UserModal.findById(userId);
+  const company = await CompanyModel.findById(companyId);
 
-  const savedJobApplication = await newJobApplication.save();
-  console.log("🚀 Job application created successfully!");
+  const jobApplication = {
+    jobId: jobID,
+    companyId: companyId,
+    status: "Applied",
+    appliedDate: new Date(),
+    getEmailUpdates: getEmailUpdates,
+    resume: resumeData,
+  };
+
+  user.appliedJobs.push(jobApplication);
+  const savedJobApplication = await user.save();
+
+  console.log("🚀 Updating Company Job...");
+  
 
   // ✅ Update totalCandidates array in CompanyJobModel
   await CompanyJobModel.findOneAndUpdate(

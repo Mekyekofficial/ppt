@@ -135,10 +135,10 @@ const Header = () => {
         const { email, password } = formData;
         const response = await login(email, password);
         if (response.status == 200) {
-          const { email, name, profilePhoto } = response.data.user;
+          const { email, firstName, lastName, profilePhoto } = response.data.user;
           const _id = response.data.user._id;
           const token = response.data.token;
-          const userData = { email, name, profilePhoto, _id };
+          const userData = { email, firstName, lastName, profilePhoto, _id };
 
           localStorage.setItem("token", token);
           localStorage.setItem("user-info", JSON.stringify(userData));

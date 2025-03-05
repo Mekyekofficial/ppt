@@ -122,6 +122,30 @@ const UserSchema = new Schema({
             },
         }
     ],
+    appliedJobs: [
+        {
+            jobId: {
+                type: Schema.Types.ObjectId,
+                ref: 'jobs',
+            },
+            companyId: {
+                type: Schema.Types.ObjectId,
+                ref: 'company',
+            },
+            resume: {
+                type: String,
+            },
+            status: {
+                type: String,
+            },
+            appliedDate: {
+                type: Date,
+            },
+            getEmailUpdates: {
+                type: Boolean,
+            }
+        }
+    ],
 });
 
 const UserModal = mongoose.model('users', UserSchema);

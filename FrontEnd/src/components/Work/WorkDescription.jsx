@@ -11,7 +11,6 @@ import {
   FaMoneyBillWave,
   FaStar,
 } from "react-icons/fa";
-import ApplyJob1 from "./ApplyJob/ApplyJob1";
 import ApplyJob2 from "./ApplyJob/ApplyJob2";
 import ApplyJob3 from "./ApplyJob/ApplyJob3";
 import API from "../../api";
@@ -27,7 +26,13 @@ const WorkDescription = ({ job }) => {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("user-info"));
     setUserInfo(userInfo);
-    setFormData((prevData) => ({ ...prevData, userId: userInfo?._id }));
+    setFormData((prevData) => ({
+      ...prevData,
+      userId: userInfo?._id,
+      firstName: userInfo?.firstName,
+      lastName: userInfo?.lastName,
+      email: userInfo?.email,
+    }));
   }, []);
 
   const [applyJobStep, setApplyJobStep] = useState(0);
@@ -35,17 +40,11 @@ const WorkDescription = ({ job }) => {
   const nextApplyJobStep = () => setApplyJobStep((prev) => prev + 1);
   const prevApplyJobStep = () => setApplyJobStep((prev) => prev - 1);
   const closeApplyJobPopup = () => setApplyJobStep(0);
-
+  console.log(userInfo);
   const [formData, setFormData] = useState({
     jobID: job._id,
     companyId: job.company.companyId,
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
     resume: null,
-    area: "",
-    cityStateCountry: "",
     getEmailUpdates: false,
     userId: userInfo?._id,
   });
@@ -73,11 +72,7 @@ const WorkDescription = ({ job }) => {
         firstName: "",
         lastName: "",
         email: "",
-        countryCode: "+91",
-        phoneNumber: "",
         resume: null,
-        area: "",
-        cityStateCountry: "",
         getEmailUpdates: false,
         userId: userInfo?._id,
       });
@@ -107,7 +102,10 @@ const WorkDescription = ({ job }) => {
         {/* Job Details */}
         <div className={styles.jobDetails}>
           <div className={styles.detailsWithLogo}>
-            <div className={styles.company} onClick={goToCompanyProfile} style={{ cursor: "pointer" }}>
+            <div
+              className={styles.company}
+              onClick={goToCompanyProfile}
+              style={{ cursor: "pointer" }}>
               <img
                 src={job.company.companyLogo}
                 alt="Company Logo"
@@ -510,14 +508,6 @@ const WorkDescription = ({ job }) => {
         </div>
       </div>
       {applyJobStep === 1 && (
-        <ApplyJob1
-          formData={formData}
-          updateFormData={updateFormData}
-          onNext={nextApplyJobStep}
-          onClose={closeApplyJobPopup}
-        />
-      )}
-      {applyJobStep === 2 && (
         <ApplyJob2
           formData={formData}
           updateFormData={updateFormData}
@@ -526,12 +516,13 @@ const WorkDescription = ({ job }) => {
           onClose={closeApplyJobPopup}
         />
       )}
-      {applyJobStep === 3 && (
+      {applyJobStep === 2 && (
         <ApplyJob3
           formData={formData}
           onSubmit={handleSubmit}
           onBack={prevApplyJobStep}
           onClose={closeApplyJobPopup}
+          updateFormData={updateFormData}
         />
       )}
     </>

@@ -5,7 +5,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import { Switch, Button } from "@mui/material";
 
-const ApplyJob3 = ({ formData, onSubmit, onClose, onBack }) => {
+const ApplyJob3 = ({ formData, updateFormData, onSubmit, onClose, onBack }) => {
   return (
     <div className={styles.popupOverlay}>
       <div className={styles.popupContent}>
@@ -30,18 +30,6 @@ const ApplyJob3 = ({ formData, onSubmit, onClose, onBack }) => {
             <p>Email</p>
             <p className={styles.bold}>{formData.email || "N/A"}</p>
           </div>
-          <div className={styles.infoRow}>
-            <p>Phone Number</p>
-            <p className={styles.bold}>{formData.phoneNumber || "N/A"}</p>
-          </div>
-          <div className={styles.infoRow}>
-            <p>Area</p>
-            <p className={styles.bold}>{formData.area || "N/A"}</p>
-          </div>
-          <div className={styles.infoRow}>
-            <p>City, State, Country</p>
-            <p className={styles.bold}>{formData.cityStateCountry || "N/A"}</p>
-          </div>
         </div>
 
         {/* Resume Section */}
@@ -54,14 +42,15 @@ const ApplyJob3 = ({ formData, onSubmit, onClose, onBack }) => {
         ) : (
           <p className={styles.noResume}>No resume uploaded</p>
         )}
+          <div className={styles.emailUpdates}>
+            <p className={styles.bold}>Get Email Updates</p>
+            <Switch
+              checked={formData.getEmailUpdates || false}
+              onChange={(e) => updateFormData({ getEmailUpdates: e.target.checked })}
+            />
+          </div>
 
-        {/* Email Updates Toggle */}
-        <div className={styles.emailUpdates}>
-          <p className={styles.bold}>Get Email Updates</p>
-          <Switch />
-        </div>
-
-        {/* Terms & Conditions */}
+          {/* Terms & Conditions */}
         <p className={styles.terms}>
           By creating a job alert, you agree to our <span>Terms</span>. You can change your consent settings at any time by unsubscribing or as detailed in our terms.
         </p>
