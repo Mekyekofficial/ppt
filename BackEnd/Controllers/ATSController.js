@@ -1,6 +1,6 @@
 const wrapAsync = require("../utils/wrapAsync");
 const CompanyJobModel = require("../Models/ATS/CompanyJobs");
-const JobApplicationModel = require("../Models/JobApplication");
+const UserModal = require("../Models/User");
 
 // GET Company Jobs
 const getCompanyJobs = wrapAsync(async (req, res) => {
@@ -40,7 +40,7 @@ const getApplicants = wrapAsync(async (req, res) => {
         return res.status(400).json({ error: "Job ID is required." });
     }
     
-    const jobs = await JobApplicationModel.find({ jobID: jobId });
+    const jobs = await UserModal.find({ "appliedJobs.jobId": jobId });
 
     if (!jobs) {
         return res.status(404).json({ message: "Job not found." });
