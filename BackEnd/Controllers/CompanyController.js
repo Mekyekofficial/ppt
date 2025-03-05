@@ -48,7 +48,7 @@ const registerCompany = wrapAsync(async (req, res) => {
   // Process company logo
   let companyLogo = null;
   if (req.file) {
-    companyLogo = `data:image/png;base64,${req.file.buffer.toString("base64")}`;
+    companyLogo = req.file.path;
   }
 
   let newUserId;
@@ -154,9 +154,7 @@ const applyForJob = wrapAsync(async (req, res) => {
   // Process resume
   let resumeData = null;
   if (req.file) {
-    resumeData = `data:application/pdf;base64,${req.file.buffer.toString(
-      "base64"
-    )}`;
+    resumeData = req.file.path;
   }
 
   console.log("🚀 Creating Job Application...");

@@ -16,7 +16,7 @@ const postFeed = async (req, res) => {
             profilePhoto: req.body.profilePhoto || "",
             _id: req.body.userId || "",
         },
-        image: req.file ? `data:image/png;base64,${req.file.buffer.toString("base64")}` : null,
+        image: req.file ? req.file.path : null,
         postOn: req.body.postOn,
         likes: 0,
         likeBy: [],

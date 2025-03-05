@@ -5,12 +5,12 @@ const wrapAsync = require('../utils/wrapAsync');
 // POST Comunity
 
 const createCommunity = async (req, res) => {
-    console.log("Processing Comunity Post...");
+    console.log("Processing Comunity Post in controller...");
 
     const newComunity = new ComunityModal({
         name: req.body.name,
         description: req.body.description,
-        profilePhoto: req.file.buffer.toString('base64'),
+        profilePhoto: req.file.path,
         members: [
             {
                 userId: req.body.userId,
@@ -21,8 +21,10 @@ const createCommunity = async (req, res) => {
 
     try {
         const savedComunity = await newComunity.save();
+        console.log("✅ Comunity saved successfully:", savedComunity);
         res.status(201).json(savedComunity);
     } catch (error) {
+        console.error("❌ Error saving Comunity:", error.message);
         res.status(400).json({ message: error.message });
     }
 };

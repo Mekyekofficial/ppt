@@ -20,7 +20,7 @@ const postNews = wrapAsync(async (req, res) => {
             profilePhoto: req.body.userPhoto || "",
             _id: req.body.userId || "",
         },
-        newsPhoto: req.file ? `data:image/png;base64,${req.file.buffer.toString("base64")}` : null,
+        newsPhoto: req.file ? req.file.path: null,
         likes: 0,
         likeBy: [],
         comments: [],
@@ -120,7 +120,7 @@ const postEvents = wrapAsync(async (req, res) => {
     const event = new EventModel({
         eventType,
         eventName,
-        eventImage: req.file ? `data:image/png;base64,${req.file.buffer.toString("base64")}` : null,
+        eventImage: req.file ? req.file.path : null,
         location,
         date,
         time,
