@@ -84,7 +84,7 @@ const CompanyOutlet = () => {
 
       <aside className={`${CompanyOutletStyles.sidebar} ${isCollapsed ? CompanyOutletStyles.collapsed : ''} ${isMobileOpen ? CompanyOutletStyles.mobileOpen : ''}`}>
         <div className={CompanyOutletStyles.sidebarHeader}>
-          <div className={CompanyOutletStyles.logoContainer}>
+        <div className={CompanyOutletStyles.logoContainer} onClick={ () => window.location.href = '/Work'} style={{cursor: 'pointer'}}>
             {isLoading ? (
               <div className={CompanyOutletStyles.logoSkeleton} />
             ) : (
