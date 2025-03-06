@@ -41,6 +41,10 @@ const CompanyOutlet = () => {
     loadCompanyInfo();
   }, []);
 
+  if(!companyInfo) {
+    return null;
+  }
+
   const menuItems = [
     { path: '/Company/Dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
     { path: '/Company/ATS', icon: <Users size={20} />, label: 'ATS' },
