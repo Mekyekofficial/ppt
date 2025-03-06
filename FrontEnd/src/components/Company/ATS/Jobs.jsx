@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import JobsStyles from "./css/Jobs.module.css";
 import JobPopupForm from "./Jobs/JobPopupForm";
+import TableView from "./Jobs/TableView";
+import CardView from "./Jobs/CardView";
 import API from "../../../api";
 import { Search, Loader2, AlertCircle, FileSpreadsheet, Grid, Filter, Plus, ChevronDown, Check, X, LayoutGrid, List } from 'lucide-react';
 

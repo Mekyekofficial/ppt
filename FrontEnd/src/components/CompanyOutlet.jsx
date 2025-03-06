@@ -109,15 +109,6 @@ const CompanyOutlet = () => {
           </button>
         </div>
 
-        <div className={CompanyOutletStyles.searchContainer}>
-          <Search className={CompanyOutletStyles.searchIcon} size={18} />
-          <input 
-            type="text" 
-            placeholder={isCollapsed ? '' : 'Search...'}
-            className={CompanyOutletStyles.searchInput}
-          />
-        </div>
-
         <nav className={CompanyOutletStyles.navigation}>
           {menuItems.map((item) => (
             <NavLink

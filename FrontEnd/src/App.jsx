@@ -19,8 +19,9 @@ import EventTab from "./components/EventTab";
 import EventDetails from "./components/Event/EventDetails";
 import WorkTab from "./components/WorkTab";
 import WorkDetails from "./components/Work/WorkDetails";
-import ATSOutlet from "./components/CompanyOutlet";
+import CompanyOutlet from "./components/CompanyOutlet";
 import Dashboard from "./components/Company/Dashboard";
+import ATSOutlet from "./components/Company/ATS/ATSOutlet";
 import Jobs from "./components/Company/ATS/Jobs";
 import Applications from "./components/Company/ATS/Applications";
 import TalentPool from "./components/Company/ATS/TalentPool";
@@ -79,11 +80,20 @@ const App = () => {
     },
     {
       path: "/Company",
-      element: <ATSOutlet />,
+      element: <CompanyOutlet />,
       children: [
         { path: "/Company", element: <Navigate to="/Company/Dashboard" /> },
         { path: "/Company/Dashboard", element: <Dashboard /> },
-        { path: "/Company/ATS", element: <ComingSoon />},
+        { path: "/Company/ATS", 
+          element: <ATSOutlet />,
+          children: [
+            { path: "/Company/ATS", element: <Navigate to="/Company/ATS/Jobs" />},
+            { path: "/Company/ATS/Jobs", element: <Jobs />},
+            { path: "/Company/ATS/Applications", element: <Applications />},
+            { path: "/Company/ATS/Talent-Hunt", element: <TalentHunt />},
+            { path: "/Company/ATS/Jobs/Job-Applicants", element: <JobApplicants />},
+          ],
+        },
         { path: "/Company/Employ-Team", element: <EmployTeam />},
         { path: "/Company/Documents", element: <Documents />},
         { path: "/Company/Payroll", element: <Payroll />},
