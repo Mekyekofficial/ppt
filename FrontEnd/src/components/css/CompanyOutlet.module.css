@@ -160,8 +160,7 @@
 }
 
 .content-area {
-    position: fixed;
-    left: 60px;
+    margin-left: 100px;
     flex: 1;
     padding: 2rem;
     transition: margin-left 0.3s ease;

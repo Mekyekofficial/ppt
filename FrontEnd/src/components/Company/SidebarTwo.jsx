@@ -42,21 +42,22 @@ const SidebarTwo = () => {
   }, []);
 
   const menuItems = [
-    { path: '/ATS/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
-    { path: '/ATS/ats', icon: <Users size={20} />, label: 'ATS' },
-    { path: '/ATS/employteam', icon: <Users size={20} />, label: 'Employ Team' },
-    { path: '/ATS/documents', icon: <FileText size={20} />, label: 'Documents' },
-    { path: '/ATS/payroll', icon: <DollarSign size={20} />, label: 'PayRoll' },
-    { path: '/ATS/post', icon: <Send size={20} />, label: 'Post' },
-    { path: '/ATS/report', icon: <BarChart2 size={20} />, label: 'Report' },
-    { path: '/ATS/configuration', icon: <Settings size={20} />, label: 'Configuration' },
-    { path: '/ATS/integration', icon: <Link2 size={20} />, label: 'Integration' },
-    { path: '/ATS/promotion', icon: <TrendingUp size={20} />, label: 'Promotion' },
+    { path: '/Company/Dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
+    { path: '/Company/ATS', icon: <Users size={20} />, label: 'ATS' },
+    { path: '/Company/Employ-Team', icon: <Users size={20} />, label: 'Employ Team' },
+    { path: '/Company/Documents', icon: <FileText size={20} />, label: 'Documents' },
+    { path: '/Company/Payroll', icon: <DollarSign size={20} />, label: 'PayRoll' },
+    { path: '/Company/Post', icon: <Send size={20} />, label: 'Post' },
+    { path: '/Company/Report', icon: <BarChart2 size={20} />, label: 'Report' },
+    { path: '/Company/Configuration', icon: <Settings size={20} />, label: 'Configuration' },
+    { path: '/Company/Integration', icon: <Link2 size={20} />, label: 'Integration' },
+    { path: '/Company/Promotion', icon: <TrendingUp size={20} />, label: 'Promotion' }
   ];
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.href = '/login';
+    console.log('Logged out');
+    window.location.href = '/';
   };
 
   const toggleSidebar = () => {

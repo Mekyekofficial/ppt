@@ -4,7 +4,7 @@ import Views from "./Applications/Views";
 import TableView from "./Applications/TableView";
 import CardView from "./Applications/CardView";
 import ApplicationsStyles from "./css/Applications.module.css";
-import API from "../../api";
+import API from "../../../api";
 import { Search, Loader2, AlertCircle, FileSpreadsheet, Grid, Filter, X, Check, ChevronDown } from 'lucide-react';
 
 const Applications = () => {

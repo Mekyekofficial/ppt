@@ -474,7 +474,7 @@ const Header = () => {
               {companyInfo ? (
                 <button
                   className={HeaderStyles["dropdown-item-bar"]}
-                  onClick={() => navigate("/ATS")}>
+                  onClick={() => navigate("/Company")}>
                   Go to Company Profile
                 </button>
               ) : (

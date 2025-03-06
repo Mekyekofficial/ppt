@@ -19,22 +19,22 @@ import EventTab from "./components/EventTab";
 import EventDetails from "./components/Event/EventDetails";
 import WorkTab from "./components/WorkTab";
 import WorkDetails from "./components/Work/WorkDetails";
-import ATSOutlet from "./components/ATSOutlet";
-import Dashboard from "./components/ATS/Dashboard";
-import Jobs from "./components/ATS/Jobs";
-import Applications from "./components/ATS/Applications";
-import TalentPool from "./components/ATS/TalentPool";
-import TalentHunt from "./components/ATS/TalentHunt";
-import JobApplicants from "./components/ATS/Jobs/JobApplicants";
-import Payroll from "./components/ATS/Payroll/Payroll";
+import ATSOutlet from "./components/CompanyOutlet";
+import Dashboard from "./components/Company/Dashboard";
+import Jobs from "./components/Company/ATS/Jobs";
+import Applications from "./components/Company/ATS/Applications";
+import TalentPool from "./components/Company/ATS/TalentPool";
+import TalentHunt from "./components/Company/ATS/TalentHunt";
+import JobApplicants from "./components/Company/ATS/Jobs/JobApplicants";
+import Payroll from "./components/Company/Payroll/Payroll";
 import ComingSoon from "./commingSoon";
 import RefreshHandler from "./RefreshHandler";
 import Profile from "./components/Profile";
 import CompanyProfile from "./components/CompanyProfile";
-import Post from './components/ATS/Post/Post';
-import Report from './components/ATS/Report/Report';
-import EmployTeam from './components/ATS/EmployTeam/EmployTeam';
-import Documents from './components/ATS/Documents/Documents';
+import Post from './components/Company/Post/Post';
+import Report from './components/Company/Report/Report';
+import EmployTeam from './components/Company/EmployTeam/EmployTeam';
+import Documents from './components/Company/Documents/Documents';
 
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;
@@ -78,27 +78,20 @@ const App = () => {
       ],
     },
     {
-      path: "/ATS",
+      path: "/Company",
       element: <ATSOutlet />,
       children: [
-        { path: "/ATS", element: <Navigate to="/ATS/Dashboard" /> },
-        { path: "/ATS/Dashboard", element: <Dashboard /> },
-        { path: "/ATS/Jobs", element: <Jobs /> },
-        { path: "/ATS/Applications", element: <Applications /> },
-        { path: "/ATS/TalentPool", element: <TalentPool /> },
-        { path: "/ATS/TalentHunt", element: <TalentHunt /> },
-        { path: "/ATS/payroll", element: <Payroll /> },
-        { path: "/ATS/MarketPlace", element: <ComingSoon /> },
-        { path: "/ATS/Settings", element: <ComingSoon /> },
-        { path: "/ATS/Setup", element: <ComingSoon /> },
-        {
-          path: "/ATS/jobs/job-applicants/",
-          element: <JobApplicants />,
-        },
-        { path: "/ATS/report", element: <Report /> },
-        { path: "/ATS/post", element: <Post /> },
-        { path: "/ATS/employteam", element: <EmployTeam /> },
-        { path: "/ATS/documents", element: <Documents /> },
+        { path: "/Company", element: <Navigate to="/Company/Dashboard" /> },
+        { path: "/Company/Dashboard", element: <Dashboard /> },
+        { path: "/Company/ATS", element: <ComingSoon />},
+        { path: "/Company/Employ-Team", element: <EmployTeam />},
+        { path: "/Company/Documents", element: <Documents />},
+        { path: "/Company/Payroll", element: <Payroll />},
+        { path: "/Company/Post", element: <Post />},
+        { path: "/Company/Report", element: <Report />},
+        { path: "/Company/Configuration", element: <ComingSoon />},
+        { path: "/Company/Integration", element: <ComingSoon />},
+        { path: "/Company/Promotion", element: <ComingSoon />},
       ],
     },
     {
@@ -108,10 +101,6 @@ const App = () => {
     {
       path: "/Company-Profile/:userId",
       element: <CompanyProfile />,
-    },
-    {
-      path: "/Post",
-      element: <Post />,
     },
   ]);
 

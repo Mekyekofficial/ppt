@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./TalentHunt/SearchBar";
 import TalentPoolStyles from "./css/TalentHunt.module.css";
-import API from "../../api";
+import API from "../../../api";
 import Card from "./TalentHunt/Card";
 import { Search, Loader2, AlertCircle, Filter, SlidersHorizontal, Users, Briefcase, GraduationCap } from 'lucide-react';
 

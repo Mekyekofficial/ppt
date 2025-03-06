@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TableViewStyles from "./css/TableView.module.css";
-import API from "../../../api";
+import API from "../../../../api";
 
 const TableView = ({ applicants, selectedColumns, jobs }) => {
   const [applicantDetails, setApplicantDetails] = useState([]);

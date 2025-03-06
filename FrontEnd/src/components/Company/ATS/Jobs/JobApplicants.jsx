@@ -12,7 +12,7 @@ import {
   TableBody,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import API from "../../../api"; // Adjust the path to match your API service file
+import API from "../../../../api"; // Adjust the path to match your API service file
 import styles from "./css/JobApplicants.module.css";
 import ApplicantDetails from "./ApplicantDetails"; // Import the ApplicantDetails component
 

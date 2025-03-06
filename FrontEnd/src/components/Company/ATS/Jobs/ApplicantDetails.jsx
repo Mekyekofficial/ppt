@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styles from "./css/ApplicantDetails.module.css";
 import { Mail, Phone, MapPin, Bookmark, Play, Share, MoreVertical } from "lucide-react";
-import API from "../../../api";
+import API from "../../../../api";
 import {toast} from "react-toastify";
 
 const ApplicantDetails = ({ onClose, applicantId }) => {
