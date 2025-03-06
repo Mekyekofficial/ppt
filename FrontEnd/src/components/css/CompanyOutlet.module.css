@@ -166,6 +166,13 @@
     transition: margin-left 0.3s ease;
 }
 
+.content-area-collapsed {
+    margin-left: 280px;
+    flex: 1;
+    padding: 2rem;
+    transition: margin-left 0.3s ease;
+}
+
 .mobileToggle {
     display: none;
     position: fixed;

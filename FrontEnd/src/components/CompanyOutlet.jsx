@@ -15,7 +15,7 @@ import {
   Menu,
   X,
   ChevronLeft,
-  Search,
+  ChevronRight,
   LogOut
 } from 'lucide-react';
 
@@ -108,8 +108,9 @@ const CompanyOutlet = () => {
             className={CompanyOutletStyles.collapseButton}
             onClick={toggleSidebar}
             aria-label="Collapse Sidebar"
+            style={{backgroundColor: isCollapsed ? 'transparent' : ''}}
           >
-            <ChevronLeft size={20} />
+            {isCollapsed ? <ChevronRight size={24} /> : <ChevronLeft size={24} />}
           </button>
         </div>
 
@@ -138,7 +139,7 @@ const CompanyOutlet = () => {
         </div>
       </aside>
 
-      <main className={CompanyOutletStyles["content-area"]}>
+      <main className={isCollapsed ? CompanyOutletStyles['content-area'] : CompanyOutletStyles['content-area-collapsed']}>
         <Outlet />
       </main>
     </div>
