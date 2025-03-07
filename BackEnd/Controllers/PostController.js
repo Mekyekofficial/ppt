@@ -261,6 +261,7 @@ const getJobs = wrapAsync(async (req, res) => {
 
 // Get a single job by ID
 const getJobById = wrapAsync(async (req, res) => {
+    console.log("Fetching job with ID:", req.params);
     const { jobId } = req.params;
     const job = await JobModel.findById(jobId);
 
