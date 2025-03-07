@@ -5,6 +5,7 @@ const cloudinary = require("../utils/cloudinaryConfig");
 
 const { registerCompany, applyForJob, getCompanyByUserId, getCompany } = require("../Controllers/CompanyController");
 const { companyValidation, jobApplyValidation } = require("../Middlewares/CompanyValidation");
+const { getTeamMembers, addTeamMember, updateTeamMember, deleteTeamMember } = require("../Controllers/CompanyTeamMembersController");
 
 const router = express.Router();
 
@@ -78,5 +79,11 @@ router.post(
   },
   applyForJob
 );
+
+// route for company team members
+router.get('/team-members', getTeamMembers);
+router.post('/team-members', addTeamMember);
+router.patch('/team-members/:id', updateTeamMember);
+router.delete('/team-members/:id', deleteTeamMember);
 
 module.exports = router;

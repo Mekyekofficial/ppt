@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./css/EmployTeam.module.css";
 import { 
   Users, 
@@ -21,66 +21,23 @@ import {
   CheckCircle2,
   XCircle
 } from 'lucide-react';
+import API from "../../../api";
 
 const EmployTeam = () => {
-  const [teamMembers, setTeamMembers] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      role: "Senior Developer",
-      department: "Engineering",
-      email: "john.doe@company.com",
-      phone: "+1 234 567 890",
-      location: "New York, USA",
-      status: "active",
-      joinDate: "2024-01-15",
-      performance: 4.8,
-      projects: 12,
-      tasks: 28
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      role: "Product Manager",
-      department: "Product",
-      email: "jane.smith@company.com",
-      phone: "+1 234 567 891",
-      location: "San Francisco, USA",
-      status: "active",
-      joinDate: "2024-02-01",
-      performance: 4.9,
-      projects: 8,
-      tasks: 15
-    },
-    {
-      id: 3,
-      name: "Mike Johnson",
-      role: "UI/UX Designer",
-      department: "Design",
-      email: "mike.j@company.com",
-      phone: "+1 234 567 892",
-      location: "London, UK",
-      status: "on-leave",
-      joinDate: "2023-12-10",
-      performance: 4.7,
-      projects: 10,
-      tasks: 22
-    },
-    {
-      id: 4,
-      name: "Sarah Wilson",
-      role: "Marketing Manager",
-      department: "Marketing",
-      email: "sarah.w@company.com",
-      phone: "+1 234 567 893",
-      location: "Toronto, Canada",
-      status: "active",
-      joinDate: "2024-01-20",
-      performance: 4.6,
-      projects: 6,
-      tasks: 18
-    }
-  ]);
+  const [teamMembers, setTeamMembers] = useState([]);
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+    await API.get("/company/team-members")
+      .then((res) => {
+        setTeamMembers(res.data.teamMembers);
+      })
+      .catch((err) => {
+        console.error("Error fetching team members:", err);
+      });
+    };
+    fetchMembers();
+  }, []);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filterDepartment, setFilterDepartment] = useState('all');
@@ -97,46 +54,63 @@ const EmployTeam = () => {
     location: ""
   });
 
-  const handleAddMember = (e) => {
+  const handleAddMember = async (e) => {
     e.preventDefault();
     if (newMember.name && newMember.role && newMember.department && newMember.email) {
-      const member = {
-        id: teamMembers.length + 1,
-        ...newMember,
-        status: "active",
-        joinDate: new Date().toISOString().split('T')[0],
-        performance: 0,
-        projects: 0,
-        tasks: 0
-      };
-      setTeamMembers([member, ...teamMembers]);
-      setNewMember({
-        name: "",
-        role: "",
-        department: "",
-        email: "",
-        phone: "",
-        location: ""
-      });
-      setShowAddForm(false);
+      try {
+        const res = await API.post("/company/team-members", {
+          ...newMember,
+          status: 'active',
+          joinDate: new Date().toISOString().split('T')[0],
+          performance: 0,
+          projects: 0,
+          tasks: 0
+        });
+        setTeamMembers([res.data, ...teamMembers]);
+        setNewMember({
+          name: "",
+          role: "",
+          department: "",
+          email: "",
+          phone: "",
+          location: ""
+        });
+        setShowAddForm(false);
+        window.location.reload();
+      } catch (error) {
+        console.error("Error adding member:", error);
+      }
     }
   };
 
-  const handleDelete = (id) => {
-    setTeamMembers(teamMembers.filter(member => member.id !== id));
-    setShowActions(false);
+  const handleDelete = async (id) => {
+    try {
+      await API.delete(`/company/team-members/${id}`);
+      setTeamMembers(teamMembers.filter(member => member.id !== id));
+      setSelectedMember(null);
+      setShowActions(false);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting member:", error);
+    }
   };
 
-  const handleStatusChange = (id, newStatus) => {
-    setTeamMembers(teamMembers.map(member => 
-      member.id === id ? { ...member, status: newStatus } : member
-    ));
+  const handleStatusChange = async (id, status) => {
+    try {
+      const res = await API.patch(`/company/team-members/${id}`, { status });
+      setTeamMembers(teamMembers.map(member => member._id === id ? res.data : member));
+      setSelectedMember(null);
+      setShowActions(false);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating member status:", error);
+    }
   };
 
   const filteredMembers = teamMembers.filter(member => {
-    const matchesSearch = member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         member.email.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesDepartment = filterDepartment === 'all' || member.department.toLowerCase() === filterDepartment.toLowerCase();
+    const matchesSearch = member.name?.toLowerCase().includes(searchQuery?.toLowerCase()) ||
+                         member.email?.toLowerCase().includes(searchQuery?.toLowerCase());
+    const matchesDepartment = filterDepartment === 'all' || member.department?.toLowerCase() === filterDepartment?.toLowerCase();
     const matchesStatus = filterStatus === 'all' || member.status === filterStatus;
     return matchesSearch && matchesDepartment && matchesStatus;
   });
@@ -176,6 +150,119 @@ const EmployTeam = () => {
           Add Team Member
         </button>
       </div>
+
+      {showAddForm && (
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <h2 className={styles.cardTitle}>Add Team Member</h2>
+            <p className={styles.cardDescription}>Add a new member to your team</p>
+          </div>
+          <div className={styles.cardContent}>
+            <form onSubmit={handleAddMember} className={styles.form}>
+              <div className={styles.formGrid}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="name" className={styles.label}>
+                    Full Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    className={styles.input}
+                    value={newMember.name}
+                    onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
+                    placeholder="Enter full name"
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="role" className={styles.label}>
+                    Role
+                  </label>
+                  <input
+                    id="role"
+                    type="text"
+                    className={styles.input}
+                    value={newMember.role}
+                    onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
+                    placeholder="Enter role"
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="department" className={styles.label}>
+                    Department
+                  </label>
+                  <select
+                    id="department"
+                    className={styles.input}
+                    value={newMember.department}
+                    onChange={(e) => setNewMember({ ...newMember, department: e.target.value })}
+                    required
+                  >
+                    <option value="">Select department</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Product">Product</option>
+                    <option value="Design">Design</option>
+                    <option value="Marketing">Marketing</option>
+                  </select>
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="email" className={styles.label}>
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    className={styles.input}
+                    value={newMember.email}
+                    onChange={(e) => setNewMember({ ...newMember, email: e.target.value })}
+                    placeholder="Enter email"
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="phone" className={styles.label}>
+                    Phone
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    className={styles.input}
+                    value={newMember.phone}
+                    onChange={(e) => setNewMember({ ...newMember, phone: e.target.value })}
+                    placeholder="Enter phone number"
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="location" className={styles.label}>
+                    Location
+                  </label>
+                  <input
+                    id="location"
+                    type="text"
+                    className={styles.input}
+                    value={newMember.location}
+                    onChange={(e) => setNewMember({ ...newMember, location: e.target.value })}
+                    placeholder="Enter location"
+                  />
+                </div>
+              </div>
+              <div className={styles.formActions}>
+                <button 
+                  type="button" 
+                  className={styles.cancelButton}
+                  onClick={() => setShowAddForm(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className={styles.submitButton}>
+                  Add Member
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
@@ -325,138 +412,25 @@ const EmployTeam = () => {
         </div>
       </div>
 
-      {showAddForm && (
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <h2 className={styles.cardTitle}>Add Team Member</h2>
-            <p className={styles.cardDescription}>Add a new member to your team</p>
-          </div>
-          <div className={styles.cardContent}>
-            <form onSubmit={handleAddMember} className={styles.form}>
-              <div className={styles.formGrid}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="name" className={styles.label}>
-                    Full Name
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    className={styles.input}
-                    value={newMember.name}
-                    onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
-                    placeholder="Enter full name"
-                    required
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="role" className={styles.label}>
-                    Role
-                  </label>
-                  <input
-                    id="role"
-                    type="text"
-                    className={styles.input}
-                    value={newMember.role}
-                    onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
-                    placeholder="Enter role"
-                    required
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="department" className={styles.label}>
-                    Department
-                  </label>
-                  <select
-                    id="department"
-                    className={styles.input}
-                    value={newMember.department}
-                    onChange={(e) => setNewMember({ ...newMember, department: e.target.value })}
-                    required
-                  >
-                    <option value="">Select department</option>
-                    <option value="Engineering">Engineering</option>
-                    <option value="Product">Product</option>
-                    <option value="Design">Design</option>
-                    <option value="Marketing">Marketing</option>
-                  </select>
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="email" className={styles.label}>
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    className={styles.input}
-                    value={newMember.email}
-                    onChange={(e) => setNewMember({ ...newMember, email: e.target.value })}
-                    placeholder="Enter email"
-                    required
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="phone" className={styles.label}>
-                    Phone
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    className={styles.input}
-                    value={newMember.phone}
-                    onChange={(e) => setNewMember({ ...newMember, phone: e.target.value })}
-                    placeholder="Enter phone number"
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="location" className={styles.label}>
-                    Location
-                  </label>
-                  <input
-                    id="location"
-                    type="text"
-                    className={styles.input}
-                    value={newMember.location}
-                    onChange={(e) => setNewMember({ ...newMember, location: e.target.value })}
-                    placeholder="Enter location"
-                  />
-                </div>
-              </div>
-              <div className={styles.formActions}>
-                <button 
-                  type="button" 
-                  className={styles.cancelButton}
-                  onClick={() => setShowAddForm(false)}
-                >
-                  Cancel
-                </button>
-                <button type="submit" className={styles.submitButton}>
-                  Add Member
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
       {showActions && selectedMember && (
         <div className={styles.actionsMenu}>
           <button 
             className={styles.actionMenuItem}
-            onClick={() => handleStatusChange(selectedMember.id, 'active')}
+            onClick={() => handleStatusChange(selectedMember._id, 'active')}
           >
             <CheckCircle2 size={16} />
             Mark as Active
           </button>
           <button 
             className={styles.actionMenuItem}
-            onClick={() => handleStatusChange(selectedMember.id, 'on-leave')}
+            onClick={() => handleStatusChange(selectedMember._id, 'on-leave')}
           >
             <Clock size={16} />
             Mark as On Leave
           </button>
           <button 
             className={styles.actionMenuItem}
-            onClick={() => handleStatusChange(selectedMember.id, 'inactive')}
+            onClick={() => handleStatusChange(selectedMember._id, 'inactive')}
           >
             <XCircle size={16} />
             Mark as Inactive
@@ -473,7 +447,7 @@ const EmployTeam = () => {
           </button>
           <button 
             className={`${styles.actionMenuItem} ${styles.deleteAction}`}
-            onClick={() => handleDelete(selectedMember.id)}
+            onClick={() => handleDelete(selectedMember._id)}
           >
             <Trash2 size={16} />
             Delete Member
