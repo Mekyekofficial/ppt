@@ -10,32 +10,42 @@ import AppOutlet from "./AppOutlet";
 // import ChatBox from './ChatBox/src/index';
 import FeedSection from "./components/Feed";
 import NewsTab from "./components/NewsTab";
+
 import CommunityTab from "./components/CommunityTab";
 import CommunityMain from "./components/Community/CommunityMain";
+import Community from "./components/Community/Community";
+
 import CourseTab from "./components/CourseTab";
 import CourseCategory from "./components/CourseTab/CourseCategory";
 import Course from "./components/CourseTab/Course";
 import CourseSettings from "./components/CourseTab/CourseSettings";
+
 import EventTab from "./components/EventTab";
 import EventDetails from "./components/Event/EventDetails";
+
 import WorkTab from "./components/WorkTab";
 import WorkDetails from "./components/Work/WorkDetails";
+
 import CompanyOutlet from "./components/CompanyOutlet";
 import Dashboard from "./components/Company/Dashboard";
+
 import ATSOutlet from "./components/Company/ATS/ATSOutlet";
 import Jobs from "./components/Company/ATS/Jobs";
 import Applications from "./components/Company/ATS/Applications";
 import TalentHunt from "./components/Company/ATS/TalentHunt";
+
 import JobApplicants from "./components/Company/ATS/Jobs/JobApplicants";
 import Payroll from "./components/Company/Payroll/Payroll";
-import ComingSoon from "./commingSoon";
-import RefreshHandler from "./RefreshHandler";
-import Profile from "./components/Profile";
-import CompanyProfile from "./components/CompanyProfile";
 import Post from './components/Company/Post/Post';
 import Report from './components/Company/Report/Report';
 import EmployTeam from './components/Company/EmployTeam/EmployTeam';
 import Documents from './components/Company/Documents/Documents';
+
+import ComingSoon from "./commingSoon";
+import RefreshHandler from "./RefreshHandler";
+
+import Profile from "./components/Profile";
+import CompanyProfile from "./components/CompanyProfile";
 
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;
@@ -72,6 +82,7 @@ const App = () => {
           children: [
             { path: "/community", element: <Navigate to="/community/main" /> },
             { path: "/community/main", element: <CommunityMain /> },
+            { path: "/community/community", element: <Community /> },
           ]
         },
         { path: "/learn", element: <CourseTab /> },

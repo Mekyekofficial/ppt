@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import styles from './css/CommunityJoined.module.css';
 
-const CommunityJoined = ({ logo, name, description, style }) => {
+const CommunityJoined = ({ logo, name, description, style, _id }) => {
     return (
         <div className={styles.communityItem} style={style}>
             <div className={styles.logoContainer}>
