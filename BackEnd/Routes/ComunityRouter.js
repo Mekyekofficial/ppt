@@ -3,7 +3,7 @@ const multer = require('multer');
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../utils/cloudinaryConfig");
 
-const { createCommunity, getCommunity, getCommunitybyUserId } = require('../Controllers/ComunityController');
+const { createCommunity, getCommunity, getCommunitybyUserId, getCommunitybyId, createPostCommunity } = require('../Controllers/ComunityController');
 const { communityValidation } = require('../Middlewares/ComunityValidation');
 
 
@@ -17,7 +17,16 @@ const storage = new CloudinaryStorage({
   },
 });
 
+const communityPostImage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads/comunityPost", // Cloudinary folder
+    allowed_formats: ["jpg", "png", "jpeg"],
+  },
+});
+
 const upload = multer({ storage: storage });
+const uploadPost = multer({ storage: communityPostImage });
 
 module.exports = upload;
 
@@ -32,6 +41,10 @@ router.post('/post', upload.single('file'), (req, res, next) => {
 router.get('/get', getCommunity);
 
 router.get('/getWithUserId', getCommunitybyUserId);
+
+router.get('/getById', getCommunitybyId);
+
+router.post('/post/create', uploadPost.single('image'),  createPostCommunity);
 
 
 module.exports = router;

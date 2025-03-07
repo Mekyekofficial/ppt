@@ -82,7 +82,7 @@ const App = () => {
           children: [
             { path: "/community", element: <Navigate to="/community/main" /> },
             { path: "/community/main", element: <CommunityMain /> },
-            { path: "/community/community", element: <Community /> },
+            { path: "/community/:id", element: <Community /> },
           ]
         },
         { path: "/learn", element: <CourseTab /> },

@@ -42,6 +42,7 @@ const CommunityYour = ({ communityList = [] }) => {
                         name={community?.name}
                         description={community?.description}
                         logo={community?.profilePhoto}
+                        _id={community?._id}
                         style={{
                             animationDelay: `${index * 0.1}s`
                         }}

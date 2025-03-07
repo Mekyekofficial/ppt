@@ -56,4 +56,51 @@ const getCommunitybyUserId = async (req, res) => {
     }
 }
 
-module.exports = { createCommunity, getCommunity, getCommunitybyUserId };
+// GET Comunity by Id
+
+const getCommunitybyId = async (req, res) => {
+    console.log("Processing Comunity Get by Id...");
+    const { id } = req.query;
+    try {
+        const comunity = await ComunityModal.findById(id);
+        res.status(200).json(comunity);
+    }
+    catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+// POST Comunity Post
+
+const createPostCommunity = async (req, res) => {
+    const author = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        profilePhoto: req.body.profilePhoto,
+        _id: req.body._id,
+    };
+
+    const newPost = {
+        content: req.body.content,
+        image: req.file ? req.file.path : null,
+        date: new Date().toISOString(),
+        author: author
+    };
+
+    try {
+        const community = await ComunityModal.findById(req.body.communityId);
+        if (!community) {
+            console.error("❌ Community not found");
+            return res.status(404).json({ message: "Community not found" });
+        }
+        community.posts.push(newPost);
+        await community.save();
+        res.status(201).json(newPost);
+    } catch (error) {
+        console.error("❌ Error creating post:", error.message);
+        res.status(400).json({ message: error.message });
+    }
+
+}
+
+module.exports = { createCommunity, getCommunity, getCommunitybyUserId, getCommunitybyId, createPostCommunity };
