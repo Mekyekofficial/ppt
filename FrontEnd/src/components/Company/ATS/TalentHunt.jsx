@@ -81,7 +81,7 @@ const TalentPool = () => {
     <div className={TalentPoolStyles.talentHunt}>
       <div className={TalentPoolStyles.header}>
         <div className={TalentPoolStyles.headerContent}>
-          <h1>Talent Pool</h1>
+          <h1>Talent Hunt</h1>
           <p>Discover and connect with top talent</p>
         </div>
 

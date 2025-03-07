@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CardViewStyles from "./css/Card.module.css";
+import profileImage from "../../../../assets/profile-image.png"
 import { Bookmark, Share2, MoreVertical, PlayCircle, MapPin, Calendar, Briefcase, GraduationCap, Clock } from 'lucide-react';
 
 const Card = ({ profile }) => {
@@ -37,7 +38,7 @@ const Card = ({ profile }) => {
         <div className={CardViewStyles.profileInfo}>
           <div className={CardViewStyles.avatarWrapper}>
             <img 
-              src={profile?.profilePhoto || '/default-avatar.png'} 
+              src={profile?.profilePhoto || profileImage} 
               alt={`${profile?.firstName || 'User'} ${profile?.lastName || ''}`} 
               className={CardViewStyles.avatar}
               onError={(e) => {
