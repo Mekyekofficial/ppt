@@ -9,13 +9,25 @@ import API from "../../../../api";
 
 const ProfileCard = ({ applicants, jobs }) => {
   const [applicantsProfile, setapplicantsProfile] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     applicants.map( async (applicant) => {
-      const userId = applicant.userId;
+      const userId = applicant._id;
       const response = await API.get(`/profile/get?_id=${userId}`); 
-      const applicantProfile = response.data;
-      setapplicantsProfile([...applicantsProfile, applicantProfile]);
+      if (response?.status === 200) {
+        const profile = response?.data;
+        setapplicantsProfile((prevProfiles) => {
+          const exists = prevProfiles.some(
+            (prof) => prof._id === profile._id
+          );
+          if (!exists) {
+            return [...prevProfiles, profile];
+          }
+          return prevProfiles;
+        });
+        setLoading(false);
+      }
     });
   }, [applicants]);
 
@@ -23,43 +35,46 @@ const ProfileCard = ({ applicants, jobs }) => {
 
   return (
     <div className={CardViewStyles.cards}>
-      { applicantsProfile.map((profile) => (
-        console.log("Profile:", profile),
-        <div key={profile._id} className={CardViewStyles.card}>
-          <div className={CardViewStyles["card-header"]}>
-            <div className={CardViewStyles.info}>
-              <img src={profile.profilePhoto} alt="avatar" className={CardViewStyles.avatar}/>
-              <h3>
-                {profile.firstName} {profile.lastName}
-              </h3>
-              <p>
-                {profile.profileBanner.location}
-              </p>
+      {!loading ? (
+        applicantsProfile.map((profile) => (
+          <div key={profile?._id} className={CardViewStyles.card}>
+            <div className={CardViewStyles["card-header"]}>
+              <div className={CardViewStyles.info}>
+                <img src={profile?.profilePhoto} alt="avatar" className={CardViewStyles.avatar}/>
+                <h3>
+                  {profile?.firstName} {profile?.lastName}
+                </h3>
+                <p>
+                  {profile?.profileBanner?.location}
+                </p>
+              </div>
+              <div className={CardViewStyles.actions}>
+                <BookmarkIcon className={CardViewStyles.icon} />
+                <MdOutlinePlayCircle className={CardViewStyles.icon} />
+                <ShareIcon className={CardViewStyles.icon} />
+                <MoreVertIcon className={CardViewStyles.icon} />
+              </div>
             </div>
-            <div className={CardViewStyles.actions}>
-              <BookmarkIcon className={CardViewStyles.icon} />
-              <MdOutlinePlayCircle className={CardViewStyles.icon} />
-              <ShareIcon className={CardViewStyles.icon} />
-              <MoreVertIcon className={CardViewStyles.icon} />
+  
+            <div className={CardViewStyles.tags}>
+              <span className={CardViewStyles.tag}>Customer Service</span>
+              <span className={CardViewStyles.tag}>Problem solving abilities</span>
+            </div>
+  
+            <div className={CardViewStyles.details}>
+              <p><strong>Customer Care Executive - Fresher</strong></p>
+              <p className={CardViewStyles["applied-date"]}>Applied 2 months ago</p>
+              <p><strong>Experience:</strong> Academic Counselor at College Dekho</p>
+              <p className={CardViewStyles.date}>Sep 2022 - Apr 2023</p>
+              <p><strong>Education:</strong> High School at SDLJS Inter College Kaluamau</p>
+              <p className={CardViewStyles.date}>Jul 2009 - Jun 2010</p>
+              <p><strong>Work Experience:</strong> 2 years 5 months</p>
             </div>
           </div>
+        ))) : (
+          <div className={CardViewStyles.loader}>Loading...</div>
+        )}
 
-          <div className={CardViewStyles.tags}>
-            <span className={CardViewStyles.tag}>Customer Service</span>
-            <span className={CardViewStyles.tag}>Problem solving abilities</span>
-          </div>
-
-          <div className={CardViewStyles.details}>
-            <p><strong>Customer Care Executive - Fresher</strong></p>
-            <p className={CardViewStyles["applied-date"]}>Applied 2 months ago</p>
-            <p><strong>Experience:</strong> Academic Counselor at College Dekho</p>
-            <p className={CardViewStyles.date}>Sep 2022 - Apr 2023</p>
-            <p><strong>Education:</strong> High School at SDLJS Inter College Kaluamau</p>
-            <p className={CardViewStyles.date}>Jul 2009 - Jun 2010</p>
-            <p><strong>Work Experience:</strong> 2 years 5 months</p>
-          </div>
-        </div>
-      ))}
     </div>
   );
 };

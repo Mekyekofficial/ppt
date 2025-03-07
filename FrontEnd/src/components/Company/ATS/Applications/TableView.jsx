@@ -57,7 +57,6 @@ const TableView = ({ applicants, selectedColumns, jobs }) => {
                   return prevDetails;
                 });
                 applicantDetails.push(newApplicantDetails);
-                console.log(applicantDetails);
               }
             });
           });
