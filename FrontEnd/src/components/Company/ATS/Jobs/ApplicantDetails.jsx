@@ -8,18 +8,6 @@ const ApplicantDetails = ({ onClose, applicantId }) => {
     if (!applicantId) return;
 
     const [applicant, setApplicant] = useState({});
-    useEffect(() => {
-       const fetchApplicant = async () => {
-        try {
-            const response = await API.get(`/ATS/get?_id=${applicantId}`);
-            setApplicant(response.data);
-            if (response.status !== 200) toast.error("Failed to fetch applicant details");
-          } catch (error) {
-               toast.error("Failed to fetch applicant details");
-           }
-         }
-            fetchApplicant();
-    },[]);
 
     useEffect(() => {
         const fetchApplicant = async () => {

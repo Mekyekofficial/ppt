@@ -118,7 +118,7 @@ const JobApplicants = () => {
         const applicant = applicants.find((app) => app._id === id);
         return applicant
           ? {
-              id: applicant.userId,
+              id: applicant._id,
               name: `${applicant.firstName} ${applicant.lastName}`,
             }
           : null;
@@ -206,6 +206,7 @@ const JobApplicants = () => {
                         className={styles.cell}
                         onClick={() => {
                           if (applicant) {
+                            console.log("Selected applicant:", applicant);
                             setSelectedApplicantId(applicant.id);
                             setOpenApplicantDetails(true);
                           }

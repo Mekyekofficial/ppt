@@ -360,11 +360,7 @@ const JobDashboard = () => {
               <Loader2 className={JobsStyles.spinner} size={40} />
               <p>Loading {title.toLowerCase()}...</p>
             </div>
-          ) : viewForProjects === "table" ? (
-            <>
-              <TableView jobs={filteredData} selectedColumns={selectedColumnsForProjects} role={type}/>
-            </>
-          ) : error ? (
+          )  : error ? (
             <div className={JobsStyles.errorState}>
               <AlertCircle size={40} />
               <p>{error}</p>

@@ -43,6 +43,7 @@ const getApplicants = wrapAsync(async (req, res) => {
     const jobs = await UserModal.find({ "appliedJobs.jobId": jobId });
 
     if (!jobs) {
+        console.log("Job not found.");
         return res.status(404).json({ message: "Job not found." });
     }
 

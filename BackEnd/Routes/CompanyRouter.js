@@ -76,7 +76,6 @@ router.post(
     }
     next();
   },
-  jobApplyValidation,
   applyForJob
 );
 

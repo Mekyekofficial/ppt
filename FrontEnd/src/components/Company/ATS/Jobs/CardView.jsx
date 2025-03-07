@@ -6,7 +6,7 @@ const CardView = ({ jobs, role }) => {
   const navigate = useNavigate();
 
   const handleCardClick = (job) => {
-    navigate(`/ATS/jobs/job-applicants/${job.jobId}`); // Navigate to JobApplication page
+    navigate(`/Company/ATS/jobs/job-applicants?jobId=${job.jobId}&jobType=${role}`); // Navigate to JobApplication page
   };
 
   return (
@@ -15,7 +15,8 @@ const CardView = ({ jobs, role }) => {
         <div 
           key={job._id} 
           className={CardViewStyles.card} 
-          onClick={() => handleCardClick(job)} // Add click event
+          onClick={() => handleCardClick(job)} 
+          style={{ cursor: "pointer" }}
         >
           <div className={CardViewStyles["card-header"]}>
             <div className={CardViewStyles.title}>
