@@ -33,6 +33,7 @@ const eventStorage = new CloudinaryStorage({
 
 const uploadNewsImage = multer({ storage: newsStorage });
 const uploadEventImage = multer({ storage: eventStorage });
+const uploadJob = multer();
 
 // Route for posting news with error handling
 router.post(
@@ -81,6 +82,7 @@ router.get('/events/:eventId', getEventsById);
 // Route for posting job with validation
 router.post(
     '/job',
+    uploadJob.none(),
     (req, res, next) => {
         console.log("Processing Job Post...");
         console.log("req.body", req.body);

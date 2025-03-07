@@ -92,9 +92,8 @@ const JobPopupForm = ({ open, onClose }) => {
       newFormData.append(key, value);
     });
 
-    console.log("Form Data Before Submit:", Object.fromEntries(newFormData.entries()));
-
     try {
+      console.log("Form Data Before Submit:", Object.fromEntries(newFormData.entries()));
       const response = await API.post("/posts/job", newFormData, {
         headers: { "Content-Type": "multipart/form-data" },
       });

@@ -4,11 +4,12 @@ import TableViewStyles from "./css/TableView.module.css";
 import { ChevronUp, ChevronDown, Circle } from 'lucide-react';
 
 const TableView = ({ jobs, selectedColumns, role }) => {
+  console.log(jobs);
   const navigate = useNavigate();
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
   const handleRowClick = (job) => {
-    navigate(`/ATS/jobs/job-applicants?jobId=${job.jobId}&jobType=${role}`);
+    navigate(`/Company/ATS/jobs/job-applicants?jobId=${job.jobId}&jobType=${role}`);
   };
 
   const columns = [
@@ -35,16 +36,17 @@ const TableView = ({ jobs, selectedColumns, role }) => {
     setSortConfig({ key, direction });
   };
 
-  const sortedJobs = useMemo(() => {
-    if (!sortConfig.key) return jobs;
+  const jobsArray = Array.isArray(jobs) ? jobs : Object.values(jobs);
 
-    return [...jobs].sort((a, b) => {
+  const sortedJobs = useMemo(() => {
+    const jobsArray = Array.isArray(jobs) ? jobs : [];
+    if (!sortConfig.key) return jobsArray;
+    return [...jobsArray].sort((a, b) => {
       if (sortConfig.key === 'postedOn') {
         return sortConfig.direction === 'asc'
           ? new Date(a.postedOn) - new Date(b.postedOn)
           : new Date(b.postedOn) - new Date(a.postedOn);
       }
-
       if (sortConfig.key === 'applicants') {
         const aValue = a.totalCandidates?.length || 0;
         const bValue = b.totalCandidates?.length || 0;
@@ -52,7 +54,6 @@ const TableView = ({ jobs, selectedColumns, role }) => {
           ? aValue - bValue
           : bValue - aValue;
       }
-
       const aValue = a[sortConfig.key] || '';
       const bValue = b[sortConfig.key] || '';
       
@@ -61,6 +62,7 @@ const TableView = ({ jobs, selectedColumns, role }) => {
         : bValue.toString().localeCompare(aValue.toString());
     });
   }, [jobs, sortConfig]);
+  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -170,17 +172,24 @@ const TableView = ({ jobs, selectedColumns, role }) => {
           </tr>
         </thead>
         <tbody>
-          {sortedJobs.map((job) => (
-            <tr
-              key={job._id}
-              onClick={() => handleRowClick(job)}
-              className={TableViewStyles['clickable-row']}
-            >
-              {displayedColumns.map((column) => (
-                <td key={column.key}>{renderCell(job, column)}</td>
-              ))}
+          {sortedJobs.length > 0 ? 
+            sortedJobs.map((job) => (
+              <tr
+                key={job._id}
+                onClick={() => handleRowClick(job)}
+                className={TableViewStyles['clickable-row']}
+              >
+                {displayedColumns.map((column) => (
+                  <td key={column.key}>{renderCell(job, column)}</td>
+                ))}
+              </tr>
+            )) : (
+              <tr>
+              <td colSpan={displayedColumns.length} className={TableViewStyles['no-data']}>
+                No data available
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

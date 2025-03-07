@@ -24,7 +24,6 @@ import Dashboard from "./components/Company/Dashboard";
 import ATSOutlet from "./components/Company/ATS/ATSOutlet";
 import Jobs from "./components/Company/ATS/Jobs";
 import Applications from "./components/Company/ATS/Applications";
-import TalentPool from "./components/Company/ATS/TalentPool";
 import TalentHunt from "./components/Company/ATS/TalentHunt";
 import JobApplicants from "./components/Company/ATS/Jobs/JobApplicants";
 import Payroll from "./components/Company/Payroll/Payroll";

@@ -275,7 +275,7 @@ const JobDashboard = () => {
   );
 
   const renderJobSection = (title, description, data, view, setView, selectedColumns, setSelectedColumns, openForm, setOpenForm, type) => {
-    const section = type.toLowerCase();
+    const section = title.toLowerCase();
     const filteredData = getFilteredData(data, section);
     
     return (
@@ -303,7 +303,7 @@ const JobDashboard = () => {
             onClick={() => setOpenForm(true)}
           >
             <Plus size={20} />
-            <span>Create {type}</span>
+            <span>Create {title}</span>
           </button>
         </div>
 
@@ -362,11 +362,7 @@ const JobDashboard = () => {
             </div>
           ) : viewForProjects === "table" ? (
             <>
-              <TableView jobs={Projects} selectedColumns={selectedColumnsForProjects} role="Project"/>
-              <div className={JobsStyles.loadingState}>
-                <Loader2 className={JobsStyles.spinner} size={40} />
-                <p>Loading {title.toLowerCase()}...</p>
-              </div>
+              <TableView jobs={filteredData} selectedColumns={selectedColumnsForProjects} role={type}/>
             </>
           ) : error ? (
             <div className={JobsStyles.errorState}>
@@ -383,8 +379,7 @@ const JobDashboard = () => {
             <TableView jobs={filteredData} selectedColumns={selectedColumns} role={type} />
           ) : (
             <>
-              <CardView jobs={Projects} role="Project"/>
-              <CardView jobs={filteredData} role={type.toLowerCase()} />
+              <CardView jobs={filteredData} role={type}/>
             </>
           )}
         </div>
@@ -393,6 +388,7 @@ const JobDashboard = () => {
           setOpenForm(false);
           fetchJobs(localStorage.getItem("company-id"));
         }} />
+        
       </div>
     );
   };
@@ -409,7 +405,7 @@ const JobDashboard = () => {
         setSelectedColumnsForJobs,
         openJobForm,
         setOpenJobForm,
-        "Job"
+        "Permanent"
       )}
 
       {renderJobSection(

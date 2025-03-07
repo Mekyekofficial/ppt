@@ -9,6 +9,8 @@ table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
 }
 
 /* Header Styles */
@@ -21,19 +23,15 @@ table th {
   font-size: 0.95rem;
   border-bottom: 1px solid #e2e8f0;
   white-space: nowrap;
-  position: sticky;
-  top: 0;
   z-index: 10;
 }
 
 table th:first-child {
   padding-left: 24px;
-  border-top-left-radius: 12px;
 }
 
 table th:last-child {
   padding-right: 24px;
-  border-top-right-radius: 12px;
 }
 
 /* Cell Styles */
@@ -108,8 +106,6 @@ table td:last-child {
 
 /* Sorting Styles */
 .sorting-header {
-  display: flex;
-  align-items: center;
   gap: 4px;
   cursor: pointer;
   user-select: none;
