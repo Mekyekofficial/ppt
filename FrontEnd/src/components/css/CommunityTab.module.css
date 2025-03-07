@@ -3,15 +3,15 @@
   min-height: 100vh;
   padding: 5rem;
   padding-top: 15vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 300px 1fr 320px;
-  gap: 2rem;
-  max-width: 1920px;
-  margin: 0 auto;
-  min-height: calc(100vh - 64px);
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .leftSidebar,
@@ -23,8 +23,9 @@
 }
 
 .leftSidebar {
-  position: sticky;
-  top: 1rem;
+  position: fixed;
+  width: 20%;
+  left: 4vw;
   height: fit-content;
   background: white;
   border-radius: 16px;
@@ -149,8 +150,9 @@
 }
 
 .rightSidebar {
-  position: sticky;
-  top: 1rem;
+  position: fixed;
+  width: 20%;
+  right: 4vw;
   height: fit-content;
 }
 
@@ -193,25 +195,11 @@
 
 .suggestedList {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: start;
+  gap: 1rem;
   padding: 20px;
-  padding-top: 15vh;
+  /* padding-top: 15vh; */
   background-color: #ffded8;
-  min-height: 100vh;
-}
-
-.left-sidebar {
-  width: 20%;
-  position: fixed;
-  left: 4vw;
-}
-
-.main-content {
-  flex: 0.45;
-}
-
-.right-sidebar {
-  width: 20%;
-  position: fixed;
-  right: 4vw;
+  height: max-content;
 }

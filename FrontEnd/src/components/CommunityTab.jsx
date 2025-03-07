@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styles from './css/CommunityTab.module.css';
-import CommunityBanner from './Community/CommunityBanner';
 import DiscoverGroups from './Community/DiscoverGroups';
 import CommunitySuggested from './Community/CommunitySuggested';
 import CommunityYour from './Community/CommunityYour';
-import { Search, Users, ChevronRight } from 'lucide-react';
-import API from '../api';
 import CreateCommunity from './Community/CreateComunity';
+import { Search, Users, ChevronRight } from 'lucide-react';
+import { Outlet } from 'react-router-dom';
+import API from '../api';
+
 
 const CommunityTab = () => {
-  const [communities, setCommunities] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
-  const [yourCommunities, setYourCommunities] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('main');
   const [suggestedCommunities, setSuggestedCommunities] = useState([
@@ -38,24 +36,6 @@ const CommunityTab = () => {
       category: "Education"
     }
   ]);
-
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('user-info'));
-    setUserInfo(userInfo);
-
-    const fetchYourCommunities = async () => {
-      try {
-        const response = await API.get(`/comunity/getWithUserId?_id=${userInfo._id}`);
-        setYourCommunities(response.data);
-      } catch (error) {
-        console.error('Error fetching communities:', error);
-      }
-    };
-
-    if (userInfo?._id) {
-      fetchYourCommunities();
-    }
-  }, []);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -115,18 +95,9 @@ const CommunityTab = () => {
           </button>
         </div>
 
+        
         <div className={styles.mainContent}>
-          <div className={styles.yourCommunitiesSection}>
-            <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Your Communities</h2>
-              <ChevronRight size={20} className={styles.headerIcon} />
-            </div>
-            <CommunityYour communityList={yourCommunities} />
-          </div>
-          
-          <div className={styles.discoverSection}>
-            <DiscoverGroups />
-          </div>
+          <Outlet />
         </div>
 
         <div className={styles.rightSidebar}>

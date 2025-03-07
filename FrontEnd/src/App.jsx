@@ -11,6 +11,7 @@ import AppOutlet from "./AppOutlet";
 import FeedSection from "./components/Feed";
 import NewsTab from "./components/NewsTab";
 import CommunityTab from "./components/CommunityTab";
+import CommunityMain from "./components/Community/CommunityMain";
 import CourseTab from "./components/CourseTab";
 import CourseCategory from "./components/CourseTab/CourseCategory";
 import Course from "./components/CourseTab/Course";
@@ -66,7 +67,13 @@ const App = () => {
         },
         { path: "/feeds", element: <FeedSection /> },
         { path: "/news", element: <NewsTab /> },
-        { path: "/community", element: <CommunityTab /> },
+        { path: "/community", 
+          element: <CommunityTab />,
+          children: [
+            { path: "/community", element: <Navigate to="/community/main" /> },
+            { path: "/community/main", element: <CommunityMain /> },
+          ]
+        },
         { path: "/learn", element: <CourseTab /> },
         { path: "/learn/:category", element: <CourseCategory /> },
         { path: "/learn/:category/:course", element: <Course /> },
