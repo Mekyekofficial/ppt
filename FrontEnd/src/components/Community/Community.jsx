@@ -160,7 +160,7 @@ const Community = () => {
                       {post.communityName}
                     </h3>
                     <p className={styles.postDetails}>
-                      Posted by {post.author}
+                      Posted by {post.author.firstName} {post.author.lastName}
                     </p>
                     <p className={styles.time}>{post.time}</p>
                   </div>
