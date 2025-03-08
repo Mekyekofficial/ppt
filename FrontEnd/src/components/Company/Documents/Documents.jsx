@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./css/Documents.module.css";
-import { 
-  FileText, 
-  Upload, 
-  Search, 
-  Filter, 
-  Folder, 
-  File, 
-  Download, 
+import {
+  FileText,
+  Upload,
+  Search,
+  Filter,
+  Folder,
+  File,
+  Download,
   Trash2,
   Plus,
   MoreVertical,
@@ -17,120 +17,131 @@ import {
   Share2,
   Eye,
   Clock,
-  AlertCircle
-} from 'lucide-react';
+  AlertCircle,
+} from "lucide-react";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
 const Documents = () => {
-  const [documents, setDocuments] = useState([
-    { 
-      id: 1, 
-      name: "Project Proposal.pdf", 
-      type: "PDF", 
-      size: "2.4 MB", 
-      date: "2025-03-15", 
-      author: "John Doe",
-      category: "Projects",
-      starred: false,
-      shared: false,
-      views: 128
-    },
-    { 
-      id: 2, 
-      name: "Meeting Minutes.docx", 
-      type: "DOCX", 
-      size: "1.8 MB", 
-      date: "2025-03-14", 
-      author: "Jane Smith",
-      category: "Meetings",
-      starred: true,
-      shared: true,
-      views: 256
-    },
-    { 
-      id: 3, 
-      name: "Budget Report.xlsx", 
-      type: "XLSX", 
-      size: "3.2 MB", 
-      date: "2025-03-13", 
-      author: "Mike Johnson",
-      category: "Finance",
-      starred: false,
-      shared: false,
-      views: 89
-    },
-    { 
-      id: 4, 
-      name: "Employee Handbook.pdf", 
-      type: "PDF", 
-      size: "4.1 MB", 
-      date: "2025-03-12", 
-      author: "HR Team",
-      category: "HR",
-      starred: true,
-      shared: true,
-      views: 512
-    }
-  ]);
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterType, setFilterType] = useState('all');
-  const [newDocument, setNewDocument] = useState({ name: "", category: "", file: null });
+  const [documents, setDocuments] = useState([]);
+  const [companyId, setCompanyId] = useState(localStorage.getItem("company-id"));
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
+  const [userName, setUserName] = useState(userInfo?.firstName + " " + userInfo?.lastName);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("all");
+  const [newDocument, setNewDocument] = useState({
+    name: "",
+    category: "",
+    file: null,
+  });
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [showActions, setShowActions] = useState(false);
 
-  const handleUpload = (e) => {
-    e.preventDefault();
-    if (newDocument.name && newDocument.category && newDocument.file) {
-      const newDoc = {
-        id: documents.length + 1,
-        name: newDocument.name,
-        type: newDocument.file.name.split('.').pop().toUpperCase(),
-        size: "0 MB", // You would calculate this from the actual file
-        date: new Date().toISOString().split('T')[0],
-        author: "Current User",
-        category: newDocument.category,
-        starred: false,
-        shared: false,
-        views: 0
-      };
-      setDocuments([newDoc, ...documents]);
-      setNewDocument({ name: "", category: "", file: null });
-      setShowUploadForm(false);
+
+  useEffect(() => {
+    fetchDocuments();
+  }, [companyId]);
+
+  const fetchDocuments = async () => {
+    try {
+      await API.get(`/company/documents?companyId=${companyId}`).then((res) => {
+        const fetchedDocuments = res.data.documents;
+        console.log("Fetched documents: ", fetchedDocuments);
+        const newDocuments = fetchedDocuments.filter(
+          (fetchedDoc) => !documents.some((doc) => doc.id === fetchedDoc.id)
+        );
+        setDocuments([...documents, ...newDocuments]);
+      });
+    } catch (error) {
+      console.error("Error fetching documents: ", error);
     }
   };
 
-  const handleDelete = (id) => {
-    setDocuments(documents.filter(doc => doc.id !== id));
-    setShowActions(false);
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    if (newDocument.name && newDocument.category && newDocument.file) {
+      const formData = new FormData();
+      formData.append("name", newDocument.name);
+      formData.append("category", newDocument.category);
+      formData.append("file", newDocument.file);
+      formData.append("companyId", companyId);
+      formData.append("author", userName);
+
+      try {
+        await API.post("/company/documents", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }).then((res) => {
+          setDocuments([...documents, res.data.document]);
+          setNewDocument({ name: "", category: "", file: null });
+          setShowUploadForm(false);
+          toast.success("Document uploaded successfully!");
+        });
+      } catch (error) {
+        console.error("Error uploading document: ", error);
+      }
+    }
   };
 
-  const handleStar = (id) => {
-    setDocuments(documents.map(doc => 
-      doc.id === id ? { ...doc, starred: !doc.starred } : doc
-    ));
+  const handleDelete = async (id) => {
+    try {
+      await API.delete(`/company/documents/${id}`).then(() => {
+        setDocuments(documents.filter((doc) => doc.id !== id));
+        setShowActions(false);
+        toast.success("Document deleted successfully!");
+      });
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+  };
+
+  const handleStar = async (id) => {
+    try {
+      const doc = documents.find((doc) => doc._id === id);
+      const updated = await API.patch(`/company/documents/${id}`, {
+        starred: !doc.starred,
+      });
+      setDocuments(
+        documents.map((doc) =>
+          doc.id === id ? { ...doc, starred: !doc.starred } : doc
+        )
+      );
+    } catch (error) {
+      console.error("Error starring document: ", error);
+    }
   };
 
   const handleShare = (id) => {
-    setDocuments(documents.map(doc => 
-      doc.id === id ? { ...doc, shared: !doc.shared } : doc
-    ));
+    // setDocuments(
+    //   documents.map((doc) =>
+    //     doc.id === id ? { ...doc, shared: !doc.shared } : doc
+    //   )
+    // );
   };
 
-  const filteredDocuments = documents.filter(doc => {
-    const matchesSearch = doc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         doc.author.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = filterType === 'all' || doc.category.toLowerCase() === filterType.toLowerCase();
+  const handleDownload = (id) => {
+    window.location.href = `/company/documents/${id}/download`;
+  };
+
+  const filteredDocuments = documents.filter((doc) => {
+    const matchesSearch =
+      doc.name?.toLowerCase().includes(searchQuery?.toLowerCase()) ||
+      doc.author?.toLowerCase().includes(searchQuery?.toLowerCase());
+    const matchesFilter =
+      filterType === "all" ||
+      doc.category?.toLowerCase() === filterType?.toLowerCase();
     return matchesSearch && matchesFilter;
   });
 
   const getFileIcon = (type) => {
-    switch (type.toLowerCase()) {
-      case 'pdf':
+    switch (type?.toLowerCase()) {
+      case "pdf":
         return <File className={styles.fileIcon} size={20} />;
-      case 'docx':
+      case "docx":
         return <FileText className={styles.fileIcon} size={20} />;
-      case 'xlsx':
+      case "xlsx":
         return <File className={styles.fileIcon} size={20} />;
       default:
         return <File className={styles.fileIcon} size={20} />;
@@ -142,16 +153,92 @@ const Documents = () => {
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <h1 className={styles.pageTitle}>Documents</h1>
-          <p className={styles.pageDescription}>Manage and organize your documents</p>
+          <p className={styles.pageDescription}>
+            Manage and organize your documents
+          </p>
         </div>
-        <button 
+        <button
           className={styles.uploadButton}
-          onClick={() => setShowUploadForm(!showUploadForm)}
-        >
+          onClick={() => setShowUploadForm(!showUploadForm)}>
           <Plus size={20} />
           Upload Document
         </button>
       </div>
+
+      {showUploadForm && (
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <h2 className={styles.cardTitle}>Upload Document</h2>
+            <p className={styles.cardDescription}>
+              Add a new document to your library
+            </p>
+          </div>
+          <div className={styles.cardContent}>
+            <form onSubmit={handleUpload} className={styles.form}>
+              <div className={styles.formGroup}>
+                <label htmlFor="name" className={styles.label}>
+                  Document Name:
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  className={styles.input}
+                  value={newDocument.name}
+                  onChange={(e) =>
+                    setNewDocument({ ...newDocument, name: e.target.value })
+                  }
+                  placeholder="Enter document name"
+                  required
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="category" className={styles.label}>
+                  Category:
+                </label>
+                <select
+                  id="category"
+                  className={styles.input}
+                  value={newDocument.category}
+                  onChange={(e) =>
+                    setNewDocument({ ...newDocument, category: e.target.value })
+                  }
+                  required>
+                  <option value="">Select a category</option>
+                  <option value="projects">Projects</option>
+                  <option value="meetings">Meetings</option>
+                  <option value="finance">Finance</option>
+                  <option value="hr">HR</option>
+                </select>
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="file" className={styles.label}>
+                  File:
+                </label>
+                <input
+                  id="file"
+                  type="file"
+                  className={styles.fileInput}
+                  onChange={(e) =>
+                    setNewDocument({ ...newDocument, file: e.target.files[0] })
+                  }
+                  required
+                />
+              </div>
+              <div className={styles.formActions}>
+                <button
+                  type="button"
+                  className={styles.cancelButton}
+                  onClick={() => setShowUploadForm(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className={styles.submitButton}>
+                  Upload Document
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
@@ -213,8 +300,7 @@ const Documents = () => {
             <select
               className={styles.filterSelect}
               value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-            >
+              onChange={(e) => setFilterType(e.target.value)}>
               <option value="all">All Categories</option>
               <option value="projects">Projects</option>
               <option value="meetings">Meetings</option>
@@ -262,28 +348,31 @@ const Documents = () => {
                     </td>
                     <td>
                       <div className={styles.actionButtons}>
-                        <button 
-                          className={`${styles.actionButton} ${doc.starred ? styles.active : ''}`}
-                          onClick={() => handleStar(doc.id)}
-                        >
+                        <button
+                          className={`${styles.actionButton} ${
+                            doc.starred ? styles.active : ""
+                          }`}
+                          onClick={() => handleStar(doc._id)}>
                           <Star size={16} />
                         </button>
-                        <button 
-                          className={`${styles.actionButton} ${doc.shared ? styles.active : ''}`}
-                          onClick={() => handleShare(doc.id)}
-                        >
+                        <button
+                          className={`${styles.actionButton} ${
+                            doc.shared ? styles.active : ""
+                          }`}
+                          onClick={() => handleShare(doc._id)}>
                           <Share2 size={16} />
                         </button>
-                        <button className={styles.actionButton}>
+                        <button
+                          className={styles.actionButton}
+                          onClick={() => handleDownload(doc._id)}>
                           <Download size={16} />
                         </button>
-                        <button 
+                        <button
                           className={styles.actionButton}
                           onClick={() => {
                             setSelectedDocument(doc);
                             setShowActions(true);
-                          }}
-                        >
+                          }}>
                           <MoreVertical size={16} />
                         </button>
                       </div>
@@ -296,89 +385,23 @@ const Documents = () => {
         </div>
       </div>
 
-      {showUploadForm && (
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <h2 className={styles.cardTitle}>Upload Document</h2>
-            <p className={styles.cardDescription}>Add a new document to your library</p>
-          </div>
-          <div className={styles.cardContent}>
-            <form onSubmit={handleUpload} className={styles.form}>
-              <div className={styles.formGroup}>
-                <label htmlFor="name" className={styles.label}>
-                  Document Name:
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  className={styles.input}
-                  value={newDocument.name}
-                  onChange={(e) => setNewDocument({ ...newDocument, name: e.target.value })}
-                  placeholder="Enter document name"
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="category" className={styles.label}>
-                  Category:
-                </label>
-                <select
-                  id="category"
-                  className={styles.input}
-                  value={newDocument.category}
-                  onChange={(e) => setNewDocument({ ...newDocument, category: e.target.value })}
-                  required
-                >
-                  <option value="">Select a category</option>
-                  <option value="projects">Projects</option>
-                  <option value="meetings">Meetings</option>
-                  <option value="finance">Finance</option>
-                  <option value="hr">HR</option>
-                </select>
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="file" className={styles.label}>
-                  File:
-                </label>
-                <input
-                  id="file"
-                  type="file"
-                  className={styles.fileInput}
-                  onChange={(e) => setNewDocument({ ...newDocument, file: e.target.files[0] })}
-                  required
-                />
-              </div>
-              <div className={styles.formActions}>
-                <button 
-                  type="button" 
-                  className={styles.cancelButton}
-                  onClick={() => setShowUploadForm(false)}
-                >
-                  Cancel
-                </button>
-                <button type="submit" className={styles.submitButton}>
-                  Upload Document
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
       {showActions && selectedDocument && (
         <div className={styles.actionsMenu}>
-          <button 
+          <button
             className={styles.actionMenuItem}
-            onClick={() => handleDelete(selectedDocument.id)}
-          >
+            onClick={() => handleDelete(selectedDocument._id)}>
             <Trash2 size={16} />
             Delete
           </button>
-          <button className={styles.actionMenuItem}>
+          <button
+            className={styles.actionMenuItem}
+            onClick={() => handleDownload(doc._id)}>
             <Download size={16} />
             Download
           </button>
-          <button className={styles.actionMenuItem}>
+          <button
+            className={styles.actionMenuItem}
+            onClick={() => handleShare(doc._id)}>
             <Share2 size={16} />
             Share
           </button>
@@ -388,4 +411,4 @@ const Documents = () => {
   );
 };
 
-export default Documents; 
+export default Documents;

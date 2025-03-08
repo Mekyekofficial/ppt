@@ -6,6 +6,7 @@ const cloudinary = require("../utils/cloudinaryConfig");
 const { registerCompany, applyForJob, getCompanyByUserId, getCompany } = require("../Controllers/CompanyController");
 const { companyValidation, jobApplyValidation } = require("../Middlewares/CompanyValidation");
 const { getTeamMembers, addTeamMember, updateTeamMember, deleteTeamMember } = require("../Controllers/CompanyTeamMembersController");
+const { getDocuments, addDocument, updateDocument, deleteDocument, downloadDocument } = require("../Controllers/CompanyDocumentsController");
 
 const router = express.Router();
 
@@ -29,8 +30,17 @@ const resumeStorage = new CloudinaryStorage({
   },
 });
 
+// Storage for company documents: allow any file format (or you can specify allowed formats if needed)
+const documentStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads/documents", // separate folder for documents
+  },
+});
+
 const uploadLogo = multer({ storage: companyLogoStorage });
 const uploadResume = multer({ storage: resumeStorage });
+const uploadDocument = multer({ storage: documentStorage });
 
 // ✅ Route with Improved Error Handling for Company Registration
 router.post(
@@ -85,5 +95,12 @@ router.get('/team-members', getTeamMembers);
 router.post('/team-members', addTeamMember);
 router.patch('/team-members/:id', updateTeamMember);
 router.delete('/team-members/:id', deleteTeamMember);
+
+// route for company documents
+router.get('/documents', getDocuments);
+router.post('/documents', uploadDocument.single('file'), addDocument);
+router.patch('/documents/:id', updateDocument);
+router.delete('/documents/:id', deleteDocument);
+router.get('/documents/:id/download', downloadDocument);
 
 module.exports = router;

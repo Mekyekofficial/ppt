@@ -27,7 +27,10 @@ const EmployTeam = () => {
   const [teamMembers, setTeamMembers] = useState([]);
 
   useEffect(() => {
-    const fetchMembers = async () => {
+    fetchMembers();
+  }, []);
+
+  const fetchMembers = async () => {
     await API.get("/company/team-members")
       .then((res) => {
         setTeamMembers(res.data.teamMembers);
@@ -35,9 +38,7 @@ const EmployTeam = () => {
       .catch((err) => {
         console.error("Error fetching team members:", err);
       });
-    };
-    fetchMembers();
-  }, []);
+  };
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filterDepartment, setFilterDepartment] = useState('all');
@@ -76,7 +77,7 @@ const EmployTeam = () => {
           location: ""
         });
         setShowAddForm(false);
-        window.location.reload();
+        fetchMembers();
       } catch (error) {
         console.error("Error adding member:", error);
       }
@@ -89,7 +90,7 @@ const EmployTeam = () => {
       setTeamMembers(teamMembers.filter(member => member.id !== id));
       setSelectedMember(null);
       setShowActions(false);
-      window.location.reload();
+      fetchMembers();
     } catch (error) {
       console.error("Error deleting member:", error);
     }
@@ -101,7 +102,7 @@ const EmployTeam = () => {
       setTeamMembers(teamMembers.map(member => member._id === id ? res.data : member));
       setSelectedMember(null);
       setShowActions(false);
-      window.location.reload();
+      fetchMembers();
     } catch (error) {
       console.error("Error updating member status:", error);
     }
