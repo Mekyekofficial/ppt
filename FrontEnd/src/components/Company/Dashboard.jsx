@@ -7,7 +7,6 @@ const Dashboard = () => {
   return (
     <div className={DashboardStyles["dashboard-container"]}>
       <div className={DashboardStyles["top-panel"]}>
-        <TodoList />
         <div className={DashboardStyles["stats-cards"]}>
           <Card title="Total Jobs" value="0" details="Last 7 Days : 0" />
           <Card title="Talent Pool" value="0" details="Last 7 Days : 0" />

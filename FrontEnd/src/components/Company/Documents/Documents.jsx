@@ -138,6 +138,17 @@ const Documents = () => {
     return matchesSearch && matchesFilter;
   });
 
+
+const totalStorageUsedMB = documents.reduce((acc, doc) => {
+  const size = parseFloat(doc.size);
+  return acc + (isNaN(size) ? 0 : size);
+}, 0);
+const storageUsedGB = totalStorageUsedMB / 1024;
+const formattedStorageUsed = storageUsedGB >= 1 
+  ? `${storageUsedGB.toFixed(2)} GB` 
+  : `${totalStorageUsedMB.toFixed(2)} MB`;
+
+
   const getFileIcon = (type) => {
     switch (type?.toLowerCase()) {
       case "pdf":
@@ -280,7 +291,7 @@ const Documents = () => {
           </div>
           <div className={styles.statInfo}>
             <h3 className={styles.statTitle}>Storage Used</h3>
-            <p className={styles.statValue}>11.5 GB</p>
+            <p className={styles.statValue}>{formattedStorageUsed}</p>
             <p className={styles.statSubtext}>Of 50 GB total</p>
           </div>
         </div>
