@@ -38,7 +38,6 @@ const Documents = () => {
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [showActions, setShowActions] = useState(false);
 
-
   useEffect(() => {
     fetchDocuments();
   }, [companyId]);
@@ -49,7 +48,7 @@ const Documents = () => {
         const fetchedDocuments = res.data.documents;
         console.log("Fetched documents: ", fetchedDocuments);
         const newDocuments = fetchedDocuments.filter(
-          (fetchedDoc) => !documents.some((doc) => doc.id === fetchedDoc.id)
+          (fetchedDoc) => !documents.some((doc) => doc._id === fetchedDoc._id)
         );
         setDocuments([...documents, ...newDocuments]);
       });
@@ -88,9 +87,10 @@ const Documents = () => {
   const handleDelete = async (id) => {
     try {
       await API.delete(`/company/documents/${id}`).then(() => {
-        setDocuments(documents.filter((doc) => doc.id !== id));
+        setDocuments(documents.filter((doc) => doc._id !== id));
         setShowActions(false);
         toast.success("Document deleted successfully!");
+        window.location.reload();
       });
     } catch (error) {
       console.error("Error deleting document: ", error);
@@ -100,25 +100,22 @@ const Documents = () => {
   const handleStar = async (id) => {
     try {
       const doc = documents.find((doc) => doc._id === id);
-      const updated = await API.patch(`/company/documents/${id}`, {
+      await API.patch(`/company/documents/${id}`, {
         starred: !doc.starred,
       });
       setDocuments(
         documents.map((doc) =>
-          doc.id === id ? { ...doc, starred: !doc.starred } : doc
+          doc._id === id ? { ...doc, starred: !doc.starred } : doc
         )
       );
+      console.log("Document starred successfully!");
     } catch (error) {
       console.error("Error starring document: ", error);
     }
   };
 
   const handleShare = (id) => {
-    // setDocuments(
-    //   documents.map((doc) =>
-    //     doc.id === id ? { ...doc, shared: !doc.shared } : doc
-    //   )
-    // );
+    // Implement share functionality as needed
   };
 
   const handleDownload = (id) => {
@@ -129,9 +126,15 @@ const Documents = () => {
     const matchesSearch =
       doc.name?.toLowerCase().includes(searchQuery?.toLowerCase()) ||
       doc.author?.toLowerCase().includes(searchQuery?.toLowerCase());
-    const matchesFilter =
-      filterType === "all" ||
-      doc.category?.toLowerCase() === filterType?.toLowerCase();
+
+    let matchesFilter = false;
+    if (filterType === "all") {
+      matchesFilter = true;
+    } else if (filterType === "starred") {
+      matchesFilter = doc.starred;
+    } else {
+      matchesFilter = doc.category?.toLowerCase() === filterType.toLowerCase();
+    }
     return matchesSearch && matchesFilter;
   });
 
@@ -302,6 +305,7 @@ const Documents = () => {
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}>
               <option value="all">All Categories</option>
+              <option value="starred">Starred</option>
               <option value="projects">Projects</option>
               <option value="meetings">Meetings</option>
               <option value="finance">Finance</option>
@@ -325,7 +329,7 @@ const Documents = () => {
               </thead>
               <tbody>
                 {filteredDocuments.map((doc) => (
-                  <tr key={doc.id}>
+                  <tr key={doc._id}>
                     <td>
                       <div className={styles.fileName}>
                         {getFileIcon(doc.type)}
@@ -353,7 +357,7 @@ const Documents = () => {
                             doc.starred ? styles.active : ""
                           }`}
                           onClick={() => handleStar(doc._id)}>
-                          <Star size={16} />
+                          <Star size={16} fill={doc.starred ? "#3b82f6" : "none"} />
                         </button>
                         <button
                           className={`${styles.actionButton} ${
@@ -395,13 +399,13 @@ const Documents = () => {
           </button>
           <button
             className={styles.actionMenuItem}
-            onClick={() => handleDownload(doc._id)}>
+            onClick={() => handleDownload(selectedDocument._id)}>
             <Download size={16} />
             Download
           </button>
           <button
             className={styles.actionMenuItem}
-            onClick={() => handleShare(doc._id)}>
+            onClick={() => handleShare(selectedDocument._id)}>
             <Share2 size={16} />
             Share
           </button>
