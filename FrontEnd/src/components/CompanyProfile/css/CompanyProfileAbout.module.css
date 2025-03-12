@@ -27,7 +27,8 @@
   }
   
   .editIcon {
-    font-size: 18px;
+    width: 20px;
+    height: 20px;
     color: #000;
     cursor: pointer;
   }

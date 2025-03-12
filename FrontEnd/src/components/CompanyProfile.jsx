@@ -6,23 +6,23 @@ import API from "../api";
 import { toast } from "react-toastify";
 
 const CompanyProfile = () => {
-  const [user, setUser] = useState(null);
-  const [userinfo, setUserInfo] = useState(null);
+  const [company, setCompany] = useState(null);
+  const [Companyinfo, setCompanyInfo] = useState(null);
   const [profileOwner, setProfileOwner] = useState(false);
 
   useEffect(() => {
-    const userinfo = JSON.parse(localStorage.getItem("user-info"));
-    setUserInfo(userinfo);
-    const userId = window.location.pathname.split("/").pop();
-    if (!userId) {
-      toast.error("User ID not found in URL");
+    const companyinfo = JSON.parse(localStorage.getItem("company-info"));
+    setCompanyInfo(companyinfo);
+    const companyId = window.location.pathname.split("/").pop();
+    if (!companyId) {
+      toast.error("Company ID not found in URL");
       return;
     }
 
     const fetchUser = async () => {
       try {
-        const response = await API.get(`/company/getCompany?_id=${userId}`); // Ensure your backend route is correct
-        setUser(response.data.company);
+        const response = await API.get(`/company/getCompany?_id=${companyId}`); // Ensure your backend route is correct
+        setCompany(response.data.company);
       } catch (error) {
         console.error("Error fetching user:", error);
       }
@@ -30,7 +30,7 @@ const CompanyProfile = () => {
 
     fetchUser();
 
-    if (userinfo && userinfo._id === user?.userId) {
+    if (companyinfo && companyinfo._id === company?.companyId) {
       setProfileOwner(true);
     }
 
@@ -39,8 +39,8 @@ const CompanyProfile = () => {
   return (
     <div className={Styles.container}>
       <div className={Styles.mainContent}>
-        <CompanyProfileBanner user={user} profileOwner={profileOwner} />
-        <CompanyProfileAbout user={user} profileOwner={profileOwner} />
+        <CompanyProfileBanner user={company} profileOwner={profileOwner} />
+        <CompanyProfileAbout user={company} profileOwner={profileOwner} />
       </div>
       <div className={Styles.rightSideBar}>
       </div>

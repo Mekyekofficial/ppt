@@ -84,9 +84,9 @@ const CompanyProfileBanner = ({ user, profileOwner }) => {
         </div>
       </div>
       <div className={styles.tabs}>
-        <span className={styles.tab}>Posts</span>
-        <span className={styles.tab}>Achievement</span>
-        <span className={styles.tab}>Education</span>
+        <span className={styles.tab}>News</span>
+        <span className={styles.tab}>Feeds</span>
+        <span className={styles.tab}>Event</span>
         <span className={styles.tab}>Credentials</span>
         <span className={styles.tab}>Analysis</span>
       </div>
