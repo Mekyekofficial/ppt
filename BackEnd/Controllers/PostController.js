@@ -9,6 +9,7 @@ const postNews = wrapAsync(async (req, res) => {
     console.log("Processing News Post...");
 
     if (!req.body.content) {
+        console.error("❌ Content is required.");
         return res.status(400).json({ message: "Content is required.", success: false });
     }
 
@@ -16,7 +17,7 @@ const postNews = wrapAsync(async (req, res) => {
         content: req.body.content,
         author: {
             firstName: req.body.firstName || "Unknown",
-            lastName: req.body.lastName || "Unknown",
+            lastName: req.body.lastName || "",
             profilePhoto: req.body.userPhoto || "",
             _id: req.body.userId || "",
         },
@@ -25,6 +26,8 @@ const postNews = wrapAsync(async (req, res) => {
         likeBy: [],
         comments: [],
     });
+
+    console.log("news:", news);
 
     const savedNews = await news.save();
     console.log("✅ News saved successfully:", savedNews);

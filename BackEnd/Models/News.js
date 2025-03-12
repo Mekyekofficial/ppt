@@ -3,24 +3,20 @@ const Schema = mongoose.Schema;
 
 const NewsSchema = new Schema({
     content: {
-        type: String,
-        required: true
+        type: String
     },
     author: {
         firstName: {
-            type: String,
-            required: true
+            type: String
         },
         lastName: {
-            type: String,
-            required: true
+            type: String
         },
         profilePhoto: {
-            type: String,
+            type: String
         },
         _id: {
-            type: String,
-            required: true
+            type: String
         }
     },
     date: {
@@ -44,7 +40,7 @@ const NewsSchema = new Schema({
         {
             comment: {
                 type: String,
-                required: true
+
             },
             commenter: {
                 type: Schema.Types.ObjectId,

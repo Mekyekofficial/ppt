@@ -49,7 +49,6 @@ router.post(
             next();
         });
     },
-    newsValidation,
     postNews
 );
 
@@ -72,7 +71,6 @@ router.post(
             next();
         });
     },
-    eventValidation,
     postEvents
 );
 
@@ -88,7 +86,6 @@ router.post(
         console.log("req.body", req.body);
         next();
     },
-    jobValidation,
     postJob
 );
 

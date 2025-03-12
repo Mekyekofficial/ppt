@@ -108,7 +108,7 @@ const News = ({ news }) => {
           />
           <div>
             <div className={styles.newsSource}>
-              {news?.author?.firstName && news?.author?.lastName ? (
+              {news?.author?.firstName || news?.author?.lastName ? (
                 <span>{news?.author?.firstName} {news?.author?.lastName}</span>
               ) : (
                 <span>{news?.author}</span>
