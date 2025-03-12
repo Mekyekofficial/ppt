@@ -37,14 +37,15 @@ const Post = () => {
     const companyInfo = JSON.parse(localStorage.getItem("company-info"));
     setCompanyId(companyId);
     setCompanyInfo(companyInfo);
-  }, []);
 
-  useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await API.get("/posts/feeds");
+        const response = await API.get(
+          `/ATS/get-all-posts?companyId=${companyId}`
+        );
+        console.log(response.data.posts);
         if (response.status === 200) {
-          setPosts(response.data);
+          setPosts(response.data.posts);
         } else {
           toast.error("Failed to fetch posts");
         }
@@ -54,7 +55,7 @@ const Post = () => {
       }
     };
 
-    // fetchPosts();
+    fetchPosts();
   }, []);
 
   const resetForm = () => {
@@ -172,7 +173,8 @@ const Post = () => {
     if (newPost.image) {
       postData.append("eventImage", newPost.image);
     }
-    
+    postData.append("userId", companyId);
+
     try {
       const response = await API.post("/posts/event", postData);
       toast.success("Event posted successfully!");
@@ -428,39 +430,74 @@ const Post = () => {
         (!selectedType ? renderPostTypeSelection() : renderPostForm())}
 
       <div className={styles.postsGrid}>
-        {posts.map((post) => (
-          <div key={post.id} className={styles.postCard}>
-            <div className={styles.postHeader}>
-              <div className={styles.authorInfo}>
-                <div className={styles.authorAvatar}>{post.author[0]}</div>
-                <div>
-                  <h3 className={styles.authorName}>{post.author}</h3>
-                  <span className={styles.postDate}>{post.date}</span>
+        {posts.length > 0
+          ? posts.map((post) => (
+              <div key={post.id} className={styles.postCard}>
+                <div className={styles.postHeader}>
+                  <div className={styles.authorInfo}>
+                    <img
+                      src={post.author.profilePhoto}
+                      alt="profilePhoto"
+                      className={styles.authorAvatar}
+                    />
+                    <div>
+                      <h3 className={styles.authorName}>
+                        {post.author.firstName}
+                      </h3>
+                      <span className={styles.postDate}>
+                        {post.createdAt &&
+                          new Date(post.createdAt).toDateString()}
+                        {post.date && new Date(post.date).toDateString()}{" "}
+                      </span>
+                    </div>
+                  </div>
+                  <div className={styles.postTypeBadge}>{post.type} Post</div>
                 </div>
+                <div className={styles.postContent}>
+                  <p className={styles.postText}>
+                    {post.type === "Feed" && post.content}
+                    {post.type === "News" && post.content}
+                    {post.type === "Event" && (
+                      <>
+                        <h3>{post.eventName}</h3>
+                        <p>{post.eventType}</p>
+                        <p>{post.location}</p>
+                        <p>{post.date}</p>
+                        <p>{post.time}</p>
+                      </>
+                    )}
+                  </p>
+                  {(post.type === "Feed" && post.image) ||
+                  (post.type === "News" && post.newsPhoto) ||
+                  (post.type === "Event" && post.eventImage) ? (
+                    <div className={styles.postImage}>
+                      {post.type === "Feed" && (
+                        <img src={post.image} alt="Post" />
+                      )}
+                      {post.type === "News" && (
+                        <img src={post.newsPhoto} alt="Post" />
+                      )}
+                      {post.type === "Event" && (
+                        <img src={post.eventImage} alt="Post" />
+                      )}
+                    </div>
+                  ) : null}
+                </div>
+                {post.type === "Feed" || post.type === "News" ? (
+                  <div className={styles.postFooter}>
+                    <button className={styles.interactionButton}>
+                      <span>👍</span>
+                      <span>{post.likes}</span>
+                    </button>
+                    <button className={styles.interactionButton}>
+                      <span>💬</span>
+                      <span>{post.comments}</span>
+                    </button>
+                  </div>
+                ) : null}
               </div>
-              <div className={styles.postTypeBadge}>{post.type} Post</div>
-            </div>
-            <div className={styles.postContent}>
-              <h3 className={styles.postTitle}>{post.title}</h3>
-              <p className={styles.postText}>{post.content}</p>
-              {post.image && (
-                <div className={styles.postImage}>
-                  <img src={post.image} alt="Post content" />
-                </div>
-              )}
-            </div>
-            <div className={styles.postFooter}>
-              <button className={styles.interactionButton}>
-                <span>👍</span>
-                <span>{post.likes}</span>
-              </button>
-              <button className={styles.interactionButton}>
-                <span>💬</span>
-                <span>{post.comments}</span>
-              </button>
-            </div>
-          </div>
-        ))}
+            ))
+          : null}
       </div>
     </div>
   );
