@@ -3,7 +3,7 @@ const multer = require('multer');
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../utils/cloudinaryConfig");
 
-const { createCommunity, getCommunity, getCommunitybyUserId, getCommunitybyId, createPostCommunity } = require('../Controllers/ComunityController');
+const { createCommunity, getCommunity, getCommunitybyUserId, getCommunitybyId, createPostCommunity, likeCommunityPost, commentCommunityPost, getCommentsCommunityPost } = require('../Controllers/ComunityController');
 const { communityValidation } = require('../Middlewares/ComunityValidation');
 
 
@@ -45,6 +45,12 @@ router.get('/getWithUserId', getCommunitybyUserId);
 router.get('/getById', getCommunitybyId);
 
 router.post('/post/create', uploadPost.single('image'),  createPostCommunity);
+
+router.post('/post/like', likeCommunityPost);
+
+router.post('/post/commentPost', commentCommunityPost);
+
+router.get('/post/getComments', getCommentsCommunityPost);   
 
 
 module.exports = router;

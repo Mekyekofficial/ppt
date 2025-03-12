@@ -103,4 +103,103 @@ const createPostCommunity = async (req, res) => {
 
 }
 
-module.exports = { createCommunity, getCommunity, getCommunitybyUserId, getCommunitybyId, createPostCommunity };
+// POST Like Community Post
+
+const likeCommunityPost = async (req, res) => {
+    console.log("Processing Comunity Post Like...");
+    const { communityId, userId, postId } = req.body;
+
+    try {
+        const community = await ComunityModal.findOne({
+            "_id": communityId
+        });
+
+        if (!community) {
+            console.error("❌ Community not found");
+            return res.status(404).json({ message: "Community not found" });
+        }
+
+        const post = community.posts.id(postId);
+
+        if (post.likeBy.includes(userId)) {
+            post.likes -= 1;
+            post.likeBy = post.likeBy.filter((id) =>
+                id.toString() !== userId.toString()
+            );
+        }
+        else {
+            post.likes += 1;
+            post.likeBy.push(userId);
+        }
+
+        await community.save();
+        console.log("✅ Post liked successfully:");
+        res.status(200).json(post);
+    }
+    catch (error) {
+        console.error("❌ Error liking post:", error.message);
+        res.status(400).json({ message: error.message });
+    }
+}
+
+// POST Comment Community Post
+
+const commentCommunityPost = async (req, res) => {
+    console.log("Processing Comunity Post Comment...");
+    const { communityId, postId, userId, comment, userName } = req.body;
+
+    try {
+        const community = await ComunityModal.findOne({
+            "_id": communityId
+        });
+
+        if (!community) {
+            console.error("❌ Community not found");
+            return res.status(404).json({ message: "Community not found" });
+        }
+
+        const post = community.posts.id(postId);
+
+        post.comments.push({
+            userId,
+            comment,
+            userName,
+            createdAt: new Date(),
+        });
+
+        await community.save();
+        res.status(200).json(post);
+    }
+    catch (error) {
+        console.error("❌ Error commenting post:", error.message);
+        res.status(400).json({ message: error.message });
+    }
+}
+
+// GET Comments Community Post
+
+const getCommentsCommunityPost = async (req, res) => {
+    console.log("Processing Comunity Post Comments Get...");
+    const { postId, communityId } = req.query;
+
+    try {
+        const community = await ComunityModal.findOne({
+            "_id": communityId
+        });
+
+        if (!community) {
+            console.error("❌ Community not found");
+            return res.status(404).json({ message: "Community not found" });
+        }
+
+        const post = community.posts.id(postId);
+
+        res.status(200).json(post.comments);
+    }
+    catch (error) {
+        console.error("❌ Error getting comments:", error.message);
+        res.status(400).json({ message: error.message });
+    }
+}
+
+module.exports = { createCommunity, getCommunity, getCommunitybyUserId, getCommunitybyId, createPostCommunity, likeCommunityPost, commentCommunityPost, getCommentsCommunityPost };
