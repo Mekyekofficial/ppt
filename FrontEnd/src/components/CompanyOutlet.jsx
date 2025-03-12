@@ -23,12 +23,17 @@ const CompanyOutlet = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [companyInfo, setCompanyInfo] = useState(null);
+  const [companyId, setCompanyId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadCompanyInfo = async () => {
       try {
         const info = localStorage.getItem('company-info');
+        const companyId = localStorage.getItem('company-id');
+        if (companyId) {
+          setCompanyId(companyId);
+        }
         if (info) {
           setCompanyInfo(JSON.parse(info));
         }
@@ -83,8 +88,9 @@ const CompanyOutlet = () => {
       </button>
 
       <aside className={`${CompanyOutletStyles.sidebar} ${isCollapsed ? CompanyOutletStyles.collapsed : ''} ${isMobileOpen ? CompanyOutletStyles.mobileOpen : ''}`}>
+      <div className={CompanyOutletStyles.logoContainer} onClick={ () => window.location.href = '/Work'} style={{cursor: 'pointer'}}>&lt;&lt;</div>
         <div className={CompanyOutletStyles.sidebarHeader}>
-        <div className={CompanyOutletStyles.logoContainer} onClick={ () => window.location.href = '/Work'} style={{cursor: 'pointer'}}>
+        <div className={CompanyOutletStyles.logoContainer} onClick={ () => window.location.href = `/Company-Profile/${companyId}`} style={{cursor: 'pointer'}}>
             {isLoading ? (
               <div className={CompanyOutletStyles.logoSkeleton} />
             ) : (
