@@ -7,8 +7,7 @@ import CompanyProfileBannerEdit from "./Edit/CompanyProfileBannerEdit";
 import { toast } from "react-toastify";
 import { use } from "react";
 
-const CompanyProfileBanner = ({ user, profileOwner }) => {
-  console.log(user);
+const CompanyProfileBanner = ({ user, profileOwner, setProfileCategory }) => {
 
     const [dot3Clicked, setDot3Clicked] = useState(false);
     const handleDot3Click = () => {
@@ -84,11 +83,11 @@ const CompanyProfileBanner = ({ user, profileOwner }) => {
         </div>
       </div>
       <div className={styles.tabs}>
-        <span className={styles.tab}>Home</span>
-        <span className={styles.tab}>Feeds</span>
-        <span className={styles.tab}>News</span>
-        <span className={styles.tab}>Event</span>
-        <span className={styles.tab}>Jobs</span>
+        <span className={styles.tab} onClick={() => setProfileCategory("Home")}>Home</span>
+        <span className={styles.tab} onClick={() => setProfileCategory("Feeds")}>Feeds</span>
+        <span className={styles.tab} onClick={() => setProfileCategory("News")}>News</span>
+        <span className={styles.tab} onClick={() => setProfileCategory("Event")}>Event</span>
+        <span className={styles.tab} onClick={() => setProfileCategory("Jobs")}>Jobs</span>
       </div>
       {edit && (
         <CompanyProfileBannerEdit

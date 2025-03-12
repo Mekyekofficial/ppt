@@ -2,18 +2,22 @@ import React, { useState, useEffect } from "react";
 import Styles from "./css/Profile.module.css";
 import CompanyProfileBanner from "./CompanyProfile/CompanyProfileBanner";
 import CompanyProfileAbout from "./CompanyProfile/CompanyProfileAbout";
+import Posts from './CompanyProfile/Posts';
 import API from "../api";
 import { toast } from "react-toastify";
 
 const CompanyProfile = () => {
   const [company, setCompany] = useState(null);
+  const [companyId, setCompanyId] = useState(null);
   const [Companyinfo, setCompanyInfo] = useState(null);
   const [profileOwner, setProfileOwner] = useState(false);
+  const [profileCategory, setProfileCategory] = useState("Home");
 
   useEffect(() => {
     const companyinfo = JSON.parse(localStorage.getItem("company-info"));
     setCompanyInfo(companyinfo);
     const companyId = window.location.pathname.split("/").pop();
+    setCompanyId(companyId);
     if (!companyId) {
       toast.error("Company ID not found in URL");
       return;
@@ -39,8 +43,9 @@ const CompanyProfile = () => {
   return (
     <div className={Styles.container}>
       <div className={Styles.mainContent}>
-        <CompanyProfileBanner user={company} profileOwner={profileOwner} />
+        <CompanyProfileBanner user={company} profileOwner={profileOwner} setProfileCategory={setProfileCategory} />
         <CompanyProfileAbout user={company} profileOwner={profileOwner} />
+        <Posts profileCategory={profileCategory} companyId={companyId}/>
       </div>
       <div className={Styles.rightSideBar}>
       </div>
