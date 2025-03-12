@@ -27,11 +27,11 @@ const CompanyProfileBannerEdit = ({ isOpen, onClose, userId }) => {
       formData.append("location", location);
       formData.append("description", description);
 
-      const responce = await API.post("/profile/update", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      // const responce = await API.post("/profile/update", formData, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // });
 
       if (responce.status === 201) {
         window.location.reload();

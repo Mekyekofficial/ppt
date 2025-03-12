@@ -84,11 +84,11 @@ const CompanyProfileBanner = ({ user, profileOwner }) => {
         </div>
       </div>
       <div className={styles.tabs}>
-        <span className={styles.tab}>News</span>
+        <span className={styles.tab}>Home</span>
         <span className={styles.tab}>Feeds</span>
+        <span className={styles.tab}>News</span>
         <span className={styles.tab}>Event</span>
-        <span className={styles.tab}>Credentials</span>
-        <span className={styles.tab}>Analysis</span>
+        <span className={styles.tab}>Jobs</span>
       </div>
       {edit && (
         <CompanyProfileBannerEdit

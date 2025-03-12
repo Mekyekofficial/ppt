@@ -11,11 +11,11 @@ const CompanyProfileAboutEdit = ({ onClose, onSave, initialText = "", userId }) 
     formData.append("userId", userId);
     formData.append("about", aboutText);
 
-    const response = await API.post("/profile/update", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    // const response = await API.post("/profile/update", formData, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
 
     if (response.status === 201) {
       window.location.reload();
