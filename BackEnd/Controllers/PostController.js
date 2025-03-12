@@ -1,6 +1,6 @@
-const NewsModel = require('../models/News');
-const EventModel = require('../models/Event');
-const JobModel = require('../models/Job');
+const NewsModel = require('../Models/News');
+const EventModel = require('../Models/Event');
+const JobModel = require('../Models/Job');
 const CompanyJobModel = require('../Models/ATS/CompanyJobs');
 const wrapAsync = require('../utils/wrapAsync');
 
@@ -129,7 +129,7 @@ const postEvents = wrapAsync(async (req, res) => {
         time,
         author: {
             firstName: req.body.firstName || "Unknown",
-            lastName: req.body.lastName || "Unknown",
+            lastName: req.body.lastName || "",
             profilePhoto: req.body.userPhoto || "",
             _id: req.body.userId || "",
         },

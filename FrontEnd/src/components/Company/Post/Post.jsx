@@ -1,8 +1,14 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import styles from "./css/Post.module.css";
-import { Plus, Send, Image as ImageIcon, Link as LinkIcon, Smile } from 'lucide-react';
+import {
+  Plus,
+  Send,
+  Image as ImageIcon,
+  Link as LinkIcon,
+  Smile,
+} from "lucide-react";
 import ProfileImage from "../../../assets/profile-image.png";
 import { toast } from "react-toastify";
 import API from "../../../api";
@@ -15,11 +21,15 @@ const Post = () => {
   const [companyId, setCompanyId] = useState("");
   const [companyInfo, setCompanyInfo] = useState({});
   const [newPost, setNewPost] = useState({
-    title: "",
     content: "",
     image: null,
     // type will be set once the user selects a post type
-    type: ""
+    type: "",
+    eventType: "",
+    eventName: "",
+    location: "",
+    date: "",
+    time: "",
   });
 
   useEffect(() => {
@@ -28,7 +38,6 @@ const Post = () => {
     setCompanyId(companyId);
     setCompanyInfo(companyInfo);
   }, []);
-
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -48,7 +57,6 @@ const Post = () => {
     // fetchPosts();
   }, []);
 
-
   const resetForm = () => {
     setNewPost({ title: "", content: "", image: null, type: "" });
     setSelectedType(null);
@@ -57,14 +65,14 @@ const Post = () => {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setNewPost({ 
-        ...newPost, 
+      setNewPost({
+        ...newPost,
         image: file,
-        preview: URL.createObjectURL(file)
+        preview: URL.createObjectURL(file),
       });
     }
   };
-  
+
   const handleFeedPost = async (e) => {
     e.preventDefault();
     console.log("Processing Feed Post...");
@@ -72,7 +80,7 @@ const Post = () => {
       toast.error("Please enter content or upload a file");
       return;
     }
-  
+
     const postData = new FormData();
     postData.append("content", newPost.content);
     postData.append("postOn", new Date().toISOString());
@@ -80,15 +88,15 @@ const Post = () => {
     postData.append("lastName", "");
     postData.append("profilePhoto", companyInfo.companyLogo || ProfileImage);
     postData.append("userId", companyId);
-  
+
     if (newPost.image) {
       postData.append("file", newPost.image); // Use the file object directly
     }
-  
+
     for (let [key, value] of postData.entries()) {
       console.log(`${key}: ${value}`);
     }
-  
+
     console.log("Posting Feed...");
     try {
       const response = await API.post("/feeds/post", postData);
@@ -138,11 +146,53 @@ const Post = () => {
     }
   };
 
+  const handleEventPost = async (e) => {
+    e.preventDefault();
+
+    if (
+      !newPost.eventType ||
+      !newPost.eventName ||
+      !newPost.location ||
+      !newPost.date ||
+      !newPost.time
+    ) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    const postData = new FormData();
+    postData.append("eventType", newPost.eventType);
+    postData.append("eventName", newPost.eventName);
+    postData.append("location", newPost.location);
+    postData.append("date", newPost.date);
+    postData.append("time", newPost.time);
+    postData.append("firstName", companyInfo.companyName || "Anonymous");
+    postData.append("lastName", "");
+    postData.append("userPhoto", companyInfo.companyLogo || ProfileImage);
+    if (newPost.image) {
+      postData.append("eventImage", newPost.image);
+    }
+    
+    try {
+      const response = await API.post("/posts/event", postData);
+      toast.success("Event posted successfully!");
+      resetForm();
+    } catch (error) {
+      console.error("Error posting event:", error);
+      toast.error("Failed to post event!");
+    }
+  };
+
   const renderPostTypeSelection = () => (
     <div className={`${styles.card} ${styles.createPostCard}`}>
       <div className={styles.cardHeader}>
         <h2 className={styles.cardTitle}>Select Post Type</h2>
-        <button className={styles.closeButton} onClick={() => { setShowCreatePost(false); setSelectedType(null); }}>
+        <button
+          className={styles.closeButton}
+          onClick={() => {
+            setShowCreatePost(false);
+            setSelectedType(null);
+          }}>
           ×
         </button>
       </div>
@@ -154,8 +204,7 @@ const Post = () => {
             onClick={() => {
               setSelectedType("Feed");
               setNewPost({ ...newPost, type: "Feed" });
-            }}
-          >
+            }}>
             Feed Post
           </button>
           <button
@@ -164,8 +213,7 @@ const Post = () => {
             onClick={() => {
               setSelectedType("News");
               setNewPost({ ...newPost, type: "News" });
-            }}
-          >
+            }}>
             News Post
           </button>
           <button
@@ -174,8 +222,7 @@ const Post = () => {
             onClick={() => {
               setSelectedType("Event");
               setNewPost({ ...newPost, type: "Event" });
-            }}
-          >
+            }}>
             Event Post
           </button>
           <button
@@ -184,8 +231,7 @@ const Post = () => {
             onClick={() => {
               setSelectedType("Course");
               setNewPost({ ...newPost, type: "Course" });
-            }}
-          >
+            }}>
             Course Post
           </button>
         </div>
@@ -197,49 +243,141 @@ const Post = () => {
     <div className={`${styles.card} ${styles.createPostCard}`}>
       <div className={styles.cardHeader}>
         <h2 className={styles.cardTitle}>Create {newPost.type} Post</h2>
-        <button className={styles.closeButton} onClick={() => { setShowCreatePost(false); setSelectedType(null); }}>
+        <button
+          className={styles.closeButton}
+          onClick={() => {
+            setShowCreatePost(false);
+            setSelectedType(null);
+          }}>
           ×
         </button>
       </div>
       <div className={styles.cardContent}>
-        <form 
+        <form
           className={styles.form}
           onSubmit={
-            newPost.type === "Feed" ? handleFeedPost : 
-            newPost.type === "News" ? handleNewsPost : 
-            newPost.type === "Event" ? null : 
-            newPost.type === "Course" ? null : 
-            null
-          }
-        >
-          <div className={styles.formGroup}>
-            {newPost.type !== "Feed" && newPost.type !== "News" && (
-              <input
-              type="text"
-              className={styles.input}
-              placeholder="What's on your mind?"
-              value={newPost.title}
-              onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-              required
-            />
-            )}
-          </div>
-          <div className={styles.formGroup}>
-            {newPost.type === "News" && (
+            newPost.type === "Feed"
+              ? handleFeedPost
+              : newPost.type === "News"
+              ? handleNewsPost
+              : newPost.type === "Event"
+              ? handleEventPost
+              : newPost.type === "Course"
+              ? null
+              : null
+          }>
+          {newPost.type === "Feed" && (
+            <div className={styles.formGroup}>
               <textarea
-              className={styles.textarea}
-              placeholder="Share News..."
-              value={newPost.content}
-              onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-              required
-            />
-            )}
-          </div>
+                className={styles.textarea}
+                placeholder="Share your thought..."
+                value={newPost.content}
+                onChange={(e) =>
+                  setNewPost({ ...newPost, content: e.target.value })
+                }
+                required
+              />
+            </div>
+          )}
+
+          {newPost.type === "News" && (
+            <div className={styles.formGroup}>
+              <textarea
+                className={styles.textarea}
+                placeholder="Share News..."
+                value={newPost.content}
+                onChange={(e) =>
+                  setNewPost({ ...newPost, content: e.target.value })
+                }
+                required
+              />
+            </div>
+          )}
+
+          {newPost.type === "Event" && (
+            <>
+              <div className={styles.formGroup}>
+                <select
+                  className={styles.eventTypeDropdown}
+                  name="eventType"
+                  value={newPost.eventType}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, eventType: e.target.value })
+                  }
+                  required>
+                  <option value="" disabled>
+                    Select Event Type
+                  </option>
+                  <option value="local">Local Events</option>
+                  <option value="seminar">Seminars</option>
+                  <option value="cultural">Cultural Events</option>
+                </select>
+              </div>
+
+              <div className={styles.formGroup}>
+                <input
+                  type="text"
+                  name="eventName"
+                  value={newPost.eventName}
+                  placeholder="Enter Event Name"
+                  className={styles.textInput}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, eventName: e.target.value })
+                  }
+                  required
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <input
+                  type="text"
+                  name="location"
+                  value={newPost.location}
+                  placeholder="Enter Location"
+                  className={styles.textInput}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, location: e.target.value })
+                  }
+                  required
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <input
+                  type="date"
+                  name="date"
+                  value={newPost.date}
+                  className={styles.textInput}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, date: e.target.value })
+                  }
+                  required
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <input
+                  type="time"
+                  name="time"
+                  value={newPost.time}
+                  className={styles.textInput}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, time: e.target.value })
+                  }
+                  required
+                />
+              </div>
+            </>
+          )}
+
           {/* If you want different fields for different post types, you can add conditional rendering here */}
           {newPost.image && (
             <div className={styles.imagePreview}>
               <img src={newPost.preview} alt="Preview" />
-              <button type="button" className={styles.removeImage} onClick={() => setNewPost({ ...newPost, image: null })}>
+              <button
+                type="button"
+                className={styles.removeImage}
+                onClick={() => setNewPost({ ...newPost, image: null })}>
                 ×
               </button>
             </div>
@@ -247,7 +385,12 @@ const Post = () => {
           <div className={styles.postActions}>
             <label className={styles.uploadButton}>
               <ImageIcon size={20} />
-              <input type="file" accept="image/*" onChange={handleImageUpload} className={styles.fileInput} />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className={styles.fileInput}
+              />
             </label>
             <button type="button" className={styles.actionButton}>
               <LinkIcon size={20} />
@@ -269,33 +412,33 @@ const Post = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.pageTitle}>Posts</h1>
-        <button className={styles.createPostButton} onClick={() => { setShowCreatePost(true); setSelectedType(null); }}>
+        <button
+          className={styles.createPostButton}
+          onClick={() => {
+            setShowCreatePost(true);
+            setSelectedType(null);
+          }}>
           <Plus size={20} />
           Create Post
         </button>
       </div>
 
-      {showCreatePost && (
+      {showCreatePost &&
         // If no post type is selected, render the selection options; otherwise, render the form
-        !selectedType ? renderPostTypeSelection() : renderPostForm()
-      )}
+        (!selectedType ? renderPostTypeSelection() : renderPostForm())}
 
       <div className={styles.postsGrid}>
         {posts.map((post) => (
           <div key={post.id} className={styles.postCard}>
             <div className={styles.postHeader}>
               <div className={styles.authorInfo}>
-                <div className={styles.authorAvatar}>
-                  {post.author[0]}
-                </div>
+                <div className={styles.authorAvatar}>{post.author[0]}</div>
                 <div>
                   <h3 className={styles.authorName}>{post.author}</h3>
                   <span className={styles.postDate}>{post.date}</span>
                 </div>
               </div>
-              <div className={styles.postTypeBadge}>
-                {post.type} Post
-              </div>
+              <div className={styles.postTypeBadge}>{post.type} Post</div>
             </div>
             <div className={styles.postContent}>
               <h3 className={styles.postTitle}>{post.title}</h3>

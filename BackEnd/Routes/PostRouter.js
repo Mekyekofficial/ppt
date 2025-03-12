@@ -41,9 +41,11 @@ router.post(
     (req, res, next) => {
         uploadNewsImage.single('newsPhoto')(req, res, (err) => {
             if (err) {
+                console.error("Error uploading news photo:", err);
                 return res.status(400).json({ message: err.message, success: false });
             }
             if (!req.file) {
+                console.error("No news photo received");
                 return res.status(400).json({ message: "No news photo received", success: false });
             }
             next();
@@ -63,9 +65,11 @@ router.post(
     (req, res, next) => {
         uploadEventImage.single('eventImage')(req, res, (err) => {
             if (err) {
+                console.error("Error uploading event image:", err);
                 return res.status(400).json({ message: err.message, success: false });
             }
             if (!req.file) {
+                console.error("No event image received");
                 return res.status(400).json({ message: "No event image received", success: false });
             }
             next();
