@@ -7,7 +7,7 @@ import {
 
 import Home from "./home";
 import AppOutlet from "./AppOutlet";
-// import ChatBox from './ChatBox/src/index';
+
 import FeedSection from "./components/Feed";
 import NewsTab from "./components/NewsTab";
 
@@ -46,6 +46,8 @@ import RefreshHandler from "./RefreshHandler";
 
 import Profile from "./components/Profile";
 import CompanyProfile from "./components/CompanyProfile";
+
+import FloatingChatboxFrame from './components/FloatingChatboxFrame';
 
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;
@@ -131,7 +133,12 @@ const App = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <div>
+      <RouterProvider router={router} />
+      <FloatingChatboxFrame />
+    </div>
+  );
 };
 
 export default App;
