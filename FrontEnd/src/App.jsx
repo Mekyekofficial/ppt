@@ -33,6 +33,7 @@ import ATSOutlet from "./components/Company/ATS/ATSOutlet";
 import Jobs from "./components/Company/ATS/Jobs";
 import Applications from "./components/Company/ATS/Applications";
 import TalentHunt from "./components/Company/ATS/TalentHunt";
+import Interviews from "./components/Company/ATS/Interviews";
 
 import JobApplicants from "./components/Company/ATS/Jobs/JobApplicants";
 import Payroll from "./components/Company/Payroll/Payroll";
@@ -111,6 +112,7 @@ const App = () => {
             { path: "/Company/ATS/Applications", element: <Applications />},
             { path: "/Company/ATS/Talent-Hunt", element: <TalentHunt />},
             { path: "/Company/ATS/Jobs/Job-Applicants", element: <JobApplicants />},
+            { path: "/Company/ATS/Interviews", element: <Interviews />},
           ],
         },
         { path: "/Company/Employ-Team", element: <EmployTeam />},

@@ -47,6 +47,11 @@ const Sidebar = () => {
             <FaList className={SidebarStyles["menu-icon"]} /> Talent Hunt
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/Company/ATS/Interviews" style={active} className={SidebarStyles["menu-item"]}>
+            <FaList className={SidebarStyles["menu-icon"]} /> Interviews
+          </NavLink>
+        </li>
       </ul>
     </div>
   );
