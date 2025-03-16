@@ -28,6 +28,14 @@ const interviewSchema = new mongoose.Schema({
     role: {
         type: String,
     },
+    yearOfExperience: {
+        type: Number,
+    },
+    skils: [
+        {
+            type: String
+        }
+    ],
     date: {
         type: Date
     },
