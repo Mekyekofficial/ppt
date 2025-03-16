@@ -809,7 +809,7 @@ export default function Interview() {
                 <button
                   type="submit"
                   className="w-full bg-blue-600 text-white py-3 px-6 rounded-xl hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all font-medium text-lg">
-                  Start Interview
+                  Schedule Interview
                 </button>
               </form>
             </div>

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
+require('./Utils/db.js');
 const { analyzeTextResponse } = require('./openAi');
 // const { convertSpeechToText } = require('./speechToText');
 // const { analyzeVideoFrame } = require('./videoAnalysis');
