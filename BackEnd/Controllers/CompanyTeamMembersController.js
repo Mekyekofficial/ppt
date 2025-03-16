@@ -22,6 +22,14 @@ const addTeamMember = wrapAsync(async (req, res) => {
 
   const { companyId, name, role, department, email, phone, location } = req.body;
 
+  if (!companyId || !name || !role || !department || !email || !phone || !location) {
+    console.log('❌ Missing required fields!');
+    return res
+      .status(400)
+      .json({ message: 'Missing required fields!', success: false });
+  }
+
+
   const newTeamMember = new CompanyTeamMember({
     companyId,
     name,
