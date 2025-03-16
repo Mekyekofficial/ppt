@@ -1,42 +1,55 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./css/ApplicantDetails.module.css";
-import { Mail, Phone, MapPin, Bookmark, Play, Share, MoreVertical } from "lucide-react";
+import ScheduleInterview from "./ScheduleInterview";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Bookmark,
+  Play,
+  Share,
+  MoreVertical,
+} from "lucide-react";
 import API from "../../../../api";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const ApplicantDetails = ({ onClose, applicantId }) => {
-    if (!applicantId) return;
+  if (!applicantId) return;
 
-    const [applicant, setApplicant] = useState({});
+  const [applicant, setApplicant] = useState({});
+  const [isScheduleInterview, setIsScheduleInterview] = useState(false);
 
-    useEffect(() => {
-        const fetchApplicant = async () => {
-            try {
-                const response = await API.get(`/profile/get?_id=${applicantId}`);
-                setApplicant(response.data);
-                if (response.status !== 200) toast.error("Failed to fetch applicant details");
-            } catch (error) {
-                toast.error("Failed to fetch applicant details");
-            }
-        }   
-        fetchApplicant();
-    },[]);
+  useEffect(() => {
+    const fetchApplicant = async () => {
+      try {
+        const response = await API.get(`/profile/get?_id=${applicantId}`);
+        setApplicant(response.data);
+        if (response.status !== 200)
+          toast.error("Failed to fetch applicant details");
+      } catch (error) {
+        toast.error("Failed to fetch applicant details");
+      }
+    };
+    fetchApplicant();
+  }, []);
 
   return (
     <div className={styles.popupContainer}>
       <div className={styles.popup}>
         <div className={styles.header}>
           <div className={styles.profile}>
-            <img src={applicant?.profilePhoto} alt="profilePhoto" className={styles.avatar} />
+            <img
+              src={applicant?.profilePhoto}
+              alt="profilePhoto"
+              className={styles.avatar}
+            />
             <div>
               <h2 className={styles.name}>
                 {applicant?.firstName} {applicant?.lastName}
               </h2>
               <div className={styles.info}>
                 <MapPin size={16} />
-                <span>
-                    {applicant?.profileBanner?.location}
-                </span>
+                <span>{applicant?.profileBanner?.location}</span>
                 <Mail size={16} />
                 <span>{applicant?.email}</span>
                 <Phone size={16} />
@@ -57,7 +70,9 @@ const ApplicantDetails = ({ onClose, applicantId }) => {
         </div>
 
         <div className={styles.body}>
-          <p className={styles.experience}>Work Experience :- 2 years 5 months</p>
+          <p className={styles.experience}>
+            Work Experience :- 2 years 5 months
+          </p>
           <div className={styles.jobDetails}>
             <div>
               <p>Customer Care Executive - Fresher</p>
@@ -75,22 +90,25 @@ const ApplicantDetails = ({ onClose, applicantId }) => {
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.button}>Schedule Interview</button>
+          <button
+            className={styles.button}
+            onClick={() => setIsScheduleInterview(true)}>
+            Schedule Interview
+          </button>
           <button className={styles.button}>Reject</button>
           <button className={styles.button}>Move Applicant</button>
         </div>
       </div>
       <div className={styles.tabs}>
-          <span>Resume</span>
-          <span>Application</span>
-          <span>Interview</span>
-          <span>Tests</span>
-          <span>Messages</span>
-          <span>Track</span>
-          <span>Notes</span>
-          <span>Emails</span>
-          <span>Feedback</span>
-        </div>
+        <span>Resume</span>
+        <span>Application</span>
+        <span>Interview</span>
+        <span>Messages</span>
+        <span>Notes</span>
+      </div>
+      {isScheduleInterview && (
+        <ScheduleInterview onClose={() => setIsScheduleInterview(false)} />
+      )}
       <div className={styles.overlay} onClick={onClose}></div>
     </div>
   );

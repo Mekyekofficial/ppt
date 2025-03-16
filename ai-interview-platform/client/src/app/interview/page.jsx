@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
-import Webcam from 'react-webcam';
+import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import Webcam from "react-webcam";
 
 // Add this gradient background class to your globals.css
 const gradientBg = "bg-gradient-to-br from-blue-50 via-white to-purple-50";
@@ -18,7 +18,7 @@ const VALID_JOB_ROLES = [
   "UI/UX Designer",
   "Product Manager",
   "QA Engineer",
-  "Mobile Developer"
+  "Mobile Developer",
 ];
 
 const VALID_SKILLS = [
@@ -49,7 +49,7 @@ const SKILL_CATEGORIES = {
     "JavaScript Development",
     // ...
   ],
-  "Database": [
+  Database: [
     "SQL Querying",
     "NoSQL Database Management",
     "MongoDB Management",
@@ -61,13 +61,13 @@ const SKILL_CATEGORIES = {
 export default function Interview() {
   const [started, setStarted] = useState(false);
   const [profile, setProfile] = useState({
-    role: '',
-    experience: '',
-    skills: []
+    role: "",
+    experience: "",
+    skills: [],
   });
-  const [question, setQuestion] = useState('');
-  const [response, setResponse] = useState('');
-  const [analysis, setAnalysis] = useState('');
+  const [question, setQuestion] = useState("");
+  const [response, setResponse] = useState("");
+  const [analysis, setAnalysis] = useState("");
   const [context, setContext] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [audioStream, setAudioStream] = useState(null);
@@ -102,7 +102,7 @@ export default function Interview() {
   useEffect(() => {
     if (started && timeLeft > 0) {
       timerRef.current = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
+        setTimeLeft((prev) => prev - 1);
       }, 1000);
 
       return () => clearInterval(timerRef.current);
@@ -114,7 +114,7 @@ export default function Interview() {
   useEffect(() => {
     if (question && questionTimer > 0) {
       questionTimerRef.current = setInterval(() => {
-        setQuestionTimer(prev => prev - 1);
+        setQuestionTimer((prev) => prev - 1);
       }, 1000);
 
       return () => clearInterval(questionTimerRef.current);
@@ -135,7 +135,7 @@ export default function Interview() {
   useEffect(() => {
     const handleFullscreenChange = () => {
       if (started && !document.fullscreenElement) {
-        setFullscreenViolations(prev => {
+        setFullscreenViolations((prev) => {
           const newCount = prev + 1;
           if (newCount > MAX_VIOLATIONS) {
             handleAutoFail();
@@ -149,11 +149,11 @@ export default function Interview() {
     };
 
     if (started) {
-      document.addEventListener('fullscreenchange', handleFullscreenChange);
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
     }
 
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, [started]);
 
@@ -161,10 +161,10 @@ export default function Interview() {
   useEffect(() => {
     if (started) {
       // Prevent screenshots
-      document.addEventListener('keydown', preventScreenCapture);
-      
+      document.addEventListener("keydown", preventScreenCapture);
+
       // Prevent screen recording
-      const style = document.createElement('style');
+      const style = document.createElement("style");
       style.innerHTML = `
         .interview-content {
           -webkit-user-select: none;
@@ -180,7 +180,7 @@ export default function Interview() {
       document.head.appendChild(style);
 
       return () => {
-        document.removeEventListener('keydown', preventScreenCapture);
+        document.removeEventListener("keydown", preventScreenCapture);
         document.head.removeChild(style);
       };
     }
@@ -189,29 +189,29 @@ export default function Interview() {
   const preventScreenCapture = (e) => {
     // Prevent common screenshot shortcuts
     if (
-      (e.key === 'PrintScreen') ||
-      (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-      (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-      (e.ctrlKey && e.key === 'u') ||
-      (e.metaKey && e.shiftKey && e.key === '3') ||
-      (e.metaKey && e.shiftKey && e.key === '4')
+      e.key === "PrintScreen" ||
+      (e.ctrlKey && e.shiftKey && e.key === "I") ||
+      (e.ctrlKey && e.shiftKey && e.key === "C") ||
+      (e.ctrlKey && e.key === "u") ||
+      (e.metaKey && e.shiftKey && e.key === "3") ||
+      (e.metaKey && e.shiftKey && e.key === "4")
     ) {
       e.preventDefault();
-      alert('Screen capture is not allowed during the interview.');
+      alert("Screen capture is not allowed during the interview.");
     }
   };
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   const handleQuestionTimeout = async () => {
     if (questionCount < 15) {
       await getNextQuestion();
       setQuestionTimer(QUESTION_TIME);
-      setQuestionCount(prev => prev + 1);
+      setQuestionCount((prev) => prev + 1);
     } else {
       handleInterviewEnd();
     }
@@ -220,52 +220,53 @@ export default function Interview() {
   const handleInterviewEnd = () => {
     stopMediaRecording();
     setIsInterviewComplete(true);
-    
+
     if (document.exitFullscreen) {
       document.exitFullscreen();
     } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
     }
-    
-    window.removeEventListener('beforeunload', handleBeforeUnload);
+
+    window.removeEventListener("beforeunload", handleBeforeUnload);
   };
 
   const checkResponseQuality = (text) => {
     const poorResponsePatterns = [
       /^(no|nope|na|not sure|don't know|unsure)$/i,
-      /^.{0,20}$/,  // Too short responses
+      /^.{0,20}$/, // Too short responses
       /^i don't have experience/i,
       /^never done that/i,
       /^not applicable/i,
       /^pass$/i,
-      /^skip$/i
+      /^skip$/i,
     ];
-    return poorResponsePatterns.some(pattern => pattern.test(text.trim()));
+    return poorResponsePatterns.some((pattern) => pattern.test(text.trim()));
   };
 
   const handleWrongAnswer = async () => {
-    setConsecutiveWrongAnswers(prev => prev + 1);
-    setResponse('');
-    
+    setConsecutiveWrongAnswers((prev) => prev + 1);
+    setResponse("");
+
     try {
-      const res = await axios.post('/api/get-question', {
+      const res = await axios.post("/api/get-question", {
         ...profile,
         lastResponseWasWrong: true,
-        consecutiveWrongAnswers: consecutiveWrongAnswers + 1
+        consecutiveWrongAnswers: consecutiveWrongAnswers + 1,
       });
-      
+
       setQuestion(res.data.question);
       setContext(res.data.context);
       setQuestionTimer(QUESTION_TIME);
-      
-      const feedback = document.createElement('div');
-      feedback.className = 'text-red-500 mb-4';
-      feedback.textContent = "Let's try a different question that might be more suitable.";
-      document.querySelector('#questionContainer').prepend(feedback);
-      
+
+      const feedback = document.createElement("div");
+      feedback.className = "text-red-500 mb-4";
+      feedback.textContent =
+        "Let's try a different question that might be more suitable.";
+      document.querySelector("#questionContainer").prepend(feedback);
+
       setTimeout(() => feedback.remove(), 3000);
     } catch (error) {
-      console.error('Error getting new question:', error);
+      console.error("Error getting new question:", error);
     }
   };
 
@@ -273,7 +274,7 @@ export default function Interview() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setAudioStream(stream);
-      
+
       const mediaRecorder = new MediaRecorder(stream);
       const audioChunks = [];
 
@@ -284,7 +285,7 @@ export default function Interview() {
       };
 
       mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
         // Process audio if needed
       };
 
@@ -292,7 +293,7 @@ export default function Interview() {
       setIsRecording(true);
       mediaRecorder.start();
     } catch (error) {
-      console.error('Error accessing media devices:', error);
+      console.error("Error accessing media devices:", error);
     }
   };
 
@@ -302,7 +303,7 @@ export default function Interview() {
       setIsRecording(false);
     }
     if (audioStream) {
-      audioStream.getTracks().forEach(track => track.stop());
+      audioStream.getTracks().forEach((track) => track.stop());
     }
   };
 
@@ -317,14 +318,14 @@ export default function Interview() {
         await elem.msRequestFullscreen();
       }
     } catch (error) {
-      console.error('Failed to enter fullscreen:', error);
+      console.error("Failed to enter fullscreen:", error);
     }
   };
 
   const handleStartInterview = async (e) => {
     e.preventDefault();
     setShowStartAnimation(true);
-    
+
     // Wait for animation to complete
     setTimeout(async () => {
       await handleFullscreen();
@@ -333,18 +334,18 @@ export default function Interview() {
       setShowStartAnimation(false);
     }, 2000); // 2 seconds for animation
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
   };
 
   const handleBeforeUnload = (e) => {
     e.preventDefault();
-    e.returnValue = 'Interview in progress. Are you sure you want to leave?';
+    e.returnValue = "Interview in progress. Are you sure you want to leave?";
     return e.returnValue;
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && started) {
+      if (e.key === "Escape" && started) {
         e.preventDefault();
         handleFullscreen();
       }
@@ -357,53 +358,53 @@ export default function Interview() {
     };
 
     if (started) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.addEventListener('fullscreenchange', handleFullscreenChange);
+      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
     }
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, [started]);
 
   const getNextQuestion = async () => {
     try {
-      const res = await axios.post('/api/get-question', profile);
+      const res = await axios.post("/api/get-question", profile);
       setQuestion(res.data.question);
       setContext(res.data.context);
     } catch (error) {
-      console.error('Error getting question:', error);
-      alert('Failed to get question. Please try again.');
+      console.error("Error getting question:", error);
+      alert("Failed to get question. Please try again.");
     }
   };
 
   const submitResponse = async () => {
     try {
       const finalResponse = response.trim();
-      
+
       if (!finalResponse) {
-        alert('Please provide an answer before submitting.');
+        alert("Please provide an answer before submitting.");
         return;
       }
 
       const isWrongAnswer = checkResponseQuality(finalResponse);
 
       if (!isWrongAnswer) {
-        setScore(prev => prev + 1);
+        setScore((prev) => prev + 1);
       }
 
       if (questionCount < 14) {
         await getNextQuestion();
         setQuestionTimer(QUESTION_TIME);
-        setResponse('');
-        setQuestionCount(prev => prev + 1);
+        setResponse("");
+        setQuestionCount((prev) => prev + 1);
       } else {
         handleInterviewEnd();
       }
     } catch (error) {
-      console.error('Error submitting response:', error);
+      console.error("Error submitting response:", error);
     }
   };
 
@@ -415,10 +416,10 @@ export default function Interview() {
 
     setIsLoadingSuggestions(true);
     try {
-      const response = await axios.post('/api/get-job-suggestions', { input });
+      const response = await axios.post("/api/get-job-suggestions", { input });
       setJobSuggestions(response.data);
     } catch (error) {
-      console.error('Error getting job suggestions:', error);
+      console.error("Error getting job suggestions:", error);
     } finally {
       setIsLoadingSuggestions(false);
     }
@@ -435,8 +436,9 @@ export default function Interview() {
   }, [profile.role]);
 
   const showFullscreenWarning = (remainingAttempts) => {
-    const warning = document.createElement('div');
-    warning.className = 'fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50';
+    const warning = document.createElement("div");
+    warning.className =
+      "fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50";
     warning.textContent = `Warning: Exiting fullscreen is not allowed. ${remainingAttempts} attempts remaining before automatic disqualification.`;
     document.body.appendChild(warning);
     setTimeout(() => warning.remove(), 3000);
@@ -447,7 +449,7 @@ export default function Interview() {
     setIsInterviewComplete(true);
     setStarted(false);
     stopMediaRecording();
-    
+
     if (document.exitFullscreen) {
       document.exitFullscreen();
     } else if (document.webkitExitFullscreen) {
@@ -458,13 +460,13 @@ export default function Interview() {
   const resetInterview = () => {
     setStarted(false);
     setProfile({
-      role: '',
-      experience: '',
-      skills: []
+      role: "",
+      experience: "",
+      skills: [],
     });
-    setQuestion('');
-    setResponse('');
-    setAnalysis('');
+    setQuestion("");
+    setResponse("");
+    setAnalysis("");
     setContext(null);
     setIsRecording(false);
     setAudioStream(null);
@@ -479,7 +481,7 @@ export default function Interview() {
     setShowSkillSuggestions(false);
 
     if (audioStream) {
-      audioStream.getTracks().forEach(track => track.stop());
+      audioStream.getTracks().forEach((track) => track.stop());
     }
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current = null;
@@ -491,7 +493,7 @@ export default function Interview() {
       document.webkitExitFullscreen();
     }
 
-    window.removeEventListener('beforeunload', handleBeforeUnload);
+    window.removeEventListener("beforeunload", handleBeforeUnload);
   };
 
   const renderContent = () => {
@@ -505,20 +507,29 @@ export default function Interview() {
               <div className="absolute inset-0 bg-purple-400 rounded-full animate-ping opacity-10"></div>
               <div className="absolute inset-0 bg-indigo-400 rounded-full animate-ping opacity-15 delay-100"></div>
               <div className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-20 delay-200"></div>
-              
+
               <div className="relative animate-bounce-slow">
-                <svg className="w-32 h-32 text-gradient-purple-blue transform transition-transform" fill="none" stroke="url(#gradient)" viewBox="0 0 24 24">
+                <svg
+                  className="w-32 h-32 text-gradient-purple-blue transform transition-transform"
+                  fill="none"
+                  stroke="url(#gradient)"
+                  viewBox="0 0 24 24">
                   <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient
+                      id="gradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%">
                       <stop offset="0%" stopColor="#c084fc" />
                       <stop offset="50%" stopColor="#818cf8" />
                       <stop offset="100%" stopColor="#60a5fa" />
                     </linearGradient>
                   </defs>
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth="1.5" 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
                     d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
                     className="animate-draw"
                   />
@@ -547,12 +558,13 @@ export default function Interview() {
 
     if (isInterviewComplete) {
       return (
-        <div className={`min-h-screen flex items-center justify-center ${gradientBg}`}>
+        <div
+          className={`min-h-screen flex items-center justify-center ${gradientBg}`}>
           <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl max-w-md w-full mx-4 border border-gray-100">
             <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
               Interview Complete
             </h2>
-            
+
             {fullscreenViolations > MAX_VIOLATIONS ? (
               <div className="space-y-4 text-center">
                 <div className="text-6xl mb-6">⚠️</div>
@@ -581,20 +593,20 @@ export default function Interview() {
                 </h3>
               </div>
             )}
-            
+
             {fullscreenViolations <= MAX_VIOLATIONS && (
               <div className="mt-8 p-4 bg-gray-50 rounded-xl">
                 <div className="text-center">
-                  <p className="text-lg font-semibold text-gray-800">Your Score</p>
+                  <p className="text-lg font-semibold text-gray-800">
+                    Your Score
+                  </p>
                   <p className="text-3xl font-bold text-blue-600">{score}/15</p>
                 </div>
               </div>
             )}
-            
+
             <div className="mt-8 text-center">
-              <p className="text-gray-500">
-                Page will refresh in 5 seconds...
-              </p>
+              <p className="text-gray-500">Page will refresh in 5 seconds...</p>
               <div className="mt-2 h-1 bg-gray-200 rounded-full overflow-hidden">
                 <div className="h-full bg-blue-500 animate-[shrink_5s_linear]" />
               </div>
@@ -606,13 +618,15 @@ export default function Interview() {
 
     if (!started) {
       return (
-        <div className={`min-h-screen py-12 px-4 ${gradientBg}`}>
+        <div
+          className={`min-h-screen py-12 px-4 ${gradientBg}`}
+          style={{ backgroundColor: "transparent" }}>
           <div className="max-w-2xl mx-auto">
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gray-100">
               <h1 className="text-3xl font-bold mb-8 text-gray-800">
                 AI Interview Setup
               </h1>
-              
+
               <div className="bg-amber-50 border-l-4 border-amber-400 p-6 rounded-r-xl mb-8">
                 <h2 className="text-lg font-semibold text-amber-800 mb-4">
                   Before You Begin
@@ -642,33 +656,38 @@ export default function Interview() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Job Role
                   </label>
-                  <input 
+                  <input
                     type="text"
                     value={profile.role}
-                    onChange={(e) => setProfile({...profile, role: e.target.value})}
+                    onChange={(e) =>
+                      setProfile({ ...profile, role: e.target.value })
+                    }
                     className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 bg-white"
                     placeholder="Enter your job role..."
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Years of Experience
                   </label>
-                  <input 
+                  <input
                     type="number"
                     value={profile.experience}
                     onChange={(e) => {
                       const value = e.target.value;
                       // Only allow single digits (0-9)
-                      if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 9)) {
-                        setProfile({...profile, experience: value});
+                      if (
+                        value === "" ||
+                        (parseInt(value) >= 0 && parseInt(value) <= 9)
+                      ) {
+                        setProfile({ ...profile, experience: value });
                       }
                     }}
                     onKeyPress={(e) => {
                       // Prevent non-numeric and numbers > 9
-                      if (!/[0-9]/.test(e.key) || (e.target.value + e.key > 9)) {
+                      if (!/[0-9]/.test(e.key) || e.target.value + e.key > 9) {
                         e.preventDefault();
                       }
                     }}
@@ -679,7 +698,7 @@ export default function Interview() {
                     placeholder="0-9"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Skills (Add multiple)
@@ -687,59 +706,64 @@ export default function Interview() {
                   <div className="relative">
                     <div className="flex flex-wrap gap-2 mb-2">
                       {profile.skills.map((skill, index) => (
-                        <span 
+                        <span
                           key={index}
-                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium flex items-center"
-                        >
+                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium flex items-center">
                           {skill}
                           <button
                             onClick={() => {
-                              const newSkills = profile.skills.filter((_, i) => i !== index);
-                              setProfile({...profile, skills: newSkills});
+                              const newSkills = profile.skills.filter(
+                                (_, i) => i !== index
+                              );
+                              setProfile({ ...profile, skills: newSkills });
                             }}
-                            className="ml-2 text-blue-500 hover:text-blue-700"
-                          >
+                            className="ml-2 text-blue-500 hover:text-blue-700">
                             ×
                           </button>
                         </span>
                       ))}
                     </div>
-                    <input 
+                    <input
                       type="text"
-                      value={profile.currentSkill || ''}
+                      value={profile.currentSkill || ""}
                       onChange={(e) => {
                         const value = e.target.value;
-                        if (!value.includes(',')) {
-                          setProfile({...profile, currentSkill: value});
-                          
-                          if (VALID_SKILLS.some(skill => 
-                            skill.toLowerCase().startsWith(value.toLowerCase()) &&
-                            !profile.skills.includes(skill)
-                          )) {
+                        if (!value.includes(",")) {
+                          setProfile({ ...profile, currentSkill: value });
+
+                          if (
+                            VALID_SKILLS.some(
+                              (skill) =>
+                                skill
+                                  .toLowerCase()
+                                  .startsWith(value.toLowerCase()) &&
+                                !profile.skills.includes(skill)
+                            )
+                          ) {
                             setShowSkillSuggestions(true);
                           } else {
                             setShowSkillSuggestions(false);
                           }
                         } else {
-                          const newSkill = value.replace(',', '').trim();
+                          const newSkill = value.replace(",", "").trim();
                           if (newSkill && !profile.skills.includes(newSkill)) {
                             setProfile({
                               ...profile,
                               skills: [...profile.skills, newSkill],
-                              currentSkill: ''
+                              currentSkill: "",
                             });
                           }
                         }
                       }}
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ',') {
+                        if (e.key === "Enter" || e.key === ",") {
                           e.preventDefault();
                           const newSkill = profile.currentSkill?.trim();
                           if (newSkill && !profile.skills.includes(newSkill)) {
                             setProfile({
                               ...profile,
                               skills: [...profile.skills, newSkill],
-                              currentSkill: ''
+                              currentSkill: "",
                             });
                           }
                         }
@@ -747,30 +771,33 @@ export default function Interview() {
                       className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 bg-white"
                       placeholder="Type a skill and press Enter or comma"
                     />
-                    
+
                     {showSkillSuggestions && (
                       <div className="absolute z-10 w-full mt-1 bg-white border rounded-xl shadow-lg max-h-48 overflow-y-auto">
-                        {VALID_SKILLS
-                          .filter(skill => 
-                            skill.toLowerCase().startsWith((profile.currentSkill || '').toLowerCase()) &&
-                            !profile.skills.includes(skill)
-                          )
-                          .map((skill, index) => (
-                            <div
-                              key={index}
-                              className="p-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-0"
-                              onClick={() => {
-                                setProfile({
-                                  ...profile,
-                                  skills: [...profile.skills, skill],
-                                  currentSkill: ''
-                                });
-                                setShowSkillSuggestions(false);
-                              }}
-                            >
-                              <span className="text-gray-900 font-medium">{skill}</span>
-                            </div>
-                          ))}
+                        {VALID_SKILLS.filter(
+                          (skill) =>
+                            skill
+                              .toLowerCase()
+                              .startsWith(
+                                (profile.currentSkill || "").toLowerCase()
+                              ) && !profile.skills.includes(skill)
+                        ).map((skill, index) => (
+                          <div
+                            key={index}
+                            className="p-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-0"
+                            onClick={() => {
+                              setProfile({
+                                ...profile,
+                                skills: [...profile.skills, skill],
+                                currentSkill: "",
+                              });
+                              setShowSkillSuggestions(false);
+                            }}>
+                            <span className="text-gray-900 font-medium">
+                              {skill}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     )}
                     <p className="text-sm text-gray-500 mt-2">
@@ -778,11 +805,10 @@ export default function Interview() {
                     </p>
                   </div>
                 </div>
-                
-                <button 
+
+                <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-xl hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all font-medium text-lg"
-                >
+                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-xl hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all font-medium text-lg">
                   Start Interview
                 </button>
               </form>
@@ -800,7 +826,9 @@ export default function Interview() {
             {/* Left timer */}
             <div className="flex items-center">
               <div className="text-center">
-                <span className="text-sm font-medium text-gray-500">Total Time</span>
+                <span className="text-sm font-medium text-gray-500">
+                  Total Time
+                </span>
                 <p className="text-2xl font-bold text-red-600">
                   {formatTime(timeLeft)}
                 </p>
@@ -810,7 +838,9 @@ export default function Interview() {
             {/* Center progress */}
             <div className="flex items-center">
               <div className="text-center">
-                <span className="text-sm font-medium text-gray-500">Progress</span>
+                <span className="text-sm font-medium text-gray-500">
+                  Progress
+                </span>
                 <p className="text-xl font-bold text-gray-900">
                   {questionCount + 1}/15
                 </p>
@@ -820,7 +850,9 @@ export default function Interview() {
             {/* Right timer */}
             <div className="flex items-center">
               <div className="text-center">
-                <span className="text-sm font-medium text-gray-500">Question Timer</span>
+                <span className="text-sm font-medium text-gray-500">
+                  Question Timer
+                </span>
                 <p className="text-2xl font-bold text-red-600">
                   {formatTime(questionTimer)}
                 </p>
@@ -830,7 +862,7 @@ export default function Interview() {
 
           {/* Progress bar */}
           <div className="w-full h-1 bg-gray-200 mt-2">
-            <div 
+            <div
               className="h-full bg-red-600 transition-all duration-1000"
               style={{ width: `${(questionTimer / QUESTION_TIME) * 100}%` }}
             />
@@ -866,7 +898,7 @@ export default function Interview() {
                       width: 1280,
                       height: 720,
                       facingMode: "user",
-                      screenshotQuality: 0
+                      screenshotQuality: 0,
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -892,28 +924,41 @@ export default function Interview() {
                     Candidate Profile
                   </h3>
                   <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    <svg
+                      className="w-4 h-4 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
                     </svg>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-blue-100">
                     <p className="text-sm text-gray-500 mb-1">Role</p>
-                    <p className="text-gray-900 font-semibold">{profile.role}</p>
+                    <p className="text-gray-900 font-semibold">
+                      {profile.role}
+                    </p>
                   </div>
                   <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-blue-100">
                     <p className="text-sm text-gray-500 mb-1">Experience</p>
-                    <p className="text-gray-900 font-semibold">{profile.experience} {profile.experience === '1' ? 'year' : 'years'}</p>
+                    <p className="text-gray-900 font-semibold">
+                      {profile.experience}{" "}
+                      {profile.experience === "1" ? "year" : "years"}
+                    </p>
                   </div>
                   <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-blue-100">
                     <p className="text-sm text-gray-500 mb-1">Skills</p>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {profile.skills.map((skill, index) => (
-                        <span 
+                        <span
                           key={index}
-                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
-                        >
+                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
                           {skill}
                         </span>
                       ))}
@@ -933,8 +978,8 @@ export default function Interview() {
                 </p>
 
                 <div className="space-y-6">
-                  <textarea 
-                    value={response} 
+                  <textarea
+                    value={response}
                     onChange={(e) => setResponse(e.target.value)}
                     placeholder="Type your response here..."
                     className="w-full p-4 border border-gray-300 rounded-xl min-h-[200px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 font-semibold placeholder-gray-500"
@@ -944,10 +989,9 @@ export default function Interview() {
                 </div>
 
                 <div className="flex justify-end mt-6">
-                  <button 
+                  <button
                     onClick={submitResponse}
-                    className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all font-medium flex items-center"
-                  >
+                    className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all font-medium flex items-center">
                     Submit <span className="ml-2">→</span>
                   </button>
                 </div>
@@ -959,14 +1003,11 @@ export default function Interview() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   AI Analysis
                 </h3>
-                <div className="prose prose-blue max-w-none">
-                  {analysis}
-                </div>
+                <div className="prose prose-blue max-w-none">{analysis}</div>
                 <div className="mt-8 flex justify-end">
-                  <button 
+                  <button
                     onClick={getNextQuestion}
-                    className="bg-green-600 text-white px-8 py-3 rounded-xl hover:bg-green-700 focus:ring-4 focus:ring-green-200 transition-all font-medium"
-                  >
+                    className="bg-green-600 text-white px-8 py-3 rounded-xl hover:bg-green-700 focus:ring-4 focus:ring-green-200 transition-all font-medium">
                     Next Question
                   </button>
                 </div>
@@ -979,4 +1020,4 @@ export default function Interview() {
   };
 
   return renderContent();
-} 
+}
