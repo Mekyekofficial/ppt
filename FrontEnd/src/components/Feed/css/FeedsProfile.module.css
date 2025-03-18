@@ -48,8 +48,9 @@
   .stats {
     display: flex;
     justify-content: space-between;
+    gap: 5px;
     margin-top: 10px;
-    padding: 0 20px;
+    padding: 0 5px;
   }
   
   .stat {

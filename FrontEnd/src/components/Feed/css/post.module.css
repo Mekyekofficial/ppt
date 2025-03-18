@@ -217,9 +217,6 @@
   height: auto; /* Removed fixed height */
 }
 
-.postImage {
-  width: 100%; /* Reduced from 230px */
-}
 
 @media (min-width: 768px) {
   .post {
