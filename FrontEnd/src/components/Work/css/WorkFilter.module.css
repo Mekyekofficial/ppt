@@ -18,26 +18,38 @@
 }
 
 .header h2 {
-   margin-left: auto;
-   transform: translateX(30%);
-   margin-bottom: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.categoryButtons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .categoryBtn {
-  background: #ff725e;
+  background: #fff;
   color: black;
-  font-weight: 700;
-  padding: 5px 15px;
-  padding-right: 5px;
+  font-weight: 600;
+  padding: 8px 16px;
   border-radius: 6px;
-  border: none;
-  box-shadow: 0px 0 8px rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  border: 2px solid #ff725e;
+  font-size: 14px;
   cursor: pointer;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.categoryBtn:hover {
+  background: #ff725e;
+  color: white;
+}
+
+.categoryBtn.active {
+  background: #ff725e;
+  color: white;
 }
 
 .dropdown {
@@ -80,6 +92,8 @@
   background: white;
   border-radius: 8px;
   padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
 }
 
 .filterHeader {
@@ -97,15 +111,15 @@
 
 .option {
   display: block;
-  margin: 4px 0;
+  margin: 8px 0;
   cursor: pointer;
-  width: max-content;
   display: flex;
-  justify-content: start;
   align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  width: max-content;
 }
 
 .option input {
-  width: min-content;
-  margin-right: 20px;
+  margin-right: 10px;
 }

@@ -56,24 +56,16 @@ const WorkFilter = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h2>Filter</h2>
-        <div className={styles.dropdown}>
-          <button className={styles.categoryBtn}>
-            {selectedCategory} <ChevronDown size={16} className={styles.ChevronDown} />
+      <div className={styles.categoryButtons}>
+        {["Job", "Internship", "Project"].map((category) => (
+          <button
+            key={category}
+            onClick={() => setSelectedCategory(category)}
+            className={`${styles.categoryBtn} ${selectedCategory === category ? styles.active : ''}`}
+          >
+            {category}
           </button>
-          <div className={styles.dropdownContent}>
-            {["Job", "Internship", "Project"].map((category) => (
-              <div
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={styles.dropdownItem}
-              >
-                {category}
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
 
       <div className={styles.filters}>
