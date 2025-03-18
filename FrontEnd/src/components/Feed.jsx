@@ -1,6 +1,7 @@
 import React from 'react';
 // import Profile from './Feed/profile';
 import Events from './Feed/events';
+import SearchBar from './Feed/searchBar';
 import Feeds from './Feed/feeds';
 import UserSuggestions from './Feed/userSuggestions';
 import TrendingTopic from './Feed/trendingTopic';
@@ -16,6 +17,7 @@ function FeedSection() {
         <FeedsProfile />
       </div>
       <div className={FeedSectionStyles["main-content"]}>
+        <SearchBar />
         <Feeds />
       </div>
       <div className={FeedSectionStyles["right-sidebar"]}>

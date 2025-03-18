@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import Post from './post';
-import SearchBar from './searchBar';
 import FeedsStyles from './css/feeds.module.css';
 import API from '../../api';
 
@@ -23,7 +22,6 @@ const Feeds = () => {
 
   return (
     <div className={FeedsStyles.feeds}>
-      <SearchBar />
       {posts.length > 0 ? (
           posts.map(post => <Post key={post._id} post={post} />)
         ) : (
