@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./css/News.module.css";
+import ProfileImage from "../../assets/profile-image.png";
 import API from "../../api";
 
 const News = ({ news }) => {
@@ -208,22 +209,6 @@ const News = ({ news }) => {
             </defs>
           </svg>
           <span>Comment</span>
-          {isExpanded && (
-            <div className={styles.commentSection} onClick={(e) => e.stopPropagation()}>
-              <textarea
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Write a comment..."
-              />
-              <button onClick={handleAddComment}>Add Comment</button>
-
-              <div className={styles.commentsList}>
-                {comments.map((c, index) => (
-                  <p key={index}>{c.userName} : {c.comment}</p>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
         <div className={styles.action}>
           <svg
@@ -303,6 +288,48 @@ const News = ({ news }) => {
           </svg>
         </div>
       </div>
+      {isExpanded && (
+                <div className={styles.commentSection}>
+                  <div className={styles.commentInput}>
+                    <img 
+                      src={userInfo?.profilePhoto || ProfileImage} 
+                      alt="Profile" 
+                      className={styles.commentProfilePic}
+                    />
+                    <div className={styles.inputWrapper}>
+                      <textarea
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Write a comment..."
+                        className={styles.commentTextarea}
+                      />
+                      <button 
+                        onClick={handleAddComment}
+                        className={styles.commentButton}
+                        disabled={!comment.trim()}
+                      >
+                        Post
+                      </button>
+                    </div>
+                  </div>
+      
+                  <div className={styles.commentsList}>
+                    {comments.map((c, index) => (
+                      <div key={index} className={styles.commentItem}>
+                        <img 
+                          src={c.profilePhoto || ProfileImage} 
+                          alt={c.userName} 
+                          className={styles.commentUserPic}
+                        />
+                        <div className={styles.commentContent}>
+                          <span className={styles.commentUserName}>{c.userName}</span>
+                          <p className={styles.commentText}>{c.comment}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
     </div>
   );
 };

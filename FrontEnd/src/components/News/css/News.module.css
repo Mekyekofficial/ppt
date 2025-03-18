@@ -120,19 +120,81 @@
   
 
   .commentSection {
-    position: absolute;
-    transform: translateY(70%) translateX(30%);
-    background-color: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
-    border: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-top: 20px;
+    padding: 16px;
+    border-top: 1px solid #e0e0e0;
   }
   
-  .commentSection textarea {
-    width: 90%;
-    margin-left: 2px;
+  .commentInput {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .commentProfilePic,
+  .commentUserPic {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .inputWrapper {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+  }
+  
+  .commentTextarea {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    resize: none;
+    min-height: 40px;
+    font-family: inherit;
+  }
+  
+  .commentButton {
+    padding: 8px 16px;
+    background-color: #292556;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .commentButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .commentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .commentItem {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .commentContent {
+    background-color: #f5f5f5;
+    padding: 12px;
+    border-radius: 16px;
+    flex: 1;
+  }
+  
+  .commentUserName {
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+  }
+  
+  .commentText {
+    margin: 0;
+    color: #333;
   }
