@@ -105,6 +105,13 @@
   .action svg {
     width: 20px;
     height: 20px;
+    color: #333;
+  }
+
+  .action .icon {
+    width: 20px;
+    height: 20px;
+    color: #333;
   }
 
   .actionSource {

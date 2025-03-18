@@ -166,6 +166,7 @@ const News = ({ news }) => {
           onClick={toggleLike}
           style={{ cursor: "pointer" }}>
           <svg
+            className={styles.icon}
             viewBox="0 0 432 467"
             fill="none"
             fillRule="evenodd"
@@ -184,6 +185,7 @@ const News = ({ news }) => {
           className={styles.action}
           onClick={() => setIsExpanded(!isExpanded)}>
           <svg
+            className={styles.icon}
             viewBox="0 0 732 491"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -212,6 +214,7 @@ const News = ({ news }) => {
         </div>
         <div className={styles.action}>
           <svg
+            className={styles.icon}
             viewBox="0 0 532 427"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -226,6 +229,7 @@ const News = ({ news }) => {
         </div>
         <div className={styles.action} onClick={handleShare}>
           <svg
+            className={styles.icon}
             viewBox="0 0 526 414"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -254,6 +258,7 @@ const News = ({ news }) => {
         </div>
         <div className={styles.actionSource} onClick={() => window.open(news?.url, "_blank", "noopener,noreferrer")}>
           <svg
+            className={styles.icon}
             viewBox="0 0 303 303"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
