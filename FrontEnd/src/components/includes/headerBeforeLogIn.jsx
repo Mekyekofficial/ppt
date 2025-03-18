@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./css/headerBeforeLogIn.module.css";
+import logo from '../../assets/logo.png';
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaBriefcase, FaUserPlus, FaTimes } from "react-icons/fa";
 import { login, signup } from "../../api";
@@ -83,7 +84,11 @@ const HeaderBeforeLogIn = () => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div className={styles.logo}>
-          <NavLink to="/">YourLogo</NavLink>
+          <NavLink to="/" className={styles.logoLink}>
+            <img src={logo} alt="Logo of the website" />
+            &nbsp;
+            <span>Mekyek</span>
+          </NavLink>
         </div>
 
         <div className={styles.navLinks}>
