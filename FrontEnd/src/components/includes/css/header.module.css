@@ -549,3 +549,11 @@ body.modal-open {
   transform: scale(1.05);
   color: #292556;
 }
+.nav-item {
+  color: #5b577d; /* Default color for non-active links */
+  text-decoration: none;
+}
+
+.active {
+  color: #000; /* Active link color */
+}
