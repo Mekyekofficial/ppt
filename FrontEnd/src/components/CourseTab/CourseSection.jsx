@@ -9,7 +9,6 @@ const CourseSection = () => {
     {
       _id: "1",
       CourseName: "JavaScript",
-      location: "Online",
       date: "2025-05-01",
       time: "10:00 AM",
       // Placeholder image or your own link
@@ -20,7 +19,6 @@ const CourseSection = () => {
     {
       _id: "2",
       CourseName: "Neet Code",
-      location: "Online",
       date: "2025-06-10",
       time: "09:00 AM",
       CourseImage: "https://via.placeholder.com/200x120?text=Neet+Code",
@@ -29,7 +27,6 @@ const CourseSection = () => {
     {
       _id: "3",
       CourseName: "WordPress",
-      location: "Hybrid",
       date: "2025-07-15",
       time: "01:00 PM",
       CourseImage: "https://via.placeholder.com/200x120?text=WordPress",
@@ -38,7 +35,6 @@ const CourseSection = () => {
     {
       _id: "4",
       CourseName: "React Native",
-      location: "Offline",
       date: "2025-08-20",
       time: "11:00 AM",
       CourseImage: "https://via.placeholder.com/200x120?text=React+Native",
@@ -47,7 +43,6 @@ const CourseSection = () => {
     {
       _id: "5",
       CourseName: "Generative AI",
-      location: "Online",
       date: "2025-09-01",
       time: "02:00 PM",
       CourseImage: "https://via.placeholder.com/200x120?text=Generative+AI",
@@ -56,7 +51,6 @@ const CourseSection = () => {
     {
       _id: "6",
       CourseName: "System Designing",
-      location: "Online",
       date: "2025-10-12",
       time: "09:30 AM",
       CourseImage: "https://via.placeholder.com/200x120?text=System+Designing",
@@ -65,7 +59,6 @@ const CourseSection = () => {
     {
       _id: "7",
       CourseName: "DSA, Java",
-      location: "Offline",
       date: "2025-11-05",
       time: "04:00 PM",
       CourseImage: "https://via.placeholder.com/200x120?text=DSA+Java",

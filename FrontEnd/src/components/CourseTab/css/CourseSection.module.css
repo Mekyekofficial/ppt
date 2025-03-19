@@ -32,7 +32,7 @@
 .CourseList {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 40px;
   overflow-x: auto;
   padding: 10px 0;
 }

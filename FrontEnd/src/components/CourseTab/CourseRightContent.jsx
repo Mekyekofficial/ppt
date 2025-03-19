@@ -12,10 +12,6 @@ const CourseRightContent = () => {
     ['Computer Networking'],
     ['Ethical Hacking', 'Data Analytics'],
     ['App Development'],
-    ['Web Development', 'AI/ML'],
-    ['Data science', 'IOT', 'UX/UI'],
-    ['Cloud Computing', 'Blockchain'],
-    ['Computer Networking']
     ];
 
     useEffect(() => {
