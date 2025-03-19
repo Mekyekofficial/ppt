@@ -4,7 +4,7 @@ import styles from './css/Course.module.css';
 
 const Course = ({ Course }) => {
   const goToCourseDetails = () => {
-    window.location.href = `/Courses/${Course._id}`;
+    window.location.href = `/learn/${Course._id}`;
   }
 
 

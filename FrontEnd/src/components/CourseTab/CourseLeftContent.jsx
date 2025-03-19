@@ -11,7 +11,7 @@ const CourseLeftContent = () => {
                 Wishlist <Heart size={16} className={styles.icon} />
             </div>
             <div className={styles.menuItem}>Post your Own</div>
-            <div className={styles.menuItem}>Settings</div>
+            <div className={styles.menuItem} onClick={() => window.location.href='/learn/settings'}>Settings</div>
     </div>
   );
 };

@@ -88,8 +88,7 @@ const App = () => {
           ]
         },
         { path: "/learn", element: <CourseTab /> },
-        { path: "/learn/:category", element: <CourseCategory /> },
-        { path: "/learn/:category/:course", element: <Course /> },
+        { path: "/learn/:courseId", element: <Course /> },
         { path: "/learn/settings", element: <CourseSettings /> },
         { path: "/events", element: <EventTab /> },
         {path: "/events/:eventId", element: <EventDetails />},
