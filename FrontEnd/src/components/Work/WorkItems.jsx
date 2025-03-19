@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './css/WorkItems.module.css';
 import Work from './Work';
-import axios from 'axios';
 import API from '../../api';
 
 const WorkItems = ({ setSelectedJob }) => {

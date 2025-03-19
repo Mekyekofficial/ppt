@@ -415,6 +415,7 @@ const WorkDescription = ({ job }) => {
             </p>
             <p>
               <svg
+                className={styles.icon}
                 viewBox="0 0 277 246"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -452,6 +453,7 @@ const WorkDescription = ({ job }) => {
             </p>
             <p>
               <svg
+                className={styles.icon}
                 viewBox="0 0 277 246"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg">

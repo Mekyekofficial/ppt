@@ -24,7 +24,6 @@ import EventTab from "./components/EventTab";
 import EventDetails from "./components/Event/EventDetails";
 
 import WorkTab from "./components/WorkTab";
-import WorkDetails from "./components/Work/WorkDetails";
 
 import CompanyOutlet from "./components/CompanyOutlet";
 import Dashboard from "./components/Company/Dashboard";
@@ -95,7 +94,6 @@ const App = () => {
         { path: "/events", element: <EventTab /> },
         {path: "/events/:eventId", element: <EventDetails />},
         { path: "/Work", element: <WorkTab /> },
-        { path: "/Work/job-Details/:jobId", element: <WorkDetails /> },
       ],
     },
     {
