@@ -49,7 +49,8 @@
   }
   
   .locationIcon {
-    
+    width: 20px;
+    height: 20px;
     margin: 0 8px;
   }
 
@@ -83,6 +84,7 @@
   
   .dropdown {
     background: #fffb99;
+    color: black;
     border: none;
     padding: 8px 14px;
     border-radius: 15px;

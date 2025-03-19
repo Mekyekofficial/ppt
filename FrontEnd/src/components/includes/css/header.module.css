@@ -73,9 +73,13 @@
   transform: translateY(-1px);
 }
 
-.nav-item.active {
-  color: #292556;
-  background: rgba(41, 37, 86, 0.08);
+.nav-item {
+  color: #5b577d; /* Default color for non-active links */
+  text-decoration: none;
+}
+
+.active {
+  color: #000 !important; /* Active link color */
 }
 
 .icon {
@@ -549,11 +553,4 @@ body.modal-open {
   transform: scale(1.05);
   color: #292556;
 }
-.nav-item {
-  color: #5b577d; /* Default color for non-active links */
-  text-decoration: none;
-}
 
-.active {
-  color: #000; /* Active link color */
-}
