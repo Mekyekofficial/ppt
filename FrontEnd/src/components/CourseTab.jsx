@@ -5,6 +5,7 @@ import CourseSearchBar from './CourseTab/CourseSearchBar';
 import CourseSection from './CourseTab/CourseSection';
 import CourseBrowse from './CourseTab/CourseBrowse';
 import CourseRightContent from './CourseTab/CourseRightContent';
+import CourseCarousel from './CourseTab/CourseCarousel';
 
 const CourseTab = () => {
   return (
@@ -14,7 +15,10 @@ const CourseTab = () => {
       </div>
       <div className={CourseTabStyles["Course-content"]}>
         <div className={CourseTabStyles["Course-bar"]}>
+          <div className={CourseTabStyles["Course-main-bar"]}>
           <CourseSearchBar />
+          <CourseCarousel />
+          </div>
           <CourseRightContent />
         </div>
         <div className={CourseTabStyles["main-Course"]}>

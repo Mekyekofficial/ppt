@@ -11,6 +11,7 @@ import EventSearchBar from './Event/EventSearchBar';
 import EventUpcoming from './Event/EventUpcoming';
 import EventSection from './Event/EventSection';
 import EventBrowse from './Event/EventBrowse';
+import EventCarousel from './Event/EventCarousel';
 
 const EventTab = () => {
   return (
@@ -20,7 +21,10 @@ const EventTab = () => {
       </div>
       <div className={EventTabStyles["Event-content"]}>
         <div className={EventTabStyles["Event-bar"]}>
+          <div className={EventTabStyles["Event-main-bar"]}>
           <EventSearchBar />
+          <EventCarousel />
+          </div>
           <EventUpcoming />
         </div>
         <div className={EventTabStyles["main-Event"]}>

@@ -13,6 +13,11 @@
   width: 18%;
   height: max-content;
 }
+
+.main-Event {
+  width: 100%;
+  margin-top: 40px;
+}
   
 .Event-content {
   flex: 0.7;
@@ -21,7 +26,17 @@
 }
 
 .Event-bar {
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 40px;
+}
+
+.Event-main-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
 }
   

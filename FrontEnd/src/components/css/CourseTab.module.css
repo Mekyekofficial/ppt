@@ -19,11 +19,22 @@
 }
 
 .main-Course {
+  width: 100%;
   margin-top: 40px;
 }
 
 .Course-bar {
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 40px;
+}
+
+.Course-main-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
 }
   
