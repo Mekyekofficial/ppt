@@ -4,9 +4,13 @@ import { YouTube } from "@mui/icons-material";
 
 const CourseSuggestions = () => {
   const suggestions = [
-    "What’s next ..... !!",
-    "What’s next ..... !!",
-    "What’s next ..... !!",
+    "What next ..... !!",
+    "What next ..... !!",
+    "What next ..... !!",
+    "What next ..... !!",
+    "What next ..... !!",
+    "What next ..... !!",
+    "What next ..... !!",
   ];
 
   return (

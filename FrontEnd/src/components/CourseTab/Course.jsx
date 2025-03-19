@@ -1,20 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './css/Course.module.css';
-
 
 const Course = ({ Course }) => {
   const goToCourseDetails = () => {
     window.location.href = `/learn/${Course._id}`;
   }
 
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const storedCourses = JSON.parse(localStorage.getItem('courses')) || [];
+    const updatedCourses = [...storedCourses, Course];
+    setCourses(updatedCourses);
+    localStorage.setItem('courses', JSON.stringify(updatedCourses));
+  }, []);
+  
+
 
   return (
     <div className={styles.card} onClick={goToCourseDetails}>
       <div className={styles.imageContainer}>
-        <img src={Course.CourseImage || 'https://via.placeholder.com/200x120'} alt={Course.CourseName} className={styles.CourseImage} />
+        <img src={Course?.CourseImage || 'https://via.placeholder.com/200x120'} alt={Course?.CourseName} className={styles.CourseImage} />
       </div>
       <div className={styles.CourseInfo}>
-        <h3 className={styles.CourseName}>{Course.CourseName}</h3>
+        <h3 className={styles.CourseName}>{Course?.CourseName}</h3>
         <div className={styles.CourseDetails}>
           <div className={styles.detailItem}>
             <svg className={styles.icon} viewBox="0 0 278 278" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +38,7 @@ const Course = ({ Course }) => {
                 </defs>
             </svg>
             <span>
-              {new Date(Course.date).toDateString()}
+              {new Date(Course?.date).toDateString()}
             </span>
           </div>
           <div className={styles.detailItem}>
@@ -44,7 +53,7 @@ const Course = ({ Course }) => {
                 </defs>
             </svg>
             <span>
-              {Course.time}
+              {Course?.time}
             </span>
           </div>
         </div>

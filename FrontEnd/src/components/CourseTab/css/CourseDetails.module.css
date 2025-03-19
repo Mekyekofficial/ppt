@@ -1,0 +1,19 @@
+.courseDetails {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 100px;
+    background-color: #f3c091;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.suggestionsContainer {
+    margin-top: 20px;
+} 

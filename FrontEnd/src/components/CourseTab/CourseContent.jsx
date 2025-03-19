@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./css/CourseContent.module.css";
 import { ExpandMore, PlayCircleOutline } from "@mui/icons-material";
 
-const CourseContent = () => {
+const CourseContent = ({Course}) => {
   const [showIntroContent, setShowIntroContent] = useState(false);
   const [showMoreContent, setShowMoreContent] = useState(false);
 

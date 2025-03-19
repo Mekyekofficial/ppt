@@ -16,8 +16,8 @@ import CommunityMain from "./components/Community/CommunityMain";
 import Community from "./components/Community/Community";
 
 import CourseTab from "./components/CourseTab";
-import CourseCategory from "./components/CourseTab/CourseCategory";
 import Course from "./components/CourseTab/Course";
+import CourseDetails from "./components/CourseTab/CourseDetails";
 import CourseSettings from "./components/CourseTab/CourseSettings";
 
 import EventTab from "./components/EventTab";
@@ -88,7 +88,7 @@ const App = () => {
           ]
         },
         { path: "/learn", element: <CourseTab /> },
-        { path: "/learn/:courseId", element: <Course /> },
+        { path: "/learn/:courseId", element: <CourseDetails /> },
         { path: "/learn/settings", element: <CourseSettings /> },
         { path: "/events", element: <EventTab /> },
         {path: "/events/:eventId", element: <EventDetails />},
