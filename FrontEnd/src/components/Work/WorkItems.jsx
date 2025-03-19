@@ -10,12 +10,21 @@ const WorkItems = ({ setSelectedJob }) => {
 
   useEffect(() => {
     const fetchJobs = async () => {
+      let jobsFromFirst = [];
+      let jobsFromSecond = [];
       try {
         // First API call using your custom API instance
         const response1 = await API.get("/posts/jobs");
-        const jobsFromFirst = Array.isArray(response1.data)
+        jobsFromFirst = Array.isArray(response1.data)
           ? response1.data
           : []; // Ensure we have an array
+
+        } catch (err) {
+          console.error("Error fetching jobs:", err);
+          setError("Error fetching jobs. Please try again later.");
+        }
+
+        try {
 
         // Second API call using axios directly
         const options = {
@@ -24,30 +33,32 @@ const WorkItems = ({ setSelectedJob }) => {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhcml0cmFtdWtoZXJqZWUxNTA5QGdtYWlsLmNvbSIsInBlcm1pc3Npb25zIjoidXNlciIsImNyZWF0ZWRfYXQiOiIyMDI1LTAzLTE5VDAyOjU4OjI3LjM3NDEyMiswMDowMCJ9.BfhUYgMnuBOZ2BP9MEq6l1TJt93foHbPEgErvcl6c9M"
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdWRkaGFqaXRjaG93ZGh1cnkyMjZAZ21haWwuY29tIiwicGVybWlzc2lvbnMiOiJ1c2VyIiwiY3JlYXRlZF9hdCI6IjIwMjUtMDMtMTlUMDI6NTY6MDEuMjE2ODkxKzAwOjAwIn0.ikDQNsslpcuLZNLmIan83MsKpFbPinwuXwQaLzZpuzE"
           },
           data: {
             page: 0,
-            limit: 5,
+            limit: 1,
             job_country_code_or: ["IN"],
             posted_at_max_age_days: 7
           }
         };
 
         const response2 = await axios.request(options);
+        console.log(response2.data.data);
         // Check if the API returns an array directly or an object with a 'jobs' property
-        const jobsFromSecond = Array.isArray(response2.data.data)
+        jobsFromSecond = Array.isArray(response2.data.data)
           ? response2.data.data
           : response2.data.jobs
           ? response2.data.jobs
           : [];
+        } catch (err) {
+          console.error("Error fetching jobs:", err);
+          setError("Error fetching jobs. Please try again later.");
+        }
 
         // Merge both arrays into one state
         setJobs([...jobsFromFirst, ...jobsFromSecond]);
-      } catch (err) {
-        console.error("Error fetching jobs:", err);
-        setError("Error fetching jobs. Please try again later.");
-      }
+      
     };
 
     fetchJobs();

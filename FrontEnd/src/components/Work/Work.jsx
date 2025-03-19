@@ -25,11 +25,11 @@ const Work = ({ job, onSelectJob }) => {
   return (
     <div className={styles.workCard} onClick={handleClick}>
       <div className={styles.content}>
-        <img src={company.companyLogo} alt={`${company.companyName} logo`} className={styles.companyLogo} />
+        <img src={company.companyLogo||job?.company_object?.logo} alt={`${company.companyName} logo`} className={styles.companyLogo} />
         <div className={styles.details}>
           <div className={styles.header}>
             <div className={styles.headerTitle}>
-                <h3 className={styles.title}>{role} || {job.department}</h3>
+                <h3 className={styles.title}>{role} || {job.job_title}</h3>
                 <p className={styles.companyName}>{company.companyName}</p>
             </div>
             {saved ? 
