@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Post from './post';
 import FeedsStyles from './css/feeds.module.css';
 import API from '../../api';
-import Spinner from '../Animations/spinner';
+import Spinner from '../Animation/Spinner';
 
 const Feeds = () => {
   const [posts, setPosts] = useState([]);
