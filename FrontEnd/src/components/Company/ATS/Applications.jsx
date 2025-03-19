@@ -16,6 +16,7 @@ import {
   Check,
   ChevronDown,
 } from "lucide-react";
+import Spinner from "../../Animation/Spinner";
 
 const Applications = () => {
   const [view, setView] = useState("table");
@@ -302,7 +303,7 @@ const Applications = () => {
         {loading ? (
           <div className={ApplicationsStyles.loadingState}>
             <Loader2 className={ApplicationsStyles.spinner} size={40} />
-            <p>Loading applications...</p>
+            <Spinner />
           </div>
         ) : error ? (
           <div className={ApplicationsStyles.errorState}>

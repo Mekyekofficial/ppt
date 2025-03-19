@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TableViewStyles from "./css/TableView.module.css";
 import API from "../../../../api";
+import Spinner from "../../../Animation/Spinner";
 
 const TableView = ({ applicants, selectedColumns, jobs }) => {
   const [applicantDetails, setApplicantDetails] = useState([]);
@@ -84,7 +85,7 @@ const TableView = ({ applicants, selectedColumns, jobs }) => {
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan={displayedColumns.length}>Loading...</td>
+              <td colSpan={displayedColumns.length}><Spinner /></td>
             </tr>
           ) : (
             (console.log(applicantDetails),

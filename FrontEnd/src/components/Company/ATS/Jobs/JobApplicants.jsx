@@ -15,6 +15,7 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import API from "../../../../api"; // Adjust the path to match your API service file
 import styles from "./css/JobApplicants.module.css";
 import ApplicantDetails from "./ApplicantDetails"; // Import the ApplicantDetails component
+import Spinner from "../../../Animation/Spinner";
 
 const JobApplicants = () => {
   const [searchParams] = useSearchParams();
@@ -181,7 +182,7 @@ const JobApplicants = () => {
 
       {/* Show loading or error message */}
       {loading ? (
-        <p>Loading applicants...</p>
+        <Spinner />
       ) : error ? (
         <p>Error: {error}</p>
       ) : (

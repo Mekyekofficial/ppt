@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import EventItem from './EventItem';
 import styles from './css/EventCategory.module.css';
+import Spinner from '../Animation/Spinner';
 
 const EventCategory = () => {
   const [events, setEvents] = useState([]);
@@ -26,7 +27,7 @@ const EventCategory = () => {
         {events.length > 0 ? (
           events.map(event => <EventItem key={event._id} event={event} />)
         ) : (
-          <p>Loading events...</p>
+          <Spinner />
         )}
       </div>
       <div className={styles.showAll}>

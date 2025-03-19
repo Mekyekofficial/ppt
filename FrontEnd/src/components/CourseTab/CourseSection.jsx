@@ -8,6 +8,7 @@ import reactImage from '../../assets/react.png';
 import wordpressImage from '../../assets/wordpress.png';
 import interviewImage from '../../assets/interview.png';
 import dsaImage from '../../assets/dsa.png';
+import Spinner from '../Animation/Spinner';
 
 const CourseSection = () => {
   const [Courses] = useState([
@@ -520,7 +521,7 @@ const CourseSection = () => {
             <Course key={course._id} Course={course} />
           ))
         ) : (
-          <p>Loading Courses...</p>
+          <Spinner />
         )}
       </div>
     </div>

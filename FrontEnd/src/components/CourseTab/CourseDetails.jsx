@@ -3,6 +3,7 @@ import CourseHeading from './CourseHeading';
 import CourseContent from './CourseContent';
 import Course from './Course';
 import styles from './css/CourseDetails.module.css';
+import Spinner from '../Animation/Spinner';
 
 const CourseDetails = () => {
     const [currentCourse, setCurrentCourse] = useState({});
@@ -28,7 +29,7 @@ const CourseDetails = () => {
                             <Course key={course._id} Course={course} />
                         ))
                     ) : (
-                        <p>Loading Courses...</p>
+                        <Spinner />
                     )}
                 </div>
             </div>

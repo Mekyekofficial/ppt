@@ -3,7 +3,8 @@ import axios from 'axios';
 import Event from './Event';
 import styles from './css/EventSection.module.css';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import API from '../../api'
+import API from '../../api';
+import Spinner from '../Animation/Spinner';
 
 const EventSection = () => {
   const [events, setEvents] = useState([]);
@@ -35,7 +36,7 @@ const EventSection = () => {
         {events.length > 0 ? (
           events.map(event => <Event key={event._id} event={event} />)
         ) : (
-          <p>Loading events...</p>
+          <Spinner />
         )}
       </div>
     </div>

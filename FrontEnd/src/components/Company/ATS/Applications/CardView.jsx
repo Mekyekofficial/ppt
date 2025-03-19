@@ -5,6 +5,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { MdOutlinePlayCircle } from "react-icons/md";
 import CardViewStyles from "./css/cardView.module.css";
 import API from "../../../../api";
+import Spinner from "../../../Animation/Spinner";
 
 
 const ProfileCard = ({ applicants, jobs }) => {
@@ -72,7 +73,7 @@ const ProfileCard = ({ applicants, jobs }) => {
             </div>
           </div>
         ))) : (
-          <div className={CardViewStyles.loader}>Loading...</div>
+          <div className={CardViewStyles.loader}><Spinner /></div>
         )}
 
     </div>

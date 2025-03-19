@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Post from './post';
 import FeedsStyles from './css/feeds.module.css';
 import API from '../../api';
+import Spinner from '../Animations/spinner';
 
 const Feeds = () => {
   const [posts, setPosts] = useState([]);
@@ -25,7 +26,7 @@ const Feeds = () => {
       {posts.length > 0 ? (
           posts.map(post => <Post key={post._id} post={post} />)
         ) : (
-          <p>Loading posts...</p>
+          <Spinner />
       )}
     </div>
   );

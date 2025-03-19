@@ -12,6 +12,7 @@ import NewsRecommendation from './News/NewsRecommendation';
 import NewsChannelSuggestion from './News/NewsChannelSuggestion';
 import NewsHeadlines from './News/NewsHeadlines';
 import NewsPagesSuggestions from './News/NewsPagesSuggestions';
+import Spinner from './Animation/Spinner';
 
 const NewsTab = () => {
   const [news, setNews] = useState([]);
@@ -64,7 +65,7 @@ const NewsTab = () => {
               <News key={item._id} news={item} />
             ))
           ) : (
-            <p>Loading news...</p>
+            <Spinner />
           )}
         </div>
       </div>

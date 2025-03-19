@@ -3,6 +3,7 @@ import styles from './css/WorkItems.module.css';
 import Work from './Work';
 import API from '../../api';
 import axios from 'axios';
+import Spinner from '../Animation/Spinner';
 
 const WorkItems = ({ setSelectedJob }) => {
   const [jobs, setJobs] = useState([]);
@@ -82,7 +83,7 @@ const WorkItems = ({ setSelectedJob }) => {
           <Work key={job._id} job={job} onSelectJob={setSelectedJob} />
         ))
       ) : (
-        <p>Loading Jobs</p>
+        <Spinner />
       )}
     </div>
   );

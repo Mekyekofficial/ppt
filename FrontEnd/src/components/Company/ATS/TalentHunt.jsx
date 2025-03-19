@@ -4,6 +4,7 @@ import TalentPoolStyles from "./css/TalentHunt.module.css";
 import API from "../../../api";
 import Card from "./TalentHunt/Card";
 import { Search, Loader2, AlertCircle, Filter, SlidersHorizontal, Users, Briefcase, GraduationCap } from 'lucide-react';
+import Spinner from "../../Animation/Spinner";
 
 const TalentPool = () => {
   const [profiles, setProfiles] = useState([]);
@@ -156,7 +157,7 @@ const TalentPool = () => {
         {loading ? (
           <div className={TalentPoolStyles.loadingState}>
             <Loader2 className={TalentPoolStyles.spinner} size={40} />
-            <p>Loading talent profiles...</p>
+            <Spinner />
           </div>
         ) : error ? (
           <div className={TalentPoolStyles.errorState}>
