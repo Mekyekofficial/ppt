@@ -1,9 +1,76 @@
-.card {
-    width: 20vw;
-    height: 60vh;
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
-  }
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerCard {
+  width: 100%;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.headerCard h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.headerCard p {
+  margin: 5px 0 0 0;
+  font-size: 16px;
+}
+
+.categoryCard {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 5px 0 rgba(0, 0, 0, 0.2);
+  width: 300px;
+}
+
+.choiceLabel {
+  background-color: orange;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 0 12px 0 12px;
+  border: 2px solid darkorange;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.categoryRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.categoryItem {
+  background-color: #b6cbfd;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.viewMore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 10px;
+  color: gray;
+}
