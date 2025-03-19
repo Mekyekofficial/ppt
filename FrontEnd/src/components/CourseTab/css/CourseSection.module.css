@@ -29,8 +29,9 @@
   cursor: pointer;
 }
 
-.eventList {
+.CourseList {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   overflow-x: auto;
   padding: 10px 0;

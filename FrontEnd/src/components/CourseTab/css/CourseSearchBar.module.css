@@ -68,6 +68,11 @@
     gap: 15px;
     margin-top: 10px;
   }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
   
   .filterButton {
     display: flex;
