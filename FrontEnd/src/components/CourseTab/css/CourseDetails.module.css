@@ -14,6 +14,12 @@
     gap: 20px;
 }
 
-.suggestionsContainer {
-    margin-top: 20px;
-} 
+.CourseList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    overflow-x: auto;
+    padding: 10px 0;
+  }
+  

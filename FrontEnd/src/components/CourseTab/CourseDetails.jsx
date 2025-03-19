@@ -1,25 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import CourseHeading from './CourseHeading';
 import CourseContent from './CourseContent';
-import CourseSuggestions from './CourseSuggestions';
+import Course from './Course';
 import styles from './css/CourseDetails.module.css';
 
 const CourseDetails = () => {
-    const [Course, setCourse] = useState({});
+    const [currentCourse, setCurrentCourse] = useState({});
+    const [suggestionCourses, setSuggestionCourses] = useState([]);
+    
     useEffect(() => {
         const courseId = window.location.pathname.split('/')[2];
         const storedCourses = JSON.parse(localStorage.getItem('courses')) || [];
         const course = storedCourses.find(course => course._id === courseId);
-        setCourse(course);
+        setCurrentCourse(course);
+        const suggestions = storedCourses.filter(course => course._id !== courseId);
+        setSuggestionCourses(suggestions);
     }, []);
 
     return (
         <div className={styles.courseDetails}>
             <div className={styles.contentWrapper}>
-                <CourseHeading Course={Course} />
-                <CourseContent Course={Course} />
-                <div className={styles.suggestionsContainer}>
-                    <CourseSuggestions Course={Course} />
+                <CourseHeading Course={currentCourse} />
+                <CourseContent Course={currentCourse} />
+                <div className={styles.CourseList}>
+                    {suggestionCourses.length > 0 ? (
+                        suggestionCourses.slice(0, 5).map(course => (
+                            <Course key={course._id} Course={course} />
+                        ))
+                    ) : (
+                        <p>Loading Courses...</p>
+                    )}
                 </div>
             </div>
         </div>

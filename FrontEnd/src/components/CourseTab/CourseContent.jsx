@@ -2,73 +2,56 @@ import React, { useState } from "react";
 import styles from "./css/CourseContent.module.css";
 import { ExpandMore, PlayCircleOutline } from "@mui/icons-material";
 
-const CourseContent = ({Course}) => {
-  const [showIntroContent, setShowIntroContent] = useState(false);
-  const [showMoreContent, setShowMoreContent] = useState(false);
+const CourseContent = ({ Course }) => {
+  console.log(Course);
+  const [expandedSections, setExpandedSections] = useState({});
 
-  const toggleIntroContent = () => {
-    setShowIntroContent(!showIntroContent);
-  };
-
-  const toggleMoreContent = () => {
-    setShowMoreContent(!showMoreContent);
+  const toggleSection = (sectionIndex) => {
+    setExpandedSections((prevState) => ({
+      ...prevState,
+      [sectionIndex]: !prevState[sectionIndex],
+    }));
   };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Course Content</h2>
-      <p className={styles.topicCount}>10 Topics</p>
+      <p className={styles.topicCount}>
+        {Course?.contents?.length} Topics
+      </p>
 
-      {/* Introduction Dropdown */}
-      <div className={styles.dropdown}>
-        <div className={styles.dropdownHeader} onClick={toggleIntroContent}>
-          <span>Introduction to DBMS</span>
-          <ExpandMore
-            className={`${styles.icon} ${
-              showIntroContent ? styles.rotateIcon : ""
-            }`}
-          />
-        </div>
-        {showIntroContent && (
-          <div className={styles.dropdownContent}>
-            <p className={styles.description}>
-              A Database Management System (DBMS) is software that enables the
-              creation, management, and manipulation of databases, allowing
-              users to efficiently store, retrieve, and manage data.
-            </p>
-            <ul className={styles.lessons}>
-              {["0:37", "2:00", "5:35", "5:35"].map((time, index) => (
-                <li key={index} className={styles.lesson}>
-                  <span>{time}</span>
-                  <PlayCircleOutline className={styles.playIcon} />
-                  <span> What is DBMS?</span>
-                </li>
-              ))}
-            </ul>
+      {Course?.contents?.map((section, sectionIndex) => (
+        <div key={sectionIndex} className={styles.dropdown}>
+          <div
+            className={styles.dropdownHeader}
+            onClick={() => toggleSection(sectionIndex)}
+          >
+            <span>{section.section}</span>
+            <ExpandMore
+              className={`${styles.icon} ${
+                expandedSections[sectionIndex] ? styles.rotateIcon : ""
+              }`}
+            />
           </div>
-        )}
-      </div>
 
-      {/* More into DBMS Dropdown */}
-      <div className={styles.dropdown}>
-        <div className={styles.dropdownHeader} onClick={toggleMoreContent}>
-          <span>More into DBMS</span>
-          <ExpandMore
-            className={`${styles.icon} ${
-              showMoreContent ? styles.rotateIcon : ""
-            }`}
-          />
+          {expandedSections[sectionIndex] && (
+            <div className={styles.dropdownContent}>
+              <p className={styles.description}>
+                Duration: {section.duration}
+              </p>
+              <ul className={styles.lessons}>
+                {section?.topics?.map((topic, topicIndex) => (
+                  <li key={topicIndex} className={styles.lesson}>
+                    <span>{topic?.time}</span>
+                    <PlayCircleOutline className={styles.playIcon} />
+                    <span>{topic?.title}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-        {showMoreContent && (
-          <div className={styles.dropdownContent}>
-            <p className={styles.description}>
-              A DBMS ensures efficient data management by providing tools for
-              data storage, retrieval, security, and integrity, supporting
-              multiple users and applications.
-            </p>
-          </div>
-        )}
-      </div>
+      ))}
     </div>
   );
 };
