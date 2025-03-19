@@ -1,5 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./css/HomeFeatures.module.css";
+import FindYourDreamJobImg from "../assets/FindYourDreamJob.jpg";
+import SkillDevelopmentImg from "../assets/SkillDevelopment.jpg";
+import CareerGrowthImg from "../assets/CareerGrowth.jpg";
+import CompanyCultureImg from "../assets/CompanyCulture.jpg";
+import InterviewPrepImg from "../assets/InterviewPrep.jpg";
+import ProfessionalProfileImg from "../assets/ProfessionalProfile.jpg";
 import { FaArrowRight } from "react-icons/fa";
 
 const HomeFeatures = () => {
@@ -31,7 +37,7 @@ const HomeFeatures = () => {
         "Real-time notifications",
         "One-click apply",
       ],
-      image: "job-search.svg",
+      image: FindYourDreamJobImg,
       isDark: false,
     },
     {
@@ -41,7 +47,7 @@ const HomeFeatures = () => {
         "Industry certifications",
         "Expert mentorship",
       ],
-      image: "learning.svg",
+      image: SkillDevelopmentImg,
       isDark: true,
     },
     {
@@ -51,13 +57,13 @@ const HomeFeatures = () => {
         "Career path planning",
         "Professional network",
       ],
-      image: "career.svg",
+      image: CareerGrowthImg,
       isDark: false,
     },
     {
       title: "Company Culture",
       points: ["Company reviews", "Work-life balance", "Benefits comparison"],
-      image: "culture.svg",
+      image: CompanyCultureImg,
       isDark: true,
     },
     {
@@ -67,13 +73,13 @@ const HomeFeatures = () => {
         "Company research",
         "Salary negotiation",
       ],
-      image: "interview.svg",
+      image: InterviewPrepImg,
       isDark: false,
     },
     {
       title: "Professional Profile",
       points: ["AI resume builder", "Portfolio showcase", "Skill endorsements"],
-      image: "profile.svg",
+      image: ProfessionalProfileImg,
       isDark: true,
     },
   ];
@@ -103,7 +109,7 @@ const HomeFeatures = () => {
             </div>
           </div>
           <div className={styles.image}>
-            <img src={`/src/assets/${feature.image}`} alt={feature.title} />
+            <img src={feature.image} alt={feature.title} />
           </div>
         </div>
       ))}
