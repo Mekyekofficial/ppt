@@ -4,11 +4,11 @@ import { googleAuth, signup, login } from '../api';
 import { useNavigate } from 'react-router-dom';
 
 import Styles from './css/LoginSignupPop.module.css';
-import LoginPopup from './LoginSignupPop/LoginPopup';
-import SignUpPopup from './LoginSignupPop/SignUpPopup';
+// import LoginPopup from './LoginSignupPop/LoginPopup';
+// import SignUpPopup from './LoginSignupPop/SignUpPopup';
 // import ConfirmEmailModal from './LoginSignupPop/ConfirmEmailModal';
 // import ConfirmPhNumberModal from './LoginSignupPop/ConfirmPhNumberModal';
-import NameModal from './LoginSignupPop/NameModal';
+// import NameModal from './LoginSignupPop/NameModal';
 // import BirthModal from './LoginSignupPop/BirthModal';
 // import AddProfessionalPhoto from './LoginSignupPop/AddProfessionalPhoto';
 
@@ -198,21 +198,21 @@ const LoginSignupPop = ({onLogInClick}) => {
 
   return ( 
     <div className={Styles["login-signup-pop"]}>
-      {currentStep === 1 && (
+      {/* {currentStep === 1 && (
         <LoginPopup onSubmit={handleLoginSubmit} onSignUp={() => setCurrentStep(2)} googleLogin={googleLogin} />
       )}
       {currentStep === 2 && (
         <SignUpPopup onSubmit={handleSignUpSubmit} onLogIn={() => setCurrentStep(1)} googleLogin={googleLogin} />
-      )}
+      )} */}
       {/* {currentStep === 3 && (
         <ConfirmEmailModal onSubmit={handleEmailVerification} />
       )}
       {currentStep === 4 && (
         <ConfirmPhNumberModal onSubmit={handlePhNumberVerification} />
       )} */}
-      {currentStep === 3 && (
+      {/* {currentStep === 3 && (
         <NameModal onSubmit={handleNameSubmit} />
-      )}
+      )} */}
       {/* {currentStep === 6 && (
         <BirthModal onSubmit={handleBirthSubmit} />
       )}
