@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./css/UserSuggestions.module.css";
+import styles from "./css/userSuggestions.module.css";
 import ProfileImage from "../../assets/profile-image.png";
 import { ChevronDown } from "lucide-react"; // For the down arrow icon
 
