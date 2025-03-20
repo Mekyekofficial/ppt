@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
 import { useNavigate } from 'react-router-dom';
-import img1 from '../../assets/eventCarousel1.jpg';
-import img2 from '../../assets/eventCarousel2.jpg';
-import img3 from '../../assets/eventCarousel3.jpg';
+import img1 from '../../assets/courseCarousel1.jpg';
+import img2 from '../../assets/courseCarousel2.jpg';
+import img3 from '../../assets/courseCarousel3.jpg';
 
-function EventCarousel() {
-
+function NewsCarousel() {
   useEffect(() => {
     const carousel = document.querySelector('#carouselExampleDark');
     const bsCarousel = new bootstrap.Carousel(carousel, {
@@ -15,8 +13,19 @@ function EventCarousel() {
     });
   }, []);
 
+  // Styles for the carousel container and images
+  const carouselStyle = {
+    width: '100%',
+    height: '400px'
+  };
+
+  const imageStyle = {
+    objectFit: 'cover',
+    height: '400px'
+  };
+
   return (
-    <div id="carouselExampleDark" className="carousel carousel-dark slide rounded-4">
+    <div id="carouselExampleDark" className="carousel carousel-dark slide rounded-4" style={carouselStyle}>
       <div className="carousel-indicators">
         <button 
           type="button" 
@@ -45,7 +54,7 @@ function EventCarousel() {
 
       <div className="carousel-inner">
         <div className="carousel-item active" data-bs-interval="3000">
-          <img src={img1} className="d-block w-100 rounded-4" alt="..." />
+          <img src={img1} className="d-block w-100 rounded-4" alt="..." style={imageStyle} />
           <div className="carousel-caption d-none d-md-block text-white">
             <h5 className="fs-3">First slide label</h5>
             <p className="fs-5">Some representative placeholder content for the first slide.</p>
@@ -53,7 +62,7 @@ function EventCarousel() {
         </div>
 
         <div className="carousel-item" data-bs-interval="3000">
-          <img src={img2} className="d-block w-100 rounded-4" alt="..." />
+          <img src={img2} className="d-block w-100 rounded-4" alt="..." style={imageStyle} />
           <div className="carousel-caption d-none d-md-block text-white">
             <h5 className="fs-3">Second slide label</h5>
             <p className="fs-5">Some representative placeholder content for the second slide.</p>
@@ -61,7 +70,7 @@ function EventCarousel() {
         </div>
 
         <div className="carousel-item">
-          <img src={img3} className="d-block w-100 rounded-4" alt="..." />
+          <img src={img3} className="d-block w-100 rounded-4" alt="..." style={imageStyle} />
           <div className="carousel-caption d-none d-md-block text-white">
             <h5 className="fs-3">Third slide label</h5>
             <p className="fs-5">Some representative placeholder content for the third slide.</p>
@@ -94,4 +103,4 @@ function EventCarousel() {
   );
 }
 
-export default EventCarousel;
+export default NewsCarousel;

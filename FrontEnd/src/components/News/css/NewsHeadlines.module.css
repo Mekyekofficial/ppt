@@ -20,10 +20,9 @@
     border-radius: 12px;
     overflow: hidden;
   }
-  
+
   .image {
     width: 100%;
-    height: auto;
-    border-radius: 12px;
+    height: 100% !important;
+    object-fit: cover;
   }
-  
