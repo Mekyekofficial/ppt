@@ -19,7 +19,7 @@ const Modal = ({ onSubmit, onClose }) => {
     return (
         <div className={styles["popup-overlay"]}>
           <div className={styles.popup}>
-            <h2>CONFIRM YOUR EMAIL</h2>
+            <h2>CONFIRM YOUR EMAIL ADDRESS</h2>
             {error && <p className={styles.error}>{error}</p>}
             <p className={styles.description}>
               Enter the 6-digit code we sent
