@@ -1,6 +1,6 @@
 const NewsModel = require('../Models/News');
 const EventModel = require('../Models/Event');
-const JobModel = require('../Models/Job.js');
+const JobModel = require('../Models/Job');
 const CompanyJobModel = require('../Models/ATS/CompanyJobs');
 const wrapAsync = require('../utils/wrapAsync');
 
