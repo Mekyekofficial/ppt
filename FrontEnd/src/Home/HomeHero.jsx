@@ -70,22 +70,22 @@ const HomeHero = () => {
   const features = [
     {
       icon: "fa-solid fa-briefcase",
-      title: "Career Growth",
+      title: "Jobs",
       className: styles.featureBox1,
     },
     {
       icon: "fa-solid fa-laptop-code",
-      title: "Remote Work",
+      title: "Internships & Gigs",
       className: styles.featureBox2,
     },
     {
       icon: "fa-solid fa-graduation-cap",
-      title: "Internships",
+      title: "Courses",
       className: styles.featureBox3,
     },
     {
       icon: "fa-solid fa-clock",
-      title: "Freelance",
+      title: "Events",
       className: styles.featureBox4,
     },
     {
@@ -95,7 +95,7 @@ const HomeHero = () => {
     },
     {
       icon: "fa-solid fa-chart-line",
-      title: "Skill Development",
+      title: "News & Articles",
       className: styles.featureBox6,
     },
   ];

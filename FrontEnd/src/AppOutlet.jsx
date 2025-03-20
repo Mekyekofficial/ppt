@@ -2,6 +2,7 @@ import React, { createContext, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from "./components/includes/header";
 import Footer from "./components/includes/footer";
+import FloatingChatboxFrame from "./components/FloatingChatboxFrame";
 import Post from "./components/Post";
 import AppStyles from "./AppOutlet.module.css";
 
@@ -22,6 +23,7 @@ const AppOutlet = () => {
             <div className={AppStyles.App}>
                 {!hideHeader && <Header />}
                 <Outlet />
+                {!hideHeader && < FloatingChatboxFrame />}
                 {!hidePost && <Post closePost={closePost} />}
                 {/* {!hideFooter && <Footer />} */}
             </div>

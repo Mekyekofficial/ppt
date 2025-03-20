@@ -49,6 +49,15 @@ import CompanyProfile from "./components/CompanyProfile";
 
 import FloatingChatboxFrame from './components/FloatingChatboxFrame';
 
+
+import PrivacyPolicy from "./Policy/MekyekPrivacyPolicy";
+import TermsAndCondition from "./Policy/TermsAndCondition";
+// import Cookie from "./Policy/Cookie";
+// import Contact from "./Policy/Contact";
+// import About from "./Policy/About";
+// import Help from "./Policy/Help";
+
+
 const PrivateRouteLogin = ({ children, isLogged }) => {
   return isLogged ? <Navigate to="/Feeds" /> : children;
 };
@@ -130,12 +139,35 @@ const App = () => {
       path: "/Company-Profile/:userId",
       element: <CompanyProfile />,
     },
+    {
+      path: "/Privacy-Policy",
+      element: <PrivacyPolicy />,
+    },
+    {
+      path: "/Terms-And-Condition",
+      element: <TermsAndCondition />,
+    },
+    // {
+    //   path: "/Cookie-Policy",
+    //   element: <Cookie />,
+    // },
+    // {
+    //   path: "/Contact-Us",
+    //   element: <Contact />,
+    // },
+    // {
+    //   path: "/About-Us",
+    //   element: <About />,
+    // },
+    // {
+    //   path: "/Help",
+    //   element: <Help />,
+    // },
   ]);
 
   return (
     <div>
       <RouterProvider router={router} />
-      <FloatingChatboxFrame />
     </div>
   );
 };

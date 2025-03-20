@@ -86,8 +86,8 @@ const Footer = () => {
       <div className={styles.footerBottom}>
         <p>&copy; 2024 Your Platform Name. All rights reserved.</p>
         <div className={styles.footerLinks}>
-          <Link to="/privacy">Privacy Policy</Link>
-          <Link to="/terms">Terms of Service</Link>
+          <Link to="/Privacy-Policy">Privacy Policy</Link>
+          <Link to="/Terms-And-Condition">Terms of Service</Link>
           <Link to="/cookies">Cookie Policy</Link>
         </div>
       </div>
