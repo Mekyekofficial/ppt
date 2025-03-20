@@ -1,6 +1,6 @@
 .news-tab {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     padding: 60px;
     padding-top: 15vh;
     background-color: #fbfbec;
@@ -8,11 +8,16 @@
   }
 
   .left-sidebar {
+    position: fixed;
+    top: 11.25vh;
+    left: 60px;
     flex: 0.1;
+    width: 15%;
   }
   
   .main-news {
     flex: 0.5;
+    margin-right: 100px;
   }
 
   .main-news .news-items {
@@ -23,6 +28,7 @@
   }
   
   .right-sidebar {
+    width: 25%;
     flex: 0.25;
   }
   

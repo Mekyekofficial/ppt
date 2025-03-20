@@ -47,24 +47,24 @@ function CourseCarousel() {
         <div className="carousel-item active" data-bs-interval="3000">
           <img src={img1} className="d-block w-100 rounded-4" alt="..." />
           <div className="carousel-caption d-none d-md-block text-white">
-            <h5 className="fs-3">First slide label</h5>
-            <p className="fs-5">Some representative placeholder content for the first slide.</p>
+            {/* <h5 className="fs-3">First slide label</h5> */}
+            <p className="fs-5">Microchip symbolizes advanced AI, showcasing interconnected data and innovation.</p>
           </div>
         </div>
 
         <div className="carousel-item" data-bs-interval="3000">
           <img src={img2} className="d-block w-100 rounded-4" alt="..." />
           <div className="carousel-caption d-none d-md-block text-white">
-            <h5 className="fs-3">Second slide label</h5>
-            <p className="fs-5">Some representative placeholder content for the second slide.</p>
+            {/* <h5 className="fs-3">Second slide label</h5> */}
+            <p className="fs-5">Using VR for cybersecurity data analysis in immersive visual environments.</p>
           </div>
         </div>
 
         <div className="carousel-item">
           <img src={img3} className="d-block w-100 rounded-4" alt="..." />
           <div className="carousel-caption d-none d-md-block text-white">
-            <h5 className="fs-3">Third slide label</h5>
-            <p className="fs-5">Some representative placeholder content for the third slide.</p>
+            {/* <h5 className="fs-3">Third slide label</h5> */}
+            <p className="fs-5">Code and creativity blend at sunset for inspiring remote work.</p>
           </div>
         </div>
       </div>

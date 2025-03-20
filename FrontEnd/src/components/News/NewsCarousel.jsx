@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import img1 from '../../assets/courseCarousel1.jpg';
-import img2 from '../../assets/courseCarousel2.jpg';
-import img3 from '../../assets/courseCarousel3.jpg';
+import img1 from '../../assets/newsCarousel1.jpg';
+import img2 from '../../assets/newsCarousel2.jpg';
+import img3 from '../../assets/newsCarousel3.jpg';
 
 function NewsCarousel() {
   useEffect(() => {
@@ -56,24 +56,24 @@ function NewsCarousel() {
         <div className="carousel-item active" data-bs-interval="3000">
           <img src={img1} className="d-block w-100 rounded-4" alt="..." style={imageStyle} />
           <div className="carousel-caption d-none d-md-block text-white">
-            <h5 className="fs-3">First slide label</h5>
-            <p className="fs-5">Some representative placeholder content for the first slide.</p>
+            {/* <h5 className="fs-3">First slide label</h5> */}
+            <p className="fs-5">Hamas said it fired rockets at Israeli commercial hub Tel Aviv on Thursday (March 20, 2025) in its first military response to the growing civilian death toll from Israel’s resumption of air and ground operations in Gaza.</p>
           </div>
         </div>
 
         <div className="carousel-item" data-bs-interval="3000">
           <img src={img2} className="d-block w-100 rounded-4" alt="..." style={imageStyle} />
           <div className="carousel-caption d-none d-md-block text-white">
-            <h5 className="fs-3">Second slide label</h5>
-            <p className="fs-5">Some representative placeholder content for the second slide.</p>
+            {/* <h5 className="fs-3">Second slide label</h5> */}
+            <p className="fs-5">The administration of President Donald Trump was consulted on Monday (March 17, 2025) by Israel on its deadly strikes in Gaza, a White House spokesperson told Fox News' "Hannity" show.</p>
           </div>
         </div>
 
         <div className="carousel-item">
           <img src={img3} className="d-block w-100 rounded-4" alt="..." style={imageStyle} />
           <div className="carousel-caption d-none d-md-block text-white">
-            <h5 className="fs-3">Third slide label</h5>
-            <p className="fs-5">Some representative placeholder content for the third slide.</p>
+            {/* <h5 className="fs-3">Third slide label</h5> */}
+            <p className="fs-5">The world is full of mysteries but not all of them are grand. Sure, we don’t know what the mind really is or what the inside of a black hole looks like. But there are also many mysteries hiding in the little details.</p>
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@
 }
 
 .Event-main-bar {
-  width: 100%;
+  width: 62.5%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

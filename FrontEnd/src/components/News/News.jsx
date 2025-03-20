@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./css/News.module.css";
 import ProfileImage from "../../assets/profile-image.png";
+import Logo from "../../assets/logo2.png";
 import API from "../../api";
 
 const News = ({ news }) => {
@@ -100,6 +101,7 @@ const News = ({ news }) => {
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.profile}>
+          {news?.author?.profilePhoto ? (
           <img
             className={styles.avatar}
             src={news?.author?.profilePhoto}
@@ -107,6 +109,15 @@ const News = ({ news }) => {
             onClick={() => navigate(`/profile/${news?.author?._id}`)}
             style={{ cursor: "pointer" }}
           />
+          ) : (
+            <img
+            className={styles.avatar}
+            src={Logo}
+            alt="avatar"
+            onClick={() => navigate(`/profile/${news?.author?._id}`)}
+            style={{ cursor: "pointer" }}
+          />
+          )}
           <div>
             <div className={styles.newsSource}>
               {news?.author?.firstName || news?.author?.lastName ? (
