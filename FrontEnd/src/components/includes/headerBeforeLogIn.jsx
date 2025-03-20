@@ -92,7 +92,7 @@ const HeaderBeforeLogIn = () => {
         </div>
 
         <div className={styles.navLinks}>
-          <NavLink to="/hire" className={styles.navItem}>
+          <NavLink to="/work" className={styles.navItem}>
             <FaBriefcase />
             <span>Hire Talent</span>
           </NavLink>
