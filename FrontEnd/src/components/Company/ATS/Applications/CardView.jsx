@@ -3,7 +3,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { MdOutlinePlayCircle } from "react-icons/md";
-import CardViewStyles from "./css/cardView.module.css";
+import CardViewStyles from "./css/CardView.module.css";
 import API from "../../../../api";
 import Spinner from "../../../Animation/Spinner";
 
