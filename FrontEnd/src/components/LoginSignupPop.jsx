@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import Styles from './css/LoginSignupPop.module.css';
 import LoginPopup from './LoginSignupPop/LoginPopup';
 import SignUpPopup from './LoginSignupPop/SignUpPopup';
-import ConfirmEmailModal from './LoginSignupPop/ConfirmEmailModal';
-import ConfirmPhNumberModal from './LoginSignupPop/ConfirmPhNumberModal';
+// import ConfirmEmailModal from './LoginSignupPop/ConfirmEmailModal';
+// import ConfirmPhNumberModal from './LoginSignupPop/ConfirmPhNumberModal';
 import NameModal from './LoginSignupPop/NameModal';
-import BirthModal from './LoginSignupPop/BirthModal';
-import AddProfessionalPhoto from './LoginSignupPop/AddProfessionalPhoto';
+// import BirthModal from './LoginSignupPop/BirthModal';
+// import AddProfessionalPhoto from './LoginSignupPop/AddProfessionalPhoto';
 
 const LoginSignupPop = ({onLogInClick}) => {
   const navigate = useNavigate();
