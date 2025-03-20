@@ -154,7 +154,11 @@ const News = ({ news }) => {
       {news?.newsPhoto ? (
           <img className={styles.media} src={news.newsPhoto} alt="newsPhoto" />
         ) : (
-          <img className={styles.media} src={news.image} alt="newsPhoto" />
+          news.urlToImage ? (
+          <img className={styles.media} src={news.urlToImage} alt="newsPhoto" />
+          ) : (
+            null
+          )
       )}
 
       <div className={styles.separator}></div>
