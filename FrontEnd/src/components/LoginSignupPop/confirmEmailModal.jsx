@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./css/confirmEmailModal.module.css";
+import styles from "./css/ConfirmEmailModal.module.css";
 import { verifyEmail } from "../../api";
 
 const Modal = ({ onSubmit, onClose }) => {
