@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
-import styles from "./css/SearchBar.module.css";
+import styles from "./css/searchBar.module.css";
 import ProfileImage from "../../assets/profile-image.png";
 import { toast } from "react-toastify";
 import API from "../../api";
