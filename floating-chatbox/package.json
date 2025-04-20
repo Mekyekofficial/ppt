@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "cross-env PORT=8000 next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "cross-env PORT=8000 next start",
     "lint": "next lint"
   },
   "dependencies": {
