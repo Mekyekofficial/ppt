@@ -5,10 +5,10 @@ import styles from "./css/ProfileUrlAndHighlights.module.css";
 import DemoImage from "../../assets/flipkart.png";
 import Demo from "../../assets/user-avatar-profile.png";
 
-const ProfileUrlAndHighlights = ({profileOwner}) => {
+const ProfileUrlAndHighlights = ({isProfileOwner}) => {
   return (
     <div className={styles.card}>
-      {profileOwner && 
+      {isProfileOwner && 
       <svg className={styles.editIcon} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M41.6667 158.333H53.5417L135 76.875L123.125 65L41.6667 146.458V158.333ZM25 175V139.583L146.875 18.125L181.667 53.75L60.4167 175H25ZM128.958 71.0417L123.125 65L135 76.875L128.958 71.0417Z" fill="black"/>
       </svg>}

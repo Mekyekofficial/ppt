@@ -7,32 +7,33 @@ import ProfileSkills from "./Profile/ProfileSkills";
 import ProfileEducation from "./Profile/ProfileEducation";
 import ProfileCertificate from "./Profile/ProfileCertificate";
 import ProfileUrlAndHighlights from "./Profile/ProfileUrlAndHighlights";
+import ProfileFriendsSuggestions from "./Profile/ProfileFriendsSuggestions";
 import ProfileFriends from "./Profile/ProfileFriends";
 import API from "../api";
 import { toast } from "react-toastify";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [userinfo, setUserInfo] = useState(null);
   const [profileOwner, setProfileOwner] = useState(false);
+  const [isProfileOwner, setIsProfileOwner] = useState(false);
 
   useEffect(() => {
     const userinfo = JSON.parse(localStorage.getItem("user-info"));
-    setUserInfo(userinfo);
-    const userId = window.location.pathname.split("/").pop();
-    if (!userId) {
+    setUser(userinfo);
+    const profileId = window.location.pathname.split("/").pop();
+    if (!profileId) {
       toast.error("User ID not found in URL");
       return;
     }
 
-    if (userinfo && userinfo._id === userId) {
-      setProfileOwner(true);
+    if (userinfo && userinfo._id === profileId) {
+      setIsProfileOwner(true);
     }
 
     const fetchUser = async () => {
       try {
-        const response = await API.get(`/profile/get?_id=${userId}`); // Ensure your backend route is correct
-        setUser(response.data);
+        const response = await API.get(`/profile/get?_id=${profileId}`); // Ensure your backend route is correct
+        setProfileOwner(response.data);
       } catch (error) {
         console.error("Error fetching user:", error);
       }
@@ -44,16 +45,17 @@ const Profile = () => {
   return (
     <div className={Styles.container}>
       <div className={Styles.mainContent}>
-        <ProfileBanner user={user} profileOwner={profileOwner} />
-        <ProfileAbout user={user} profileOwner={profileOwner} />
-        <ProfileWorkExperience user={user} profileOwner={profileOwner} />
-        <ProfileSkills user={user} profileOwner={profileOwner} />
-        <ProfileEducation user={user} profileOwner={profileOwner} />
-        <ProfileCertificate user={user} profileOwner={profileOwner} />
+        <ProfileBanner user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        <ProfileAbout user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        <ProfileWorkExperience user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        <ProfileSkills user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        <ProfileEducation user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        <ProfileCertificate user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
       </div>
       <div className={Styles.rightSideBar}>
-        <ProfileUrlAndHighlights profileOwner={profileOwner} />
-        <ProfileFriends profileOwner={profileOwner} />
+        <ProfileUrlAndHighlights user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        <ProfileFriendsSuggestions user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        <ProfileFriends user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
       </div>
       <div className={Styles.back} onClick={() => window.history.back()}>
         <svg

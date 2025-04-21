@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import styles from "./css/ProfileEducation.module.css";
 import ProfileEducationEdit from "./Edit/ProfileEducationEdit";
 
-const ProfileEducation = ({user, profileOwner}) => {
+const ProfileEducation = ({profileOwner, isProfileOwner}) => {
   const [edit, setEdit] = useState(false);
+
+  const education = profileOwner?.education || [
+    { name: "Add your Education Institution", stream: "Add Stream", endDate: null },
+    { name: "Add your Education Institution", stream: "Add Stream", endDate: null },
+  ];
+  
   return (
     <div className={styles.educationCard}>
       <div className={styles.header}>
         <div className={styles.title}>Education</div>
-        {profileOwner &&
+        {isProfileOwner &&
         <svg className={styles.editIcon} onClick={() => setEdit(true)} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M41.6667 158.333H53.5417L135 76.875L123.125 65L41.6667 146.458V158.333ZM25 175V139.583L146.875 18.125L181.667 53.75L60.4167 175H25ZM128.958 71.0417L123.125 65L135 76.875L128.958 71.0417Z" fill="black"/>
         </svg>}
@@ -23,10 +29,10 @@ const ProfileEducation = ({user, profileOwner}) => {
 
             <div>
               <div className={styles.degree}>
-                {user?.education[0]?.name || "Add your Education Institution"}
+                {education[0]?.name || "Add your Education Institution"}
               </div>
               <div className={styles.field}>
-                {user?.education[0]?.stream || "Add Stream"}
+                {education[0]?.stream || "Add Stream"}
               </div>
             </div>
           </div>
@@ -39,10 +45,10 @@ const ProfileEducation = ({user, profileOwner}) => {
             </svg>
             <div>
               <div className={styles.degree}>
-                {user?.education[1]?.name || "Add your Education Institution"}
+                {education[1]?.name || "Add your Education Institution"}
               </div>
               <div className={styles.field}>
-                {user?.education[1]?.stream || "Add Stream"}
+                {education[1]?.stream || "Add Stream"}
               </div>
             </div>
           </div>
@@ -51,10 +57,10 @@ const ProfileEducation = ({user, profileOwner}) => {
         <div className={styles.passingYear}>
           <div className={styles.yearText}>Passing Year</div>
           <div className={styles.year}>
-            {user?.education[0]?.endDate ? new Date(user.education[0].endDate).getFullYear() : "Add Year"}
+            {education[0]?.endDate ? new Date(profileOwner.education[0].endDate).getFullYear() : "Add Year"}
           </div>
           <div className={styles.year}>
-            {user?.education[1]?.endDate ? new Date(user.education[1].endDate).getFullYear() : "Add Year"}
+            {education[1]?.endDate ? new Date(profileOwner.education[1].endDate).getFullYear() : "Add Year"}
           </div>
         </div>
       </div>
@@ -66,7 +72,7 @@ const ProfileEducation = ({user, profileOwner}) => {
                     </svg>
             </div>
 
-      <ProfileEducationEdit isOpen={edit} onClose={() => setEdit(false)} userId={user?._id}/>
+      <ProfileEducationEdit isOpen={edit} onClose={() => setEdit(false)} userId={profileOwner?._id}/>
     </div>
   );
 };

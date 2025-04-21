@@ -8,18 +8,70 @@ import ProfileBannerEdit from "./Edit/ProfileBannerEdit";
 import { toast } from "react-toastify";
 import { use } from "react";
 
-const ProfileBanner = ({ user, profileOwner }) => {
+const ProfileBanner = ({ user, profileOwner, isProfileOwner }) => {
+  const [friendStatus, setFriendStatus] = useState("loading");
+  const [dot3Clicked, setDot3Clicked] = useState(false);
+  console.log("isProfileOwner", isProfileOwner);
+  console.log("profileOwner", profileOwner);
+  console.log("user", user);
+  const handleDot3Click = () => {
+    setDot3Clicked(!dot3Clicked);
+  };
 
-    const [dot3Clicked, setDot3Clicked] = useState(false);
-    const handleDot3Click = () => {
-      setDot3Clicked(!dot3Clicked);
-    };
+  const [edit, setEdit] = useState(false);
+  const handleEdit = () => {
+    setDot3Clicked(false);
+    setEdit(!edit);
+  };
 
-    const [edit, setEdit] = useState(false);
-    const handleEdit = () => {
-      setDot3Clicked(false);
-      setEdit(!edit);
+  useEffect(() => {
+    const fetchFriendStatus = async () => {
+      try {
+        const res = await API.get("/friend-status", {
+          params: {
+            currentUserId: user._id,
+            friendId: profileOwner._id,
+          },
+        });
+        setFriendStatus(res.data.status);
+      } catch (err) {
+        console.error(err);
+        setFriendStatus("none");
+      }
     };
+  
+    if (!profileOwner || !user?._id || user._id === profileOwner._id) return;
+  
+    fetchFriendStatus();
+  }, [user, profileOwner]);
+  
+
+  const handleAddFriend = async () => {
+    try {
+      const res = await API.post("/add-friend", {
+        currentUserId: user._id,
+        friendId: profileOwner._id,
+      });
+      toast.success(res.data.message);
+      setFriendStatus("pending");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Error sending request");
+    }
+  };
+  
+  const handleAcceptFriend = async () => {
+    try {
+      const res = await API.post("/accept-friend", {
+        currentUserId: user._id,
+        friendId: profileOwner._id,
+      });
+      toast.success(res.data.message);
+      setFriendStatus("connected");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Error accepting request");
+    }
+  };
+  
 
   return (
     <>
@@ -28,7 +80,7 @@ const ProfileBanner = ({ user, profileOwner }) => {
         <div className={styles.profileContent}>
           <div className={styles.leftSection}>
             <img
-              src={user?.profilePhoto || ProfileImage}
+              src={profileOwner?.profilePhoto || ProfileImage}
               alt="ProfileImage"
               className={styles.avatar}
               onError={(e) => {
@@ -38,19 +90,47 @@ const ProfileBanner = ({ user, profileOwner }) => {
             />
             <div className={styles.info}>
               <h2>
-                {user?.firstName} {user?.lastName}
+                {profileOwner?.firstName} {profileOwner?.lastName}
               </h2>
               <p className={styles.location}>
                 <FaMapMarkerAlt className={styles.icon} />
-                {user?.profileBanner?.location || "Update your Location"}
+                {profileOwner?.profileBanner?.location || "Update your Location"}
               </p>
               <p className={styles.description}>
-                {user?.profileBanner?.description || "Update your Bio"}
+                {profileOwner?.profileBanner?.description || "Update your Bio"}
               </p>
             </div>
           </div>
-          {profileOwner && (
-            <div className={styles.rightSection}>
+          <div className={styles.rightSection}>
+            {!isProfileOwner && (
+              <>
+                {friendStatus === "loading" ? (
+                  <button className={styles.addFriendButton}>Loading...</button>
+                ) : friendStatus === "none" ? (
+                  <button
+                    className={styles.addFriendButton}
+                    onClick={handleAddFriend}>
+                    Add Friend
+                  </button>
+                ) : friendStatus === "pending" ? (
+                  <button className={styles.addFriendButton} disabled>
+                    Pending
+                  </button>
+                ) : friendStatus === "requested" ? (
+                  <button
+                    className={styles.addFriendButton}
+                    onClick={handleAcceptFriend}>
+                    Accept
+                  </button>
+                ) : (
+                  <button className={styles.addFriendButton} disabled>
+                    Friends
+                  </button>
+                )}
+              </>
+            )}
+
+            {isProfileOwner && (
               <div className={styles.options} onClick={handleDot3Click}>
                 <svg
                   className={styles.optionsIcon}
@@ -70,17 +150,17 @@ const ProfileBanner = ({ user, profileOwner }) => {
                     fill="#292556"
                   />
                 </svg>
-              </div>
-              {dot3Clicked && (
-                <div className={styles.optionsDropdown}>
-                  <div className={styles.option} onClick={handleEdit}>
-                    Edit Profile
+                {dot3Clicked && (
+                  <div className={styles.optionsDropdown}>
+                    <div className={styles.option} onClick={handleEdit}>
+                      Edit Profile
+                    </div>
+                    <div className={styles.option}>Settings</div>
                   </div>
-                  <div className={styles.option}>Settings</div>
-                </div>
-              )}
-            </div>
-          )}
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className={styles.tabs}>
@@ -94,7 +174,7 @@ const ProfileBanner = ({ user, profileOwner }) => {
         <ProfileBannerEdit
           isOpen={edit}
           onClose={handleEdit}
-          userId={user?._id}
+          userId={profileOwner?._id}
         />
       )}
     </>

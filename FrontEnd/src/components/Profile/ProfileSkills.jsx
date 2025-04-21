@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { use } from "react";
 
-const ProfileSkills = ({user, profileOwner}) => {
+const ProfileSkills = ({profileOwner, isProfileOwner}) => {
   const [edit, setEdit] = useState(false);
       const handleEdit = () => {
         setEdit(!edit);
@@ -26,7 +26,7 @@ const ProfileSkills = ({user, profileOwner}) => {
 </svg>
 
         </div>
-        {profileOwner &&
+        {isProfileOwner &&
         <div className={styles.editIcon}>
         <svg className={styles.editIcon} onClick={handleEdit} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M41.6667 158.333H53.5417L135 76.875L123.125 65L41.6667 146.458V158.333ZM25 175V139.583L146.875 18.125L181.667 53.75L60.4167 175H25ZM128.958 71.0417L123.125 65L135 76.875L128.958 71.0417Z" fill="black"/>
@@ -39,12 +39,12 @@ const ProfileSkills = ({user, profileOwner}) => {
         <div className={styles.section}>
           <h3>Technical Knowledge</h3>
           <p><strong>Languages: </strong> 
-            {user?.skills?.technicalKnowledge?.language.map((language, index) => {
+            {profileOwner?.skills?.technicalKnowledge?.language.map((language, index) => {
               return <span key={index}>{language}, </span>
             }) || 'add your technical language'}
           </p>
           <p><strong>Frameworks:</strong> 
-            {user?.skills?.technicalKnowledge?.framework.map((framework, index) => {
+            {profileOwner?.skills?.technicalKnowledge?.framework.map((framework, index) => {
               return <span key={index}>{framework}, </span>
             }) || 'add your technical framework'}
           </p>
@@ -52,15 +52,15 @@ const ProfileSkills = ({user, profileOwner}) => {
 
         <div className={styles.section}>
           <h3>Core Knowledge </h3>
-          {user?.skills?.coreKnowledge?.map((core, index) => {
+          {profileOwner?.skills?.coreKnowledge?.map((core, index) => {
             return <p key={index}>{core}</p>
           }) || 'add your core knowledge'}
         </div>
 
         <div className={styles.section}>
           <h3>Languages </h3>
-          {user?.skills?.languages?.length > 0 ? (
-              user.skills.languages.map((language, index) => (
+          {profileOwner?.skills?.languages?.length > 0 ? (
+              profileOwner.skills.languages.map((language, index) => (
                 <span key={index}>
                   {language.name} ({language.level}) &nbsp;&nbsp;
                 </span>
@@ -78,7 +78,7 @@ const ProfileSkills = ({user, profileOwner}) => {
               <path d="M66.2109 94.5835L113.503 141.875L160.794 94.5835" stroke="black" stroke-width="22.67" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
       </div>
-      {edit && <ProfileSkillEdit isOpen={edit} onClose={handleEdit} userId={user?._id} />}
+      {edit && <ProfileSkillEdit isOpen={edit} onClose={handleEdit} userId={profileOwner?._id} />}
     </div>
   );
 };

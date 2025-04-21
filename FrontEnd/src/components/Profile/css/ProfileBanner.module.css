@@ -15,6 +15,7 @@
   }
   
   .profileContent {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,6 +75,9 @@
   
   .rightSection {
     text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   
   .stats {
@@ -88,16 +92,6 @@
   .buttons {
     display: flex;
     gap: 10px;
-  }
-  
-  .connect {
-    background: #4caf50;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
   }
   
   .verify {
@@ -116,9 +110,19 @@
     margin-right: 5px;
     color: blue;
   }
+
+  .addFriendButton {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: auto;
+  }
   
   .options {
-    margin-top: 10px;
     text-align: right;
     
   }
@@ -132,6 +136,7 @@
 
   .optionsDropdown {
     position: absolute;
+    transform: translateX(-80%);
     background: #fff;
     border-radius: 5px;
     border: 1px solid #ddd;

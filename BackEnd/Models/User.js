@@ -146,6 +146,20 @@ const UserSchema = new Schema({
             }
         }
     ],
+    friends: [
+        {
+            userId: {
+                type: Schema.Types.ObjectId,
+                ref: 'users',
+            },
+            status: {
+                type: String,
+            },
+            connectionDate: {
+                type: Date,
+            }
+        }
+    ],
 });
 
 const UserModal = mongoose.model('users', UserSchema);
