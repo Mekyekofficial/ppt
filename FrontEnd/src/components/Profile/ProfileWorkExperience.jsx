@@ -9,7 +9,6 @@ const ProfileWorkExperience = ({profileOwner, isProfileOwner}) => {
       const handleEdit = () => {
         setEdit(!edit);
       }
-      console.log(profileOwner);
 
       const experience = profileOwner?.workExperience || [
         { title: "Add your Job Title", company: "Add your Company", startDate: null, endDate: null, description: "Add your Job Description" },

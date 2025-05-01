@@ -27,7 +27,7 @@ const ProfileBanner = ({ user, profileOwner, isProfileOwner }) => {
   useEffect(() => {
     const fetchFriendStatus = async () => {
       try {
-        const res = await API.get("/friend-status", {
+        const res = await API.get("/profile/friend-status", {
           params: {
             currentUserId: user._id,
             friendId: profileOwner._id,
@@ -48,7 +48,7 @@ const ProfileBanner = ({ user, profileOwner, isProfileOwner }) => {
 
   const handleAddFriend = async () => {
     try {
-      const res = await API.post("/add-friend", {
+      const res = await API.post("/profile/add-friend", {
         currentUserId: user._id,
         friendId: profileOwner._id,
       });
@@ -61,7 +61,7 @@ const ProfileBanner = ({ user, profileOwner, isProfileOwner }) => {
   
   const handleAcceptFriend = async () => {
     try {
-      const res = await API.post("/accept-friend", {
+      const res = await API.post("/profile/accept-friend", {
         currentUserId: user._id,
         friendId: profileOwner._id,
       });

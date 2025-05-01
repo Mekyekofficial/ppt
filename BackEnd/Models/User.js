@@ -160,6 +160,34 @@ const UserSchema = new Schema({
             }
         }
     ],
+    pendingFriends: [
+        {
+            userId: {
+                type: Schema.Types.ObjectId,
+                ref: 'users',
+            },
+            status: {
+                type: String,
+            },
+            requestDate: {
+                type: Date,
+            }
+        }
+    ],
+    friendRequests: [
+        {
+            userId: {
+                type: Schema.Types.ObjectId,
+                ref: 'users',
+            },
+            status: {
+                type: String,
+            },
+            requestDate: {
+                type: Date,
+            }
+        }
+    ],
 });
 
 const UserModal = mongoose.model('users', UserSchema);

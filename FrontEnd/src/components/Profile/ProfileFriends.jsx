@@ -1,44 +1,83 @@
+import React, { useState, useEffect } from "react";
+import API from "../../api";               // axios instance
 import styles from "./css/ProfileFriends.module.css";
 import { FaUsers } from "react-icons/fa";
-import DemoImage from "../../assets/user-avatar-profile.png";
+import DefaultAvatar from "../../assets/user-avatar-profile.png";
 
-const friends = [
-  { id: 1, name: "Full Name", job: "Intern in Printerest", avatar: DemoImage },
-  { id: 2, name: "Full Name", job: "Working at Microsoft", avatar: DemoImage },
-  { id: 3, name: "Full Name", job: "Intern in Printerest", avatar: DemoImage },
-  { id: 4, name: "Full Name", job: "Working at Microsoft", avatar: DemoImage },
-  { id: 5, name: "Full Name", job: "Intern in Printerest", avatar: DemoImage },
-  { id: 6, name: "Full Name", job: "Working at Microsoft", avatar: DemoImage },
-  { id: 7, name: "Full Name", job: "Intern in Printerest", avatar: DemoImage },
-  { id: 8, name: "Full Name", job: "Working at Microsoft", avatar: DemoImage },
-];
+const ProfileFriends = ({ user }) => {
+  const [friends, setFriends] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [loading, setLoading] = useState(true);
+  console.log("user", user);
 
-const ProfileFriends = () => {
+  useEffect(() => {
+    if (!user?._id) return;
+  
+    const fetchFriends = async () => {
+      try {
+        const res = await API.get("/profile/friends", {
+          params: { userId: user._id },
+        });
+        setFriends(res.data);
+      } catch (err) {
+        console.error("Failed to load friends", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchFriends();
+  }, [user?._id]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <svg className={styles.icon} viewBox="0 0 420 392" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M209.832 169.501C245.561 169.501 277.932 181.178 301.681 197.507C324.248 213.044 343.362 236.134 343.362 260.976C343.362 274.611 337.467 285.911 328.177 294.311C319.441 302.24 308.033 307.381 296.283 310.884C272.801 317.909 241.879 320.169 209.832 320.169C177.785 320.169 146.863 317.909 123.381 310.884C111.631 307.381 100.223 302.24 91.4677 294.311C82.216 285.93 76.3026 274.63 76.3026 260.994C76.3026 236.153 95.4164 213.063 117.983 197.526C141.732 181.178 174.103 169.501 209.832 169.501ZM209.832 207.168C182.363 207.168 157.508 216.208 139.824 228.394C120.959 241.389 114.454 254.61 114.454 260.976C114.454 266.701 121.168 270.279 127.273 272.539L131.183 273.858L134.426 274.837C152.357 280.186 178.682 282.502 209.832 282.502C238.598 282.502 263.225 280.525 280.946 276.023L286.745 274.385L290.369 273.255C296.912 271.051 305.21 267.341 305.21 260.976C305.21 254.61 298.705 241.389 279.84 228.394C262.176 216.227 237.301 207.168 209.832 207.168ZM343.362 188.335C363.276 188.335 381.36 194.832 394.732 204.023C406.941 212.442 419.664 226.435 419.664 243.498C419.664 268.641 394.923 277.643 372.681 280.788L366.958 281.485L361.445 281.956L358.813 282.107C361.14 275.609 362.437 268.547 362.437 260.976C362.426 255.341 361.741 249.727 360.396 244.251C367.759 243.686 373.806 242.745 378.308 241.408C380.292 240.805 378.499 238.959 376.401 237.358L374.359 235.889L372.91 234.929C367.184 231.07 360.728 228.393 353.929 227.056C346.681 212.743 335.54 200.351 323.675 190.463C330.14 189.053 336.741 188.339 343.362 188.335ZM76.3026 188.335C83.1316 188.36 89.6937 189.069 95.9886 190.463C84.1236 200.351 72.9834 212.743 65.7347 227.056C58.9358 228.393 52.4801 231.07 46.7544 234.929L44.3127 236.586C41.8901 238.319 39.0478 240.73 41.356 241.408C45.8578 242.745 51.9048 243.705 59.2871 244.251C57.9178 249.723 57.226 255.339 57.2269 260.976C57.2269 268.547 58.5241 275.609 60.8513 282.107L55.5101 281.73L49.8637 281.165C26.9348 278.397 0 269.733 0 243.498C0 226.454 12.7044 212.442 24.9319 204.023C40.0584 193.793 57.9674 188.324 76.3026 188.335ZM333.824 75.3339C346.472 75.3339 358.602 80.2945 367.545 89.1244C376.488 97.9543 381.513 109.93 381.513 122.418C381.513 134.905 376.488 146.881 367.545 155.711C358.602 164.541 346.472 169.501 333.824 169.501C321.176 169.501 309.046 164.541 300.102 155.711C291.159 146.881 286.135 134.905 286.135 122.418C286.135 109.93 291.159 97.9543 300.102 89.1244C309.046 80.2945 321.176 75.3339 333.824 75.3339ZM85.8404 75.3339C98.4883 75.3339 110.618 80.2945 119.562 89.1244C128.505 97.9543 133.529 109.93 133.529 122.418C133.529 134.905 128.505 146.881 119.562 155.711C110.618 164.541 98.4883 169.501 85.8404 169.501C73.1924 169.501 61.0625 164.541 52.1191 155.711C43.1757 146.881 38.1513 134.905 38.1513 122.418C38.1513 109.93 43.1757 97.9543 52.1191 89.1244C61.0625 80.2945 73.1924 75.3339 85.8404 75.3339ZM209.832 0C230.069 0 249.477 7.93694 263.786 22.0648C278.096 36.1926 286.135 55.3541 286.135 75.3339C286.135 95.3137 278.096 114.475 263.786 128.603C249.477 142.731 230.069 150.668 209.832 150.668C189.595 150.668 170.187 142.731 155.878 128.603C141.568 114.475 133.529 95.3137 133.529 75.3339C133.529 55.3541 141.568 36.1926 155.878 22.0648C170.187 7.93694 189.595 0 209.832 0ZM333.824 113.001C331.294 113.001 328.868 113.993 327.079 115.759C325.291 117.525 324.286 119.92 324.286 122.418C324.286 124.915 325.291 127.31 327.079 129.076C328.868 130.842 331.294 131.834 333.824 131.834C336.353 131.834 338.779 130.842 340.568 129.076C342.357 127.31 343.362 124.915 343.362 122.418C343.362 119.92 342.357 117.525 340.568 115.759C338.779 113.993 336.353 113.001 333.824 113.001ZM85.8404 113.001C83.3108 113.001 80.8848 113.993 79.0961 115.759C77.3074 117.525 76.3026 119.92 76.3026 122.418C76.3026 124.915 77.3074 127.31 79.0961 129.076C80.8848 130.842 83.3108 131.834 85.8404 131.834C88.37 131.834 90.7959 130.842 92.5846 129.076C94.3733 127.31 95.3782 124.915 95.3782 122.418C95.3782 119.92 94.3733 117.525 92.5846 115.759C90.7959 113.993 88.37 113.001 85.8404 113.001ZM209.832 37.667C199.714 37.667 190.01 41.6354 182.855 48.6994C175.7 55.7633 171.681 65.344 171.681 75.3339C171.681 85.3238 175.7 94.9045 182.855 101.968C190.01 109.032 199.714 113.001 209.832 113.001C219.95 113.001 229.654 109.032 236.809 101.968C243.964 94.9045 247.983 85.3238 247.983 75.3339C247.983 65.344 243.964 55.7633 236.809 48.6994C229.654 41.6354 219.95 37.667 209.832 37.667Z" fill="black"/>
-        </svg>
+        <FaUsers className={styles.icon} />
         <span>Friends</span>
       </div>
-      <div className={styles.list}>
-        {friends.map((friend) => (
-          <div key={friend.id} className={styles.friendItem}>
-            <img src={friend.avatar} alt="Avatar" className={styles.avatar} />
-            <div>
-              <div className={styles.name}>{friend.name}</div>
-              <div className={styles.job}>{friend.job}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <button className={styles.showMore}>
-        Show More 
-        <svg viewBox="0 0 227 227" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M66.2109 94.5833L113.503 141.875L160.794 94.5833" stroke="black" stroke-width="22.67" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+
+      {loading ? (
+        <div className={styles.loading}>Loading...</div>
+      ) : friends?.length === 0 ? (
+        <div className={styles.noFriends}>No friends found</div>
+      ) : (
+        <ul className={styles.friendsList}>
+          {friends.slice(0, visibleCount).map((friend) => (
+            <li key={friend?._id} className={styles.friendItem}>
+              <img
+                src={friend.profileImage || DefaultAvatar}
+                alt={`${friend.firstName} ${friend.lastName}`}
+                className={styles.avatar}
+              />
+              <span className={styles.name}>
+                {friend.firstName} {friend.lastName}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {visibleCount < friends.length && (
+        <button
+          className={styles.showMore}
+          onClick={() => setVisibleCount((c) => c + 5)}
+        >
+          Show More
+          <svg
+            viewBox="0 0 227 227"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M66.2109 94.5833L113.503 141.875L160.794 94.5833"
+              stroke="black"
+              strokeWidth="22.67"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
+      )}
     </div>
   );
 };

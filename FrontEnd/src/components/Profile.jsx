@@ -7,6 +7,7 @@ import ProfileSkills from "./Profile/ProfileSkills";
 import ProfileEducation from "./Profile/ProfileEducation";
 import ProfileCertificate from "./Profile/ProfileCertificate";
 import ProfileUrlAndHighlights from "./Profile/ProfileUrlAndHighlights";
+import ProfileFriendRequest from "./Profile/ProfileFriendRequest";
 import ProfileFriendsSuggestions from "./Profile/ProfileFriendsSuggestions";
 import ProfileFriends from "./Profile/ProfileFriends";
 import API from "../api";
@@ -19,6 +20,7 @@ const Profile = () => {
 
   useEffect(() => {
     const userinfo = JSON.parse(localStorage.getItem("user-info"));
+    console.log("userinfo", userinfo);
     setUser(userinfo);
     const profileId = window.location.pathname.split("/").pop();
     if (!profileId) {
@@ -54,8 +56,9 @@ const Profile = () => {
       </div>
       <div className={Styles.rightSideBar}>
         <ProfileUrlAndHighlights user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        {isProfileOwner && <ProfileFriendRequest user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />}
         <ProfileFriendsSuggestions user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
-        <ProfileFriends user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />
+        {isProfileOwner && <ProfileFriends user={user} profileOwner={profileOwner} isProfileOwner={isProfileOwner} />}
       </div>
       <div className={Styles.back} onClick={() => window.history.back()}>
         <svg
