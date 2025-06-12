@@ -1,22 +1,68 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { fileURLToPath, URL } from "url";
-
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  server: {
-    host: "0.0.0.0", // Allow external access
-    port: 3000,
-  },
-  preview: {
-    host: "0.0.0.0", // Allow external access in preview mode
-    port: 3000,
-    allowedHosts: ["mekyek.com", "www.mekyek.com"], // Add your domain
-  },
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
+    plugins: [
+        react(),
+        VitePWA({
+            registerType: 'autoUpdate',
+            includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+            manifest: {
+                name: 'Mekyek',
+                short_name: 'Mekyek',
+                description: 'Your career growth platform',
+                theme_color: '#ffffff',
+                icons: [
+                    {
+                        src: 'pwa-192x192.png',
+                        sizes: '192x192',
+                        type: 'image/png'
+                    },
+                    {
+                        src: 'pwa-512x512.png',
+                        sizes: '512x512',
+                        type: 'image/png'
+                    },
+                    {
+                        src: 'pwa-512x512.png',
+                        sizes: '512x512',
+                        type: 'image/png',
+                        purpose: 'any maskable'
+                    }
+                ]
+            },
+            workbox: {
+                globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+                runtimeCaching: [
+                    {
+                        urlPattern: /^https:\/\/api\./i,
+                        handler: 'NetworkFirst',
+                        options: {
+                            cacheName: 'api-cache',
+                            networkTimeoutSeconds: 10,
+                            expiration: {
+                                maxEntries: 100,
+                                maxAgeSeconds: 24 * 60 * 60 // 24 hours
+                            },
+                            cacheableResponse: {
+                                statuses: [0, 200]
+                            }
+                        }
+                    }
+                ]
+            }
+        })
+    ],
+    server: {
+        headers: {
+            'X-Content-Type-Options': 'nosniff',
+            'X-Frame-Options': 'DENY',
+            'X-XSS-Protection': '1; mode=block',
+            'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+            'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;",
+            'Referrer-Policy': 'strict-origin-when-cross-origin',
+            'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+        }
+    }
 });
-
