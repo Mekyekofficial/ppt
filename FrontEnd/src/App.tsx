@@ -1,9 +1,13 @@
-import Landingpage from './Landingpage'
+// import Landingpage from './Landingpage'
 import { useEffect } from 'react'
 import { RateLimiter } from './utils/security'
 import { Firewall } from './utils/firewall'
 import PWAInstall from './components/PWAInstall'
-
+// import Navbar from './Navbar/Navbar'
+import Home from './Home'
+import News from './News'
+import Comunity from './Comunity'
+import Learn from './Learn'
 function App() {
   useEffect(() => {
     // Initialize rate limiter
@@ -12,6 +16,7 @@ function App() {
 
     // Add rate limiting and firewall to fetch requests
     const originalFetch = window.fetch;
+    /*
     window.fetch = async (...args) => {
       try {
         // Create a Request object from the fetch arguments
@@ -31,6 +36,7 @@ function App() {
         throw error;
       }
     };
+    */
 
     // Prevent copy
     const preventCopy = (e: KeyboardEvent) => {
@@ -73,20 +79,25 @@ function App() {
     }
 
     // Apply all prevention methods
-    preventScreenCapture()
-    preventDevTools()
-    document.addEventListener('keydown', preventCopy)
+    // preventScreenCapture()
+    // preventDevTools()
+    // document.addEventListener('keydown', preventCopy)
 
     // Cleanup
     return () => {
-      window.fetch = originalFetch;
-      document.removeEventListener('keydown', preventCopy)
+      // window.fetch = originalFetch;
+      // document.removeEventListener('keydown', preventCopy)
     }
   }, [])
 
   return (  
     <>
-      <Landingpage />
+      {/* <Landingpage /> */}
+      {/* <Navbar /> */}
+      {/* <Home /> */}
+      {/* <News /> */}
+      {/* <Comunity /> */}
+      <Learn />
       <PWAInstall />
     </>
   )
