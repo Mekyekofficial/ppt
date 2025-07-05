@@ -1,10 +1,14 @@
 /* Main Container */
 .learnContainer {
   position: relative;
-  min-height: 1200px;
+  min-height: 1310px;
   width: 100%;
-  background: #f8f9fac8;
+  background: linear-gradient(135deg, #667eea 0%, #ffffff 100%);
+  background-attachment: fixed;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+  z-index: 1;
 }
 
 /* Toast Messages */
@@ -12,26 +16,28 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  background: #4CAF50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
+  padding: 16px 24px;
+  border-radius: 12px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   z-index: 1000;
-  animation: slideIn 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  max-width: 300px;
+  animation: slideIn 0.5s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 350px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateX(100%);
+    transform: translateX(100%) scale(0.8);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 }
 
@@ -40,16 +46,24 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 16px 8px;
-  gap: 8px;
+  padding: 20px 24px;
+  gap: 16px;
   position: absolute;
   width: 1100px;
-  height: 29px;
+  height: 60px;
   left: 64px;
   top: 125px;
-  background: #FFFFFF;
-  box-shadow: 5px 9px 11px rgba(0, 0, 0, 0.05);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.searchContent:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 /* Search Icon */
@@ -67,9 +81,9 @@
 }
 
 .searchIconVector {
-  width: 12px;
-  height: 12px;
-  border: 2px solid #6E6E6E;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #667eea;
   border-radius: 50%;
   flex: none;
   order: 0;
@@ -82,7 +96,7 @@
   position: absolute;
   width: 8px;
   height: 2px;
-  background: #6E6E6E;
+  background: #667eea;
   right: -6px;
   bottom: -6px;
   transform: rotate(45deg);
@@ -93,34 +107,30 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 16px 8px;
+  padding: 0px;
   gap: 10px;
-  width: 975px;
-  height: 52px;
-  flex: none;
-  order: 1;
-  flex-grow: 1;
+  flex: 1;
+  height: 40px;
 }
 
 .searchInput {
-  width: 940px;
-  height: 20px;
-  font-family: 'Segoe UI';
-  font-style: italic;
+  width: 100%;
+  height: 24px;
+  font-family: 'Segoe UI', sans-serif;
+  font-style: normal;
   font-weight: 400;
-  font-size: 15px;
-  line-height: 20px;
-  color: #1E1E1E;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2d3748;
   border: none;
   outline: none;
   background: transparent;
-  flex: none;
-  order: 0;
-  flex-grow: 1;
+  flex: 1;
 }
 
 .searchInput::placeholder {
-  color: #1E1E1E;
+  color: #667eea;
+  opacity: 0.7;
 }
 
 /* Search Button */
@@ -129,28 +139,27 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 12px 24px;
   gap: 10px;
-  width: 59px;
-  height: 36px;
-  background: #003F88;
-  border-radius: 10px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  flex: none;
-  order: 2;
-  flex-grow: 0;
-  font-family: 'Segoe UI';
+  font-family: 'Segoe UI', sans-serif;
   font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 16px;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
   color: #FFFFFF;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .searchButton:hover {
-  background: #002a5c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
 /* Filter Button */
@@ -159,28 +168,31 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 8px 12px;
+  padding: 12px 20px;
   gap: 10px;
   position: absolute;
-  width: 94px;
-  height: 36px;
-  right: 142px;
-  top: 146px;
-  border: 0.77px solid #00296B;
-  border-radius: 8px;
-  background: transparent;
+  height: 40px;
+  right: 137px;
+  top: 168px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   cursor: pointer;
-  font-family: 'Segoe UI';
+  font-family: 'Segoe UI', sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.02em;
-  color: #003F88;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
 }
 
 .filterButton:hover {
-  background: rgba(0, 63, 136, 0.05);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
 }
 
 /* Sort Button */
@@ -189,28 +201,31 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 8px 12px;
+  padding: 12px 20px;
   gap: 10px;
   position: absolute;
-  width: 95px;
-  height: 36px;
-  right: 40px;
-  top: 146px;
-  border: 0.77px solid #00296B;
-  border-radius: 8px;
-  background: transparent;
+  height: 40px;
+  right: 33px;
+  top: 168px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   cursor: pointer;
-  font-family: 'Segoe UI';
+  font-family: 'Segoe UI', sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.02em;
-  color: #003F88;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
 }
 
 .sortButton:hover {
-  background: rgba(0, 63, 136, 0.05);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
 }
 
 /* Explore Courses Section */
@@ -219,15 +234,24 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 32px 16px;
-  gap: 24px;
+  padding: 64px 48px;
+  gap: 32px;
   position: absolute;
-  width: 1312px;
-  height: 407px;
+  width: 1217px;
+  height: 450px;
   left: 64px;
-  top: 199px;
-  background: linear-gradient(99.29deg, #00296B 29.93%, #003F88 90.99%);
-  border-radius: 32px;
+  top: 252px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.exploreCourses:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 24px 70px rgba(0, 0, 0, 0.2);
 }
 
 /* Hero Content */
@@ -253,23 +277,27 @@
   font-weight: 700;
   font-size: 48px;
   line-height: 64px;
-  color: #FFFFFF;
+  color: #2d3748;
   margin: 0;
   flex: none;
   order: 0;
   align-self: stretch;
   flex-grow: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heroDescription {
   width: 1135px;
-  height: 64px;
+  height: 80px;
   font-family: 'Segoe UI';
   font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
+  font-weight: 500;
+  font-size: 20px;
   line-height: 32px;
-  color: rgba(255, 255, 255, 0.68);
+  color: #4a5568;
   margin: 0;
   flex: none;
   order: 1;
@@ -294,12 +322,12 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  padding: 16px 12px;
+  align-items: center;
+  padding: 20px 32px;
   gap: 10px;
   width: 329px;
   height: 64px;
-  background: #FFFFFF;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -309,26 +337,29 @@
   font-family: 'Segoe UI';
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 18px;
+  line-height: 24px;
   text-align: center;
-  color: #00296B;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .exploreCoursesBtn:hover {
-  background: #f5f5f5;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
 .viewLearningPathsBtn {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  padding: 16px 12px;
+  align-items: center;
+  padding: 20px 32px;
   gap: 10px;
   width: 329px;
   height: 64px;
-  border: 1px solid #FFFFFF;
+  border: 2px solid #667eea;
   border-radius: 12px;
   background: transparent;
   cursor: pointer;
@@ -338,54 +369,66 @@
   font-family: 'Segoe UI';
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 18px;
+  line-height: 24px;
   text-align: center;
-  color: #FFFFFF;
+  color: #667eea;
+  transition: all 0.3s ease;
 }
 
 .viewLearningPathsBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #667eea;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
 }
 
 /* Learning Paths Title */
 .learningPathsTitle {
   position: absolute;
-  width: 159px;
-  height: 29px;
+  width: 400px;
+  height: 40px;
   left: 64px;
-  top: 703px;
+  top: 886px;
   font-family: 'Segoe UI';
   font-style: normal;
   font-weight: 700;
-  font-size: 22px;
-  line-height: 29px;
-  letter-spacing: 0.02em;
-  color: #00296B;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
   margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* View All Button */
 .viewAllButton {
   position: absolute;
-  width: 85px;
-  height: 32px;
+  width: 120px;
+  height: 40px;
   right: 64px;
-  top: 702px;
+  top: 886px;
   font-family: 'Segoe UI';
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 16px;
+  line-height: 24px;
   letter-spacing: 0.02em;
-  color: #00296B;
-  background: transparent;
-  border: none;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
   cursor: pointer;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .viewAllButton:hover {
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Path Cards */
@@ -396,20 +439,22 @@
   padding: 0px;
   gap: 0px;
   position: absolute;
-  height: 400px;
+  height: 420px;
   width: 400px;
-  top: 766px;
-  background: #FFFFFF;
-  box-shadow: 0 8px 32px rgba(0, 41, 107, 0.12);
-  border-radius: 22px;
+  top: 950px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .pathCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 48px rgba(0, 41, 107, 0.2);
+  transform: translateY(-12px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
 }
 
 .path1 {
@@ -424,17 +469,26 @@
   left: 996px;
 }
 
+/* Add spacing after path cards */
+.learnContainer::after {
+  content: "";
+  display: block;
+  height: 100px;
+  width: 100%;
+}
+
 /* Path Content */
 .pathContent {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 28px 20px;
+  padding: 32px 24px;
   gap: 24px;
   width: 400px;
-  height: 250px;
-  background: #FFFFFF;
+  height: 270px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   flex: none;
   order: 0;
   align-self: stretch;
@@ -449,19 +503,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #bdbdbd 0%, #0126668a 70%);
-  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #764ba2 100%);
+  border-radius: 20px;
   color: #FFFFFF;
   flex: none;
   order: 0;
   flex-grow: 0;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0, 41, 107, 0.2);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
 .pathCard:hover .pathIcon {
-  transform: scale(1.05);
-  box-shadow: 0 6px 24px rgba(0, 41, 107, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
 }
 
 .pathInfo {
@@ -498,7 +552,7 @@
 }
 
 .pathCard:hover .pathTitle {
-  color: #003F88;
+  color: #667eea;
 }
 
 .pathDescription {
@@ -522,19 +576,20 @@
 .pathFooter {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
-  gap: 10px;
-  width: 365px;
-  height: 80px;
-  background: #FFFFFF;
-  border-top: 1px solid #E0E0E0;
+  /* padding: 24px; */
+  gap: 129px;
+  width: 388px;
+  height: 90px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   flex: none;
   order: 1;
   align-self: stretch;
   flex-grow: 0;
-  border-radius: 0 0 22px 22px;
+  border-radius: 0 0 24px 24px;
 }
 
 .pathCourses {
@@ -560,9 +615,9 @@
   padding: 12px 24px;
   gap: 8px;
   width: auto;
-  min-width: 100px;
+  min-width: 120px;
   height: 44px;
-  background: #003F88;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -577,11 +632,10 @@
   letter-spacing: 0.02em;
   color: #FFFFFF;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 63, 136, 0.2);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .pathExploreBtn:hover {
-  background: #00296B;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 63, 136, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }

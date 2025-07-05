@@ -8,32 +8,57 @@ const Learncomponents: React.FC = () => {
   const featuredCourses = [
     {
       id: 1,
-      category: 'Business',
-      duration: '6 weeks • Beginner',
-      title: 'Introduction to Business Leadership',
-      description: 'Master the fundamentals of effective business leadership in modern organizations',
-      instructor: 'Dr. Emily Chen',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
+      category: 'AI & Machine Learning',
+      duration: '4-6 months • Professional Certificate',
+      title: 'Google AI for Everyone',
+      description: 'Master AI fundamentals and machine learning techniques to advance your career in the fastest-growing field.',
+      instructor: 'Andrew Ng, DeepLearning.AI',
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      rating: 4.8,
+      students: '2.1M+',
+      level: 'Beginner',
+      skills: ['Python', 'TensorFlow', 'Machine Learning', 'Deep Learning'],
+      price: 'Free 7-day trial',
+      university: 'Stanford University'
     },
     {
       id: 2,
-      category: 'Technology',
-      duration: '8 weeks • Intermediate',
-      title: 'Data Science for Managers',
-      description: 'Learn how to make data-driven decisions that impact business growth',
-      instructor: 'Prof. Michael Johnson',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
+      category: 'Data Science',
+      duration: '6-8 months • Professional Certificate',
+      title: 'IBM Data Science Professional Certificate',
+      description: 'Learn in-demand skills like Python, SQL, and data visualization to become job-ready in data science.',
+      instructor: 'IBM Skills Network Team',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      rating: 4.6,
+      students: '890K+',
+      level: 'Intermediate',
+      skills: ['Python', 'SQL', 'Data Analysis', 'Machine Learning'],
+      price: 'Included in Coursera Plus',
+      university: 'IBM'
     },
     {
       id: 3,
-      category: 'Innovation',
-      duration: '4 weeks • Advanced',
-      title: 'Strategic Innovation',
-      description: 'Develop strategies for fostering innovation within your organization',
-      instructor: 'Dr. Sarah Williams',
-      image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
+      category: 'Business',
+      duration: '3-4 months • Specialization',
+      title: 'Google Project Management Professional Certificate',
+      description: 'Gain essential project management skills to lead teams and deliver results in any industry.',
+      instructor: 'Google Career Certificates',
+      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      rating: 4.7,
+      students: '1.5M+',
+      level: 'Beginner',
+      skills: ['Project Management', 'Agile', 'Leadership', 'Communication'],
+      price: '$59/month',
+      university: 'Google'
     }
   ];
+
+  const stats = {
+    courses: '10,000+',
+    universities: '350+',
+    certificates: '500+',
+    learners: '100M+'
+  };
 
   const showToastMessage = (message: string) => {
     setShowToast(message);
@@ -41,11 +66,11 @@ const Learncomponents: React.FC = () => {
   };
 
   const handleEnrollClick = (courseTitle: string) => {
-    showToastMessage(`Enrolling in: ${courseTitle}`);
+    showToastMessage(`🎉 Starting your journey with: ${courseTitle}`);
   };
 
   const handleViewAll = () => {
-    showToastMessage('Viewing all featured courses...');
+    showToastMessage('🚀 Exploring all 10,000+ courses available...');
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,10 +80,10 @@ const Learncomponents: React.FC = () => {
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email.trim()) {
-      showToastMessage(`Subscribed with email: ${email}`);
+      showToastMessage(`✅ Welcome to Coursera Plus! Check your inbox at ${email}`);
       setEmail('');
     } else {
-      showToastMessage('Please enter a valid email address');
+      showToastMessage('⚠️ Please enter a valid email address');
     }
   };
 
@@ -103,7 +128,7 @@ const Learncomponents: React.FC = () => {
             </div>
           </div>
           <div className={styles.courseFooter}>
-            <span className={styles.instructorName}>Instructor: {featuredCourses[0].instructor}</span>
+            <span className={styles.instructorName}>By {featuredCourses[0].instructor}</span>
             <button 
               className={styles.enrollButton}
               onClick={() => handleEnrollClick(featuredCourses[0].title)}
@@ -140,7 +165,7 @@ const Learncomponents: React.FC = () => {
             </div>
           </div>
           <div className={styles.courseFooter}>
-            <span className={styles.instructorName}>Instructor: {featuredCourses[1].instructor}</span>
+            <span className={styles.instructorName}>By {featuredCourses[1].instructor}</span>
             <button 
               className={styles.enrollButton}
               onClick={() => handleEnrollClick(featuredCourses[1].title)}
@@ -177,7 +202,7 @@ const Learncomponents: React.FC = () => {
             </div>
           </div>
           <div className={styles.courseFooter}>
-            <span className={styles.instructorName}>Instructor: {featuredCourses[2].instructor}</span>
+            <span className={styles.instructorName}>By {featuredCourses[2].instructor}</span>
             <button 
               className={styles.enrollButton}
               onClick={() => handleEnrollClick(featuredCourses[2].title)}
@@ -188,19 +213,19 @@ const Learncomponents: React.FC = () => {
         </div>
       </div>
 
-      {/* nws letter */}
+      {/* Newsletter Section */}
       <div className={styles.newsletterSection}>
         <div className={styles.newsletterContent}>
-          <h2 className={styles.newsletterTitle}>Stay Updated with New Courses</h2>
+          <h2 className={styles.newsletterTitle}>Join 100M+ learners worldwide</h2>
           <p className={styles.newsletterDescription}>
-            Subscribe to our newsletter to receive updates on new courses, industry insights, and learning tips.
+            Start your 7-day free trial and get unlimited access to 10,000+ courses from top universities and companies like Google, IBM, and Stanford.
           </p>
         </div>
         <form onSubmit={handleNewsletterSubmit} className={styles.newsletterForm}>
           <div className={styles.emailInput}>
             <input
               type="email"
-              placeholder="Enter your Email"
+              placeholder="Enter your email to get started"
               value={email}
               onChange={handleEmailChange}
               className={styles.emailField}
@@ -208,7 +233,7 @@ const Learncomponents: React.FC = () => {
             />
           </div>
           <button type="submit" className={styles.continueButton}>
-            Continue
+            Start Free Trial
           </button>
         </form>
       </div>

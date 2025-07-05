@@ -97,7 +97,7 @@ function App() {
       {/* <Home /> */}
       {/* <News /> */}
       {/* <Comunity /> */}
-      <Learn />
+      {/* <Learn /> */}
       <PWAInstall />
     </>
   )
