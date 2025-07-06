@@ -3,19 +3,17 @@ import { useEffect } from 'react'
 import { RateLimiter } from './utils/security'
 import { Firewall } from './utils/firewall'
 import PWAInstall from './components/PWAInstall'
-// import Navbar from './Navbar/Navbar'
-import Home from './Home'
-import News from './News'
-import Comunity from './Comunity'
-import Learn from './Learn'
+import ErrorBoundary from './components/ErrorBoundary'
+import MainApp from './MainApp'
+
 function App() {
   useEffect(() => {
     // Initialize rate limiter
-    const rateLimiter = new RateLimiter(60000, 100); // 100 requests per minute
-    const firewall = Firewall.getInstance();
+    // const rateLimiter = new RateLimiter(60000, 100); // 100 requests per minute
+    // const firewall = Firewall.getInstance();
 
     // Add rate limiting and firewall to fetch requests
-    const originalFetch = window.fetch;
+    // const originalFetch = window.fetch;
     /*
     window.fetch = async (...args) => {
       try {
@@ -39,6 +37,7 @@ function App() {
     */
 
     // Prevent copy
+    /*
     const preventCopy = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
         e.preventDefault()
@@ -88,16 +87,16 @@ function App() {
       // window.fetch = originalFetch;
       // document.removeEventListener('keydown', preventCopy)
     }
+    */
   }, [])
+
+  console.log('App component rendering...');
 
   return (  
     <>
-      {/* <Landingpage /> */}
-      {/* <Navbar /> */}
-      {/* <Home /> */}
-      {/* <News /> */}
-      {/* <Comunity /> */}
-      {/* <Learn /> */}
+      <ErrorBoundary>
+        <MainApp />
+      </ErrorBoundary>
       <PWAInstall />
     </>
   )

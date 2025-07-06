@@ -265,6 +265,12 @@
   margin-top: 8px;
 }
 
+.frontButtons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .readMoreButton {
   display: flex;
   flex-direction: row;
@@ -280,7 +286,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   flex: none;
-  order: 1;
+  order: 0;
   flex-grow: 0;
   font-family: 'Segoe UI';
   font-style: normal;
@@ -307,4 +313,170 @@
 .readMoreButton:hover {
   background: #003F88;
   transform: scale(1.05);
+}
+
+.joinButtonFront {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  background: #4CAF50;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 8px;
+  line-height: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.joinButtonFront:hover {
+  background: #45a049;
+  transform: scale(1.05);
+}
+
+.joinButtonFront span {
+  color: #FFFFFF;
+}
+
+/* Card Back */
+.cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  background: #FFFFFF;
+  border-radius: 22px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.backContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 16px;
+}
+
+.communityHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.communityTitle {
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: #003F88;
+  margin: 0;
+}
+
+.communityCategory {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(0, 63, 136, 0.1);
+  color: #003F88;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.communityStats {
+  display: flex;
+  gap: 20px;
+  margin: 8px 0;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.statNumber {
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #003F88;
+}
+
+.statLabel {
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #6E6E6E;
+}
+
+.communityDescription {
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1E1E1E;
+  margin: 8px 0;
+}
+
+.communityTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(0, 63, 136, 0.1);
+  color: #003F88;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.joinButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  background: #003F88;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.joinButton:hover {
+  background: #002a5c;
+  transform: scale(1.02);
+}
+
+.joinButton span {
+  color: #FFFFFF;
 }

@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 64px;
-  height: 95px;
+  height: 70px;
   background: #FFFFFF;
   backdrop-filter: blur(80px);
   position: fixed;
@@ -53,7 +53,20 @@
   font-weight: 400;
 }
 
+.navItem {
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1E1E1E;
+  font-weight: 400;
+}
+
 .navItems a.Home {
+  font-weight: 700;
+  color: #00296B;
+}
+
+.Home {
   font-weight: 700;
   color: #00296B;
 }
@@ -104,4 +117,10 @@
   background-size: cover;
   border: 1px solid #021b43;
   border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.pfp:hover {
+  transform: scale(1.05);
 }

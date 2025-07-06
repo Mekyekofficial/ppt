@@ -3,7 +3,8 @@
   position: relative;
   min-height: 1310px;
   width: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #ffffff 100%);
+  top: -100px;
+  background: linear-gradient(135deg, #ffffff 0%, #e7e6e6 100%);
   background-attachment: fixed;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow-x: hidden;
@@ -16,7 +17,7 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #e2e2e2 100%);
   color: white;
   padding: 16px 24px;
   border-radius: 12px;
@@ -83,7 +84,7 @@
 .searchIconVector {
   width: 14px;
   height: 14px;
-  border: 2px solid #667eea;
+  border: 2px solid #1932a2;
   border-radius: 50%;
   flex: none;
   order: 0;
@@ -96,7 +97,7 @@
   position: absolute;
   width: 8px;
   height: 2px;
-  background: #667eea;
+  background: #0b1c69;
   right: -6px;
   bottom: -6px;
   transform: rotate(45deg);
@@ -121,7 +122,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #2d3748;
+  color: #263a5d;
   border: none;
   outline: none;
   background: transparent;
@@ -129,7 +130,7 @@
 }
 
 .searchInput::placeholder {
-  color: #667eea;
+  color: #09218b;
   opacity: 0.7;
 }
 
@@ -142,7 +143,7 @@
   padding: 12px 24px;
   gap: 10px;
   height: 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #0b0987 100%);
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -174,7 +175,7 @@
   height: 40px;
   right: 137px;
   top: 168px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.406);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -185,7 +186,7 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.02em;
-  color: #FFFFFF;
+  color: #000000;
   transition: all 0.3s ease;
 }
 
@@ -207,7 +208,7 @@
   height: 40px;
   right: 33px;
   top: 168px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.343);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -218,7 +219,7 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.02em;
-  color: #FFFFFF;
+  color: #000000;
   transition: all 0.3s ease;
 }
 
@@ -241,7 +242,7 @@
   height: 450px;
   left: 64px;
   top: 252px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(3, 7, 90, 0.95);
   backdrop-filter: blur(20px);
   box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.15);
   border-radius: 24px;
@@ -277,13 +278,13 @@
   font-weight: 700;
   font-size: 48px;
   line-height: 64px;
-  color: #2d3748;
+  color: #ffffff;
   margin: 0;
   flex: none;
   order: 0;
   align-self: stretch;
   flex-grow: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #000000 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -297,7 +298,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 32px;
-  color: #4a5568;
+  color: #d7dbe1;
   margin: 0;
   flex: none;
   order: 1;
@@ -327,7 +328,7 @@
   gap: 10px;
   width: 329px;
   height: 64px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #151928 0%, #0a0384 100%);
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -359,7 +360,7 @@
   gap: 10px;
   width: 329px;
   height: 64px;
-  border: 2px solid #667eea;
+  border: 2px solid #ffffff;
   border-radius: 12px;
   background: transparent;
   cursor: pointer;
@@ -372,12 +373,12 @@
   font-size: 18px;
   line-height: 24px;
   text-align: center;
-  color: #667eea;
+  color: #dbdbdc;
   transition: all 0.3s ease;
 }
 
 .viewLearningPathsBtn:hover {
-  background: #667eea;
+  background: #e6e6e7;
   color: #FFFFFF;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
@@ -396,9 +397,9 @@
   font-size: 32px;
   line-height: 40px;
   letter-spacing: -0.02em;
-  color: #FFFFFF;
+  color: #000000;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(232, 231, 231, 0.3);
 }
 
 /* View All Button */
@@ -414,9 +415,9 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.02em;
-  color: #FFFFFF;
+  color: #000000;
   background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.469);
   border-radius: 20px;
   cursor: pointer;
   padding: 8px 16px;
@@ -503,7 +504,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #ffffff 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #5e5c5f 100%);
   border-radius: 20px;
   color: #FFFFFF;
   flex: none;
@@ -552,7 +553,7 @@
 }
 
 .pathCard:hover .pathTitle {
-  color: #667eea;
+  color: #aaacb6;
 }
 
 .pathDescription {
@@ -617,7 +618,7 @@
   width: auto;
   min-width: 120px;
   height: 44px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #484747 0%, #051a92 100%);
   border: none;
   border-radius: 12px;
   cursor: pointer;

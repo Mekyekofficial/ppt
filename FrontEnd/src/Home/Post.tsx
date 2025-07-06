@@ -1,127 +1,273 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNews, useAuth } from '../hooks/useApi';
+import PostCreation from './PostCreation';
 import styles from './Css/Post.module.css';
-import { FaThumbsUp, FaComment, FaShare, FaBookmark, FaEllipsisH, FaMapMarkerAlt, FaHeart, FaReply } from 'react-icons/fa';
+import { 
+  FaThumbsUp, 
+  FaComment, 
+  FaShare, 
+  FaEllipsisH,
+  FaBookmark,
+  FaGlobeAmericas,
+  FaUserFriends,
+  FaLock,
+  FaBriefcase,
+  FaChartLine,
+  FaCalendarAlt,
+  FaTasks,
+  FaUsers,
+  FaFileAlt,
+  FaHeart,
+  FaEye,
+  FaHandshake,
+  FaPaperPlane,
+  FaImages,
+  FaSmile,
+  FaInfo
+} from 'react-icons/fa';
 
-interface PostData {
-  id: number;
+// Define proper post type
+interface PostType {
+  id: string;
+  author: {
+    name: string;
+    title: string;
+    avatar: string;
+    time: string;
+  };
+  content: string;
+  image?: string;
   likes: number;
   comments: number;
   shares: number;
   isLiked: boolean;
   isSaved: boolean;
+  visibility?: 'public' | 'connections' | 'private';
+  postComments?: PostComment[];
 }
 
-interface Reply {
-  id: number;
-  author: string;
+// Comment interface
+interface PostComment {
+  id: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
   content: string;
   time: string;
-  avatar: string;
   likes: number;
   isLiked: boolean;
 }
 
-interface Comment {
-  id: number;
-  author: string;
-  content: string;
-  time: string;
-  avatar: string;
-  likes: number;
-  isLiked: boolean;
-  replies: Reply[];
-  showReplies: boolean;
+// Job Stats interface
+interface JobStats {
+  applied: number;
+  saved: number;
+  viewed: number;
+  interviews: number;
 }
 
-const Post: React.FC = () => {
-  const [posts, setPosts] = useState<PostData[]>([
-    { id: 1, likes: 87, comments: 23, shares: 12, isLiked: false, isSaved: false },
-    { id: 2, likes: 142, comments: 31, shares: 18, isLiked: false, isSaved: false },
-    { id: 3, likes: 93, comments: 17, shares: 8, isLiked: false, isSaved: false },
-    { id: 4, likes: 156, comments: 42, shares: 25, isLiked: false, isSaved: false }
-  ]);
-
-  const [activeCommentBox, setActiveCommentBox] = useState<number | null>(null);
-  const [commentText, setCommentText] = useState<string>('');
-  const [replyText, setReplyText] = useState<string>('');
-  const [activeReplyBox, setActiveReplyBox] = useState<number | null>(null);
-  const [postComments, setPostComments] = useState<{ [key: number]: Comment[] }>({
-    1: [
-      { 
-        id: 1, 
-        author: 'John Smith', 
-        content: 'Great insights! Thanks for sharing.', 
-        time: '2h', 
-        avatar: 'https://i.pravatar.cc/150?img=2',
-        likes: 5,
+// Enhanced mock data with professional content
+const mockPosts: PostType[] = [
+  {
+    id: '1',
+    author: {
+      name: 'Sarah Johnson',
+      title: 'Senior UX Designer at Google',
+      avatar: 'SJ',
+      time: '2h'
+    },
+    content: 'Just wrapped up an incredible workshop on AI-powered design systems!\n\nKey takeaways:\n• AI can accelerate design workflows by 60%\n• User research remains irreplaceable\n• The future is collaborative, not competitive\n\nWhat\'s your experience with AI in design? Drop your thoughts below!\n\n#UXDesign #AIDesign #Innovation',
+    image: '/api/placeholder/600/400',
+    likes: 234,
+    comments: 47,
+    shares: 23,
         isLiked: false,
-        replies: [
-          {
-            id: 101,
-            author: 'Sarah Johnson',
-            content: 'Totally agree! The workshop was amazing.',
+    isSaved: false,
+    visibility: 'public',
+    postComments: [
+      {
+        id: 'c1',
+        author: { name: 'Mike Chen', avatar: 'MC' },
+        content: 'This is so insightful! We\'ve been exploring AI in our design process too. The 60% efficiency gain is remarkable.',
             time: '1h',
-            avatar: 'https://i.pravatar.cc/150?img=5',
-            likes: 2,
-            isLiked: false
-          }
-        ],
-        showReplies: true
-      },
-      { 
-        id: 2, 
-        author: 'Maria Garcia', 
-        content: 'This is exactly what our team needed to hear.', 
-        time: '1h', 
-        avatar: 'https://i.pravatar.cc/150?img=4',
-        likes: 8,
-        isLiked: true,
-        replies: [],
-        showReplies: false
-      }
-    ],
-    2: [
-      { 
-        id: 1, 
-        author: 'Robert Johnson', 
-        content: 'Impressive performance improvements!', 
-        time: '3h', 
-        avatar: 'https://i.pravatar.cc/150?img=6',
         likes: 12,
-        isLiked: false,
-        replies: [],
-        showReplies: false
-      }
-    ],
-    3: [],
-    4: [
-      { 
-        id: 1, 
-        author: 'Sarah Wilson', 
-        content: 'The future is definitely exciting!', 
-        time: '1d', 
-        avatar: 'https://i.pravatar.cc/150?img=8',
-        likes: 3,
-        isLiked: false,
-        replies: [],
-        showReplies: false
+            isLiked: false
+      },
+      {
+        id: 'c2',
+        author: { name: 'Lisa Wang', avatar: 'LW' },
+        content: 'Great points! I agree that user research can\'t be replaced. AI should augment, not replace human insight.',
+        time: '45min',
+        likes: 8,
+        isLiked: true
       }
     ]
-  });
+  },
+  {
+    id: '2',
+    author: {
+      name: 'Michael Chen',
+      title: 'Engineering Manager at Tesla',
+      avatar: 'MC',
+      time: '5h'
+    },
+    content: 'Exciting milestone! Our autonomous driving team just achieved 99.97% accuracy in object detection.\n\nThis journey taught me:\n→ Innovation requires relentless iteration\n→ Diverse teams build better solutions\n→ Safety must always come first\n\nProud of this incredible team and what we\'re building for the future of transportation!\n\n#Innovation #AutonomousDriving #TeamWork',
+    image: '/api/placeholder/600/350',
+    likes: 892,
+    comments: 156,
+    shares: 78,
+    isLiked: true,
+    isSaved: true,
+    visibility: 'public',
+    postComments: [
+      {
+        id: 'c3',
+        author: { name: 'Alex Rodriguez', avatar: 'AR' },
+        content: 'Incredible achievement! The safety-first approach is exactly what the industry needs.',
+        time: '2h',
+        likes: 34,
+        isLiked: false
+      }
+    ]
+  },
+  {
+    id: '3',
+    author: {
+      name: 'Emily Rodriguez',
+      title: 'VP of Marketing at Spotify',
+      avatar: 'ER',
+      time: '8h'
+    },
+    content: 'Big news! We just crossed 500M active users worldwide!\n\nThis achievement reflects:\n✓ The power of music to connect us all\n✓ Our commitment to artist empowerment\n✓ Data-driven personalization at scale\n\nGrateful for our amazing team and the artists who make it all possible. Here\'s to the next chapter!\n\n#Spotify #Music #Milestone #Gratitude',
+    likes: 1247,
+    comments: 203,
+    shares: 95,
+        isLiked: false,
+    isSaved: false,
+    visibility: 'public',
+    postComments: []
+  },
+  {
+    id: '4',
+    author: {
+      name: 'David Kim',
+      title: 'Lead Data Scientist at Netflix',
+      avatar: 'DK',
+      time: '12h'
+    },
+    content: 'Mind-blowing revelation from our latest recommendation algorithm!\n\nWe discovered that viewer mood prediction improves content engagement by 40%. The key? Analyzing:\n\n• Viewing patterns\n• Time of day preferences  \n• Genre switching behavior\n• Device usage patterns\n\nMachine learning continues to amaze me every day! What\'s the most surprising data insight you\'ve discovered?\n\n#DataScience #MachineLearning #Netflix #Analytics',
+    likes: 567,
+    comments: 89,
+    shares: 34,
+    isLiked: true,
+    isSaved: true,
+    visibility: 'connections',
+    postComments: []
+  }
+];
 
-  const handleLike = (postId: number) => {
+interface PostProps {
+  onPostCreated?: (post: PostType) => void;
+}
+
+// Mock data for right sidebar
+const trendingNews = [
+  { id: 1, title: "AI job market grows 200% in Q2", time: "1h ago" },
+  { id: 2, title: "Tech salaries hit record highs despite market shifts", time: "3h ago" },
+  { id: 3, title: "Remote work becoming permanent at major tech firms", time: "5h ago" },
+  { id: 4, title: "New framework simplifies web development", time: "1d ago" },
+  { id: 5, title: "Cybersecurity threats increase by 40%", time: "2d ago" }
+];
+
+const peopleYouMayKnow = [
+  {
+    id: 1,
+    avatar: "JD",
+    name: "Jennifer Davis",
+    title: "Product Manager at Amazon",
+    mutual: 12
+  },
+  {
+    id: 2,
+    avatar: "RK",
+    name: "Robert Kim",
+    title: "Senior Developer at Microsoft",
+    mutual: 8
+  },
+  {
+    id: 3,
+    avatar: "MP",
+    name: "Michelle Park",
+    title: "UX Designer at Adobe",
+    mutual: 5
+  },
+  {
+    id: 4,
+    avatar: "TS",
+    name: "Thomas Smith",
+    title: "Data Scientist at Tesla",
+    mutual: 3
+  }
+];
+
+const Post: React.FC<PostProps> = ({ onPostCreated }) => {
+  console.log('Post component rendering...');
+  
+  const { news, loading, error } = useNews();
+  const { user } = useAuth();
+  const [posts, setPosts] = useState<PostType[]>(mockPosts);
+  const [jobStats, setJobStats] = useState<JobStats>({
+    applied: 12,
+    saved: 8,
+    viewed: 45,
+    interviews: 3
+  });
+  const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
+  const [commentInputs, setCommentInputs] = useState<{ [key: string]: string }>({});
+  const [showRepostModal, setShowRepostModal] = useState<string | null>(null);
+  const [repostComment, setRepostComment] = useState('');
+
+  console.log('Post component state:', { posts: posts.length, user, loading, error });
+
+  useEffect(() => {
+    try {
+      if (news && news.length > 0) {
+        // Transform news data to match our PostType interface
+        const transformedPosts = news.map((item: any, index: number) => ({
+          id: item.id || `news-${index}`,
+          author: {
+            name: item.author || 'Anonymous',
+            title: item.authorTitle || 'Professional',
+            avatar: item.author ? item.author.charAt(0).toUpperCase() : 'A',
+            time: item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'Recently'
+          },
+          content: item.content || item.title || '',
+          image: item.image || undefined,
+          likes: item.likes || Math.floor(Math.random() * 100),
+          comments: item.comments || Math.floor(Math.random() * 20),
+          shares: item.shares || Math.floor(Math.random() * 10),
+      isLiked: false,
+          isSaved: false,
+          visibility: 'public' as const,
+          postComments: []
+        }));
+        setPosts([...transformedPosts, ...mockPosts]);
+      }
+    } catch (err) {
+      console.error('Error processing news data:', err);
+    }
+  }, [news]);
+
+  const handleLike = (postId: string) => {
     setPosts(prev => prev.map(post => 
       post.id === postId 
-        ? { 
-            ...post, 
-            isLiked: !post.isLiked, 
-            likes: post.isLiked ? post.likes - 1 : post.likes + 1 
-          }
+        ? { ...post, isLiked: !post.isLiked, likes: post.isLiked ? post.likes - 1 : post.likes + 1 }
         : post
     ));
   };
 
-  const handleSave = (postId: number) => {
+  const handleSave = (postId: string) => {
     setPosts(prev => prev.map(post => 
       post.id === postId 
         ? { ...post, isSaved: !post.isSaved }
@@ -129,1011 +275,378 @@ const Post: React.FC = () => {
     ));
   };
 
-  const handleComment = (postId: number) => {
-    setActiveCommentBox(activeCommentBox === postId ? null : postId);
-    setCommentText('');
-    setActiveReplyBox(null);
+  const handleCommentToggle = (postId: string) => {
+    setExpandedComments(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(postId)) {
+        newSet.delete(postId);
+      } else {
+        newSet.add(postId);
+      }
+      return newSet;
+    });
   };
 
-  const handleAddComment = (postId: number) => {
-    if (!commentText.trim()) return;
+  const handleCommentSubmit = (postId: string) => {
+    const comment = commentInputs[postId]?.trim();
+    if (!comment) return;
 
-    const newComment: Comment = {
-      id: Date.now(),
-      author: 'Your Name',
-      content: commentText,
-      time: 'now',
-      avatar: 'https://i.pravatar.cc/150?img=52',
-      likes: 0,
-      isLiked: false,
-      replies: [],
-      showReplies: false
-    };
-
-    setPostComments(prev => ({
-      ...prev,
-      [postId]: [...(prev[postId] || []), newComment]
-    }));
-
-    setPosts(prev => prev.map(post => 
-      post.id === postId 
-        ? { ...post, comments: post.comments + 1 }
-        : post
-    ));
-
-    setCommentText('');
-  };
-
-  const handleLikeComment = (postId: number, commentId: number) => {
-    setPostComments(prev => ({
-      ...prev,
-      [postId]: prev[postId]?.map(comment => 
-        comment.id === commentId
-          ? {
-              ...comment,
-              isLiked: !comment.isLiked,
-              likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1
-            }
-          : comment
-      ) || []
-    }));
-  };
-
-  const handleReply = (commentId: number) => {
-    setActiveReplyBox(activeReplyBox === commentId ? null : commentId);
-    setReplyText('');
-  };
-
-  const handleAddReply = (postId: number, commentId: number) => {
-    if (!replyText.trim()) return;
-
-    const newReply: Reply = {
-      id: Date.now(),
-      author: 'Your Name',
-      content: replyText,
-      time: 'now',
-      avatar: 'https://i.pravatar.cc/150?img=52',
+    const newComment: PostComment = {
+      id: Date.now().toString(),
+      author: {
+        name: user?.name || 'You',
+        avatar: user?.name?.charAt(0).toUpperCase() || 'U'
+      },
+      content: comment,
+      time: 'Just now',
       likes: 0,
       isLiked: false
     };
 
-    setPostComments(prev => ({
-      ...prev,
-      [postId]: prev[postId]?.map(comment => 
-        comment.id === commentId
-          ? {
-              ...comment,
-              replies: [...comment.replies, newReply],
-              showReplies: true
-            }
-          : comment
-      ) || []
-    }));
+    setPosts(prev => prev.map(post => 
+      post.id === postId 
+        ? { 
+            ...post, 
+            comments: post.comments + 1,
+            postComments: [...(post.postComments || []), newComment]
+          }
+        : post
+    ));
 
-    setReplyText('');
-    setActiveReplyBox(null);
+    setCommentInputs(prev => ({ ...prev, [postId]: '' }));
   };
 
-  const handleLikeReply = (postId: number, commentId: number, replyId: number) => {
-    setPostComments(prev => ({
-      ...prev,
-      [postId]: prev[postId]?.map(comment => 
-        comment.id === commentId
-          ? {
-              ...comment,
-              replies: comment.replies.map(reply =>
-                reply.id === replyId
-                  ? {
-                      ...reply,
-                      isLiked: !reply.isLiked,
-                      likes: reply.isLiked ? reply.likes - 1 : reply.likes + 1
-                    }
-                  : reply
-              )
-            }
-          : comment
-      ) || []
-    }));
+  const handleRepost = (postId: string) => {
+    setShowRepostModal(postId);
   };
 
-  const toggleReplies = (postId: number, commentId: number) => {
-    setPostComments(prev => ({
-      ...prev,
-      [postId]: prev[postId]?.map(comment => 
-        comment.id === commentId
-          ? { ...comment, showReplies: !comment.showReplies }
-          : comment
-      ) || []
-    }));
-  };
-
-  const handleShare = (postId: number) => {
+  const handleRepostSubmit = (postId: string) => {
     setPosts(prev => prev.map(post => 
       post.id === postId 
         ? { ...post, shares: post.shares + 1 }
         : post
     ));
-    alert(`Post ${postId} shared!`);
+    setShowRepostModal(null);
+    setRepostComment('');
   };
+
+  const handleNewPost = (newPost: PostType) => {
+    setPosts(prev => [newPost, ...prev]);
+    if (onPostCreated) {
+      onPostCreated(newPost);
+    }
+  };
+
+  const getVisibilityIcon = (visibility: string = 'public') => {
+    switch (visibility) {
+      case 'public':
+        return <FaGlobeAmericas className={styles.visibilityIcon} />;
+      case 'connections':
+        return <FaUserFriends className={styles.visibilityIcon} />;
+      case 'private':
+        return <FaLock className={styles.visibilityIcon} />;
+      default:
+        return <FaGlobeAmericas className={styles.visibilityIcon} />;
+    }
+  };
+
+  // When there's an error fetching data, we'll log it but still render the component
+  // with the mock data so the design can be reviewed.
+  if (error) {
+    console.warn('API Error:', error, 'Falling back to offline mock data.');
+  }
+
+  if (loading) {
+  return (
+    <div className={styles.container}>
+        <div className={styles.loading}>Loading posts...</div>
+                </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
-      {/* Main Content Area */}
+      {/* Left Sidebar */}
+      <div className={styles.leftSidebar}>
+        {/* Profile Card */}
+        <div className={styles.profileCard}>
+          <div className={styles.profileBackground}></div>
+          <div className={styles.profileInfo}>
+            <div className={styles.profileAvatar}>
+              {user?.name?.charAt(0).toUpperCase() || 'U'}
+            </div>
+            <h3 className={styles.profileName}>{user?.name || 'John Smith'}</h3>
+            <p className={styles.profileTitle}>{user?.title || 'Software Engineer at Mekyek'}</p>
+          </div>
+          
+          {/* Work Dashboard */}
+          <div className={styles.workDashboard}>
+            <h4 className={styles.dashboardTitle}>
+              <FaBriefcase className={styles.dashboardIcon} />
+              Work Dashboard
+            </h4>
+            <div className={styles.dashboardStatsGrid}>
+              <div className={styles.statCard}>
+                <div className={`${styles.statIcon} ${styles.appliedIcon}`}><FaTasks /></div>
+                <div className={styles.statInfo}>
+                  <p className={styles.statNumber}>{jobStats.applied}</p>
+                  <p className={styles.statLabel}>Applied</p>
+            </div>
+          </div>
+              <div className={styles.statCard}>
+                <div className={`${styles.statIcon} ${styles.savedIcon}`}><FaBookmark /></div>
+                <div className={styles.statInfo}>
+                  <p className={styles.statNumber}>{jobStats.saved}</p>
+                  <p className={styles.statLabel}>Saved</p>
+        </div>
+            </div>
+              <div className={styles.statCard}>
+                <div className={`${styles.statIcon} ${styles.viewedIcon}`}><FaEye /></div>
+                <div className={styles.statInfo}>
+                  <p className={styles.statNumber}>{jobStats.viewed}</p>
+                  <p className={styles.statLabel}>Viewed</p>
+            </div>
+            </div>
+              <div className={styles.statCard}>
+                <div className={`${styles.statIcon} ${styles.interviewIcon}`}><FaHandshake /></div>
+                <div className={styles.statInfo}>
+                  <p className={styles.statNumber}>{jobStats.interviews}</p>
+                  <p className={styles.statLabel}>Interviews</p>
+          </div>
+          </div>
+        </div>
+            <div className={styles.dashboardActions}>
+              <button className={styles.dashboardAction}>
+                <FaChartLine className={styles.actionIcon} /> View Analytics
+              </button>
+                    </div>
+                  </div>
+                </div>
+
+        {/* Quick Access Card */}
+        <div className={styles.quickAccessCard}>
+          <div className={styles.quickAccessItem}><FaUsers /> Your community</div>
+          <div className={styles.quickAccessItem}><FaCalendarAlt /> Event</div>
+          <div className={styles.quickAccessItem}><FaFileAlt /> Your Courses</div>
+                      </div>
+                      </div>
+
+      {/* Main Content */}
       <div className={styles.mainContent}>
-        {/* Main Post */}
-        <div className={styles.post1}>
-        <div className={styles.post}>
-          {/* Post Header */}
-          <div className={styles.frame4}>
-            <div className={styles.frame3}>
-              <div className={styles.pfpAndName}>
-                <div className={styles.pfp}></div>
-                <div className={styles.frame2}>
-                  <div className={styles.sarahJohnson}>Sarah Johnson</div>
-                  <div className={styles.uxDesigner}>UX Designer at Google</div>
-                  <div className={styles.timeAgo}>11 hours ago</div>
-                </div>
-              </div>
-              <FaEllipsisH className={styles.moreIcon} />
-            </div>
-            
-            {/* Post Content */}
-            <div className={styles.postContent}>
-              Just finished a fascinating workshop on design systems. The way we approach consistency in product design is evolving rapidly. Anyone else exploring this area?
-            </div>
-          </div>
-          
-          {/* Post Image */}
-          <div className={styles.image1}></div>
-          
-          {/* Post Stats */}
-          <div className={styles.frame6}>
-            <div className={styles.postStats}>
-              {posts[0].likes} likes • {posts[0].comments} comments • {posts[0].shares} shares
-            </div>
-          </div>
-        </div>
+        <PostCreation onPostCreated={handleNewPost} />
         
-        {/* Interaction Buttons */}
-        <div className={styles.interactionAndSave}>
-          <div className={styles.interactions}>
-            <div 
-              className={`${styles.like} ${posts[0].isLiked ? styles.liked : ''}`}
-              onClick={() => handleLike(1)}
-            >
-              {posts[0].isLiked ? (
-                <FaHeart className={`${styles.actionIcon} ${styles.heartIcon}`} />
-              ) : (
-                <FaThumbsUp className={styles.actionIcon} />
-              )}
-              <span className={styles.actionText}>Like</span>
-            </div>
-            <div 
-              className={styles.comment}
-              onClick={() => handleComment(1)}
-            >
-              <FaComment className={styles.actionIcon} />
-              <span className={styles.actionText}>Comment</span>
-            </div>
-            <div 
-              className={styles.share}
-              onClick={() => handleShare(1)}
-            >
-              <FaShare className={styles.actionIcon} />
-              <span className={styles.actionText}>Share</span>
-            </div>
-          </div>
-          <div 
-            className={`${styles.save} ${posts[0].isSaved ? styles.saved : ''}`}
-            onClick={() => handleSave(1)}
-          >
-            <FaBookmark className={styles.saveIcon} />
-          </div>
-        </div>
-
-        {/* Comment Section for Post 1 */}
-        {activeCommentBox === 1 && (
-          <div className={styles.commentSection}>
-            {/* Existing Comments */}
-            {postComments[1]?.map((comment) => (
-              <div key={comment.id} className={styles.commentThread}>
-                <div className={styles.commentItem}>
-                  <div className={styles.commentAvatar} style={{backgroundImage: `url('${comment.avatar}')`}}></div>
-                  <div className={styles.commentContent}>
-                    <div className={styles.commentBubble}>
-                      <div className={styles.commentAuthor}>{comment.author}</div>
-                      <div className={styles.commentText}>{comment.content}</div>
-                    </div>
-                    <div className={styles.commentMeta}>
-                      <span className={styles.commentTime}>{comment.time}</span>
-                      <span 
-                        className={`${styles.commentAction} ${comment.isLiked ? styles.liked : ''}`}
-                        onClick={() => handleLikeComment(1, comment.id)}
-                      >
-                        <FaThumbsUp className={styles.commentLikeIcon} />
-                        Like {comment.likes > 0 && `(${comment.likes})`}
-                      </span>
-                      <span 
-                        className={styles.commentAction}
-                        onClick={() => handleReply(comment.id)}
-                      >
-                        <FaReply className={styles.commentReplyIcon} />
-                        Reply
-                      </span>
-                      {comment.replies.length > 0 && (
-                        <span 
-                          className={styles.commentAction}
-                          onClick={() => toggleReplies(1, comment.id)}
-                        >
-                          {comment.showReplies ? 'Hide' : 'Show'} {comment.replies.length} replies
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Replies */}
-                {comment.showReplies && comment.replies.map((reply) => (
-                  <div key={reply.id} className={styles.replyItem}>
-                    <div className={styles.commentAvatar} style={{backgroundImage: `url('${reply.avatar}')`}}></div>
-                    <div className={styles.commentContent}>
-                      <div className={styles.commentBubble}>
-                        <div className={styles.commentAuthor}>{reply.author}</div>
-                        <div className={styles.commentText}>{reply.content}</div>
-                      </div>
-                      <div className={styles.commentMeta}>
-                        <span className={styles.commentTime}>{reply.time}</span>
-                        <span 
-                          className={`${styles.commentAction} ${reply.isLiked ? styles.liked : ''}`}
-                          onClick={() => handleLikeReply(1, comment.id, reply.id)}
-                        >
-                          <FaThumbsUp className={styles.commentLikeIcon} />
-                          Like {reply.likes > 0 && `(${reply.likes})`}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Reply Input Box */}
-                {activeReplyBox === comment.id && (
-                  <div className={styles.replyInputSection}>
-                    <div className={styles.commentInputAvatar} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=52')"}}></div>
-                    <div className={styles.commentInputBox}>
-                      <textarea
-                        className={styles.commentInput}
-                        placeholder={`Reply to ${comment.author}...`}
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleAddReply(1, comment.id);
-                          }
-                        }}
-                      />
-                      <button 
-                        className={styles.commentPostBtn}
-                        onClick={() => handleAddReply(1, comment.id)}
-                        disabled={!replyText.trim()}
-                      >
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                )}
+        {/* Posts Feed */}
+        {posts.map((post) => (
+          <div key={post.id} className={styles.postCard}>
+            {/* Post Header */}
+            <div className={styles.postHeader}>
+              <div className={styles.authorInfo}>
+                <div className={styles.avatar}>
+                  {post.author.avatar}
               </div>
-            ))}
-
-            {/* Comment Input Box */}
-            <div className={styles.commentInputSection}>
-              <div className={styles.commentInputAvatar} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=52')"}}></div>
-              <div className={styles.commentInputBox}>
-                <textarea
-                  className={styles.commentInput}
-                  placeholder="Write a comment..."
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleAddComment(1);
-                    }
-                  }}
-                />
-                <button 
-                  className={styles.commentPostBtn}
-                  onClick={() => handleAddComment(1)}
-                  disabled={!commentText.trim()}
-                >
-                  Post
-                </button>
-              </div>
+                <div className={styles.authorDetails}>
+                  <h4 className={styles.authorName}>{post.author.name}</h4>
+                  <p className={styles.authorTitle}>{post.author.title}</p>
+                  <div className={styles.postMeta}>
+                    <span className={styles.postTime}>{post.author.time}</span>
+                    <span className={styles.separator}>•</span>
+                    {getVisibilityIcon(post.visibility)}
             </div>
           </div>
-        )}
       </div>
-
-      {/* Post 2 */}
-      <div className={styles.post1}>
-        <div className={styles.post}>
-          {/* Post Header */}
-          <div className={styles.frame4}>
-            <div className={styles.frame3}>
-              <div className={styles.pfpAndName}>
-                <div className={styles.pfp} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=5')"}}></div>
-                <div className={styles.frame2}>
-                  <div className={styles.sarahJohnson}>Michael Thompson</div>
-                  <div className={styles.uxDesigner}>Software Engineer at Microsoft</div>
-                  <div className={styles.timeAgo}>6 hours ago</div>
-                </div>
-              </div>
-              <FaEllipsisH className={styles.moreIcon} />
-            </div>
-            
-            {/* Post Content */}
-            <div className={styles.postContent}>
-              Excited to share that our team just deployed a new feature that improves app performance by 40%! The power of optimized algorithms and clean code never ceases to amaze me. #SoftwareDevelopment #Performance
-            </div>
-          </div>
-          
-          {/* Post Image */}
-          <div className={styles.image1} style={{backgroundImage: "url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=300&fit=crop')"}}></div>
-          
-          {/* Post Stats */}
-          <div className={styles.frame6}>
-            <div className={styles.postStats}>
-              {posts[1].likes} likes • {posts[1].comments} comments • {posts[1].shares} shares
-            </div>
-          </div>
-        </div>
-        
-        {/* Interaction Buttons */}
-        <div className={styles.interactionAndSave}>
-          <div className={styles.interactions}>
-            <div 
-              className={`${styles.like} ${posts[1].isLiked ? styles.liked : ''}`}
-              onClick={() => handleLike(2)}
-            >
-              {posts[1].isLiked ? (
-                <FaHeart className={`${styles.actionIcon} ${styles.heartIcon}`} />
-              ) : (
-                <FaThumbsUp className={styles.actionIcon} />
-              )}
-              <span className={styles.actionText}>Like</span>
-            </div>
-            <div 
-              className={styles.comment}
-              onClick={() => handleComment(2)}
-            >
-              <FaComment className={styles.actionIcon} />
-              <span className={styles.actionText}>Comment</span>
-            </div>
-            <div 
-              className={styles.share}
-              onClick={() => handleShare(2)}
-            >
-              <FaShare className={styles.actionIcon} />
-              <span className={styles.actionText}>Share</span>
-            </div>
-          </div>
-          <div 
-            className={`${styles.save} ${posts[1].isSaved ? styles.saved : ''}`}
-            onClick={() => handleSave(2)}
-          >
-            <FaBookmark className={styles.saveIcon} />
-          </div>
-        </div>
-
-        {/* Comment Section for Post 2 */}
-        {activeCommentBox === 2 && (
-          <div className={styles.commentSection}>
-            {/* Existing Comments */}
-            {postComments[2]?.map((comment) => (
-              <div key={comment.id} className={styles.commentThread}>
-                <div className={styles.commentItem}>
-                  <div className={styles.commentAvatar} style={{backgroundImage: `url('${comment.avatar}')`}}></div>
-                  <div className={styles.commentContent}>
-                    <div className={styles.commentBubble}>
-                      <div className={styles.commentAuthor}>{comment.author}</div>
-                      <div className={styles.commentText}>{comment.content}</div>
-                    </div>
-                    <div className={styles.commentMeta}>
-                      <span className={styles.commentTime}>{comment.time}</span>
-                      <span 
-                        className={`${styles.commentAction} ${comment.isLiked ? styles.liked : ''}`}
-                        onClick={() => handleLikeComment(2, comment.id)}
-                      >
-                        <FaThumbsUp className={styles.commentLikeIcon} />
-                        Like {comment.likes > 0 && `(${comment.likes})`}
-                      </span>
-                      <span 
-                        className={styles.commentAction}
-                        onClick={() => handleReply(comment.id)}
-                      >
-                        <FaReply className={styles.commentReplyIcon} />
-                        Reply
-                      </span>
-                      {comment.replies.length > 0 && (
-                        <span 
-                          className={styles.commentAction}
-                          onClick={() => toggleReplies(2, comment.id)}
-                        >
-                          {comment.showReplies ? 'Hide' : 'Show'} {comment.replies.length} replies
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Replies */}
-                {comment.showReplies && comment.replies.map((reply) => (
-                  <div key={reply.id} className={styles.replyItem}>
-                    <div className={styles.commentAvatar} style={{backgroundImage: `url('${reply.avatar}')`}}></div>
-                    <div className={styles.commentContent}>
-                      <div className={styles.commentBubble}>
-                        <div className={styles.commentAuthor}>{reply.author}</div>
-                        <div className={styles.commentText}>{reply.content}</div>
-                      </div>
-                      <div className={styles.commentMeta}>
-                        <span className={styles.commentTime}>{reply.time}</span>
-                        <span 
-                          className={`${styles.commentAction} ${reply.isLiked ? styles.liked : ''}`}
-                          onClick={() => handleLikeReply(2, comment.id, reply.id)}
-                        >
-                          <FaThumbsUp className={styles.commentLikeIcon} />
-                          Like {reply.likes > 0 && `(${reply.likes})`}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Reply Input Box */}
-                {activeReplyBox === comment.id && (
-                  <div className={styles.replyInputSection}>
-                    <div className={styles.commentInputAvatar} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=52')"}}></div>
-                    <div className={styles.commentInputBox}>
-                      <textarea
-                        className={styles.commentInput}
-                        placeholder={`Reply to ${comment.author}...`}
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleAddReply(2, comment.id);
-                          }
-                        }}
-                      />
-                      <button 
-                        className={styles.commentPostBtn}
-                        onClick={() => handleAddReply(2, comment.id)}
-                        disabled={!replyText.trim()}
-                      >
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-
-            {/* Comment Input Box */}
-            <div className={styles.commentInputSection}>
-              <div className={styles.commentInputAvatar} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=52')"}}></div>
-              <div className={styles.commentInputBox}>
-                <textarea
-                  className={styles.commentInput}
-                  placeholder="Write a comment..."
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleAddComment(2);
-                    }
-                  }}
-                />
-                <button 
-                  className={styles.commentPostBtn}
-                  onClick={() => handleAddComment(2)}
-                  disabled={!commentText.trim()}
-                >
-                  Post
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Post 3 */}
-      <div className={styles.post1}>
-        <div className={styles.post}>
-          {/* Post Header */}
-          <div className={styles.frame4}>
-            <div className={styles.frame3}>
-              <div className={styles.pfpAndName}>
-                <div className={styles.pfp} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=7')"}}></div>
-                <div className={styles.frame2}>
-                  <div className={styles.sarahJohnson}>Jessica Martinez</div>
-                  <div className={styles.uxDesigner}>Marketing Manager at Adobe</div>
-                  <div className={styles.timeAgo}>1 day ago</div>
-                </div>
-              </div>
-              <FaEllipsisH className={styles.moreIcon} />
-            </div>
-            
-            {/* Post Content */}
-            <div className={styles.postContent}>
-              Just attended an incredible conference on digital transformation. The keynote about AI's impact on creative industries was mind-blowing. The future is here and it's exciting! Who else was there?
-            </div>
-          </div>
-          
-          {/* Post Image */}
-          <div className={styles.image1} style={{backgroundImage: "url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=300&fit=crop')"}}></div>
-          
-          {/* Post Stats */}
-          <div className={styles.frame6}>
-            <div className={styles.postStats}>
-              {posts[2].likes} likes • {posts[2].comments} comments • {posts[2].shares} shares
-            </div>
-          </div>
-        </div>
-        
-        {/* Interaction Buttons */}
-        <div className={styles.interactionAndSave}>
-          <div className={styles.interactions}>
-            <div 
-              className={`${styles.like} ${posts[2].isLiked ? styles.liked : ''}`}
-              onClick={() => handleLike(3)}
-            >
-              {posts[2].isLiked ? (
-                <FaHeart className={`${styles.actionIcon} ${styles.heartIcon}`} />
-              ) : (
-                <FaThumbsUp className={styles.actionIcon} />
-              )}
-              <span className={styles.actionText}>Like</span>
-            </div>
-            <div 
-              className={styles.comment}
-              onClick={() => handleComment(3)}
-            >
-              <FaComment className={styles.actionIcon} />
-              <span className={styles.actionText}>Comment</span>
-            </div>
-            <div 
-              className={styles.share}
-              onClick={() => handleShare(3)}
-            >
-              <FaShare className={styles.actionIcon} />
-              <span className={styles.actionText}>Share</span>
-            </div>
-          </div>
-          <div 
-            className={`${styles.save} ${posts[2].isSaved ? styles.saved : ''}`}
-            onClick={() => handleSave(3)}
-          >
-            <FaBookmark className={styles.saveIcon} />
-          </div>
-        </div>
-
-        {/* Comment Section for Post 3 */}
-        {activeCommentBox === 3 && (
-          <div className={styles.commentSection}>
-            {/* Existing Comments */}
-            {postComments[3]?.map((comment) => (
-              <div key={comment.id} className={styles.commentThread}>
-                <div className={styles.commentItem}>
-                  <div className={styles.commentAvatar} style={{backgroundImage: `url('${comment.avatar}')`}}></div>
-                  <div className={styles.commentContent}>
-                    <div className={styles.commentBubble}>
-                      <div className={styles.commentAuthor}>{comment.author}</div>
-                      <div className={styles.commentText}>{comment.content}</div>
-                    </div>
-                    <div className={styles.commentMeta}>
-                      <span className={styles.commentTime}>{comment.time}</span>
-                      <span 
-                        className={`${styles.commentAction} ${comment.isLiked ? styles.liked : ''}`}
-                        onClick={() => handleLikeComment(3, comment.id)}
-                      >
-                        <FaThumbsUp className={styles.commentLikeIcon} />
-                        Like {comment.likes > 0 && `(${comment.likes})`}
-                      </span>
-                      <span 
-                        className={styles.commentAction}
-                        onClick={() => handleReply(comment.id)}
-                      >
-                        <FaReply className={styles.commentReplyIcon} />
-                        Reply
-                      </span>
-                      {comment.replies.length > 0 && (
-                        <span 
-                          className={styles.commentAction}
-                          onClick={() => toggleReplies(3, comment.id)}
-                        >
-                          {comment.showReplies ? 'Hide' : 'Show'} {comment.replies.length} replies
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Replies */}
-                {comment.showReplies && comment.replies.map((reply) => (
-                  <div key={reply.id} className={styles.replyItem}>
-                    <div className={styles.commentAvatar} style={{backgroundImage: `url('${reply.avatar}')`}}></div>
-                    <div className={styles.commentContent}>
-                      <div className={styles.commentBubble}>
-                        <div className={styles.commentAuthor}>{reply.author}</div>
-                        <div className={styles.commentText}>{reply.content}</div>
-                      </div>
-                      <div className={styles.commentMeta}>
-                        <span className={styles.commentTime}>{reply.time}</span>
-                        <span 
-                          className={`${styles.commentAction} ${reply.isLiked ? styles.liked : ''}`}
-                          onClick={() => handleLikeReply(3, comment.id, reply.id)}
-                        >
-                          <FaThumbsUp className={styles.commentLikeIcon} />
-                          Like {reply.likes > 0 && `(${reply.likes})`}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Reply Input Box */}
-                {activeReplyBox === comment.id && (
-                  <div className={styles.replyInputSection}>
-                    <div className={styles.commentInputAvatar} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=52')"}}></div>
-                    <div className={styles.commentInputBox}>
-                      <textarea
-                        className={styles.commentInput}
-                        placeholder={`Reply to ${comment.author}...`}
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleAddReply(3, comment.id);
-                          }
-                        }}
-                      />
-                      <button 
-                        className={styles.commentPostBtn}
-                        onClick={() => handleAddReply(3, comment.id)}
-                        disabled={!replyText.trim()}
-                      >
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-
-            {/* Comment Input Box */}
-            <div className={styles.commentInputSection}>
-              <div className={styles.commentInputAvatar} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=52')"}}></div>
-              <div className={styles.commentInputBox}>
-                <textarea
-                  className={styles.commentInput}
-                  placeholder="Write a comment..."
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleAddComment(3);
-                    }
-                  }}
-                />
-                <button 
-                  className={styles.commentPostBtn}
-                  onClick={() => handleAddComment(3)}
-                  disabled={!commentText.trim()}
-                >
-                  Post
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Post 4 */}
-      <div className={styles.post1}>
-        <div className={styles.post}>
-          {/* Post Header */}
-          <div className={styles.frame4}>
-            <div className={styles.frame3}>
-              <div className={styles.pfpAndName}>
-                <div className={styles.pfp} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=11')"}}></div>
-                <div className={styles.frame2}>
-                  <div className={styles.sarahJohnson}>Alex Rodriguez</div>
-                  <div className={styles.uxDesigner}>Data Analyst at Netflix</div>
-                  <div className={styles.timeAgo}>2 days ago</div>
-                </div>
-              </div>
-              <FaEllipsisH className={styles.moreIcon} />
-            </div>
-            
-            {/* Post Content */}
-            <div className={styles.postContent}>
-              Data visualization can tell amazing stories! Just completed an analysis showing user engagement patterns that will reshape our content strategy. Love how numbers can drive meaningful decisions. 📊
-            </div>
-          </div>
-          
-          {/* Post Image */}
-          <div className={styles.image1} style={{backgroundImage: "url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=300&fit=crop')"}}></div>
-          
-          {/* Post Stats */}
-          <div className={styles.frame6}>
-            <div className={styles.postStats}>
-              {posts[3].likes} likes • {posts[3].comments} comments • {posts[3].shares} shares
-            </div>
-          </div>
-        </div>
-        
-        {/* Interaction Buttons */}
-        <div className={styles.interactionAndSave}>
-          <div className={styles.interactions}>
-            <div 
-              className={`${styles.like} ${posts[3].isLiked ? styles.liked : ''}`}
-              onClick={() => handleLike(4)}
-            >
-              {posts[3].isLiked ? (
-                <FaHeart className={`${styles.actionIcon} ${styles.heartIcon}`} />
-              ) : (
-                <FaThumbsUp className={styles.actionIcon} />
-              )}
-              <span className={styles.actionText}>Like</span>
-            </div>
-            <div 
-              className={styles.comment}
-              onClick={() => handleComment(4)}
-            >
-              <FaComment className={styles.actionIcon} />
-              <span className={styles.actionText}>Comment</span>
-            </div>
-            <div 
-              className={styles.share}
-              onClick={() => handleShare(4)}
-            >
-              <FaShare className={styles.actionIcon} />
-              <span className={styles.actionText}>Share</span>
-            </div>
-          </div>
-          <div 
-            className={`${styles.save} ${posts[3].isSaved ? styles.saved : ''}`}
-            onClick={() => handleSave(4)}
-          >
-            <FaBookmark className={styles.saveIcon} />
-          </div>
-        </div>
-
-        {/* Comment Section for Post 4 */}
-        {activeCommentBox === 4 && (
-          <div className={styles.commentSection}>
-            {/* Existing Comments */}
-            {postComments[4]?.map((comment) => (
-              <div key={comment.id} className={styles.commentThread}>
-                <div className={styles.commentItem}>
-                  <div className={styles.commentAvatar} style={{backgroundImage: `url('${comment.avatar}')`}}></div>
-                  <div className={styles.commentContent}>
-                    <div className={styles.commentBubble}>
-                      <div className={styles.commentAuthor}>{comment.author}</div>
-                      <div className={styles.commentText}>{comment.content}</div>
-                    </div>
-                    <div className={styles.commentMeta}>
-                      <span className={styles.commentTime}>{comment.time}</span>
-                      <span 
-                        className={`${styles.commentAction} ${comment.isLiked ? styles.liked : ''}`}
-                        onClick={() => handleLikeComment(4, comment.id)}
-                      >
-                        <FaThumbsUp className={styles.commentLikeIcon} />
-                        Like {comment.likes > 0 && `(${comment.likes})`}
-                      </span>
-                      <span 
-                        className={styles.commentAction}
-                        onClick={() => handleReply(comment.id)}
-                      >
-                        <FaReply className={styles.commentReplyIcon} />
-                        Reply
-                      </span>
-                      {comment.replies.length > 0 && (
-                        <span 
-                          className={styles.commentAction}
-                          onClick={() => toggleReplies(4, comment.id)}
-                        >
-                          {comment.showReplies ? 'Hide' : 'Show'} {comment.replies.length} replies
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Replies */}
-                {comment.showReplies && comment.replies.map((reply) => (
-                  <div key={reply.id} className={styles.replyItem}>
-                    <div className={styles.commentAvatar} style={{backgroundImage: `url('${reply.avatar}')`}}></div>
-                    <div className={styles.commentContent}>
-                      <div className={styles.commentBubble}>
-                        <div className={styles.commentAuthor}>{reply.author}</div>
-                        <div className={styles.commentText}>{reply.content}</div>
-                      </div>
-                      <div className={styles.commentMeta}>
-                        <span className={styles.commentTime}>{reply.time}</span>
-                        <span 
-                          className={`${styles.commentAction} ${reply.isLiked ? styles.liked : ''}`}
-                          onClick={() => handleLikeReply(4, comment.id, reply.id)}
-                        >
-                          <FaThumbsUp className={styles.commentLikeIcon} />
-                          Like {reply.likes > 0 && `(${reply.likes})`}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Reply Input Box */}
-                {activeReplyBox === comment.id && (
-                  <div className={styles.replyInputSection}>
-                    <div className={styles.commentInputAvatar} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=52')"}}></div>
-                    <div className={styles.commentInputBox}>
-                      <textarea
-                        className={styles.commentInput}
-                        placeholder={`Reply to ${comment.author}...`}
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleAddReply(4, comment.id);
-                          }
-                        }}
-                      />
-                      <button 
-                        className={styles.commentPostBtn}
-                        onClick={() => handleAddReply(4, comment.id)}
-                        disabled={!replyText.trim()}
-                      >
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-
-            {/* Comment Input Box */}
-            <div className={styles.commentInputSection}>
-              <div className={styles.commentInputAvatar} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=52')"}}></div>
-              <div className={styles.commentInputBox}>
-                <textarea
-                  className={styles.commentInput}
-                  placeholder="Write a comment..."
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleAddComment(4);
-                    }
-                  }}
-                />
-                <button 
-                  className={styles.commentPostBtn}
-                  onClick={() => handleAddComment(4)}
-                  disabled={!commentText.trim()}
-                >
-                  Post
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-      </div>
-
-      {/* Sidebar Area */}
-      <div className={styles.sidebarArea}>
-        {/* People You May Know Sidebar */}
-        <div className={styles.otherFollowers}>
-        <div className={styles.frame8}>
-          <div className={styles.peopleYouMayKnow}>People you may know</div>
-          <div className={styles.frame7}>
-                         {/* Person 1 */}
-            <div className={styles.pfp1}>
-              <div className={styles.nameSection}>
-                <div className={styles.pfpSmall} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=1')"}}></div>
-                <div className={styles.nameDetails}>
-                  <div className={styles.personName}>Emily Rodriguez</div>
-                  <div className={styles.personTitle}>Marketing Director at TechCorp</div>
-                </div>
-              </div>
-              <button className={styles.cta}>
-                <span className={styles.followText}>Follow</span>
+              <button className={styles.moreButton}>
+                <FaEllipsisH />
               </button>
             </div>
-
-            {/* Person 2 */}
-            <div className={styles.pfp2}>
-              <div className={styles.nameSection}>
-                <div className={styles.pfpSmall} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=3')"}}></div>
-                <div className={styles.nameDetails}>
-                  <div className={styles.personName}>David Kim</div>
-                  <div className={styles.personTitle}>Product Manager at StartupX</div>
-                </div>
-              </div>
-              <button className={styles.cta}>
-                <span className={styles.followText}>Follow</span>
-              </button>
+            
+            {/* Post Content */}
+            <div className={styles.postContent}>
+              <p className={styles.postText}>{post.content}</p>
+              {post.image && (
+                <div className={styles.postImageContainer}>
+                  <img 
+                    src={post.image} 
+                    alt="Post content"
+                    className={styles.postImage}
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+                      e.currentTarget.parentElement!.style.height = '300px';
+                      e.currentTarget.parentElement!.style.display = 'flex';
+                      e.currentTarget.parentElement!.style.alignItems = 'center';
+                      e.currentTarget.parentElement!.style.justifyContent = 'center';
+                      e.currentTarget.parentElement!.innerHTML = '<span style="color: #666;">Image content</span>';
+                    }}
+                  />
             </div>
-
-            {/* Person 3 */}
-            <div className={styles.pfp3}>
-              <div className={styles.nameSection}>
-                <div className={styles.pfpSmall} style={{backgroundImage: "url('https://i.pravatar.cc/150?img=9')"}}></div>
-                <div className={styles.nameDetails}>
-                  <div className={styles.personName}>Lisa Chen</div>
-                  <div className={styles.personTitle}>Data Scientist at AnalyticsPro</div>
-                </div>
-              </div>
-              <button className={styles.cta}>
-                <span className={styles.followText}>Follow</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <div className={styles.frame10}>
-          <div className={styles.viewAllSuggestion}>View all Suggestion</div>
-        </div>
-      </div>
-
-      {/* Events Section */}
-      <div className={styles.eventsSection}>
-        <div className={styles.frame14}>
-          <div className={styles.heading}>
-            <div className={styles.upcomingEvents}>Upcoming Events</div>
+              )}
           </div>
           
-          <div className={styles.events}>
-            {/* Event 1 */}
-            <div className={styles.frame13}>
-              <div className={styles.eventTitle}>Tech Networking Mixer</div>
-              <div className={styles.frame11}>
-                <span className={styles.eventDate}>April 30, 2025</span>
-                <span className={styles.eventTime}>6:00 pm-8:00pm</span>
-              </div>
-              <div className={styles.frame12}>
-                <FaMapMarkerAlt className={styles.locationIcon} />
-                <span className={styles.virtual}>Virtual</span>
-              </div>
+          {/* Post Stats */}
+            <div className={styles.postStats}>
+              <div className={styles.likesInfo}>
+                <div className={styles.likeReactions}>
+                  <span className={styles.likeIcon}>👍</span>
+                  <span className={styles.likeIcon}>❤️</span>
+                  <span className={styles.likeIcon}>🎉</span>
+                  <span className={styles.likeIcon}>🚀</span>
             </div>
+                <span className={styles.likesCount}>{post.likes.toLocaleString()}</span>
+          </div>
+              <div className={styles.statsRight}>
+                <span className={styles.commentCount} onClick={() => handleCommentToggle(post.id)}>
+                  {post.comments} comments
+                      </span>
+                <span className={styles.shareCount}>{post.shares} reposts</span>
+                  </div>
+                </div>
 
-            {/* Event 2 */}
-            <div className={styles.frame13}>
-              <div className={styles.eventTitle}>Career Development Workshop</div>
-              <div className={styles.frame11}>
-                <span className={styles.eventDate}>May 2, 2025</span>
-                <span className={styles.eventTime}>6:00 pm-8:00pm</span>
-              </div>
-              <div className={styles.frame12}>
-                <FaMapMarkerAlt className={styles.locationIcon} />
-                <span className={styles.virtual}>Virtual</span>
+            {/* Post Actions */}
+            <div className={styles.postActions}>
+                      <button 
+                className={`${styles.actionButton} ${post.isLiked ? styles.liked : ''}`}
+                onClick={() => handleLike(post.id)}
+                      >
+                <FaThumbsUp className={styles.actionIcon} />
+                <span className={styles.actionText}>Like</span>
+                      </button>
+                <button 
+                className={styles.actionButton}
+                onClick={() => handleCommentToggle(post.id)}
+            >
+              <FaComment className={styles.actionIcon} />
+              <span className={styles.actionText}>Comment</span>
+              </button>
+              <button 
+                className={styles.actionButton}
+                onClick={() => handleRepost(post.id)}
+            >
+              <FaShare className={styles.actionIcon} />
+                <span className={styles.actionText}>Repost</span>
+              </button>
+                      <button 
+                className={`${styles.actionButton} ${post.isSaved ? styles.saved : ''}`}
+                onClick={() => handleSave(post.id)}
+                      >
+                <FaBookmark className={styles.actionIcon} />
+                <span className={styles.actionText}>{post.isSaved ? 'Saved' : 'Save'}</span>
+                      </button>
+                    </div>
+
+            {/* Comments Section */}
+            {expandedComments.has(post.id) && (
+              <div className={styles.commentsSection}>
+                <div className={styles.commentInput}>
+                  <div className={styles.commentAvatar}>
+                    {user?.name?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+                  <div className={styles.commentInputContainer}>
+                    <input
+                      type="text"
+                  placeholder="Write a comment..."
+                      value={commentInputs[post.id] || ''}
+                      onChange={(e) => setCommentInputs(prev => ({ ...prev, [post.id]: e.target.value }))}
+                      className={styles.commentInputField}
+                      onKeyPress={(e) => e.key === 'Enter' && handleCommentSubmit(post.id)}
+                    />
+                    <div className={styles.commentActions}>
+                      <button className={styles.commentActionButton}>
+                        <FaImages />
+                      </button>
+                      <button className={styles.commentActionButton}>
+                        <FaSmile />
+                      </button>
+                <button 
+                        className={styles.commentSubmitButton}
+                        onClick={() => handleCommentSubmit(post.id)}
+                        disabled={!commentInputs[post.id]?.trim()}
+                      >
+                        <FaPaperPlane />
+                </button>
               </div>
             </div>
           </div>
+      </div>
+            )}
+            </div>
+        ))}
         </div>
-        
-        <div className={styles.link}>
-          <div className={styles.browseAllEvents}>Browse all events</div>
+
+      {/* Right Sidebar */}
+      <div className={styles.rightSidebar}>
+        {/* Trending News Card */}
+        <div className={styles.sidebarCard}>
+          <div className={styles.sidebarTitle}>
+            <h3>Trending News</h3>
+            <button className={styles.infoIcon}>
+              <FaInfo />
+            </button>
+          </div>
+          <div className={styles.newsList}>
+            {trendingNews.map((news) => (
+              <div key={news.id} className={styles.newsItem}>
+                <div className={styles.newsBullet}>{news.id}</div>
+                <div className={styles.newsContent}>
+                  <h4 className={styles.newsTitle}>{news.title}</h4>
+                  <p className={styles.newsTime}>{news.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* People You Know Card */}
+        <div className={styles.sidebarCard}>
+          <div className={styles.sidebarTitle}>
+            <h3>People You May Know</h3>
+            <button className={styles.infoIcon}>
+              <FaInfo />
+            </button>
+          </div>
+          <div className={styles.peopleList}>
+            {peopleYouMayKnow.map((person) => (
+              <div key={person.id} className={styles.personItem}>
+                <div className={styles.personAvatar}>{person.avatar}</div>
+                <div className={styles.personInfo}>
+                  <h4 className={styles.personName}>{person.name}</h4>
+                  <p className={styles.personTitle}>{person.title}</p>
+                  <p className={styles.mutualConnections}>{person.mutual} mutual connections</p>
+                </div>
+                <button className={styles.connectButton}>Connect</button>
+              </div>
+            ))}
+          </div>
+          <div className={styles.viewAllSuggestions}>View all suggestions</div>
         </div>
       </div>
-      </div>
+
+      {/* Repost Modal */}
+      {showRepostModal && (
+        <div className={styles.modalOverlay} onClick={() => setShowRepostModal(null)}>
+          <div className={styles.repostModal} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.repostModalHeader}>
+              <h3>Repost to your network</h3>
+              <button onClick={() => setShowRepostModal(null)}>×</button>
+                    </div>
+            <div className={styles.repostModalBody}>
+                      <textarea
+                placeholder="Add your thoughts..."
+                value={repostComment}
+                onChange={(e) => setRepostComment(e.target.value)}
+                className={styles.repostTextarea}
+              />
+                    </div>
+            <div className={styles.repostModalFooter}>
+                <button 
+                className={styles.repostSubmitButton}
+                onClick={() => handleRepostSubmit(showRepostModal)}
+                >
+                Repost
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './Navbar/Navbar';
 import Newsoverview from './News/Newsoverview';
 import NewsCard from './News/NewsCard';
 import NewsArticle from './News/NewsArticle';
@@ -131,10 +130,9 @@ const News: React.FC = () => {
     <div style={{ 
       position: 'relative', 
       minHeight: '100vh', 
-      background: '#F8F9FA'
+      background: '#F8F9FA',
+      paddingTop: '70px'  // Add space for the fixed navbar
     }}>
-      <Navbar />
-      
       {/* Always show sidebar components */}
       <Newsoverview showCenterContent={!isViewingArticle} onSearch={handleSearch} />
       

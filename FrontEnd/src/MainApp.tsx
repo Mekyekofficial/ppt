@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+import Navbar from './Navbar/Navbar';
+import ProfileOverview from './Profile/Profileoverview';
+import Home from './Home';
+import News from './News';
+import Comunity from './Comunity';
+import Learn from './Learn';
+import Event from './Event';
+import Work from './Work';
+
+const MainApp: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<string>('Home');
+
+  const handleProfileClick = () => {
+    setCurrentPage('Profile');
+  };
+
+  const handleNavClick = (page: string) => {
+    setCurrentPage(page);
+  };
+
+  const renderCurrentPage = () => {
+    switch (currentPage) {
+      case 'Profile':
+        return <ProfileOverview />;
+      case 'Home':
+        return <Home />;
+      case 'News':
+        return <News />;
+      case 'Community':
+        return <Comunity />;
+      case 'Learn':
+        return <Learn />;
+      case 'Events':
+        return <Event />;
+      case 'Work':
+        return <Work />;
+      default:
+        return <Home />;
+    }
+  };
+
+  return (
+    <div>
+      <Navbar 
+        onProfileClick={handleProfileClick} 
+        currentPage={currentPage}
+        onNavClick={handleNavClick}
+      />
+      {renderCurrentPage()}
+    </div>
+  );
+};
+
+export default MainApp; 

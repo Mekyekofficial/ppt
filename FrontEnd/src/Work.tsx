@@ -1,14 +1,10 @@
 import React from 'react';
-import Navbar from './Navbar/Navbar';
+import WorkOverview from './Work/WorkOverview';
 
 const Work: React.FC = () => {
   return (
-    <div>
-      <Navbar />
-      <div style={{ padding: '20px', marginTop: '80px' }}>
-        <h1>Work</h1>
-        <p>Job opportunities and work-related content will be shown here.</p>
-      </div>
+    <div style={{ paddingTop: '70px', minHeight: '100vh' }}>
+      <WorkOverview />
     </div>
   );
 };

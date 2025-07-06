@@ -2,6 +2,7 @@
 .newsContainer {
   position: relative;
   min-height: 100vh;
+  top: -100px;
   width: 100%;
   background: #F8F9FA;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

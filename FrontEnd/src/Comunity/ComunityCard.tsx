@@ -61,6 +61,10 @@ const ComunityCard: React.FC = () => {
     showToastMessage(`Reading: ${articleTitle}`);
   };
 
+  const handleJoinCommunity = (articleTitle: string) => {
+    showToastMessage(`Joined community: ${articleTitle}`);
+  };
+
   return (
     <div className={styles.container}>
       {/* Toast Messages */}
@@ -101,12 +105,20 @@ const ComunityCard: React.FC = () => {
               <div className={styles.articleTitle}>{article.title}</div>
               <div className={styles.articleDescription}>{article.description}</div>
             </div>
-            <button 
-              className={styles.readMoreButton}
-              onClick={() => handleArticleClick(article.title)}
-            >
-              <span>Read More</span>
-            </button>
+            <div className={styles.frontButtons}>
+              <button 
+                className={styles.readMoreButton}
+                onClick={() => handleArticleClick(article.title)}
+              >
+                <span>Read More</span>
+              </button>
+              <button 
+                className={styles.joinButtonFront}
+                onClick={() => handleJoinCommunity(article.title)}
+              >
+                <span>Join</span>
+              </button>
+            </div>
           </div>
         </div>
       ))}

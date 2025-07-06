@@ -3,7 +3,25 @@ import styles from './Css/Navbar.module.css';
 import mekyekLogo from '../assets/Mekyek.png';
 import { FaSearch, FaBell, FaMoon } from 'react-icons/fa';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onProfileClick?: () => void;
+  currentPage?: string;
+  onNavClick?: (page: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', onNavClick }) => {
+  const handleProfileClick = () => {
+    if (onProfileClick) {
+      onProfileClick();
+    }
+  };
+
+  const handleNavItemClick = (page: string) => {
+    if (onNavClick) {
+      onNavClick(page);
+    }
+  };
+
   return (
     <nav className={styles.navBar}>
       <div className={styles.leftSection}>
@@ -12,12 +30,48 @@ const Navbar: React.FC = () => {
           <span className={styles.Mekyek}>Mekyek.</span>
         </div>
         <div className={styles.navItems}>
-          <a href="#" className={styles.Home}>Home</a>
-          <a href="#" className={styles.News}>News</a>
-          <a href="#" className={styles.Community}>Community</a>
-          <a href="#" className={styles.Learn}>Learn</a>
-          <a href="#" className={styles.Events}>Events</a>
-          <a href="#" className={styles.Work}>Work</a>
+          <a 
+            href="#" 
+            className={currentPage === 'Home' ? styles.Home : styles.navItem}
+            onClick={(e) => { e.preventDefault(); handleNavItemClick('Home'); }}
+          >
+            Home
+          </a>
+          <a 
+            href="#" 
+            className={currentPage === 'News' ? styles.Home : styles.navItem}
+            onClick={(e) => { e.preventDefault(); handleNavItemClick('News'); }}
+          >
+            News
+          </a>
+          <a 
+            href="#" 
+            className={currentPage === 'Community' ? styles.Home : styles.navItem}
+            onClick={(e) => { e.preventDefault(); handleNavItemClick('Community'); }}
+          >
+            Community
+          </a>
+          <a 
+            href="#" 
+            className={currentPage === 'Learn' ? styles.Home : styles.navItem}
+            onClick={(e) => { e.preventDefault(); handleNavItemClick('Learn'); }}
+          >
+            Learn
+          </a>
+          <a 
+            href="#" 
+            className={currentPage === 'Events' ? styles.Home : styles.navItem}
+            onClick={(e) => { e.preventDefault(); handleNavItemClick('Events'); }}
+          >
+            Events
+          </a>
+          <a 
+            href="#" 
+            className={currentPage === 'Work' ? styles.Home : styles.navItem}
+            onClick={(e) => { e.preventDefault(); handleNavItemClick('Work'); }}
+          >
+            Work
+          </a>
         </div>
       </div>
 
@@ -33,7 +87,10 @@ const Navbar: React.FC = () => {
         <div className={styles.pfpAndNotifi}>
           <FaBell className={styles.icon} />
           <FaMoon className={styles.icon} />
-          <div className={styles.pfp}></div>
+          <div 
+            className={styles.pfp}
+            onClick={handleProfileClick}
+          ></div>
         </div>
       </div>
     </nav>
