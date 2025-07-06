@@ -20,16 +20,24 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: process.env.CORS_ORIGIN }));
+// To resolve the CORS issue, I'm allowing requests from the frontend development server
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+
+// Adding '/api' prefix to all routes to match frontend requests
+const apiRouter = express.Router();
 
 // Routes
-app.use('/auth', authRoutes);
-app.use('/posts', postRoutes);
-app.use('/company', companyRoutes);
-app.use('/ATS', ATSRouter);
-app.use('/profile', profileRoutes);
-app.use('/feeds', feedsRoutes);
-app.use('/comunity', ComunityRouter);
+apiRouter.use('/auth', authRoutes);
+apiRouter.use('/posts', postRoutes);
+// Using feedsRoutes for the '/news' endpoint as it seems to be the most relevant
+apiRouter.use('/news', feedsRoutes); 
+apiRouter.use('/company', companyRoutes);
+apiRouter.use('/ATS', ATSRouter);
+apiRouter.use('/profile', profileRoutes);
+apiRouter.use('/feeds', feedsRoutes);
+apiRouter.use('/comunity', ComunityRouter);
+
+app.use('/api', apiRouter);
 
 app.get('/ping', (req, res) => res.send('PONG'));
 
