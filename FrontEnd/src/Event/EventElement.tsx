@@ -35,6 +35,11 @@ const EventElement: React.FC = () => {
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [selectedEventDetails, setSelectedEventDetails] = useState<RecommendedEvent | null>(null);
   const [tempLocation, setTempLocation] = useState('');
+  const [showEventDetailsPopup, setShowEventDetailsPopup] = useState(false);
+  const [eventDetailsData, setEventDetailsData] = useState<Event | null>(null);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [bookingForm, setBookingForm] = useState({ name: '', email: '', phone: '' });
+  const [bookingSuccess, setBookingSuccess] = useState(false);
 
   const events: Event[] = [
     {
@@ -166,6 +171,33 @@ const EventElement: React.FC = () => {
     setShowLocationSearch(false);
     setShowConfirmation(false);
     setShowEventDetails(false);
+    setShowEventDetailsPopup(false);
+    setShowBookingForm(false);
+    setBookingSuccess(false);
+  };
+
+  const handleEventCardRegister = (event: Event) => {
+    setEventDetailsData(event);
+    setShowEventDetailsPopup(true);
+  };
+
+  const handlePopupRegister = () => {
+    setShowBookingForm(true);
+  };
+
+  const handleBookingInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBookingForm({ ...bookingForm, [e.target.name]: e.target.value });
+  };
+
+  const handleBookingSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setBookingSuccess(true);
+    setTimeout(() => {
+      setShowBookingForm(false);
+      setShowEventDetailsPopup(false);
+      setBookingSuccess(false);
+      setBookingForm({ name: '', email: '', phone: '' });
+    }, 1800);
   };
 
   const CalendarIcon = () => (
@@ -314,7 +346,7 @@ const EventElement: React.FC = () => {
               <div className={styles.eventFooter}>
                 <button 
                   className={styles.registerButton}
-                  onClick={() => handleRegister(event.id)}
+                  onClick={() => handleEventCardRegister(event)}
                 >
                   Register
                 </button>
@@ -351,7 +383,7 @@ const EventElement: React.FC = () => {
       </div>
 
       {/* Popup Overlays */}
-      {(showDatePicker || showLocationSearch || showConfirmation || showEventDetails) && (
+      {(showDatePicker || showLocationSearch || showConfirmation || showEventDetails || showEventDetailsPopup || showBookingForm) && (
         <div className={styles.popupOverlay} onClick={closeAllPopups}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             
@@ -438,30 +470,90 @@ const EventElement: React.FC = () => {
             )}
 
             {/* Event Details Popup */}
-            {showEventDetails && selectedEventDetails && (
-              <div className={styles.eventDetailsPopup}>
-                <div className={styles.eventDetailsHeader}>
-                  <div 
-                    className={styles.eventDetailsImage}
-                    style={{
-                      backgroundImage: `url(${selectedEventDetails.image})`,
-                      backgroundColor: '#f0f0f0'
-                    }}
-                  ></div>
-                  <div className={styles.eventDetailsInfo}>
-                    <p className={styles.eventDetailsDate}>{selectedEventDetails.date}</p>
-                    <p className={styles.eventDetailsDescription}>
-                      Click to view full event details and registration information.
-                    </p>
+            {showEventDetailsPopup && eventDetailsData && (
+              <div className={styles.popupOverlay} onClick={closeAllPopups}>
+                <div
+                  className={styles.popupContent}
+                  onClick={e => e.stopPropagation()}
+                  style={{
+                    maxWidth: 720,
+                    minWidth: 340,
+                    background: '#fff',
+                    borderRadius: 22,
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.16)',
+                    padding: 0,
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
+                  }}
+                >
+                  <button className={styles.closeBtn} onClick={closeAllPopups} aria-label="Close" style={{position: 'absolute', top: 18, right: 28, zIndex: 2}}>&times;</button>
+                  <div style={{width: '100%', height: 240, background: `url(${eventDetailsData.image}) center/cover`, borderTopLeftRadius: 22, borderTopRightRadius: 22}}></div>
+                  <div style={{padding: '32px 36px 28px 36px', display: 'flex', flexDirection: 'column', gap: 18}}>
+                    <h2 style={{margin: 0, fontSize: 32, color: '#003F88', fontWeight: 700}}>{eventDetailsData.title}</h2>
+                    <div style={{color: '#003F88', fontWeight: 600, fontSize: 18}}>{eventDetailsData.date} • {eventDetailsData.time}</div>
+                    <div style={{color: '#666', fontSize: 17, marginBottom: 8}}>{eventDetailsData.location}</div>
+                    <div style={{color: '#222', fontSize: 18, margin: '8px 0', lineHeight: 1.6}}>{eventDetailsData.description}</div>
+                    <div style={{color: '#003F88', fontWeight: 600, fontSize: 16, marginBottom: 8}}>{eventDetailsData.attendees}</div>
+                    <div style={{width: '100%', marginTop: 16, display: 'flex', justifyContent: 'flex-end'}}>
+                      <button className={styles.registerButton} style={{fontSize: 20, padding: '12px 40px', borderRadius: 12, boxShadow: '0 2px 8px rgba(0,63,136,0.08)'}} onClick={handlePopupRegister}>Register</button>
+                    </div>
                   </div>
                 </div>
-                <div className={styles.popupActions}>
-                  <button className={styles.cancelButton} onClick={closeAllPopups}>
-                    Close
-                  </button>
-                  <button className={styles.confirmButton} onClick={() => alert('View Event Details')}>
-                    View Details
-                  </button>
+              </div>
+            )}
+
+            {/* Booking Form Popup */}
+            {showBookingForm && (
+              <div className={styles.popupOverlay} onClick={closeAllPopups}>
+                <div
+                  className={styles.popupContent}
+                  onClick={e => e.stopPropagation()}
+                  style={{
+                    maxWidth: 480,
+                    minWidth: 320,
+                    background: '#fff',
+                    borderRadius: 20,
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
+                    padding: 0,
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
+                    position: 'relative',
+                  }}
+                >
+                  <div style={{height: 8, background: '#003F88', width: '100%'}}></div>
+                  <button className={styles.closeBtn} onClick={closeAllPopups} aria-label="Close" style={{position: 'absolute', top: 18, right: 28, zIndex: 2, fontSize: 28}}>&times;</button>
+                  <div style={{padding: '32px 28px 28px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18}}>
+                    <h2 style={{margin: 0, fontSize: 26, color: '#003F88', fontWeight: 700, letterSpacing: 0.5}}>Event Registration</h2>
+                    <div style={{fontSize: 15, color: '#666', marginBottom: 18, textAlign: 'center'}}>Fill in your details to enroll for this event. We'll send you a confirmation email.</div>
+                    {!bookingSuccess ? (
+                      <form onSubmit={handleBookingSubmit} style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 18}}>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: 18}}>
+                          <div style={{position: 'relative'}}>
+                            <input name="name" type="text" required value={bookingForm.name} onChange={handleBookingInput} style={{width: '100%', padding: '18px 12px 8px 12px', borderRadius: 10, border: '1.5px solid #e1e5e9', fontSize: 16, background: 'none', outline: 'none', transition: 'border 0.2s'}} />
+                            <label style={{position: 'absolute', left: 14, top: bookingForm.name ? 6 : 18, fontSize: bookingForm.name ? 12 : 16, color: bookingForm.name ? '#003F88' : '#888', background: '#fff', padding: '0 4px', transition: 'all 0.2s', pointerEvents: 'none'}}>Your Name</label>
+                          </div>
+                          <div style={{position: 'relative'}}>
+                            <input name="email" type="email" required value={bookingForm.email} onChange={handleBookingInput} style={{width: '100%', padding: '18px 12px 8px 12px', borderRadius: 10, border: '1.5px solid #e1e5e9', fontSize: 16, background: 'none', outline: 'none', transition: 'border 0.2s'}} />
+                            <label style={{position: 'absolute', left: 14, top: bookingForm.email ? 6 : 18, fontSize: bookingForm.email ? 12 : 16, color: bookingForm.email ? '#003F88' : '#888', background: '#fff', padding: '0 4px', transition: 'all 0.2s', pointerEvents: 'none'}}>Email</label>
+                          </div>
+                          <div style={{position: 'relative'}}>
+                            <input name="phone" type="tel" required value={bookingForm.phone} onChange={handleBookingInput} style={{width: '100%', padding: '18px 12px 8px 12px', borderRadius: 10, border: '1.5px solid #e1e5e9', fontSize: 16, background: 'none', outline: 'none', transition: 'border 0.2s'}} />
+                            <label style={{position: 'absolute', left: 14, top: bookingForm.phone ? 6 : 18, fontSize: bookingForm.phone ? 12 : 16, color: bookingForm.phone ? '#003F88' : '#888', background: '#fff', padding: '0 4px', transition: 'all 0.2s', pointerEvents: 'none'}}>Phone Number</label>
+                          </div>
+                        </div>
+                        <button type="submit" className={styles.registerButton} style={{fontSize: 18, marginTop: 8, borderRadius: 10, background: '#003F88', color: '#fff', boxShadow: '0 2px 8px rgba(0,63,136,0.08)', fontWeight: 600, letterSpacing: 0.5, padding: '14px 0', width: '100%', transition: 'background 0.2s'}}>Enroll</button>
+                      </form>
+                    ) : (
+                      <div style={{textAlign: 'center', color: '#4CAF50', fontWeight: 600, fontSize: 22, marginTop: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12}}>
+                        <div style={{fontSize: 48, lineHeight: 1}}>✓</div>
+                        Registration Successful!<br/>See you at the event.
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             )}

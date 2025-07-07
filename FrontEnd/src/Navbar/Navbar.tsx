@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Css/Navbar.module.css';
 import mekyekLogo from '../assets/Mekyek.png';
-import { FaSearch, FaBell, FaMoon } from 'react-icons/fa';
+import { FaSearch, FaBell, FaMoon, FaEllipsisV, FaCog, FaShieldAlt, FaQuestionCircle, FaSignOutAlt, FaBriefcase } from 'react-icons/fa';
 
 interface NavbarProps {
   onProfileClick?: () => void;
@@ -10,6 +10,23 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', onNavClick }) => {
+  const [showOptions, setShowOptions] = React.useState(false);
+  const optionsRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
+        setShowOptions(false);
+      }
+    }
+    if (showOptions) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showOptions]);
+
   const handleProfileClick = () => {
     if (onProfileClick) {
       onProfileClick();
@@ -91,6 +108,54 @@ const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', o
             className={styles.pfp}
             onClick={handleProfileClick}
           ></div>
+          <div style={{ position: 'relative', display: 'inline-block' }}>
+            <FaEllipsisV
+              style={{ fontSize: 24, color: '#00296B', marginLeft: 12, cursor: 'pointer' }}
+              onClick={() => setShowOptions((v) => !v)}
+              aria-label="More options"
+            />
+            {showOptions && (
+              <div
+                ref={optionsRef}
+                className={styles.optionsPopup}
+                style={{
+                  position: 'absolute',
+                  top: 36,
+                  right: 0,
+                  zIndex: 1000,
+                  background: '#fff',
+                  borderRadius: 12,
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
+                  padding: '16px 8px',
+                  width: 210,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 8,
+                }}
+              >
+                <div style={{display: 'flex', alignItems: 'center', gap: 6, height: 30, padding: 0, cursor: 'pointer'}} onClick={() => setShowOptions(false)}>
+                  <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 30, padding: 4}}><FaCog style={{color: '#00296B', fontSize: 22}} /></span>
+                  <span style={{fontSize: 18, color: '#00296B', fontFamily: 'Segoe UI'}}>Account Settings</span>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: 6, height: 30, padding: 0, cursor: 'pointer'}} onClick={() => setShowOptions(false)}>
+                  <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 30, padding: 4}}><FaBriefcase style={{color: '#00296B', fontSize: 22}} /></span>
+                  <span style={{fontSize: 18, color: '#00296B', fontFamily: 'Segoe UI'}}>Company Dashboard</span>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: 6, height: 36, padding: 0, cursor: 'pointer'}} onClick={() => setShowOptions(false)}>
+                  <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 36, padding: 4}}><FaShieldAlt style={{color: '#00296B', fontSize: 22}} /></span>
+                  <span style={{fontSize: 18, color: '#00296B', fontFamily: 'Segoe UI'}}>Privacy</span>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: 6, height: 30, padding: 0, cursor: 'pointer'}} onClick={() => setShowOptions(false)}>
+                  <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 30, padding: 4}}><FaQuestionCircle style={{color: '#00296B', fontSize: 22}} /></span>
+                  <span style={{fontSize: 18, color: '#00296B', fontFamily: 'Segoe UI'}}>Help Center</span>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: 6, height: 28, padding: 0, cursor: 'pointer'}} onClick={() => setShowOptions(false)}>
+                  <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 28, padding: 4}}><FaSignOutAlt style={{color: '#00296B', fontSize: 22}} /></span>
+                  <span style={{fontSize: 18, color: '#00296B', fontFamily: 'Segoe UI'}}>Sign Out</span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

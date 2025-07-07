@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import styles from './Css/Learncomponents.module.css';
+import jobPopupStyles from '../Landing_Page/Css/Jobpopup.module.css';
+import { FaHeart } from 'react-icons/fa';
 
 const Learncomponents: React.FC = () => {
   const [email, setEmail] = useState('');
   const [showToast, setShowToast] = useState('');
+  const [openCourse, setOpenCourse] = useState<number | null>(null);
+  const [likedCourses, setLikedCourses] = useState<{ [id: number]: boolean }>({});
 
   const featuredCourses = [
     {
@@ -65,8 +69,16 @@ const Learncomponents: React.FC = () => {
     setTimeout(() => setShowToast(''), 3000);
   };
 
-  const handleEnrollClick = (courseTitle: string) => {
-    showToastMessage(`🎉 Starting your journey with: ${courseTitle}`);
+  const handleEnrollClick = (courseId: number) => {
+    setOpenCourse(courseId);
+  };
+
+  const handleLikeToggle = (courseId: number) => {
+    setLikedCourses(prev => ({ ...prev, [courseId]: !prev[courseId] }));
+  };
+
+  const handleClosePopup = () => {
+    setOpenCourse(null);
   };
 
   const handleViewAll = () => {
@@ -131,7 +143,7 @@ const Learncomponents: React.FC = () => {
             <span className={styles.instructorName}>By {featuredCourses[0].instructor}</span>
             <button 
               className={styles.enrollButton}
-              onClick={() => handleEnrollClick(featuredCourses[0].title)}
+              onClick={() => handleEnrollClick(featuredCourses[0].id)}
             >
               Enroll Now
             </button>
@@ -168,7 +180,7 @@ const Learncomponents: React.FC = () => {
             <span className={styles.instructorName}>By {featuredCourses[1].instructor}</span>
             <button 
               className={styles.enrollButton}
-              onClick={() => handleEnrollClick(featuredCourses[1].title)}
+              onClick={() => handleEnrollClick(featuredCourses[1].id)}
             >
               Enroll Now
             </button>
@@ -205,13 +217,68 @@ const Learncomponents: React.FC = () => {
             <span className={styles.instructorName}>By {featuredCourses[2].instructor}</span>
             <button 
               className={styles.enrollButton}
-              onClick={() => handleEnrollClick(featuredCourses[2].title)}
+              onClick={() => handleEnrollClick(featuredCourses[2].id)}
             >
               Enroll Now
             </button>
           </div>
         </div>
       </div>
+
+      {/* Course Details Popup */}
+      {openCourse !== null && (
+        <div className={jobPopupStyles.overlay} onClick={handleClosePopup}>
+          <div
+            className={jobPopupStyles.popup}
+            onClick={e => e.stopPropagation()}
+            style={{
+              maxWidth: 600,
+              minWidth: 320,
+              padding: 32,
+              background: '#fff',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+              borderRadius: 18,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <button className={jobPopupStyles.closeBtn} onClick={handleClosePopup} aria-label="Close">&times;</button>
+            {(() => {
+              const course = featuredCourses.find(c => c.id === openCourse);
+              if (!course) return null;
+              return (
+                <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20}}>
+                  <div style={{width: '100%', height: 180, borderRadius: 12, background: `url(${course.image}) center/cover`, marginBottom: 16}}></div>
+                  <div style={{display: 'flex', alignItems: 'center', gap: 12, width: '100%', justifyContent: 'space-between'}}>
+                    <h2 style={{margin: 0, fontSize: 24, color: '#003F88'}}>{course.title}</h2>
+                    <button onClick={() => handleLikeToggle(course.id)} style={{background: 'none', border: 'none', cursor: 'pointer'}}>
+                      <FaHeart color={likedCourses[course.id] ? '#e31b23' : '#bbb'} size={28} />
+                    </button>
+                  </div>
+                  <div style={{width: '100%', color: '#003F88', fontWeight: 600, marginBottom: 8}}>{course.category} • {course.duration}</div>
+                  <div style={{width: '100%', color: '#222', fontSize: 16, margin: '8px 0'}}>{course.description}</div>
+                  <div style={{width: '100%', color: '#666', fontSize: 15, marginBottom: 8}}>By {course.instructor} | {course.university}</div>
+                  <div style={{width: '100%', margin: '8px 0', display: 'flex', gap: 8, flexWrap: 'wrap'}}>
+                    {course.skills.map((skill, i) => (
+                      <span key={i} style={{background: '#e7f3ff', color: '#003F88', borderRadius: 8, padding: '4px 10px', fontSize: 13}}>{skill}</span>
+                    ))}
+                  </div>
+                  <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8}}>
+                    <span style={{fontWeight: 600, color: '#003F88'}}>Level: {course.level}</span>
+                    <span style={{fontWeight: 600, color: '#003F88'}}>Rating: {course.rating} ⭐</span>
+                    <span style={{fontWeight: 600, color: '#003F88'}}>Students: {course.students}</span>
+                  </div>
+                  <div style={{width: '100%', marginTop: 16, display: 'flex', justifyContent: 'flex-end'}}>
+                    <button className={styles.enrollButton} style={{fontSize: 18, padding: '10px 32px'}}>Enroll Now</button>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        </div>
+      )}
 
       {/* Newsletter Section */}
       <div className={styles.newsletterSection}>

@@ -15,7 +15,25 @@ import {
   FaImage,
   FaVideo,
   FaGift,
-  FaCalendarAlt
+  FaCalendarAlt,
+  FaSearch,
+  FaHeart,
+  FaLaugh,
+  FaThumbsUp,
+  FaSurprise,
+  FaSadTear,
+  FaAngry,
+  FaPlay,
+  FaMusic,
+  FaUtensils,
+  FaCoffee,
+  FaGamepad,
+  FaBook,
+  FaCar,
+  FaPlane,
+  FaHome,
+  FaBriefcase,
+  FaGraduationCap
 } from 'react-icons/fa';
 
 interface PostCreationProps {
@@ -33,11 +51,70 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
   const [feeling, setFeeling] = useState('');
   const [location, setLocation] = useState('');
   const [taggedPeople, setTaggedPeople] = useState<string[]>([]);
+  const [showTagPeople, setShowTagPeople] = useState(false);
+  const [showFeeling, setShowFeeling] = useState(false);
+  const [showLocation, setShowLocation] = useState(false);
+  const [showGif, setShowGif] = useState(false);
+  const [selectedGif, setSelectedGif] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Mock data for features
+  const suggestedPeople = [
+    { id: 1, name: 'John Doe', avatar: 'J' },
+    { id: 2, name: 'Jane Smith', avatar: 'J' },
+    { id: 3, name: 'Mike Johnson', avatar: 'M' },
+    { id: 4, name: 'Sarah Wilson', avatar: 'S' },
+    { id: 5, name: 'David Brown', avatar: 'D' }
+  ];
+
+  const feelings = [
+    { icon: <FaHeart />, name: 'Loved', color: '#e31b23' },
+    { icon: <FaLaugh />, name: 'Happy', color: '#ffd700' },
+    { icon: <FaThumbsUp />, name: 'Good', color: '#1877f2' },
+    { icon: <FaSurprise />, name: 'Surprised', color: '#ffa500' },
+    { icon: <FaSadTear />, name: 'Sad', color: '#4169e1' },
+    { icon: <FaAngry />, name: 'Angry', color: '#ff4500' }
+  ];
+
+  const activities = [
+    { icon: <FaMusic />, name: 'Listening to music', color: '#1db954' },
+    { icon: <FaUtensils />, name: 'Eating', color: '#ff6b35' },
+    { icon: <FaCoffee />, name: 'Drinking coffee', color: '#8b4513' },
+    { icon: <FaGamepad />, name: 'Playing games', color: '#ff69b4' },
+    { icon: <FaBook />, name: 'Reading', color: '#2e8b57' },
+    { icon: <FaCar />, name: 'Traveling', color: '#ffd700' },
+    { icon: <FaPlane />, name: 'Flying', color: '#87ceeb' },
+    { icon: <FaHome />, name: 'At home', color: '#32cd32' },
+    { icon: <FaBriefcase />, name: 'Working', color: '#696969' },
+    { icon: <FaGraduationCap />, name: 'Studying', color: '#4169e1' }
+  ];
+
+  const popularLocations = [
+    'New York, NY',
+    'Los Angeles, CA',
+    'Chicago, IL',
+    'Houston, TX',
+    'Phoenix, AZ',
+    'Philadelphia, PA',
+    'San Antonio, TX',
+    'San Diego, CA',
+    'Dallas, TX',
+    'San Jose, CA'
+  ];
+
+  const popularGifs = [
+    'https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif',
+    'https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif',
+    'https://media.giphy.com/media/3o7TKoWXm3okO1kgHC/giphy.gif',
+    'https://media.giphy.com/media/3o7TKDEqP6VJzQv6rK/giphy.gif',
+    'https://media.giphy.com/media/3o7TKUM3IgJBX2as9O/giphy.gif',
+    'https://media.giphy.com/media/3o7TKDEqP6VJzQv6rK/giphy.gif'
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!content.trim() && selectedFiles.length === 0) return;
+    if (!content.trim() && selectedFiles.length === 0 && !selectedGif) return;
     
     setIsLoading(true);
     
@@ -53,6 +130,7 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
         },
         content: content.trim(),
         image: previewUrls[0] || undefined,
+        gif: selectedGif || undefined,
         likes: 0,
         comments: 0,
         shares: 0,
@@ -89,6 +167,12 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
     setFeeling('');
     setLocation('');
     setTaggedPeople([]);
+    setSelectedGif('');
+    setShowTagPeople(false);
+    setShowFeeling(false);
+    setShowLocation(false);
+    setShowGif(false);
+    setSearchQuery('');
     setIsModalOpen(false);
   };
 
@@ -111,6 +195,37 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
   const removeFile = (index: number) => {
     setSelectedFiles(prev => prev.filter((_, i) => i !== index));
     setPreviewUrls(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleTagPerson = (person: { id: number, name: string, avatar: string }) => {
+    if (!taggedPeople.includes(person.name)) {
+      setTaggedPeople(prev => [...prev, person.name]);
+    }
+    setShowTagPeople(false);
+  };
+
+  const removeTaggedPerson = (personName: string) => {
+    setTaggedPeople(prev => prev.filter(name => name !== personName));
+  };
+
+  const handleSelectFeeling = (feelingItem: { icon: React.ReactNode, name: string, color: string }) => {
+    setFeeling(feelingItem.name);
+    setShowFeeling(false);
+  };
+
+  const handleSelectActivity = (activity: { icon: React.ReactNode, name: string, color: string }) => {
+    setFeeling(activity.name);
+    setShowFeeling(false);
+  };
+
+  const handleSelectLocation = (locationName: string) => {
+    setLocation(locationName);
+    setShowLocation(false);
+  };
+
+  const handleSelectGif = (gifUrl: string) => {
+    setSelectedGif(gifUrl);
+    setShowGif(false);
   };
 
   const getVisibilityIcon = () => {
@@ -217,6 +332,53 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
                   autoFocus
                 />
 
+                {/* Tagged People Display */}
+                {taggedPeople.length > 0 && (
+                  <div className={styles.taggedPeopleDisplay}>
+                    <span className={styles.taggedLabel}>Tagged:</span>
+                    {taggedPeople.map((person, index) => (
+                      <span key={index} className={styles.taggedPerson}>
+                        {person}
+                        <button 
+                          className={styles.removeTagButton}
+                          onClick={() => removeTaggedPerson(person)}
+                        >
+                          <FaTimes />
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Feeling Display */}
+                {feeling && (
+                  <div className={styles.feelingDisplay}>
+                    <FaSmile className={styles.feelingIcon} />
+                    <span>Feeling {feeling}</span>
+                  </div>
+                )}
+
+                {/* Location Display */}
+                {location && (
+                  <div className={styles.locationDisplay}>
+                    <FaMapMarkerAlt className={styles.locationIcon} />
+                    <span>At {location}</span>
+                  </div>
+                )}
+
+                {/* GIF Display */}
+                {selectedGif && (
+                  <div className={styles.gifDisplay}>
+                    <img src={selectedGif} alt="Selected GIF" className={styles.gifImage} />
+                    <button 
+                      className={styles.removeGifButton}
+                      onClick={() => setSelectedGif('')}
+                    >
+                      <FaTimes />
+                    </button>
+                  </div>
+                )}
+
                 {/* File Previews */}
                 {previewUrls.length > 0 && (
                   <div className={styles.previewContainer}>
@@ -251,19 +413,31 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
                       <FaImage className={styles.optionItemIcon} />
                       Photo/Video
                     </label>
-                    <button className={styles.optionItem}>
+                    <button 
+                      className={styles.optionItem}
+                      onClick={() => setShowTagPeople(!showTagPeople)}
+                    >
                       <FaUserTag className={styles.optionItemIcon} />
                       Tag people
                     </button>
-                    <button className={styles.optionItem}>
+                    <button 
+                      className={styles.optionItem}
+                      onClick={() => setShowFeeling(!showFeeling)}
+                    >
                       <FaSmile className={styles.optionItemIcon} />
                       Feeling/Activity
                     </button>
-                    <button className={styles.optionItem}>
+                    <button 
+                      className={styles.optionItem}
+                      onClick={() => setShowLocation(!showLocation)}
+                    >
                       <FaMapMarkerAlt className={styles.optionItemIcon} />
                       Check in
                     </button>
-                    <button className={styles.optionItem}>
+                    <button 
+                      className={styles.optionItem}
+                      onClick={() => setShowGif(!showGif)}
+                    >
                       <FaGift className={styles.optionItemIcon} />
                       GIF
                     </button>
@@ -273,14 +447,174 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
                     </button>
                   </div>
                 </div>
+
+                {/* Tag People Popup */}
+                {showTagPeople && (
+                  <div className={styles.popupOverlay}>
+                    <div className={styles.popupContent}>
+                      <div className={styles.popupHeader}>
+                        <h3>Tag people</h3>
+                        <button onClick={() => setShowTagPeople(false)}>
+                          <FaTimes />
+                        </button>
+                      </div>
+                      <div className={styles.searchBox}>
+                        <FaSearch className={styles.searchIcon} />
+                        <input
+                          type="text"
+                          placeholder="Search people..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className={styles.searchInput}
+                        />
+                      </div>
+                      <div className={styles.peopleList}>
+                        {suggestedPeople
+                          .filter(person => 
+                            person.name.toLowerCase().includes(searchQuery.toLowerCase())
+                          )
+                          .map(person => (
+                            <div 
+                              key={person.id} 
+                              className={styles.personItem}
+                              onClick={() => handleTagPerson(person)}
+                            >
+                              <div className={styles.personAvatar}>{person.avatar}</div>
+                              <span className={styles.personName}>{person.name}</span>
+                            </div>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Feeling/Activity Popup */}
+                {showFeeling && (
+                  <div className={styles.popupOverlay}>
+                    <div className={styles.popupContent}>
+                      <div className={styles.popupHeader}>
+                        <h3>How are you feeling?</h3>
+                        <button onClick={() => setShowFeeling(false)}>
+                          <FaTimes />
+                        </button>
+                      </div>
+                      <div className={styles.feelingGrid}>
+                        {feelings.map((feelingItem, index) => (
+                          <button
+                            key={index}
+                            className={styles.feelingItem}
+                            onClick={() => handleSelectFeeling(feelingItem)}
+                            style={{ color: feelingItem.color }}
+                          >
+                            {feelingItem.icon}
+                            <span>{feelingItem.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                      <div className={styles.activitySection}>
+                        <h4>Activities</h4>
+                        <div className={styles.activityGrid}>
+                          {activities.map((activity, index) => (
+                            <button
+                              key={index}
+                              className={styles.activityItem}
+                              onClick={() => handleSelectActivity(activity)}
+                              style={{ color: activity.color }}
+                            >
+                              {activity.icon}
+                              <span>{activity.name}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Location Popup */}
+                {showLocation && (
+                  <div className={styles.popupOverlay}>
+                    <div className={styles.popupContent}>
+                      <div className={styles.popupHeader}>
+                        <h3>Check in</h3>
+                        <button onClick={() => setShowLocation(false)}>
+                          <FaTimes />
+                        </button>
+                      </div>
+                      <div className={styles.searchBox}>
+                        <FaSearch className={styles.searchIcon} />
+                        <input
+                          type="text"
+                          placeholder="Search for a place..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className={styles.searchInput}
+                        />
+                      </div>
+                      <div className={styles.locationList}>
+                        {popularLocations
+                          .filter(location => 
+                            location.toLowerCase().includes(searchQuery.toLowerCase())
+                          )
+                          .map((locationName, index) => (
+                            <div 
+                              key={index} 
+                              className={styles.locationItem}
+                              onClick={() => handleSelectLocation(locationName)}
+                            >
+                              <FaMapMarkerAlt className={styles.locationItemIcon} />
+                              <span>{locationName}</span>
+                            </div>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* GIF Popup */}
+                {showGif && (
+                  <div className={styles.popupOverlay}>
+                    <div className={styles.popupContent}>
+                      <div className={styles.popupHeader}>
+                        <h3>Choose a GIF</h3>
+                        <button onClick={() => setShowGif(false)}>
+                          <FaTimes />
+                        </button>
+                      </div>
+                      <div className={styles.searchBox}>
+                        <FaSearch className={styles.searchIcon} />
+                        <input
+                          type="text"
+                          placeholder="Search GIFs..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className={styles.searchInput}
+                        />
+                      </div>
+                      <div className={styles.gifGrid}>
+                        {popularGifs.map((gifUrl, index) => (
+                          <div 
+                            key={index} 
+                            className={styles.gifItem}
+                            onClick={() => handleSelectGif(gifUrl)}
+                          >
+                            <img src={gifUrl} alt={`GIF ${index}`} className={styles.gifThumbnail} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
             <div className={styles.modalFooter}>
               <button 
-                className={`${styles.postButton} ${(content.trim() || selectedFiles.length > 0) ? styles.active : ''}`}
+                className={`${styles.postButton} ${(content.trim() || selectedFiles.length > 0 || selectedGif) ? styles.active : ''}`}
                 onClick={handleSubmit}
-                disabled={(!content.trim() && selectedFiles.length === 0) || isLoading}
+                disabled={(!content.trim() && selectedFiles.length === 0 && !selectedGif) || isLoading}
               >
                 {isLoading ? 'Posting...' : 'Post'}
               </button>
