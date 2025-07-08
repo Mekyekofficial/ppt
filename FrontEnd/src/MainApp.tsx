@@ -7,6 +7,7 @@ import Comunity from './Comunity';
 import Learn from './Learn';
 import Event from './Event';
 import Work from './Work';
+import DashboardPage from './Dashboard/DashboardPage';
 
 const MainApp: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('Home');
@@ -17,6 +18,10 @@ const MainApp: React.FC = () => {
 
   const handleNavClick = (page: string) => {
     setCurrentPage(page);
+  };
+
+  const handleDashboardClick = () => {
+    setCurrentPage('Dashboard');
   };
 
   const renderCurrentPage = () => {
@@ -35,6 +40,8 @@ const MainApp: React.FC = () => {
         return <Event />;
       case 'Work':
         return <Work />;
+      case 'Dashboard':
+        return <DashboardPage onBackToMain={() => setCurrentPage('Home')} />;
       default:
         return <Home />;
     }
@@ -42,11 +49,14 @@ const MainApp: React.FC = () => {
 
   return (
     <div>
-      <Navbar 
-        onProfileClick={handleProfileClick} 
-        currentPage={currentPage}
-        onNavClick={handleNavClick}
-      />
+      {currentPage !== 'Dashboard' && (
+        <Navbar 
+          onProfileClick={handleProfileClick} 
+          currentPage={currentPage}
+          onNavClick={handleNavClick}
+          onDashboardClick={handleDashboardClick}
+        />
+      )}
       {renderCurrentPage()}
     </div>
   );

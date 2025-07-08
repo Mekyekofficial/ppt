@@ -7,9 +7,10 @@ interface NavbarProps {
   onProfileClick?: () => void;
   currentPage?: string;
   onNavClick?: (page: string) => void;
+  onDashboardClick?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', onNavClick }) => {
+const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', onNavClick, onDashboardClick }) => {
   const [showOptions, setShowOptions] = React.useState(false);
   const optionsRef = React.useRef<HTMLDivElement>(null);
 
@@ -137,7 +138,12 @@ const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', o
                   <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 30, padding: 4}}><FaCog style={{color: '#00296B', fontSize: 22}} /></span>
                   <span style={{fontSize: 18, color: '#00296B', fontFamily: 'Segoe UI'}}>Account Settings</span>
                 </div>
-                <div style={{display: 'flex', alignItems: 'center', gap: 6, height: 30, padding: 0, cursor: 'pointer'}} onClick={() => setShowOptions(false)}>
+                <div style={{display: 'flex', alignItems: 'center', gap: 6, height: 30, padding: 0, cursor: 'pointer'}} onClick={() => {
+                  setShowOptions(false);
+                  if (onDashboardClick) {
+                    onDashboardClick();
+                  }
+                }}>
                   <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 30, padding: 4}}><FaBriefcase style={{color: '#00296B', fontSize: 22}} /></span>
                   <span style={{fontSize: 18, color: '#00296B', fontFamily: 'Segoe UI'}}>Company Dashboard</span>
                 </div>

@@ -28,6 +28,10 @@ export interface User {
   certificate?: Certificate[];
   friends?: Friend[];
   pendingFriends?: PendingFriend[];
+  // Added for compatibility with PostCreation.tsx
+  name?: string;
+  title?: string;
+  avatar?: string;
 }
 
 export interface WorkExperience {
