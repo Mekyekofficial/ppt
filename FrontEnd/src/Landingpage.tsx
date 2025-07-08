@@ -10,6 +10,7 @@ import Career from './Landing_Page/Career';
 import Footer from './Footer';
 import Jobpopup from './Landing_Page/Jobpopup';
 import Cunnectus from './Landing_Page/Cunnectus';
+import LoginSignupModal from './Landing_Page/LoginSignupModal';
 
 const useScrollFadeIn = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,9 +30,11 @@ const useScrollFadeIn = () => {
   return ref;
 };
 
-const Landingpage = () => {
+const Landingpage = ({ onLoginSuccess }) => {
   const [showJobPopup, setShowJobPopup] = useState(false);
   const [showCunnectus, setShowCunnectus] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const empowerRef = useScrollFadeIn();
   const businessesRef = useScrollFadeIn();
   const featuresRef = useScrollFadeIn();
@@ -44,16 +47,23 @@ const Landingpage = () => {
   const handleOpenJobPopup = () => setShowJobPopup(true);
   const handleCloseJobPopup = () => setShowJobPopup(false);
 
-  // Handler for Cunnectus popup
-  const handleOpenCunnectus = () => setShowCunnectus(true);
-  const handleCloseCunnectus = () => setShowCunnectus(false);
+  // Handler for Login modal (replaces Cunnectus)
+  const handleOpenLogin = () => setShowLogin(true);
+  const handleCloseLogin = () => setShowLogin(false);
+
+  const handleLoginSuccess = () => {
+    setLoggedIn(true);
+    if (onLoginSuccess) onLoginSuccess();
+  };
+  if (loggedIn) return null;
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {showJobPopup && <Jobpopup onClose={handleCloseJobPopup} />}
-      {showCunnectus && <Cunnectus open={showCunnectus} onClose={handleCloseCunnectus} />}
+      {/* {showCunnectus && <Cunnectus open={showCunnectus} onClose={handleCloseCunnectus} />} */}
+      <LoginSignupModal open={showLogin} onClose={handleCloseLogin} onLoginSuccess={handleLoginSuccess} />
       <div style={{ flex: 1 }}>
-        <NavBar isAbsolute={showJobPopup} onGetStarted={handleOpenCunnectus} />
+        {!showLogin && <NavBar isAbsolute={showJobPopup} onGetStarted={handleOpenLogin} />}
         <div className="scroll-fade-in" ref={empowerRef}>
           <Empower onSearch={handleOpenJobPopup} />
         </div>

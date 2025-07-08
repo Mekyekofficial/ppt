@@ -57,6 +57,14 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
   const [showGif, setShowGif] = useState(false);
   const [selectedGif, setSelectedGif] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showEvent, setShowEvent] = useState(false);
+  const [eventData, setEventData] = useState({
+    title: '',
+    date: '',
+    time: '',
+    location: '',
+    description: ''
+  });
 
   // Mock data for features
   const suggestedPeople = [
@@ -138,7 +146,8 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
         visibility: visibility,
         feeling: feeling,
         location: location,
-        taggedPeople: taggedPeople
+        taggedPeople: taggedPeople,
+        event: eventData.title ? { ...eventData } : undefined,
       };
       
       // Call parent component callback
@@ -174,6 +183,7 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
     setShowGif(false);
     setSearchQuery('');
     setIsModalOpen(false);
+    setEventData({ title: '', date: '', time: '', location: '', description: '' });
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -226,6 +236,17 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
   const handleSelectGif = (gifUrl: string) => {
     setSelectedGif(gifUrl);
     setShowGif(false);
+  };
+
+  const handleEventChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setEventData(prev => ({ ...prev, [name]: value }));
+  };
+  const handleAddEvent = () => {
+    setShowEvent(false);
+  };
+  const handleRemoveEvent = () => {
+    setEventData({ title: '', date: '', time: '', location: '', description: '' });
   };
 
   const getVisibilityIcon = () => {
@@ -441,7 +462,7 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
                       <FaGift className={styles.optionItemIcon} />
                       GIF
                     </button>
-                    <button className={styles.optionItem}>
+                    <button className={styles.optionItem} onClick={() => setShowEvent(true)}>
                       <FaCalendarAlt className={styles.optionItemIcon} />
                       Event
                     </button>
@@ -603,6 +624,61 @@ const PostCreation: React.FC<PostCreationProps> = ({ onPostCreated }) => {
                             <img src={gifUrl} alt={`GIF ${index}`} className={styles.gifThumbnail} />
                           </div>
                         ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Event Modal */}
+                {showEvent && (
+                  <div className={styles.popupOverlay}>
+                    <div className={styles.popupContent}>
+                      <div className={styles.popupHeader}>
+                        <h3>Create Event</h3>
+                        <button onClick={() => setShowEvent(false)}><FaTimes /></button>
+                      </div>
+                      <div className={styles.eventForm}>
+                        <input
+                          type="text"
+                          name="title"
+                          placeholder="Event Title"
+                          value={eventData.title}
+                          onChange={handleEventChange}
+                          className={styles.eventInput}
+                        />
+                        <input
+                          type="date"
+                          name="date"
+                          value={eventData.date}
+                          onChange={handleEventChange}
+                          className={styles.eventInput}
+                        />
+                        <input
+                          type="time"
+                          name="time"
+                          value={eventData.time}
+                          onChange={handleEventChange}
+                          className={styles.eventInput}
+                        />
+                        <input
+                          type="text"
+                          name="location"
+                          placeholder="Location"
+                          value={eventData.location}
+                          onChange={handleEventChange}
+                          className={styles.eventInput}
+                        />
+                        <textarea
+                          name="description"
+                          placeholder="Description"
+                          value={eventData.description}
+                          onChange={handleEventChange}
+                          className={styles.eventTextarea}
+                        />
+                        <div className={styles.eventActions}>
+                          <button className={styles.eventAddButton} onClick={handleAddEvent} disabled={!eventData.title}>Add Event</button>
+                          <button className={styles.eventRemoveButton} onClick={handleRemoveEvent}>Remove</button>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -1,12 +1,13 @@
-// import Landingpage from './Landingpage'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { RateLimiter } from './utils/security'
 import { Firewall } from './utils/firewall'
 import PWAInstall from './components/PWAInstall'
 import ErrorBoundary from './components/ErrorBoundary'
 import MainApp from './MainApp'
+import Landingpage from './Landingpage'
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     // Initialize rate limiter
     // const rateLimiter = new RateLimiter(60000, 100); // 100 requests per minute
@@ -95,7 +96,7 @@ function App() {
   return (  
     <>
       <ErrorBoundary>
-        <MainApp />
+        {loggedIn ? <MainApp /> : <Landingpage onLoginSuccess={() => setLoggedIn(true)} />}
       </ErrorBoundary>
       <PWAInstall />
     </>

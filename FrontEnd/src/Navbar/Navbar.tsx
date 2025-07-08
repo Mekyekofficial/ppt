@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Css/Navbar.module.css';
 import mekyekLogo from '../assets/Mekyek.png';
-import { FaSearch, FaBell, FaMoon, FaEllipsisV, FaCog, FaShieldAlt, FaQuestionCircle, FaSignOutAlt, FaBriefcase } from 'react-icons/fa';
+import { FaSearch, FaBell, FaMoon, FaSun, FaEllipsisV, FaCog, FaShieldAlt, FaQuestionCircle, FaSignOutAlt, FaBriefcase } from 'react-icons/fa';
 
 interface NavbarProps {
   onProfileClick?: () => void;
@@ -13,6 +13,19 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', onNavClick, onDashboardClick }) => {
   const [showOptions, setShowOptions] = React.useState(false);
   const optionsRef = React.useRef<HTMLDivElement>(null);
+  const [isDark, setIsDark] = React.useState(false);
+
+  React.useEffect(() => {
+    // On mount, check localStorage or system preference
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      setIsDark(true);
+    } else {
+      document.documentElement.classList.remove('dark');
+      setIsDark(false);
+    }
+  }, []);
 
   React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -27,6 +40,20 @@ const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', o
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showOptions]);
+
+  const toggleDarkMode = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      if (next) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+      return next;
+    });
+  };
 
   const handleProfileClick = () => {
     if (onProfileClick) {
@@ -104,7 +131,11 @@ const Navbar: React.FC<NavbarProps> = ({ onProfileClick, currentPage = 'Home', o
         </div>
         <div className={styles.pfpAndNotifi}>
           <FaBell className={styles.icon} />
-          <FaMoon className={styles.icon} />
+          {isDark ? (
+            <FaSun className={styles.icon} style={{ color: '#FFD700', cursor: 'pointer' }} onClick={toggleDarkMode} title="Switch to light mode" />
+          ) : (
+            <FaMoon className={styles.icon} style={{ color: '#00296B', cursor: 'pointer' }} onClick={toggleDarkMode} title="Switch to dark mode" />
+          )}
           <div 
             className={styles.pfp}
             onClick={handleProfileClick}
